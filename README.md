@@ -9,7 +9,7 @@ For the complete current workflow, open **Help** in Nemoto or read the
 
 ## Start the Windows portable candidate
 
-The current delivery boundary is Windows x64 portable Core for personal use.
+The first public beta targets Windows x64 portable Core.
 Build it with `npm run package:portable`; the executable is
 `src-tauri/target/release/nemoto.exe`. Keep the executable and its `data` folder
 together in a separate Nemoto application directory, then start `nemoto.exe`.
@@ -18,8 +18,9 @@ Use **Settings → Data & Backup → Restore** to replace a complete Portfolio.
 
 Core is licensed under **MPL-2.0**; owner-authored plugins use **Apache-2.0**
 under the directory boundaries in [Licensing](LICENSING.md). The first public
-release includes **Core only**. Plugin publication is deferred. Signing,
-Core-only source preparation and final release verification remain open.
+release includes **Core only**. Plugin publication is deferred. Core source is
+published at [kickflip-code/nemoto](https://github.com/kickflip-code/nemoto).
+Signing, third-party notice review and final release verification remain open.
 The configured installer artifact name is
 `Nemoto_1.0.0-beta.1_x64-setup.exe`; this is not a published or verified installer.
 
