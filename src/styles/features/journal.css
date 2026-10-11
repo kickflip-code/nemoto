@@ -1,0 +1,548 @@
+/* Journal workspace layout, editor chrome and theme-specific treatment. */
+
+[data-theme='soft'] .axiom-journal-context-panel {
+  border: none !important;
+  border-color: transparent !important;
+  box-shadow: var(--app-shadow-lg);
+  margin-right: 2px;
+  z-index: 90;
+}
+
+[data-theme='soft'] .journal-editor {
+  background-color: var(--polar-bg);
+  box-shadow: var(--app-shadow-inset) !important;
+  margin: 1.5rem;
+  border-radius: var(--app-radius-lg);
+  border: none !important;
+}
+
+/* Journal panel edge: visible resize affordance in Polar. */
+[data-theme='soft'] .journal-panel-wrapper {
+  box-shadow:
+    inset 0 3px 6px -2px var(--polar-shadow-dark),
+    inset 0 -1px 3px 0 var(--polar-white);
+  position: relative;
+}
+
+[data-theme='soft'] .journal-panel-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--polar-shadow-dark), transparent);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+[data-theme='soft'] .journal-panel-wrapper.is-left-docked:not(.is-maximized) {
+  box-shadow:
+    inset -3px 0 6px -2px var(--polar-shadow-dark),
+    inset 1px 0 3px 0 var(--polar-white);
+}
+
+[data-theme='soft'] .journal-panel-wrapper.is-left-docked:not(.is-maximized)::before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: auto;
+  width: 2px;
+  height: auto;
+  background: linear-gradient(to bottom, transparent, var(--polar-shadow-dark), transparent);
+}
+
+[data-theme='soft'] .axiom-journal-tag {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 0.12rem 0.28rem rgba(71, 85, 105, 0.18) !important;
+}
+
+[data-theme='soft'] .axiom-journal-tag .axiom-tag-close {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 9999px !important;
+  color: currentColor !important;
+}
+
+[data-theme='hard'] .axiom-journal-context-panel {
+  background: var(--color-app-sidebar);
+  border-color: #000 !important;
+  border-radius: 0 !important;
+}
+
+[data-theme='hard'] .axiom-journal-context-panel .text-text-muted.uppercase,
+[data-theme='hard'] .axiom-journal-context-panel .text-text-faint.uppercase {
+  color: var(--color-text-main) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.02em;
+}
+
+[data-theme='hard'] .journal-panel-wrapper {
+  border-top: 3px solid #000 !important;
+  box-shadow: none;
+}
+
+[data-theme='hard'] .journal-panel-wrapper.is-left-docked:not(.is-maximized) {
+  border-top: 0 !important;
+  border-right: 3px solid #000 !important;
+}
+
+[data-theme='hard'] .journal-panel-wrapper::before {
+  display: none;
+}
+
+[data-theme='hard'] .journal-editor {
+  background: #fff;
+  border: 2px solid #000 !important;
+  box-shadow: var(--app-shadow-sm) !important;
+  margin: 0.75rem;
+  border-radius: 0 !important;
+}
+
+/* Journal sidebar: selected entries use the cobalt action color. */
+[data-theme='hard'] .journal-panel-wrapper .bg-accent-primary {
+  background-color: var(--color-accent-primary) !important;
+  color: var(--color-accent-primary-text) !important;
+  border: 2px solid #000 !important;
+}
+
+/* Selected notebooks keep the same strong action treatment. */
+[data-theme='hard'] .journal-panel-wrapper .bg-accent-primary\/20 {
+  background-color: var(--color-accent-primary) !important;
+  border-color: #000 !important;
+}
+
+[data-theme='hard'] .journal-panel-wrapper .bg-accent-primary\/20 .text-accent-primary,
+[data-theme='hard'] .journal-panel-wrapper .bg-accent-primary\/20.text-accent-primary {
+  color: var(--color-accent-primary-text) !important;
+}
+
+[data-theme='hard'] .journal-panel-wrapper .text-accent-primary {
+  color: var(--color-accent-primary) !important;
+}
+
+[data-theme='hard'] .journal-panel-wrapper .bg-accent-primary.text-white {
+  color: #fff !important;
+}
+
+/* TipTap mentions in the Brutalist theme. */
+[data-theme='hard'] .axiom-journal-tiptap .ProseMirror .mention {
+  background: var(--palette-blue) !important;
+  border: 2px solid #000 !important;
+  border-radius: 2px !important;
+  color: #1a1b26 !important;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  box-shadow: var(--app-shadow-sm);
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-instant) var(--motion-ease-standard);
+}
+
+[data-theme='hard'] .axiom-journal-tiptap .ProseMirror .mention:hover {
+  background: var(--palette-purple) !important;
+  border-color: #000 !important;
+  box-shadow: var(--app-shadow-active) !important;
+  transform: translate(1px, 1px);
+}
+
+[data-theme='hard'] .bg-accent-primary\/20.text-white {
+  background-color: var(--color-accent-primary) !important;
+  color: var(--color-accent-primary-text) !important;
+}
+
+.axiom-suggestion-item[aria-selected='true'] {
+  background: color-mix(in srgb, var(--color-accent-primary) 14%, transparent) !important;
+  color: var(--color-accent-primary) !important;
+}
+
+.axiom-journal-topbar {
+  min-height: 48px;
+  transition:
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.journal-panel-wrapper:focus-within .axiom-journal-topbar {
+  border-color: color-mix(in srgb, var(--color-accent-primary) 55%, var(--color-app-border));
+  box-shadow: inset 0 2px 0 var(--color-accent-primary);
+}
+
+.journal-panel-wrapper:focus-within .axiom-journal-title-button {
+  color: var(--color-accent-primary);
+}
+
+.axiom-journal-title-button {
+  letter-spacing: 0.16em;
+}
+
+.axiom-journal-side-rail {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.axiom-journal-side-rail-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.axiom-journal-title-button,
+.axiom-journal-primary-action,
+.axiom-journal-add-tag,
+.axiom-journal-meta-action,
+.axiom-journal-toolbar-button {
+  border-radius: 4px !important;
+}
+
+.axiom-journal-title-button {
+  min-height: 1.75rem !important;
+  padding: 0 0.75rem !important;
+}
+
+.axiom-journal-primary-action,
+.axiom-journal-add-tag,
+.axiom-journal-meta-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 1.625rem !important;
+  min-height: 1.625rem !important;
+  padding: 0 0.625rem !important;
+  gap: 0.375rem !important;
+  line-height: 1 !important;
+  border: 1px solid color-mix(in srgb, var(--color-accent-primary) 20%, transparent) !important;
+}
+
+.axiom-journal-add-tag,
+.axiom-journal-meta-action {
+  background: var(--color-app-bg) !important;
+  color: var(--color-accent-primary) !important;
+  box-shadow: var(--app-shadow-sm) !important;
+}
+
+.axiom-journal-location {
+  padding-left: 0.875rem;
+  border-left: 1px solid var(--color-app-border);
+}
+
+.axiom-journal-sidebar {
+  background: color-mix(in srgb, var(--color-app-bg) 72%, var(--color-app-surface));
+  scrollbar-gutter: stable;
+}
+
+.axiom-journal-sidebar-actions {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.625rem 0.75rem 0.75rem;
+  background: color-mix(in srgb, var(--color-app-bg) 88%, var(--color-app-surface));
+  backdrop-filter: blur(8px);
+}
+
+.axiom-journal-library-heading {
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  letter-spacing: 0.12em;
+}
+
+.axiom-journal-library-total {
+  font-size: 0.625rem;
+  line-height: 1rem;
+  white-space: nowrap;
+}
+
+.axiom-journal-new-note {
+  min-height: 1.75rem !important;
+  padding-inline: 0.75rem !important;
+  background: color-mix(in srgb, var(--color-accent-primary) 8%, var(--color-app-surface)) !important;
+  border-color: color-mix(in srgb, var(--color-accent-primary) 30%, var(--color-app-border)) !important;
+  color: var(--color-text-main) !important;
+  box-shadow: none !important;
+}
+
+.axiom-journal-new-note:hover {
+  background: color-mix(in srgb, var(--color-accent-primary) 14%, var(--color-app-surface)) !important;
+  border-color: color-mix(in srgb, var(--color-accent-primary) 48%, var(--color-app-border)) !important;
+  color: var(--color-accent-primary) !important;
+}
+
+.axiom-journal-create-icon {
+  width: 1.875rem !important;
+  height: 1.875rem !important;
+  border-color: color-mix(in srgb, var(--color-app-border) 80%, transparent) !important;
+  background: var(--color-app-surface) !important;
+  color: var(--color-text-muted) !important;
+}
+
+.axiom-journal-create-icon:hover {
+  border-color: color-mix(in srgb, var(--color-accent-primary) 42%, var(--color-app-border)) !important;
+  color: var(--color-accent-primary) !important;
+}
+
+.axiom-journal-search .axiom-field {
+  min-height: 1.875rem;
+  padding-left: 2.25rem;
+  padding-right: 2rem;
+  border-color: color-mix(in srgb, var(--color-app-border) 82%, transparent);
+  background: color-mix(in srgb, var(--color-app-surface) 84%, var(--color-app-bg));
+}
+
+.axiom-journal-search input[type='search']::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.axiom-journal-sidebar-resizer {
+  right: -4px;
+}
+
+.axiom-journal-sidebar-resizer::after {
+  content: '';
+  position: absolute;
+  top: 0.75rem;
+  bottom: 0.75rem;
+  left: 3px;
+  width: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-app-border) 70%, transparent);
+  opacity: 0.45;
+  transition:
+    opacity var(--motion-duration-fast) var(--motion-ease-standard),
+    background-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.journal-panel-wrapper {
+  transition:
+    height var(--motion-duration-slow) var(--motion-ease-enter),
+    width var(--motion-duration-slow) var(--motion-ease-enter);
+}
+
+.journal-panel-wrapper.is-bottom-docked {
+  will-change: height;
+}
+
+.journal-panel-wrapper.is-left-docked {
+  will-change: width;
+}
+
+.journal-panel-wrapper.is-maximized {
+  transition:
+    inset var(--motion-duration-slow) var(--motion-ease-enter),
+    height var(--motion-duration-slow) var(--motion-ease-enter),
+    width var(--motion-duration-slow) var(--motion-ease-enter);
+}
+
+.journal-panel-wrapper.is-resizing {
+  transition: none;
+  will-change: auto;
+}
+
+.axiom-journal-sidebar-resizer:hover::after,
+.axiom-journal-sidebar-resizer.is-resizing::after {
+  background: var(--color-accent-primary);
+  opacity: 0.9;
+}
+
+.axiom-journal-tree-row {
+  min-height: 1.875rem;
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
+.axiom-journal-tree-row-folder {
+  color: var(--color-text-muted);
+  font-weight: 650;
+  margin-top: 0.125rem;
+}
+
+.axiom-journal-tree-row-notebook .axiom-journal-tree-label {
+  color: var(--color-text-main);
+}
+
+.axiom-journal-tree-icon,
+.axiom-journal-entry-icon {
+  opacity: 0.74;
+  width: 0.8125rem;
+  height: 0.8125rem;
+}
+
+.axiom-journal-count {
+  opacity: 0.65;
+  background: transparent;
+  font-size: 0.625rem;
+}
+
+.axiom-journal-entry-row {
+  min-height: 1.75rem;
+  margin-top: 1px;
+  font-size: 0.75rem;
+  line-height: 1.25;
+}
+
+.axiom-journal-entry-row:not(.is-selected) {
+  color: var(--color-text-muted);
+}
+
+.axiom-journal-document-meta {
+  background: color-mix(in srgb, var(--color-app-bg) 58%, var(--color-app-surface));
+}
+
+.axiom-journal-document-meta-inner,
+.axiom-journal-toolbar-inner {
+  max-width: 860px;
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.axiom-journal-entry-title {
+  line-height: 1.18;
+  padding-inline: 0.5rem;
+}
+
+.axiom-journal-meta-row {
+  min-height: 1.5rem;
+}
+
+.axiom-journal-save-state {
+  opacity: 0.72;
+}
+
+.axiom-journal-toolbar {
+  background: color-mix(in srgb, var(--color-app-surface) 88%, var(--color-app-bg));
+}
+
+.axiom-journal-findbar .axiom-journal-find-input,
+.axiom-journal-findbar .axiom-journal-replace-input {
+  padding-left: 2.25rem;
+}
+
+.axiom-journal-findbar .axiom-journal-find-input {
+  padding-right: 3.5rem;
+}
+
+.axiom-journal-findbar .axiom-journal-replace-input {
+  padding-right: 0.5rem;
+}
+
+.axiom-journal-toolbar-inner {
+  width: 100%;
+}
+
+.axiom-journal-toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border: 1px solid color-mix(in srgb, var(--color-app-border) 62%, transparent);
+  border-radius: var(--app-radius-sm);
+  background: color-mix(in srgb, var(--color-app-bg) 35%, transparent);
+}
+
+.axiom-journal-toolbar-button {
+  min-width: 1.75rem;
+  min-height: 1.75rem;
+}
+
+.axiom-journal-tiptap .ProseMirror {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1.75rem 2.25rem 4rem;
+}
+
+.axiom-journal-prose {
+  color: var(--color-text-main);
+}
+
+.axiom-journal-context-panel {
+  background: color-mix(in srgb, var(--color-app-bg) 76%, var(--color-app-surface));
+}
+
+.axiom-journal-context-panel.is-collapsed {
+  background: color-mix(in srgb, var(--color-app-bg) 84%, var(--color-app-surface));
+}
+
+.axiom-journal-context-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: color-mix(in srgb, var(--color-app-bg) 88%, var(--color-app-surface));
+}
+
+.axiom-journal-context-toggle {
+  border-color: color-mix(in srgb, var(--color-app-border) 72%, transparent);
+}
+
+.axiom-journal-context-collapsed-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.axiom-journal-context-count {
+  display: inline-flex;
+  width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--color-app-border) 72%, transparent);
+  border-radius: 999px;
+  background: var(--color-app-surface);
+}
+
+.axiom-linked-entity-card {
+  background: color-mix(in srgb, var(--color-app-bg) 76%, var(--color-app-surface));
+}
+
+.axiom-linked-entity-icon {
+  opacity: 0.86;
+}
+
+.axiom-linked-entity-title {
+  line-height: 1.25;
+}
+
+[data-theme='hard'] .axiom-journal-toolbar-group,
+[data-theme='hard'] .axiom-linked-entity-card {
+  border-width: 2px;
+}
+
+[data-theme='hard'] .axiom-journal-entry-row.is-selected {
+  background-color: #1a1b26 !important;
+  color: #fff !important;
+  border: 2px solid #000 !important;
+}
+
+/* Journal HTML previews retain image geometry without styling unrelated content. */
+.journal-preview-content figure[data-type='journal-image'] {
+  display: block;
+  max-width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.journal-preview-content figure[data-type='journal-image']:not([data-align]),
+.journal-preview-content figure[data-align='center'] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.journal-preview-content figure[data-align='left'] {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.journal-preview-content figure[data-align='right'] {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.journal-preview-content figure[data-type='journal-image'] img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 0;
+}

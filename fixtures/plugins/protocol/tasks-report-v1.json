@@ -1,0 +1,12 @@
+{
+  "items": [{
+    "id": "old-task", "createdAt": "2026-09-01T10:00:00.000Z", "updatedAt": "2026-09-02T12:00:00.000Z",
+    "values": {"title": "Review åäö", "completed": true, "dueDate": "2026-09-13"},
+    "details": {"schemaVersion": 1, "completedAt": "2026-09-02T12:00:00.000Z",
+      "context": {"reference": {"schema":"axiom.entity-reference","schemaVersion":1,"kind":"core.node","id":"deleted","location":{"processId":"service"}},"labelSnapshot":"Old object","locationSnapshot":"Support"},
+      "description": {"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Åtgärd","marks":[{"type":"bold"}]},{"type":"hardBreak"},{"type":"text","text":"Resultat"}]},{"type":"bulletList","content":[{"type":"listItem","content":[{"type":"paragraph","content":[{"type":"text","text":"Klart"}]}]}]}]}
+    }
+  }],
+  "expected": "Tasks — 1 tasks\nDates with Z are UTC.\n\n1. Review åäö\nStatus: Completed\nCreated: 2026-09-01T10:00:00.000Z\nCompleted: 2026-09-02T12:00:00.000Z\nDue date: 2026-09-13\nContext: Support / Old object (object unavailable)\nÅtgärd\nResultat\n• Klart\n",
+  "empty": "Tasks — 0 tasks\nDates with Z are UTC.\n\n\n"
+}

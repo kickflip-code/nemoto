@@ -1,0 +1,1022 @@
+{
+  "input": {
+    "schema": "axiom.plugin-ui-input",
+    "schemaVersion": 1,
+    "protocolVersion": 1,
+    "instanceId": "view:tasks:1",
+    "sequence": 1,
+    "uiRevision": 0,
+    "portfolioRevision": 7,
+    "event": {
+      "kind": "mount",
+      "surface": "app-rail",
+      "capturedContext": null
+    },
+    "state": {},
+    "snapshots": [],
+    "environment": {
+      "observedAt": "2026-09-11T18:00:00.000Z",
+      "localDate": "2026-09-11",
+      "timezoneOffsetMinutes": 120,
+      "viewport": "wide",
+      "theme": {
+        "colorScheme": "dark",
+        "density": "comfortable"
+      },
+      "allocatedIds": [
+        "550e8400-e29b-41d4-a716-446655440000"
+      ]
+    }
+  },
+  "result": {
+    "schema": "axiom.plugin-ui-result",
+    "schemaVersion": 1,
+    "protocolVersion": 1,
+    "instanceId": "view:tasks:1",
+    "sequence": 1,
+    "uiRevision": 0,
+    "portfolioRevision": 7,
+    "state": {
+      "filter": "open"
+    },
+    "tree": {
+      "key": "root",
+      "type": "stack",
+      "direction": "vertical",
+      "gap": "medium",
+      "wrap": false,
+      "children": [
+        {
+          "key": "title",
+          "type": "text",
+          "text": "Tasks",
+          "role": "heading",
+          "tone": "default"
+        },
+        {
+          "key": "add",
+          "type": "button",
+          "label": "Add task",
+          "actionId": "task:add",
+          "disabled": false,
+          "variant": "primary"
+        }
+      ]
+    },
+    "effects": [
+      {
+        "id": "notice:ready",
+        "kind": "notice.show",
+        "payload": {
+          "message": "Ready",
+          "severity": "info"
+        }
+      }
+    ]
+  },
+  "nodeSamples": [
+    {
+      "key": "form-sample",
+      "type": "form",
+      "label": "Quick entry",
+      "actionId": "sample:submit",
+      "dirty": false,
+      "disabled": false,
+      "children": []
+    },
+    {
+      "key": "stack",
+      "type": "stack",
+      "direction": "horizontal",
+      "gap": "small",
+      "wrap": true,
+      "children": []
+    },
+    {
+      "key": "grid",
+      "type": "grid",
+      "columns": {
+        "compact": 1,
+        "wide": 3
+      },
+      "gap": "medium",
+      "children": []
+    },
+    {
+      "key": "text",
+      "type": "text",
+      "text": "Status",
+      "role": "status",
+      "tone": "muted"
+    },
+    {
+      "key": "button",
+      "type": "button",
+      "label": "Save",
+      "actionId": "sample:save",
+      "disabled": false,
+      "variant": "secondary"
+    },
+    {
+      "key": "text-input",
+      "type": "text-input",
+      "label": "Title",
+      "actionId": "sample:title",
+      "value": "Review",
+      "required": true,
+      "disabled": false,
+      "maxLength": 100
+    },
+    {
+      "key": "date-input",
+      "type": "date-input",
+      "label": "Due",
+      "actionId": "sample:due",
+      "value": "2026-09-12",
+      "required": false,
+      "disabled": false
+    },
+    {
+      "key": "checkbox",
+      "type": "checkbox",
+      "label": "Done",
+      "actionId": "sample:done",
+      "checked": false,
+      "disabled": false
+    },
+    {
+      "key": "select",
+      "type": "select",
+      "label": "Status",
+      "actionId": "sample:status",
+      "value": "open",
+      "disabled": false,
+      "options": [
+        {
+          "value": "open",
+          "label": "Open"
+        },
+        {
+          "value": "done",
+          "label": "Done"
+        }
+      ]
+    },
+    {
+      "key": "list",
+      "type": "list",
+      "label": "Tasks",
+      "children": []
+    },
+    {
+      "key": "dialog",
+      "type": "dialog",
+      "label": "Edit task",
+      "closeActionId": "sample:close",
+      "dirty": false,
+      "children": []
+    },
+    {
+      "key": "rich-text",
+      "type": "rich-text",
+      "label": "Notes",
+      "actionId": "sample:notes",
+      "value": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Note",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "editable": true,
+      "draftRevision": 1
+    },
+    {
+      "type": "presentation",
+      "key": "sample-presentation",
+      "presentation": {
+        "surface": "badge",
+        "tone": "success",
+        "textSize": "caption"
+      },
+      "children": [
+        {
+          "type": "text",
+          "key": "sample-content",
+          "text": "Ready",
+          "role": "body",
+          "tone": "default"
+        }
+      ]
+    },
+    {
+      "type": "presentation",
+      "key": "layout-sample",
+      "presentation": {
+        "layout": "row",
+        "gap": "small",
+        "wrap": true,
+        "justify": "between"
+      },
+      "children": [
+        {
+          "type": "text",
+          "key": "layout-child",
+          "text": "A generic layout",
+          "role": "body",
+          "tone": "default"
+        }
+      ]
+    }
+  ],
+  "effectSamples": [
+    {
+      "id": "query:page",
+      "kind": "storage.collection.query-page",
+      "payload": {
+        "collectionId": "tasks",
+        "cursor": null,
+        "limit": 50,
+        "query": {
+          "where": [],
+          "order": [],
+          "timezoneOffsetMinutes": 0,
+          "distinctBy": [
+            {
+              "path": [
+                "id"
+              ],
+              "localDate": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "output:prepare",
+      "kind": "output.text-buffer",
+      "payload": {
+        "operation": "reset",
+        "text": "Tasks\n"
+      }
+    },
+    {
+      "id": "output:append",
+      "kind": "output.text-buffer",
+      "payload": {
+        "operation": "append",
+        "text": "Next page\n"
+      }
+    },
+    {
+      "id": "output:buffered-file",
+      "kind": "output.text-file",
+      "payload": {
+        "suggestedBaseName": "tasks",
+        "buffered": true
+      }
+    },
+    {
+      "id": "output:buffered-clipboard",
+      "kind": "output.clipboard-text",
+      "payload": {
+        "buffered": true
+      }
+    },
+    {
+      "id": "read:search",
+      "kind": "read.search",
+      "payload": {
+        "query": "task",
+        "kinds": [
+          "core.node"
+        ],
+        "limit": 25
+      }
+    },
+    {
+      "id": "read:entity",
+      "kind": "read.entity",
+      "payload": {
+        "reference": {
+          "schema": "axiom.entity-reference",
+          "schemaVersion": 1,
+          "kind": "core.process",
+          "id": "process:one"
+        }
+      }
+    },
+    {
+      "id": "read:relations",
+      "kind": "read.relations",
+      "payload": {
+        "schema": "axiom.plugin.relation-query",
+        "schemaVersion": 1,
+        "reference": {
+          "schema": "axiom.entity-reference",
+          "schemaVersion": 1,
+          "kind": "core.process",
+          "id": "process:one"
+        },
+        "direction": "both",
+        "relationKinds": [
+          "core.relation.process-node"
+        ],
+        "limit": 50,
+        "cursor": null
+      }
+    },
+    {
+      "id": "collection:read",
+      "kind": "storage.collection.read-page",
+      "payload": {
+        "collectionId": "tasks",
+        "cursor": null,
+        "limit": 100
+      }
+    },
+    {
+      "id": "collection:write",
+      "kind": "storage.collection.transact",
+      "payload": {
+        "collectionId": "tasks",
+        "expectedPortfolioRevision": 7,
+        "operations": [
+          {
+            "operationId": "put:one",
+            "kind": "put",
+            "item": {
+              "id": "task:one",
+              "createdAt": "2026-09-11T18:00:00.000Z",
+              "updatedAt": "2026-09-11T18:00:00.000Z",
+              "values": {
+                "title": "Review"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "document:get",
+      "kind": "storage.document.get",
+      "payload": {
+        "key": "preferences/view"
+      }
+    },
+    {
+      "id": "document:list",
+      "kind": "storage.document.list",
+      "payload": {
+        "schema": "axiom.plugin-storage-list",
+        "schemaVersion": 1,
+        "scope": "portfolio",
+        "prefix": "preferences/",
+        "limit": 50,
+        "cursor": null
+      }
+    },
+    {
+      "id": "document:write",
+      "kind": "storage.document.transact",
+      "payload": {
+        "schema": "axiom.plugin-storage-transaction",
+        "schemaVersion": 1,
+        "scope": "portfolio",
+        "expectedPortfolioRevision": 7,
+        "operations": [
+          {
+            "operationId": "put:view",
+            "kind": "put",
+            "key": "preferences/view",
+            "expectedDocumentVersion": null,
+            "value": {
+              "filter": "open"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "workspace:context",
+      "kind": "workspace.context",
+      "payload": {}
+    },
+    {
+      "id": "workspace:open",
+      "kind": "workspace.open",
+      "payload": {
+        "schema": "axiom.plugin-navigation-intent",
+        "schemaVersion": 1,
+        "action": "inspect",
+        "reference": {
+          "schema": "axiom.entity-reference",
+          "schemaVersion": 1,
+          "kind": "core.process",
+          "id": "process:one"
+        }
+      }
+    },
+    {
+      "id": "output:file",
+      "kind": "output.text-file",
+      "payload": {
+        "suggestedBaseName": "tasks-2026-09-11",
+        "text": "Tasks\n"
+      }
+    },
+    {
+      "id": "output:clipboard",
+      "kind": "output.clipboard-text",
+      "payload": {
+        "text": "Tasks\n"
+      }
+    },
+    {
+      "id": "notice:ready",
+      "kind": "notice.show",
+      "payload": {
+        "message": "Ready",
+        "severity": "info"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "name": "valid input",
+      "document": "input",
+      "pointer": "",
+      "value": null,
+      "valid": true
+    },
+    {
+      "name": "future input version",
+      "document": "input",
+      "pointer": "/schemaVersion",
+      "value": 2,
+      "valid": false
+    },
+    {
+      "name": "unsafe sequence integer",
+      "document": "input",
+      "pointer": "/sequence",
+      "value": 9007199254740992,
+      "valid": false
+    },
+    {
+      "name": "invalid instance id",
+      "document": "input",
+      "pointer": "/instanceId",
+      "value": "bad/id",
+      "valid": false
+    },
+    {
+      "name": "valid action event",
+      "document": "input",
+      "pointer": "/event",
+      "value": {
+        "kind": "action",
+        "controlKey": "title",
+        "actionId": "task:title",
+        "value": "Review",
+        "draftRevision": 1
+      },
+      "valid": true
+    },
+    {
+      "name": "valid successful effect event",
+      "document": "input",
+      "pointer": "/event",
+      "value": {
+        "kind": "effect-result",
+        "effectId": "read:one",
+        "ok": true,
+        "result": {
+          "items": []
+        }
+      },
+      "valid": true
+    },
+    {
+      "name": "valid failed effect event",
+      "document": "input",
+      "pointer": "/event",
+      "value": {
+        "kind": "effect-result",
+        "effectId": "read:one",
+        "ok": false,
+        "error": {
+          "code": "REVISION_CONFLICT",
+          "message": "Retry",
+          "retryable": true,
+          "outcomeUnknown": false
+        }
+      },
+      "valid": true
+    },
+    {
+      "name": "empty invalidation",
+      "document": "input",
+      "pointer": "/event",
+      "value": {
+        "kind": "invalidate",
+        "flags": {
+          "data": false,
+          "workspace": false,
+          "viewport": false,
+          "theme": false
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "valid entity snapshot",
+      "document": "input",
+      "pointer": "/snapshots",
+      "value": [
+        {
+          "kind": "entity",
+          "value": {
+            "schema": "axiom.plugin.entity-snapshot",
+            "schemaVersion": 1,
+            "portfolioRevision": 7,
+            "reference": {
+              "schema": "axiom.entity-reference",
+              "schemaVersion": 1,
+              "kind": "core.process",
+              "id": "process:one"
+            },
+            "label": "Process",
+            "fields": {},
+            "omittedFields": []
+          }
+        }
+      ],
+      "valid": true
+    },
+    {
+      "name": "valid storage snapshot",
+      "document": "input",
+      "pointer": "/snapshots",
+      "value": [
+        {
+          "kind": "storage-page",
+          "source": "collection",
+          "portfolioRevision": 7,
+          "subject": "tasks",
+          "cursor": null,
+          "nextCursor": null,
+          "items": []
+        }
+      ],
+      "valid": true
+    },
+    {
+      "name": "stale storage snapshot",
+      "document": "input",
+      "pointer": "/snapshots",
+      "value": [
+        {
+          "kind": "storage-page",
+          "source": "collection",
+          "portfolioRevision": 6,
+          "subject": "tasks",
+          "cursor": null,
+          "nextCursor": null,
+          "items": []
+        }
+      ],
+      "valid": false
+    },
+    {
+      "name": "unknown input property",
+      "document": "input",
+      "pointer": "/authorityGeneration",
+      "value": 7,
+      "valid": false
+    },
+    {
+      "name": "valid result",
+      "document": "result",
+      "pointer": "",
+      "value": null,
+      "valid": true
+    },
+    {
+      "name": "leaf root",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "key": "root",
+        "type": "text",
+        "text": "No",
+        "role": "body",
+        "tone": "default"
+      },
+      "valid": false
+    },
+    {
+      "name": "unknown primitive",
+      "document": "result",
+      "pointer": "/tree/type",
+      "value": "html",
+      "valid": false
+    },
+    {
+      "name": "unknown effect",
+      "document": "result",
+      "pointer": "/effects/0/kind",
+      "value": "portfolio.replace",
+      "valid": false
+    },
+    {
+      "name": "unknown result property",
+      "document": "result",
+      "pointer": "/module",
+      "value": "runtime/other.wasm",
+      "valid": false
+    },
+    {
+      "name": "duplicate tree key",
+      "document": "result",
+      "pointer": "/tree/children/1/key",
+      "value": "title",
+      "valid": false
+    },
+    {
+      "name": "duplicate action id",
+      "document": "result",
+      "pointer": "/tree/children/0",
+      "value": {
+        "key": "other",
+        "type": "button",
+        "label": "Other",
+        "actionId": "task:add",
+        "disabled": false,
+        "variant": "secondary"
+      },
+      "valid": false
+    },
+    {
+      "name": "invalid calendar date",
+      "document": "result",
+      "pointer": "/tree/children/0",
+      "value": {
+        "key": "due",
+        "type": "date-input",
+        "label": "Due",
+        "actionId": "due:set",
+        "value": "2026-02-30",
+        "required": false,
+        "disabled": false
+      },
+      "valid": false
+    },
+    {
+      "name": "callback-like property",
+      "document": "result",
+      "pointer": "/tree/children/1/onClick",
+      "value": "run-host-code",
+      "valid": false
+    },
+    {
+      "name": "caller style escape",
+      "document": "result",
+      "pointer": "/tree/style",
+      "value": {
+        "position": "fixed"
+      },
+      "valid": false
+    },
+    {
+      "name": "presentation accepts closed tokens",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "success",
+              "textSize": "caption"
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": true
+    },
+    {
+      "name": "presentation rejects CSS",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "success",
+              "textSize": "caption",
+              "css": "position:fixed"
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "presentation rejects arbitrary icons",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "success",
+              "textSize": "caption",
+              "icon": "<svg onload=alert(1)>"
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "presentation rejects arbitrary colors",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "#ff0000",
+              "textSize": "caption"
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "presentation rejects resource overrides",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "success",
+              "textSize": "caption",
+              "maxHeight": 100000
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "presentation rejects empty accessible names",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "success",
+              "textSize": "caption",
+              "accessibleLabel": ""
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "presentation rejects 0 children",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "success",
+              "textSize": "caption"
+            },
+            "children": []
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "presentation rejects 2 children",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "surface": "badge",
+              "tone": "success",
+              "textSize": "caption"
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              },
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "icon control requires visible icon",
+      "document": "result",
+      "pointer": "/tree",
+      "value": {
+        "type": "stack",
+        "key": "presentation-root",
+        "direction": "vertical",
+        "gap": "small",
+        "wrap": false,
+        "children": [
+          {
+            "type": "presentation",
+            "key": "sample-presentation",
+            "presentation": {
+              "control": "icon"
+            },
+            "children": [
+              {
+                "type": "text",
+                "key": "sample-content",
+                "text": "Ready",
+                "role": "body",
+                "tone": "default"
+              }
+            ]
+          }
+        ]
+      },
+      "valid": false
+    }
+  ],
+  "rawCases": [
+    {
+      "name": "duplicate top-level key",
+      "document": "input",
+      "json": "{\"schema\":\"axiom.plugin-ui-input\",\"schema\":\"other\"}",
+      "code": "DUPLICATE_JSON_KEY"
+    },
+    {
+      "name": "escaped duplicate key",
+      "document": "result",
+      "json": "{\"tree\":{},\"tr\\u0065e\":{}}",
+      "code": "DUPLICATE_JSON_KEY"
+    },
+    {
+      "name": "invalid JSON",
+      "document": "input",
+      "json": "{\"schema\":",
+      "code": "INVALID_JSON"
+    }
+  ]
+}

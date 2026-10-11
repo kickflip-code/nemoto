@@ -1,0 +1,85 @@
+/* Omnibox shell, search results and theme-specific surface treatment. */
+
+[data-theme='soft'] .axiom-omnibox-modal {
+  box-shadow:
+    inset 0.3rem 0.3rem 0.6rem var(--polar-shadow-dark),
+    inset -0.2rem -0.2rem 0.5rem var(--polar-white) !important;
+  border: none !important;
+}
+
+[data-theme='hard'] .axiom-omnibox-modal {
+  border: 3px solid #000 !important;
+  box-shadow: var(--app-shadow-lg) !important;
+  border-radius: 4px !important;
+  background: #fff !important;
+}
+
+.axiom-omnibox-modal {
+  background: var(--color-app-surface);
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
+  border-radius: var(--app-radius-md);
+  box-shadow: var(--menu-shadow, var(--app-shadow-xl));
+}
+
+.axiom-omnibox-input {
+  color: var(--color-text-main);
+}
+
+.axiom-omnibox-chip,
+.axiom-omnibox-kbd {
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: var(--color-app-hover);
+}
+
+.axiom-omnibox-chip-accent {
+  border-color: color-mix(in srgb, var(--color-accent-primary) 24%, transparent);
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent);
+  color: var(--color-accent-primary);
+}
+
+.axiom-omnibox-chip-close {
+  color: currentColor;
+}
+
+.axiom-omnibox-chip-close:hover {
+  color: var(--color-text-main);
+}
+
+.axiom-omnibox-results {
+  border-color: var(--color-app-border);
+}
+
+.axiom-omnibox-result {
+  border: var(--control-border-width, var(--app-border-width)) solid transparent;
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  color: var(--color-text-muted);
+}
+
+.axiom-omnibox-result:hover {
+  background: var(--color-app-hover);
+  color: var(--color-text-main);
+}
+
+.axiom-omnibox-result-active {
+  background: color-mix(in srgb, var(--color-accent-primary) 8%, transparent);
+  border-color: color-mix(in srgb, var(--color-accent-primary) 24%, transparent);
+  color: var(--color-accent-primary);
+  box-shadow: inset 0 0 12px color-mix(in srgb, var(--color-accent-primary) 8%, transparent);
+}
+
+.axiom-omnibox-result-icon {
+  background: var(--color-app-surface);
+  color: var(--color-text-faint);
+}
+
+.axiom-omnibox-result-active .axiom-omnibox-result-icon {
+  background: color-mix(in srgb, var(--color-accent-primary) 18%, transparent);
+  color: var(--color-accent-primary);
+}
+
+.axiom-omnibox-empty,
+.axiom-omnibox-footer {
+  background: color-mix(in srgb, var(--color-app-bg) 62%, transparent);
+  border-color: var(--color-app-border);
+}

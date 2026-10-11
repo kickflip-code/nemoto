@@ -1,0 +1,118 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": [
+    "main",
+    "theme-studio"
+  ],
+  "permissions": [
+    "core:default",
+    "opener:default",
+    "dialog:default",
+    "fs:default",
+    "core:window:allow-start-dragging",
+    "core:window:allow-minimize",
+    "core:window:allow-maximize",
+    "core:window:allow-toggle-maximize",
+    "core:window:allow-close",
+    "core:window:allow-destroy",
+    "core:window:allow-is-maximized",
+    "core:window:allow-set-focus",
+    "core:window:allow-set-decorations",
+    "core:webview:allow-create-webview-window",
+    {
+      "identifier": "fs:allow-write-text-file",
+      "allow": [
+        {
+          "path": "$DOWNLOADS/**"
+        },
+        {
+          "path": "$DOCUMENTS/**"
+        },
+        {
+          "path": "$DESKTOP/**"
+        },
+        {
+          "path": "$HOME/**"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-read-text-file",
+      "allow": [
+        {
+          "path": "$DOWNLOADS/**"
+        },
+        {
+          "path": "$DOCUMENTS/**"
+        },
+        {
+          "path": "$DESKTOP/**"
+        },
+        {
+          "path": "$HOME/**"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-read-dir",
+      "allow": [
+        {
+          "path": "$DOWNLOADS/**"
+        },
+        {
+          "path": "$DOCUMENTS/**"
+        },
+        {
+          "path": "$DESKTOP/**"
+        },
+        {
+          "path": "$HOME/**"
+        }
+      ]
+    },
+    {
+      "identifier": "fs:allow-remove",
+      "allow": [
+        {
+          "path": "$DOWNLOADS/**/auto-backup-*.axiom"
+        },
+        {
+          "path": "$DOWNLOADS/**/auto-backup-*.nemoto"
+        },
+        {
+          "path": "$DOCUMENTS/**/auto-backup-*.axiom"
+        },
+        {
+          "path": "$DOCUMENTS/**/auto-backup-*.nemoto"
+        },
+        {
+          "path": "$DESKTOP/**/auto-backup-*.axiom"
+        },
+        {
+          "path": "$DESKTOP/**/auto-backup-*.nemoto"
+        },
+        {
+          "path": "$HOME/**/auto-backup-*.axiom"
+        },
+        {
+          "path": "$HOME/**/auto-backup-*.nemoto"
+        }
+      ]
+    },
+    "fs:allow-stat",
+    "fs:allow-read-file",
+    "fs:allow-exists",
+    {
+      "identifier": "fs:allow-mkdir",
+      "allow": [
+        {
+          "path": "$DOCUMENTS/NemotoBackups"
+        }
+      ]
+    },
+    "dialog:allow-save",
+    "dialog:allow-open"
+  ]
+}

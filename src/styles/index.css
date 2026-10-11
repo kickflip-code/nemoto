@@ -1,0 +1,1345 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    /* ULTRATHINK: Proportionally scale all rem values up by ~6.25% globally to increase readability without rewriting hundreds of tailwind classes. */
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  @keyframes enter {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-in {
+    animation: enter 0.1s ease-out forwards;
+  }
+
+  /* NEUMORPHIC UTILITIES — driven by theme shadow variables */
+  .shadow-soft-down {
+    box-shadow: var(--app-shadow-sm);
+  }
+
+  .shadow-soft-inset {
+    box-shadow: var(--app-shadow-inset);
+  }
+
+  .shadow-soft-deep {
+    box-shadow: var(--app-shadow-lg);
+  }
+}
+
+/* AXIOM DESIGN SYSTEM - Source: Axiom black.html */
+/* AXIOM DESIGN SYSTEM - Source: Axiom black.html & styles.md */
+
+/* --- THEME ENGINE DEFAULTS (VOID / DARK) --- */
+:root {
+  /* Core-resolved font families. Custom themes may replace these with verified embedded WOFF2 faces. */
+  --font-family-ui: 'Inter', sans-serif;
+  --font-family-display: 'Inter', sans-serif;
+  --font-family-node: var(--font-family-ui);
+
+  /* Dimensions & Physics */
+  --app-radius-sm: 0.25rem;
+  --app-radius-md: 0.5rem;
+  --app-radius-lg: 0.75rem;
+  --app-radius-node: var(--app-radius-md);
+  --app-border-width: 1px;
+  --app-node-border-width: 2px;
+  /* Thick borders for dark theme */
+
+  /* Motion Tokens */
+  --motion-duration-instant: 80ms;
+  --motion-duration-fast: 120ms;
+  --motion-duration-base: 180ms;
+  --motion-duration-slow: 240ms;
+  --motion-duration-camera: 360ms;
+  --motion-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Shadows */
+  --app-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --app-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --app-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --app-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+  --app-shadow-inset: inset 0 2px 4px 0 rgba(0, 0, 0, 0.6);
+  --dialog-shadow: var(--menu-shadow, var(--app-shadow-xl));
+  /* Standard dark inset */
+  --control-shadow: var(--app-shadow-sm);
+  --control-active-shadow: var(--app-shadow-inset);
+  --control-active-transform: none;
+  --control-radius: var(--app-radius-sm);
+  --control-border-width: var(--app-border-width);
+  --field-shadow: var(--app-shadow-inset);
+  --field-focus-shadow: 0 0 0 1px var(--color-accent-primary);
+  --menu-shadow: var(--app-shadow-lg);
+  --menu-hover-shadow: none;
+
+  /* Colors (Void Default) */
+  --color-app-bg: #050505;
+  --color-app-sidebar: #141416;
+  --color-app-surface: #09090b;
+  --color-app-header: #141416;
+  --color-app-border: #3f3f46;
+  /* Increased contrast for element borders */
+  --color-app-grid: #3f3f46;
+  --color-canvas-edge: #52525b;
+  /* Make the background grid slightly more visible */
+  --color-app-input: #050505;
+  --color-app-hover: #1E2633;
+  --color-app-active: #232D3D;
+  --color-control-bg: #141416;
+  --color-control-text: #d4d4d8;
+  --color-control-border: #3f3f46;
+  --color-control-hover: #1E2633;
+  --color-control-active: #232D3D;
+  --color-control-primary-bg: #F59E0B;
+  --color-control-primary-text: #111827;
+  --color-field-bg: #050505;
+  --color-field-text: #ffffff;
+  --color-field-border: #3f3f46;
+  --color-menu-bg: #141416;
+  --color-menu-text: #d4d4d8;
+  --color-menu-border: #3f3f46;
+  --color-menu-hover: #1E2633;
+  --color-menu-separator: #3f3f46;
+  --color-rail-bg: #141416;
+  --color-rail-button-text: #a1a1aa;
+  --color-rail-button-hover: #1E2633;
+  --color-rail-button-active-bg: #232D3D;
+  --color-rail-button-active-text: #F59E0B;
+  --color-dock-bg: #141416;
+  --color-dock-border: #3f3f46;
+  --color-dock-button-bg: #09090b;
+  --color-dock-button-text: #d4d4d8;
+  --color-dock-button-hover: #1E2633;
+  --color-dock-button-active-bg: #232D3D;
+  --color-dock-button-active-text: #F59E0B;
+  --color-dock-divider: #3f3f46;
+
+  /* Text - ULTRATHINK: Maximizing contrast for poor backlighting */
+  --color-text-main: #ffffff;
+  /* Pure white for crisp primary reading */
+  --color-text-muted: #d4d4d8;
+  /* Zinc-300: High enough contrast to read, clearly secondary */
+  --color-text-faint: #a1a1aa;
+  /* Zinc-400: Faint but mathematically readable (WCAG AA minimum) */
+
+  /* Accents */
+  --color-accent-primary: #F59E0B;
+  --color-accent-primary-text: #FDE68A;
+  --color-accent-success: #10B981;
+  --color-accent-success-text: #6EE7B7;
+  --color-accent-warning: #F59E0B;
+  --color-accent-danger: #EF4444;
+  --color-accent-danger-dim: rgba(239, 68, 68, 0.1);
+  --color-accent-purple: #A855F7;
+  --color-accent-purple-text: #D8B4FE;
+  --color-accent-neutral: #64748b;
+  --color-accent-neutral-text: #cbd5e1;
+
+  /* Node Palette (Default/Void) */
+  --palette-gray: #52525b;
+  --palette-white: #e4e4e7;
+  --palette-white-text: #e4e4e7;
+  --palette-blue: #3b82f6;
+  --palette-green: #22c55e;
+  --palette-purple: #a855f7;
+  --palette-orange: #f97316;
+  --palette-red: #ef4444;
+  --palette-amber: #f59e0b;
+
+  /* Assets */
+  --dot-grid: radial-gradient(var(--color-app-border) 1.5px, transparent 1px);
+}
+
+[data-theme='void'] {
+  --font-family-ui: 'Inter', sans-serif;
+  --font-family-display: 'Inter', sans-serif;
+  --font-family-node: var(--font-family-ui);
+}
+
+/* --- THEME: SOFT (POLAR) --- */
+[data-theme='soft'] {
+  --font-family-ui: 'Inter', sans-serif;
+  --font-family-display: 'Poppins', sans-serif;
+  --font-family-node: var(--font-family-ui);
+
+  /* Internal Variables for Polar */
+  --polar-bg: #E4EBF5;
+  --polar-white: #FFFFFF;
+  --polar-shadow-dark: #c8d0e7;
+  --polar-shadow-light: #FFFFFF;
+
+  /* Dimensions */
+  --app-radius-sm: 0.375rem;
+  --app-radius-md: 0.625rem;
+  --app-radius-lg: 0.875rem;
+  /* Kept moderate — neumorphic "molded" feel comes from shadows, not extreme rounding */
+  --app-radius-node: 0.75rem;
+  /* Separate radius for nodes to keep that soft molded look */
+  --app-border-width: 0px;
+  --app-node-border-width: 1px;
+
+  /* Colors */
+  --color-app-bg: var(--polar-bg);
+  --color-app-sidebar: var(--polar-bg);
+  --color-app-surface: var(--polar-bg);
+  /* CRITICAL: Same as BG */
+  --color-app-header: var(--polar-bg);
+  --color-app-border: transparent;
+  /* Force transparent borders */
+  --color-app-grid: #b8c2d8;
+  --color-canvas-edge: #475569;
+  --color-app-input: var(--polar-bg);
+  --color-app-hover: #dbe4f0;
+  --color-app-active: #d1d9e6;
+  --color-control-bg: var(--polar-bg);
+  --color-control-text: #44476A;
+  --color-control-border: #cbd5e1;
+  --color-control-hover: #dbe4f0;
+  --color-control-active: #d1d9e6;
+  --color-control-primary-bg: #6d5dfc;
+  --color-control-primary-text: #ffffff;
+  --color-field-bg: var(--polar-bg);
+  --color-field-text: #44476A;
+  --color-field-border: #cbd5e1;
+  --color-menu-bg: var(--polar-bg);
+  --color-menu-text: #7482a8;
+  --color-menu-border: #cbd5e1;
+  --color-menu-hover: #dbe4f0;
+  --color-menu-separator: #c8d0e7;
+  --color-rail-bg: var(--polar-bg);
+  --color-rail-button-text: #7482a8;
+  --color-rail-button-hover: #dbe4f0;
+  --color-rail-button-active-bg: var(--polar-bg);
+  --color-rail-button-active-text: #6d5dfc;
+  --color-dock-bg: var(--polar-bg);
+  --color-dock-border: #cbd5e1;
+  --color-dock-button-bg: var(--polar-bg);
+  --color-dock-button-text: #7482a8;
+  --color-dock-button-hover: #dbe4f0;
+  --color-dock-button-active-bg: var(--polar-bg);
+  --color-dock-button-active-text: #6d5dfc;
+  --color-dock-divider: #c8d0e7;
+
+  /* Text & Fonts */
+  --color-text-main: #44476A;
+  --color-text-muted: #7482a8;
+  /* Darkened from #9baacf for readability */
+  --color-text-faint: #8f9dc2;
+  /* Darkened from #bec8e4 for readability */
+
+  /* Accents (Polar Palette) */
+  --color-accent-primary: #6d5dfc;
+  /* Lila */
+  --color-accent-primary-text: #ffffff;
+  --color-accent-primary-glow: rgba(109, 93, 252, 0.2);
+  --color-accent-success: #28a745;
+  /* Grön (Start) */
+  --color-accent-warning: #e67e22;
+  /* Orange palette accent */
+  --color-accent-danger: #e74c3c;
+  /* Röd (Stop) */
+  --color-accent-neutral: #7f8c8d;
+  /* Grå (Decision) */
+
+  /* Node Palette (Polar) */
+  --palette-gray: #475569;
+  --palette-white: #cbd5e1;
+  --palette-white-text: #44476A;
+  --palette-blue: #1d4ed8;
+  --palette-green: #15803d;
+  --palette-purple: #7e22ce;
+  --palette-orange: #c2410c;
+  --palette-red: #b91c1c;
+  --palette-amber: #b45309;
+  --color-node-event-bg: #E4EBF5;
+
+  /* Shadows */
+  --app-shadow-sm:
+    0.16rem 0.16rem 0.38rem var(--polar-shadow-dark),
+    -0.14rem -0.14rem 0.36rem var(--polar-white);
+
+  --app-shadow-md:
+    0.24rem 0.24rem 0.55rem var(--polar-shadow-dark),
+    -0.18rem -0.18rem 0.45rem var(--polar-white);
+
+  --app-shadow-lg:
+    0.5rem 0.5rem 1.1rem var(--polar-shadow-dark),
+    -0.28rem -0.28rem 0.95rem var(--polar-white);
+  --dialog-shadow:
+    0.36rem 0.46rem 0.95rem color-mix(in srgb, var(--polar-shadow-dark) 58%, transparent),
+    -0.12rem -0.12rem 0.35rem color-mix(in srgb, var(--polar-white) 38%, transparent);
+
+  /* Inset */
+  --app-shadow-inset:
+    inset 0.18rem 0.18rem 0.45rem var(--polar-shadow-dark),
+    inset -0.16rem -0.16rem 0.42rem var(--polar-white);
+  --control-shadow: var(--app-shadow-sm);
+  --control-active-shadow: var(--app-shadow-inset);
+  --control-active-transform: none;
+  --control-radius: var(--app-radius-sm);
+  --control-border-width: 0px;
+  --field-shadow: var(--app-shadow-inset);
+  --field-focus-shadow:
+    var(--app-shadow-inset),
+    0 0 0 2px var(--color-accent-primary-glow);
+  --menu-shadow: var(--app-shadow-lg);
+  --menu-hover-shadow: var(--app-shadow-inset);
+
+  --dot-grid: radial-gradient(#b0bbd4 1.5px, transparent 1px);
+}
+
+/* Polar Theme Layout Overrides (Aggressive) */
+[data-theme='soft'] body {
+  background-color: var(--color-app-bg);
+}
+
+[data-theme='soft'] .axiom-app-header,
+[data-theme='soft'] .axiom-side-panel,
+[data-theme='soft'] .axiom-inspector-panel,
+[data-theme='soft'] .bg-app-header,
+[data-theme='soft'] .bg-app-sidebar,
+[data-theme='soft'] .border-app-border,
+[data-theme='soft'] .border-r,
+[data-theme='soft'] .border-b,
+[data-theme='soft'] .border-l,
+[data-theme='soft'] .border-t {
+  border: none !important;
+  border-color: transparent !important;
+}
+
+/* Give main layout pieces elevation */
+[data-theme='soft'] .axiom-app-header {
+  box-shadow: var(--app-shadow-md);
+  margin-bottom: 2px;
+  /* Small gap to let shadow breathe */
+  z-index: 100;
+}
+
+[data-theme='soft'] .axiom-side-panel,
+[data-theme='soft'] .axiom-inspector-panel {
+  box-shadow: var(--app-shadow-lg);
+  margin-right: 2px;
+  z-index: 90;
+}
+
+/* Swimlane overrides for Polar — transparent body so dots show through */
+[data-theme='soft'] .react-flow__node[data-id="swimlane-stack"]>div {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+/* Keep dividers visible between lanes */
+[data-theme='soft'] .react-flow__node[data-id="swimlane-stack"] .border-dashed {
+  border-color: var(--polar-shadow-dark) !important;
+  border-style: dashed !important;
+  border-width: 1px !important;
+}
+
+[data-theme='soft'] .react-flow__node[data-id="swimlane-stack"] .border-b,
+[data-theme='soft'] .react-flow__node[data-id="swimlane-stack"] .border-r,
+[data-theme='soft'] .react-flow__node[data-id="swimlane-stack"] .border-l,
+[data-theme='soft'] .react-flow__node[data-id="swimlane-stack"] .border-t {
+  border-color: var(--polar-shadow-dark) !important;
+  border-style: solid !important;
+  border-width: 1px !important;
+}
+
+/* Nodes - The meat of the app */
+[data-theme='soft'] .react-flow__node {
+  border: none !important;
+}
+
+[data-theme='soft'] .react-flow__node>div {
+  background-color: var(--color-app-bg) !important;
+  box-shadow: var(--app-shadow-md);
+  border-radius: var(--app-radius-node, var(--app-radius-md));
+  transition: box-shadow 0.3s ease;
+  border: none !important;
+}
+
+/* Pill nodes (Start/End): match the pill radius on the neumorphic wrapper */
+[data-theme='soft'] .react-flow__node>div:has(.shape-pill) {
+  border-radius: 9999px !important;
+}
+
+[data-theme='soft'] .react-flow__node>div:has(.shape-rect),
+[data-theme='soft'] .react-flow__node>div:has(.shape-pill),
+[data-theme='soft'] .react-flow__node>div:has(.shape-resource),
+[data-theme='soft'] .react-flow__node>div:has(.shape-event) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+[data-theme='soft'] .react-flow__node .shape-rect,
+[data-theme='soft'] .react-flow__node .shape-pill,
+[data-theme='soft'] .react-flow__node .shape-resource,
+[data-theme='soft'] .react-flow__node .shape-post-it,
+[data-theme='soft'] .react-flow__node .shape-event {
+  background-color: var(--color-app-bg) !important;
+  border-width: var(--app-node-border-width) !important;
+  border-style: solid !important;
+  box-shadow: var(--app-shadow-md) !important;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+[data-theme='soft'] .react-flow__node:hover .shape-rect,
+[data-theme='soft'] .react-flow__node:hover .shape-pill,
+[data-theme='soft'] .react-flow__node:hover .shape-resource,
+[data-theme='soft'] .react-flow__node:hover .shape-post-it,
+[data-theme='soft'] .react-flow__node:hover .shape-event {
+  border-color: var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+  box-shadow:
+    var(--app-shadow-md),
+    0 0 16px -2px var(--node-glow-color) !important;
+}
+
+/* Prevent inner elements from going gray (bg-app-hover) on mouseover —
+   the accent glow on the node surface is the complete hover effect.
+   Override the hover color variable within nodes so Tailwind's
+   hover:bg-app-hover and group-hover:bg-app-hover resolve to surface instead. */
+[data-theme='soft'] .react-flow__node:hover {
+  --color-app-hover: var(--color-app-surface);
+}
+
+[data-theme='soft'] .react-flow__node.selected {
+  z-index: 30 !important;
+}
+
+[data-theme='soft'] .react-flow__node.selected .shape-diamond-container,
+[data-theme='soft'] .react-flow__node.selected>div {
+  --tw-ring-width: 0px !important;
+  --tw-ring-offset-width: 0px !important;
+  --tw-ring-shadow: none !important;
+}
+
+[data-theme='soft'] .react-flow__node.selected * {
+  --tw-ring-width: 0px !important;
+  --tw-ring-offset-width: 0px !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+}
+
+[data-theme='soft'] .react-flow__node.selected .shape-rect,
+[data-theme='soft'] .react-flow__node.selected .shape-pill,
+[data-theme='soft'] .react-flow__node.selected .shape-resource,
+[data-theme='soft'] .react-flow__node.selected .shape-post-it,
+[data-theme='soft'] .react-flow__node.selected .shape-event {
+  border-color: var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+  box-shadow:
+    var(--app-shadow-md),
+    0 0 0 3px var(--color-app-bg),
+    0 0 0 5.5px var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))),
+    0 0 20px 2px var(--node-glow-color) !important;
+}
+
+/* Decision node: hide the rectangular wrapper, style the diamond */
+[data-theme='soft'] .react-flow__node[data-id]>div:has(.shape-diamond-container) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+[data-theme='soft'] .react-flow__node[data-id] .shape-diamond-container {
+  background-color: var(--color-app-bg) !important;
+  border-color: color-mix(in srgb, var(--node-accent-color, var(--color-accent-neutral, #7f8c8d)) 65%, var(--color-text-muted)) !important;
+  box-shadow: var(--app-shadow-md) !important;
+  border-radius: var(--app-radius-sm) !important;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+[data-theme='soft'] .react-flow__node[data-id]:hover .shape-diamond-container {
+  border-color: color-mix(in srgb, var(--node-accent-color, var(--color-accent-neutral, #7f8c8d)) 65%, var(--color-text-muted)) !important;
+  box-shadow:
+    var(--app-shadow-md),
+    0 0 16px -2px var(--node-glow-color) !important;
+}
+
+[data-theme='soft'] .react-flow__node[data-id].selected .shape-diamond-container {
+  border: var(--app-node-border-width) solid var(--node-accent-color, var(--color-accent-primary)) !important;
+  border-color: var(--node-accent-color, var(--color-accent-primary)) !important;
+  box-shadow:
+    var(--app-shadow-md),
+    0 0 0 3px var(--color-app-bg),
+    0 0 0 5.5px var(--node-accent-color, var(--color-accent-primary)),
+    0 0 20px 2px var(--node-glow-color) !important;
+}
+
+/* System node (clip-chamfer): Use filter drop-shadow since clip-path clips box-shadow */
+[data-theme='soft'] .react-flow__node[data-id]>div:has(.clip-chamfer) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  filter:
+    drop-shadow(0.2rem 0.2rem 0.4rem var(--polar-shadow-dark))
+    drop-shadow(-0.15rem -0.15rem 0.3rem var(--polar-white));
+  transition: filter 0.3s ease;
+}
+
+[data-theme='soft'] .react-flow__node[data-id]:hover>div:has(.clip-chamfer) {
+  filter:
+    drop-shadow(0.2rem 0.2rem 0.4rem var(--polar-shadow-dark))
+    drop-shadow(-0.15rem -0.15rem 0.3rem var(--polar-white))
+    drop-shadow(0 0 8px var(--node-glow-color));
+}
+
+[data-theme='soft'] .react-flow__node[data-id].selected>div:has(.clip-chamfer) {
+  filter:
+    drop-shadow(0.2rem 0.2rem 0.4rem var(--polar-shadow-dark))
+    drop-shadow(-0.15rem -0.15rem 0.3rem var(--polar-white))
+    drop-shadow(0 0 10px var(--node-glow-color));
+}
+
+/* Only style the INNER clip-chamfer (the content area), not the outer one (which acts as border) */
+[data-theme='soft'] .react-flow__node[data-id] .clip-chamfer .clip-chamfer {
+  background-color: var(--color-app-bg) !important;
+  box-shadow: none !important;
+  transition: background-color 0.3s ease;
+}
+
+/* Shared readable label baseline for Void and Polar. */
+[data-theme='void'] .react-flow__node .editable-label,
+[data-theme='void'] .react-flow__node .viewer-node-label,
+[data-theme='soft'] .react-flow__node .editable-label {
+  font-size: 13px !important;
+  text-shadow: none !important;
+  font-weight: 600;
+}
+
+[data-theme='soft'] .editable-label input,
+[data-theme='soft'] .editable-label textarea {
+  font-size: 13px !important;
+  text-shadow: none !important;
+}
+
+/* Override white node text and decision node text in Polar & Brutalist themes to be dark for contrast */
+[data-theme='soft'] .shape-diamond-content .editable-label,
+[data-theme='soft'] .shape-diamond-content span,
+[data-theme='soft'] .shape-diamond-container span,
+[data-theme='soft'] .editable-label[style*="--palette-white"],
+[data-theme='hard'] .shape-diamond-content .editable-label,
+[data-theme='hard'] .shape-diamond-content span,
+[data-theme='hard'] .shape-diamond-container span,
+[data-theme='hard'] .editable-label[style*="--palette-white"] {
+  color: var(--color-text-main) !important;
+  text-shadow: none !important;
+}
+
+/* Specific Component Refinements */
+.axiom-app-rail {
+  background: var(--color-rail-bg, var(--color-app-header));
+  border-right: var(--app-border-width) solid var(--color-app-border);
+}
+
+.axiom-rail-divider {
+  background: color-mix(in srgb, var(--color-rail-button-text, var(--color-text-muted)) 28%, transparent);
+}
+
+.axiom-rail-button {
+  width: var(--theme-rail-button-size, 2rem);
+  height: var(--theme-rail-button-size, 2rem);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--control-border-width, var(--app-border-width)) solid transparent;
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: transparent;
+  color: var(--color-rail-button-text, var(--color-text-muted));
+  box-shadow: none;
+  transition:
+    background-color 0.12s ease,
+    border-color 0.12s ease,
+    box-shadow 0.12s ease,
+    color 0.12s ease,
+    transform 0.08s ease;
+}
+
+.axiom-rail-button:hover {
+  background: var(--color-rail-button-hover, var(--color-app-hover));
+  color: var(--color-text-main);
+}
+
+.axiom-rail-button:active {
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+  transform: var(--control-active-transform, none);
+}
+
+.axiom-rail-button-active {
+  background: var(--color-rail-button-active-bg, var(--color-app-active));
+  border-color: var(--color-control-border, transparent);
+  color: var(--color-rail-button-active-text, var(--color-accent-primary));
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+}
+
+/* Typography Overrides */
+[data-theme='soft'] h1,
+[data-theme='soft'] h2,
+[data-theme='soft'] h3,
+[data-theme='soft'] .font-bold {
+  font-family: var(--font-family-display, 'Poppins', sans-serif) !important;
+  color: var(--color-accent-primary);
+}
+
+[data-theme='soft'] .text-text-main {
+  color: #44476A;
+}
+
+/* Buttons */
+[data-theme='soft'] button:not(.axiom-field):not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.text-accent-primary):not(.axiom-menu-item):not(.axiom-tag-close):not(.axiom-dialog-row):not(.dock-button) {
+  box-shadow: var(--app-shadow-sm);
+  background: var(--color-app-bg);
+  border-radius: var(--app-radius-sm);
+}
+
+[data-theme='soft'] button:not(.axiom-field):not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.axiom-menu-item):not(.axiom-dialog-row):not(.dock-button):active {
+  box-shadow: var(--app-shadow-inset);
+}
+
+[data-theme='soft'] .axiom-dialog-backdrop {
+  background: color-mix(in srgb, var(--color-app-bg) 18%, rgba(24, 29, 38, 0.64));
+  backdrop-filter: blur(5px);
+}
+
+/* --- THEME: HARD (NEUBRUTALISM) --- */
+[data-theme='hard'] {
+  --font-family-ui: 'Inter', sans-serif;
+  --font-family-display: 'Archivo Black', 'Inter', sans-serif;
+  --font-family-node: 'Space Mono', 'JetBrains Mono', monospace;
+
+  /* Geometry — sharp corners, thick borders */
+  --app-radius-sm: 0px;
+  --app-radius-md: 0px;
+  --app-radius-lg: 0px;
+  --app-radius-node: 0px;
+  --app-border-width: 2px;
+  --app-node-border-width: 4px;
+  --palette-white-text: #151515;
+
+  /* Hard offset shadows — zero blur, pure black */
+  --app-shadow-sm: 3px 3px 0px 0px #000000;
+  --app-shadow-md: 6px 6px 0px 0px #000000;
+  --app-shadow-lg: 10px 10px 0px 0px #000000;
+  --app-shadow-xl: 14px 14px 0px 0px #000000;
+  --app-shadow-inset: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.15);
+  --app-shadow-active: 1px 1px 0px 0px #000000;
+
+  /* Foundation — Fun Neubrutalism Palette */
+  --color-app-bg: #fafafa;
+  --color-app-sidebar: #faf3e0;
+  /* Warm Sand/Beige */
+  --color-app-surface: #ffffff;
+  --color-app-header: #eb6f92;
+  /* Correct Pink/Magenta */
+  --color-app-border: #000000;
+  --color-app-grid: rgba(0, 0, 0, 0.15);
+  --color-canvas-edge: #000000;
+  --color-app-input: #ffffff;
+  --color-app-hover: #ffacff20;
+  /* Subtle pink hover */
+  --color-app-active: #ffacff40;
+  --color-control-bg: #ffffff;
+  --color-control-text: #000000;
+  --color-control-border: #000000;
+  --color-control-hover: #ffacff20;
+  --color-control-active: #ffacff40;
+  --color-control-primary-bg: #00ffff;
+  --color-control-primary-text: #000000;
+  --color-field-bg: #ffffff;
+  --color-field-text: #000000;
+  --color-field-border: #000000;
+  --color-menu-bg: #ffffff;
+  --color-menu-text: #000000;
+  --color-menu-border: #000000;
+  --color-menu-hover: #ffacff20;
+  --color-menu-separator: #000000;
+  --color-rail-bg: #faf3e0;
+  --color-rail-button-text: #000000;
+  --color-rail-button-hover: #ffacff20;
+  --color-rail-button-active-bg: #9ccfd8;
+  --color-rail-button-active-text: #000000;
+  --color-dock-bg: #ffffff;
+  --color-dock-border: #000000;
+  --color-dock-button-bg: #ffffff;
+  --color-dock-button-text: #000000;
+  --color-dock-button-hover: #ffacff20;
+  --color-dock-button-active-bg: #00ffff;
+  --color-dock-button-active-text: #000000;
+  --color-dock-divider: #000000;
+  --control-shadow: var(--app-shadow-sm);
+  --control-active-shadow: var(--app-shadow-active);
+  --control-active-transform: translate(2px, 2px);
+  --control-radius: 4px;
+  --control-border-width: 2px;
+  --field-shadow: none;
+  --field-focus-shadow: var(--app-shadow-sm);
+  --menu-shadow: var(--app-shadow-md);
+  --menu-hover-shadow: none;
+
+  /* Text — black-on-white for maximum contrast */
+  --color-text-main: #000000;
+  --color-text-muted: #2d2d2d;
+  --color-text-faint: #4b4b4b;
+
+  /* Accents — bright, punchy neubrutalism palette */
+  --color-accent-primary: #00ffff;
+  /* Cyan for contrast with pink */
+  --color-accent-primary-text: #000000;
+  --color-accent-success: #70ff8d;
+  --color-accent-success-text: #000000;
+  --color-accent-warning: #ffb800;
+  --color-accent-danger: #ff4d4d;
+  --color-accent-danger-dim: rgba(255, 77, 77, 0.1);
+  --color-accent-purple: #c4a7e7;
+  --color-accent-purple-text: #000000;
+  --color-accent-neutral: #9ccfd8;
+  --color-accent-neutral-text: #000000;
+
+  /* Line grid instead of dot grid */
+  --dot-grid: linear-gradient(#00000015 1px, transparent 1px), linear-gradient(90deg, #00000015 1px, transparent 1px);
+}
+
+/* ============================
+   HARD THEME — COMPONENT OVERRIDES
+   ============================ */
+
+/* Body background — line grid pattern */
+[data-theme='hard'] body {
+  background-color: var(--color-app-bg);
+  background-image:
+    linear-gradient(#00000018 1px, transparent 1px),
+    linear-gradient(90deg, #00000018 1px, transparent 1px);
+  background-size: 32px 32px;
+  /* Slightly larger grid */
+}
+
+/* --- Typography: Force bold/black weights and uppercase --- */
+[data-theme='hard'] h1,
+[data-theme='hard'] h2,
+[data-theme='hard'] h3 {
+  font-family: var(--font-family-display, 'Archivo Black', 'Inter', sans-serif) !important;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+}
+
+[data-theme='hard'] .font-bold,
+[data-theme='hard'] .font-semibold {
+  font-weight: 800 !important;
+}
+
+/* --- Header --- */
+[data-theme='hard'] header {
+  background: var(--color-app-header);
+  border-bottom: 3px solid #000 !important;
+}
+
+/* --- App Rail --- */
+[data-theme='hard'] nav.z-40 {
+  background: var(--color-app-sidebar);
+  border-right: 2px solid #000 !important;
+  border-radius: 0 !important;
+}
+
+/* --- Side Panel & Inspector --- */
+[data-theme='hard'] .axiom-side-panel,
+[data-theme='hard'] .axiom-inspector-panel {
+  background: var(--color-app-sidebar);
+  border-color: #000 !important;
+  border-radius: 0 !important;
+}
+
+/* Section headers — bright accent backgrounds like mockup */
+[data-theme='hard'] .axiom-side-panel .text-text-muted.uppercase,
+[data-theme='hard'] .axiom-side-panel .text-text-faint.uppercase,
+[data-theme='hard'] .axiom-inspector-panel .text-text-muted.uppercase,
+[data-theme='hard'] .axiom-inspector-panel .text-text-faint.uppercase {
+  color: var(--color-text-main) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.02em;
+}
+
+/* --- Inputs & Selects — thick bordered, no rounded --- */
+[data-theme='hard'] input:not(.axiom-field),
+[data-theme='hard'] textarea:not(.axiom-field),
+[data-theme='hard'] select:not(.axiom-field) {
+  border: 2px solid #000 !important;
+  border-radius: 0px !important;
+  background: #fff !important;
+  font-weight: 700;
+  box-shadow: none;
+  transition: box-shadow 0.1s ease;
+}
+
+[data-theme='hard'] input:not(.axiom-field):focus,
+[data-theme='hard'] textarea:not(.axiom-field):focus,
+[data-theme='hard'] select:not(.axiom-field):focus {
+  box-shadow: var(--app-shadow-sm) !important;
+  outline: none !important;
+  border-color: #000 !important;
+}
+
+/* --- Buttons — neubrutalism press effect --- */
+[data-theme='hard'] button:not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.axiom-menu-item):not(.axiom-dialog-row):not(.dock-button) {
+  border-radius: 4px !important;
+  font-weight: 700 !important;
+  transition: all 0.1s ease !important;
+  border: 2px solid #000;
+}
+
+[data-theme='hard'] button:not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.axiom-menu-item):not(.axiom-dialog-row):not(.dock-button):active {
+  transform: translate(2px, 2px) !important;
+  box-shadow: var(--app-shadow-active) !important;
+}
+
+/* Primary CTA buttons (like Apply Changes) */
+[data-theme='hard'] button.bg-accent-primary,
+[data-theme='hard'] button.bg-black {
+  box-shadow: var(--app-shadow-sm);
+}
+
+/* --- Floating Dock --- */
+[data-theme='hard'] .floating-dock .floating-dock-shell {
+  border: 2px solid #000;
+  box-shadow: var(--app-shadow-md);
+  border-radius: 4px;
+  gap: 0.25rem;
+}
+
+[data-theme='hard'] .floating-dock .dock-button {
+  border: 2px solid #000;
+  border-radius: 4px;
+  box-shadow: var(--app-shadow-sm);
+}
+
+[data-theme='hard'] .floating-dock .dock-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0 0 0 0 #000;
+}
+
+[data-theme='hard'] .floating-dock .dock-button:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 #000;
+}
+
+[data-theme='hard'] .floating-dock .dock-mini-node {
+  border: 2px solid #000;
+  background: color-mix(in srgb, var(--dock-color) 28%, #fff);
+  box-shadow: none;
+}
+
+[data-theme='hard'] .floating-dock .dock-mini-system {
+  border: none;
+  background: #000;
+}
+
+[data-theme='hard'] .floating-dock .dock-mini-system::after {
+  background: color-mix(in srgb, var(--dock-color) 28%, #fff);
+}
+
+[data-theme='hard'] .floating-dock .dock-mini-note svg {
+  color: #000;
+}
+
+/* --- Breadcrumbs --- */
+[data-theme='hard'] .bg-app-surface\/40 {
+  background: transparent !important;
+}
+
+/* --- Canvas Nodes — chunky borders, flat shadows, palette colors show through --- */
+[data-theme='hard'] .react-flow__node {
+  border: none !important;
+}
+
+[data-theme='hard'] .react-flow__node>div:not(.node-linked-wrapper),
+[data-theme='hard'] .react-flow__node>.node-linked-wrapper>div:first-child {
+  background-color: var(--node-bg-color, var(--color-app-surface)) !important;
+  border: 4px solid #000 !important;
+  /* Slightly thicker for even more brutalism */
+  box-shadow: var(--app-shadow-md) !important;
+  border-radius: 0px !important;
+  transition: all 0.1s ease !important;
+}
+
+[data-theme='hard'] .react-flow__node:hover>div:not(.node-linked-wrapper),
+[data-theme='hard'] .react-flow__node:hover>.node-linked-wrapper>div:first-child {
+  box-shadow: var(--app-shadow-lg) !important;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme='hard'] .react-flow__node.selected>div:not(.node-linked-wrapper):not(:has(.shape-diamond-container)):not(:has(.clip-chamfer)):not(:has(.shape-event)),
+[data-theme='hard'] .react-flow__node.selected>.node-linked-wrapper>div:first-child:not(:has(.shape-diamond-container)):not(:has(.clip-chamfer)):not(:has(.shape-event)) {
+  border: 4px solid #151515 !important;
+  box-shadow:
+    6px 6px 0 #151515,
+    11px 11px 0 var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+}
+
+[data-theme='hard'] .react-flow__node.selected .shape-diamond-container,
+[data-theme='hard'] .react-flow__node.selected>div:not(.node-linked-wrapper),
+[data-theme='hard'] .react-flow__node.selected>.node-linked-wrapper>div:first-child,
+[data-theme='hard'] .react-flow__node.selected * {
+  --tw-ring-width: 0px !important;
+  --tw-ring-offset-width: 0px !important;
+  --tw-ring-shadow: none !important;
+}
+
+[data-theme='hard'] .react-flow__node,
+[data-theme='hard'] .react-flow__node * {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+[data-theme='hard'] .react-flow__node:active>div:not(.node-linked-wrapper),
+[data-theme='hard'] .react-flow__node:active>.node-linked-wrapper>div:first-child {
+  box-shadow: var(--app-shadow-active) !important;
+  transform: translate(2px, 2px);
+}
+
+/* Node shape inner layer — transparent so parent's solid palette bg shows through always */
+[data-theme='hard'] .react-flow__node .shape-pill,
+[data-theme='hard'] .react-flow__node .shape-rect,
+[data-theme='hard'] .react-flow__node .shape-resource {
+  border: none !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+}
+
+[data-theme='hard'] .react-flow__node:hover .shape-pill,
+[data-theme='hard'] .react-flow__node:hover .shape-rect,
+[data-theme='hard'] .react-flow__node:hover .shape-resource,
+[data-theme='hard'] .react-flow__node .shape-pill:hover,
+[data-theme='hard'] .react-flow__node .shape-rect:hover,
+[data-theme='hard'] .react-flow__node .shape-resource:hover,
+[data-theme='hard'] .react-flow__node.selected .shape-pill,
+[data-theme='hard'] .react-flow__node.selected .shape-rect,
+[data-theme='hard'] .react-flow__node.selected .shape-resource {
+  border: none !important;
+  background-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+}
+
+[data-theme='hard'] .shape-resource {
+  color: #151515 !important;
+}
+
+[data-theme='hard'] .shape-resource .text-text-main {
+  color: #151515 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme='hard'] .shape-resource .text-text-faint,
+[data-theme='hard'] .shape-resource .opacity-70,
+[data-theme='hard'] .shape-resource .opacity-80 {
+  color: #151515 !important;
+  opacity: 0.9 !important;
+}
+
+/* Pill nodes (Start/End) — keep the pill shape but with hard border */
+[data-theme='hard'] .react-flow__node>div:not(.node-linked-wrapper):has(.shape-pill),
+[data-theme='hard'] .react-flow__node>.node-linked-wrapper>div:first-child:has(.shape-pill) {
+  border-radius: 9999px !important;
+}
+
+/* Event node container — delegate border and shadow to shape-event */
+[data-theme='hard'] .react-flow__node[data-id]>div:not(.node-linked-wrapper):has(.shape-event),
+[data-theme='hard'] .react-flow__node[data-id]>.node-linked-wrapper>div:first-child:has(.shape-event) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+[data-theme='hard'] .react-flow__node[data-id]:hover .shape-event {
+  box-shadow: var(--app-shadow-lg) !important;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme='hard'] .react-flow__node[data-id].selected .shape-event {
+  box-shadow:
+    6px 6px 0 #151515,
+    11px 11px 0 var(--node-accent-color, var(--color-node-event-accent)) !important;
+}
+
+/* Decision diamond — hard border and solid fill on the diamond itself */
+[data-theme='hard'] .react-flow__node[data-id]>div:not(.node-linked-wrapper):has(.shape-diamond-container),
+[data-theme='hard'] .react-flow__node[data-id]>.node-linked-wrapper>div:first-child:has(.shape-diamond-container) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+[data-theme='hard'] .react-flow__node[data-id] .shape-diamond-container {
+  background-color: var(--node-bg-color, var(--color-app-surface)) !important;
+  border: 4px solid #151515 !important;
+  box-shadow: var(--app-shadow-md) !important;
+  border-radius: 0px !important;
+}
+
+[data-theme='hard'] .react-flow__node[data-id]:hover .shape-diamond-container,
+[data-theme='hard'] .react-flow__node[data-id] .shape-diamond-container:hover {
+  background-color: var(--node-bg-color, var(--color-app-surface)) !important;
+  box-shadow: var(--app-shadow-lg) !important;
+}
+
+[data-theme='hard'] .react-flow__node[data-id].selected .shape-diamond-container,
+[data-theme='hard'] .react-flow__node[data-id].selected:hover .shape-diamond-container {
+  background-color: var(--node-bg-color, var(--color-app-surface)) !important;
+  border: 4px solid #151515 !important;
+  box-shadow:
+    6px 6px 0 #151515,
+    11px 11px 0 var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+}
+
+/* System node (clip-chamfer) — use drop-shadow since clip-path clips box-shadow */
+[data-theme='hard'] .react-flow__node[data-id]>div:not(.node-linked-wrapper):has(.clip-chamfer),
+[data-theme='hard'] .react-flow__node[data-id]>.node-linked-wrapper>div:first-child:has(.clip-chamfer) {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  filter: drop-shadow(4px 4px 0px #000);
+  transition: filter 0.1s ease;
+}
+
+[data-theme='hard'] .react-flow__node[data-id] .shape-system {
+  background: #151515 !important;
+  opacity: 1 !important;
+}
+
+[data-theme='hard'] .react-flow__node[data-id] .shape-system>.clip-chamfer {
+  inset: 4px !important;
+  background: var(--node-bg-color, var(--color-app-surface)) !important;
+}
+
+[data-theme='hard'] .react-flow__node[data-id]:hover>div:not(.node-linked-wrapper):has(.clip-chamfer),
+[data-theme='hard'] .react-flow__node[data-id]:hover>.node-linked-wrapper>div:first-child:has(.clip-chamfer) {
+  filter: drop-shadow(6px 6px 0px #000);
+}
+
+[data-theme='hard'] .react-flow__node[data-id].selected>div:not(.node-linked-wrapper):has(.clip-chamfer),
+[data-theme='hard'] .react-flow__node[data-id].selected>.node-linked-wrapper>div:first-child:has(.clip-chamfer) {
+  filter:
+    drop-shadow(6px 6px 0 #151515)
+    drop-shadow(5px 5px 0 var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary)))) !important;
+}
+
+[data-theme='hard'] .shape-system-selection-ring {
+  display: none !important;
+}
+
+/* clip-chamfer inherits its palette color from inline style */
+
+/* Match the readable canvas label size without changing Brutalist styling. */
+[data-theme='hard'] .react-flow__node .editable-label,
+[data-theme='hard'] .react-flow__node .viewer-node-label {
+  font-size: 13px !important;
+}
+
+/* Node labels — bold monospace uppercase, dark text for readability on colored nodes */
+[data-theme='hard'] .react-flow__node .editable-label,
+[data-theme='hard'] .react-flow__node .viewer-node-label {
+  font-weight: 700 !important;
+  font-family: var(--font-family-node, 'Space Mono', 'JetBrains Mono', monospace) !important;
+  text-transform: uppercase !important;
+  text-shadow: none;
+  color: #1a1b26 !important;
+}
+
+[data-theme='hard'] .editable-label input,
+[data-theme='hard'] .editable-label textarea {
+  font-weight: 700 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* --- Swimlane Overrides — transparent lanes, solid colored headers --- */
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"]>div,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"]:hover>div,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"]:active>div,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"].selected>div {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  transform: none !important;
+}
+
+/* Lane body areas — transparent so grid shows through */
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .bg-dot-grid {
+  background-image: linear-gradient(#00000008 1px, transparent 1px), linear-gradient(90deg, #00000008 1px, transparent 1px) !important;
+  background-size: 32px 32px !important;
+  opacity: 1 !important;
+}
+
+/* Lane dividers — solid thick black lines */
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .border-dashed {
+  border-color: #000 !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+}
+
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .border-b,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .border-r,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .border-l,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .border-t {
+  border-color: #000 !important;
+  border-style: solid !important;
+  border-width: 2px !important;
+}
+
+/* Lane headers — solid colored background from the accent bar color.
+   The accent bar already has the lane color via inline style; we make
+   the header zone pick up that color by making bg transparent and
+   letting the accent bar expand to fill the header. */
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-down,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-inset {
+  box-shadow: none !important;
+  border-bottom: 2px solid #000 !important;
+  background: transparent !important;
+}
+
+/* Expand the accent bar to fill the entire header area */
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-down>div[style],
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-inset>div[style] {
+  /* The accent bar uses absolute positioning — expand it */
+  width: 100% !important;
+  height: 100% !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  opacity: 0.85;
+}
+
+/* Lane header text — dark for contrast on colored headers */
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-down span,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-inset span {
+  color: #1a1b26 !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* Lane header control buttons — keep above the accent bar */
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-down button,
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .shadow-soft-inset button {
+  position: relative;
+  z-index: 2;
+}
+
+/* Swimlane label text — vertical, uppercase, heavy */
+[data-theme='hard'] .writing-vertical {
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* --- Edge Labels --- */
+[data-theme='hard'] .react-flow__edge-textwrapper text {
+  font-weight: 700 !important;
+}
+
+/* --- Scrollbars — chunky neobrutalist style --- */
+[data-theme='hard'] .app-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[data-theme='hard'] .app-scroll::-webkit-scrollbar-track {
+  background: #fff;
+  border-left: 2px solid #000;
+}
+
+[data-theme='hard'] .app-scroll::-webkit-scrollbar-thumb {
+  background: #000;
+  border: 2px solid #fff;
+  border-radius: 0px;
+}
+
+[data-theme='hard'] .app-scroll::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* --- ReactFlow Controls --- */
+[data-theme='hard'] .react-flow__controls {
+  border: 2px solid #000 !important;
+  box-shadow: var(--app-shadow-md) !important;
+  border-radius: 0px !important;
+  overflow: hidden;
+}
+
+[data-theme='hard'] .react-flow__controls-button {
+  background: #fff !important;
+  border-bottom: 2px solid #000 !important;
+  fill: #000 !important;
+}
+
+[data-theme='hard'] .react-flow__controls-button:hover {
+  background: var(--color-accent-primary) !important;
+  fill: #000 !important;
+}
+
+/* --- Context Menus & Dropdowns --- */
+[data-theme='hard'] .animate-in {
+  border: 2px solid #000 !important;
+  box-shadow: var(--app-shadow-md) !important;
+  border-radius: 4px !important;
+  background: #fff !important;
+}
+
+/* --- Selection text highlight — yellow like mockup --- */
+[data-theme='hard'] ::selection {
+  background: var(--color-accent-primary);
+  color: #000;
+}
+
+/* --- Dividers: dashed → solid black --- */
+[data-theme='hard'] .h-\[1px\].bg-app-border {
+  height: 2px !important;
+  background: #000 !important;
+}
+
+/* --- Tags and badges --- */
+[data-theme='hard'] .rounded-full {
+  border-radius: 4px !important;
+}
+
+/* Base Settings */
+body {
+  background-color: var(--color-app-bg);
+  color: var(--color-text-main);
+  overflow: hidden;
+  user-select: none;
+  font-family: var(--font-family-ui, 'Inter', sans-serif);
+}
+
+/* Shared interaction-state contract for app UI and future plugin primitives. */
+.axiom-process-canvas:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: -2px;
+}
+
+:where(
+  button,
+  a[href],
+  input,
+  select,
+  textarea,
+  [role='button'],
+  [role='menuitem'],
+  [role='option']
+):focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+:where(button, input, select, textarea):disabled,
+:where([aria-disabled='true']) {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Custom Utilities for Shapes (From Mockup) */
+@layer utilities {
+  .shape-pill {
+    border-radius: 9999px;
+  }
+
+  .shape-rect {
+    border-radius: var(--app-radius-node, var(--app-radius-md, 6px));
+  }
+
+  .shape-diamond-container {
+    transform: rotate(45deg);
+    overflow: hidden;
+    border-radius: var(--app-radius-sm, 4px);
+  }
+
+  .shape-diamond-content {
+    transform: rotate(-45deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 142%;
+    height: 142%;
+    margin-top: -21%;
+    margin-left: -21%;
+  }
+
+  .clip-chamfer {
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .dot-grid {
+    background-size: 24px 24px;
+    background-image: var(--dot-grid);
+  }
+
+
+  /* Custom Scrollbar */
+  .app-scroll::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .app-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .app-scroll::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    /* Zinc 700 */
+    border-radius: 2px;
+  }
+
+  .app-scroll::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-faint);
+  }
+
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+
+  .shadow-glow-primary {
+    box-shadow: var(--app-shadow-sm);
+  }
+}

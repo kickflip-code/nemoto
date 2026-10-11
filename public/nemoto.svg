@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<rect width="512" height="512" rx="112" fill="#101715"/>
+<g transform="translate(14 72) scale(2.2)">
+  <defs>
+    <linearGradient id="nemotoLeaf" gradientUnits="userSpaceOnUse" x1="150" y1="88" x2="196" y2="15">
+      <stop offset="0" stop-color="#63BFA4"/><stop offset="1" stop-color="#A2EBB2"/>
+    </linearGradient>
+    <linearGradient id="nemotoSmallLeaf" gradientUnits="userSpaceOnUse" x1="154" y1="93" x2="116" y2="46">
+      <stop offset="0" stop-color="#63BFA4"/><stop offset="1" stop-color="#A2EBB2"/>
+    </linearGradient>
+  </defs>
+
+  
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    
+    <path d="M35 101 H92" stroke="#E4E4E7" stroke-width="8"/>
+    
+    <path d="M101 110 V122 C101 133 106 139 115 139" stroke="#E4E4E7" stroke-width="8"/>
+    
+    <path d="M110 101 H136 C147 101 154 97 154 88" stroke="#63BFA4" stroke-width="8" stroke-linecap="butt"/>
+  </g>
+
+  
+  <circle cx="35" cy="101" r="12.7" fill="#E4E4E7"/>
+  <circle cx="115" cy="139" r="11.6" fill="#8CD5B6"/>
+  <path d="M101 84 L118 101 L101 118 L84 101 Z" fill="#E4E4E7"/>
+
+  
+  <path d="M154 93 C140 82 122 78 118 60 C117 54 116 50 116 46 C136 47 152 64 154 93 Z" fill="url(#nemotoSmallLeaf)"/>
+  
+  <path d="M136 101 C147 101 154 97 154 88" fill="none" stroke="#63BFA4" stroke-width="8"/>
+  
+  <path d="M150 88 C148 62 156 38 172 26 C181 18 189 15 196 15 C197 40 189 58 172 70 C165 75 160 80 158 88 Z" fill="url(#nemotoLeaf)"/>
+</g></svg>

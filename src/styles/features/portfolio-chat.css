@@ -1,0 +1,150 @@
+/* Portfolio Chat: feature-owned presentation for the playful print theme. */
+
+[data-theme='hard'] .axiom-portfolio-chat {
+  --color-accent-primary: var(--color-accent-purple);
+  --color-control-hover: color-mix(in srgb, var(--palette-amber, #ffd166) 22%, var(--color-app-surface));
+  --color-control-active: color-mix(in srgb, var(--palette-amber, #ffd166) 38%, var(--color-app-surface));
+  --color-control-primary-bg: var(--color-app-header);
+  --color-control-primary-text: #151515;
+  --field-focus-shadow: 0 0 0 2px #151515;
+  background: var(--color-app-bg) !important;
+  border-left: 3px solid #151515 !important;
+  box-shadow: -7px 0 0 rgba(21, 21, 21, 0.12) !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat :where(button, input, select, textarea, summary):focus-visible,
+[data-theme='hard'] .axiom-portfolio-chat-trigger:focus-visible {
+  outline-color: #151515 !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-header {
+  background: var(--color-app-header);
+  border-bottom: 3px solid #151515 !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-resize-handle {
+  background: var(--color-app-surface) !important;
+  border: 2px solid #151515 !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 #151515 !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-mark,
+[data-theme='hard'] .axiom-chat-assistant-mark,
+[data-theme='hard'] .axiom-chat-thinking-mark {
+  background: var(--palette-amber, #ffd166) !important;
+  border: 2px solid #151515 !important;
+  border-radius: 0 !important;
+  color: #151515 !important;
+  box-shadow: 3px 3px 0 #151515 !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-context {
+  background: var(--color-app-sidebar) !important;
+  border-bottom: 3px solid #151515 !important;
+}
+
+[data-theme='hard'] .axiom-chat-history-item {
+  border: 1px solid #151515 !important;
+  border-radius: 0 !important;
+  background: var(--color-app-surface) !important;
+}
+
+[data-theme='hard'] .axiom-chat-history-item[data-active='true'] {
+  background: color-mix(in srgb, var(--palette-amber, #ffd166) 42%, var(--color-app-surface)) !important;
+  border-width: 2px !important;
+  box-shadow: 3px 3px 0 #151515;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-context-card {
+  background: var(--color-app-surface) !important;
+  border: 2px solid #151515 !important;
+  border-radius: 0 !important;
+  box-shadow: 3px 3px 0 #151515;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-pin {
+  color: var(--color-accent-purple) !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-context .text-accent-primary,
+[data-theme='hard'] .axiom-portfolio-chat-empty .text-accent-primary,
+[data-theme='hard'] .axiom-chat-thinking-mark .text-accent-primary {
+  color: var(--color-accent-purple) !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-transcript {
+  background: var(--color-app-bg);
+}
+
+[data-theme='hard'] .axiom-chat-message-user,
+[data-theme='hard'] .axiom-chat-message-assistant {
+  border: 2px solid #151515 !important;
+  border-radius: 4px !important;
+  box-shadow: 4px 4px 0 #151515 !important;
+}
+
+[data-theme='hard'] .axiom-chat-message-user {
+  background: var(--palette-amber, #ffd166) !important;
+  color: #151515 !important;
+}
+
+[data-theme='hard'] .axiom-chat-message-assistant {
+  background: var(--color-app-surface) !important;
+}
+
+[data-theme='hard'] .axiom-chat-sources {
+  background: color-mix(in srgb, var(--color-app-sidebar) 58%, var(--color-app-surface)) !important;
+  border: 2px solid #151515 !important;
+  border-radius: 0 !important;
+}
+
+[data-theme='hard'] .axiom-chat-citation {
+  background: var(--color-app-surface) !important;
+  border: 1px solid #151515 !important;
+  border-radius: 0 !important;
+}
+
+[data-theme='hard'] .axiom-chat-citation:not(:disabled):hover {
+  background: var(--color-control-hover) !important;
+  box-shadow: 2px 2px 0 #151515;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme='hard'] .axiom-chat-inspect {
+  color: var(--color-accent-purple) !important;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-composer {
+  background: var(--color-app-surface) !important;
+  border-top: 3px solid #151515 !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-composer .axiom-button-primary {
+  background: var(--color-app-header) !important;
+  border-color: #151515 !important;
+  color: #151515 !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-composer .axiom-button-primary:not(:disabled):hover {
+  background: color-mix(in srgb, var(--color-app-header) 78%, var(--palette-amber, #ffd166)) !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-footer {
+  background: var(--color-app-sidebar);
+  border-top: 2px solid #151515 !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-trigger[aria-pressed='true'] {
+  background: var(--palette-amber, #ffd166) !important;
+  border-color: #151515 !important;
+  color: #151515 !important;
+  box-shadow: 3px 3px 0 #151515 !important;
+  transform: none !important;
+}
+
+[data-theme='hard'] .axiom-portfolio-chat-trigger[aria-pressed='true']:hover {
+  background: color-mix(in srgb, var(--palette-amber, #ffd166) 78%, var(--color-app-surface)) !important;
+}

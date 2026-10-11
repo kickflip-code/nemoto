@@ -1,0 +1,292 @@
+.plugin-composed-view {
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  overflow: auto;
+  padding: clamp(0.75rem, 2.5vw, 1.5rem);
+  background: var(--color-app-bg);
+  color: var(--color-text-main);
+}
+
+.plugin-composed-stack,
+.plugin-composed-grid,
+.plugin-composed-list,
+.plugin-composed-dialog-body {
+  min-width: 0;
+}
+
+.plugin-composed-stack {
+  display: flex;
+}
+
+.plugin-composed-stack-vertical {
+  flex-direction: column;
+}
+
+.plugin-composed-stack-horizontal {
+  flex-direction: row;
+  align-items: center;
+}
+
+.plugin-composed-stack > * {
+  min-width: 0;
+}
+
+.plugin-composed-view button,
+.plugin-composed-dialog button {
+  overflow-wrap: anywhere;
+}
+
+.plugin-composed-stack[data-wrap='true'] {
+  flex-wrap: wrap;
+}
+
+.plugin-composed-grid {
+  display: grid;
+}
+
+.plugin-composed-grid-compact-1 { grid-template-columns: minmax(0, 1fr); }
+.plugin-composed-grid-compact-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.plugin-composed-grid-compact-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.plugin-composed-grid-compact-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.plugin-composed-gap-none { gap: 0; }
+.plugin-composed-gap-small { gap: 0.5rem; }
+.plugin-composed-gap-medium { gap: 1rem; }
+.plugin-composed-gap-large { gap: 1.5rem; }
+
+.plugin-composed-text {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.plugin-composed-text-heading {
+  font-family: var(--font-family-display);
+  font-size: 1.25rem;
+  font-weight: 750;
+}
+
+.plugin-composed-text-caption { font-size: 0.75rem; }
+.plugin-composed-text-status { font-size: 0.875rem; font-weight: 650; }
+.plugin-composed-tone-muted { color: var(--color-text-muted); }
+.plugin-composed-tone-danger { color: var(--color-accent-danger); }
+
+.plugin-composed-field {
+  display: grid;
+  min-width: 0;
+  gap: 0.375rem;
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  font-weight: 650;
+}
+
+.plugin-composed-checkbox {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.5rem;
+  color: var(--color-text-main);
+  font-size: 0.875rem;
+}
+
+.plugin-composed-checkbox input {
+  accent-color: var(--color-accent-primary);
+}
+
+.plugin-composed-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.plugin-composed-list-item {
+  min-width: 0;
+  padding: 0.75rem;
+  border: max(1px, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
+  border-radius: var(--app-radius-sm);
+  background: var(--color-app-surface);
+}
+
+.plugin-composed-dialog {
+  width: min(34rem, calc(100vw - 2rem));
+  max-height: min(44rem, calc(100vh - 2rem));
+  overflow: auto;
+  padding: 1.25rem;
+}
+
+.plugin-composed-dialog-title {
+  margin: 0 0 1rem;
+  color: var(--color-text-main);
+  font-size: 1.125rem;
+  font-weight: 750;
+}
+
+.plugin-composed-dialog-body {
+  display: grid;
+  gap: 1rem;
+}
+
+.plugin-composed-error {
+  margin: 1rem;
+  padding: 0.75rem 1rem;
+  border: var(--app-border-width) solid var(--color-accent-danger);
+  border-radius: var(--app-radius-sm);
+  background: var(--color-accent-danger-dim);
+  color: var(--color-accent-danger);
+}
+
+@media (min-width: 48rem) {
+  .plugin-composed-grid-wide-1 { grid-template-columns: minmax(0, 1fr); }
+  .plugin-composed-grid-wide-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .plugin-composed-grid-wide-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .plugin-composed-grid-wide-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.plugin-composed-view > .plugin-composed-stack,
+.plugin-composed-view > .plugin-composed-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 4px 3rem;
+}
+
+@media (max-width: 640px) {
+  .plugin-composed-view > .plugin-composed-stack,
+  .plugin-composed-view > .plugin-composed-grid {
+    padding: 1rem 0 2rem;
+  }
+}
+
+
+/* Tokens belong to the presentation primitive; package keys are opaque. */
+.plugin-presentation { min-width: 0; }
+.plugin-presentation[data-ui-width='grow'] { flex: 1 1 14rem; }
+.plugin-presentation[data-ui-width='double'] { flex: 2 1 22rem; }
+.plugin-presentation[data-ui-width='compact'] { flex: 0 1 11rem; }
+.plugin-presentation[data-ui-align='start'] > .plugin-composed-stack { align-items: flex-start; }
+.plugin-presentation[data-ui-align='center'] > .plugin-composed-stack { align-items: center; }
+.plugin-presentation[data-ui-align='end'] > .plugin-composed-stack { align-items: flex-end; }
+.plugin-presentation[data-ui-align='stretch'] > .plugin-composed-stack { align-items: stretch; }
+.plugin-presentation[data-ui-justify='between'] > .plugin-composed-stack { justify-content: space-between; }
+.plugin-presentation[data-ui-justify='center'] > .plugin-composed-stack { justify-content: center; }
+.plugin-presentation[data-ui-justify='end'] > .plugin-composed-stack { justify-content: flex-end; }
+.plugin-presentation[data-ui-justify='start'] > .plugin-composed-stack { justify-content: flex-start; }
+.plugin-presentation[data-ui-padding='small'] { padding: .5rem; }
+.plugin-presentation[data-ui-padding='medium'] { padding: 1rem; }
+.plugin-presentation[data-ui-padding='large'] { padding: 2rem; }
+.plugin-presentation[data-ui-surface='card'] {
+  border: max(1px, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
+  border-radius: var(--app-radius-md);
+  padding: 1rem;
+}
+.plugin-presentation[data-ui-tone] { --plugin-tone: var(--color-text-main); }
+.plugin-presentation[data-ui-tone='muted'] { --plugin-tone: var(--color-text-muted); }
+.plugin-presentation[data-ui-tone='accent'] { --plugin-tone: var(--color-accent-primary); }
+.plugin-presentation[data-ui-tone='success'] { --plugin-tone: var(--color-accent-success); }
+.plugin-presentation[data-ui-tone='warning'] { --plugin-tone: var(--color-accent-warning); }
+.plugin-presentation[data-ui-tone='danger'] { --plugin-tone: var(--color-accent-danger); }
+.plugin-presentation[data-ui-tone] > .plugin-composed-text { color: var(--plugin-tone); }
+.plugin-presentation[data-ui-textsize='caption'] > .plugin-composed-text { font-size: .75rem; font-weight: 500; }
+.plugin-presentation[data-ui-textsize='body'] > .plugin-composed-text { font-size: .875rem; font-weight: 500; }
+.plugin-presentation[data-ui-textsize='section'] > .plugin-composed-text { font-size: .875rem; font-weight: 650; }
+.plugin-presentation[data-ui-textsize='title'] > .plugin-composed-text { font-size: 1.5rem; font-weight: 750; }
+.plugin-presentation[data-ui-surface='badge'] {
+  display: inline-flex;
+  align-items: center;
+  padding: .25rem .5rem;
+  border: 1px solid color-mix(in srgb, var(--plugin-tone, var(--color-text-muted)) 35%, transparent);
+  border-radius: var(--app-radius-sm);
+  background: color-mix(in srgb, var(--plugin-tone, var(--color-text-muted)) 10%, transparent);
+}
+.plugin-presentation[data-ui-surface='segmented'] {
+  display: inline-flex;
+  width: fit-content;
+  padding: .2rem;
+  border: max(1px, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
+  border-radius: var(--app-radius-sm);
+}
+.plugin-presentation[data-ui-surface='segmented'] > .plugin-composed-stack { gap: .15rem; }
+.plugin-presentation[data-ui-control='segment'] > button {
+  min-height: 1.75rem;
+  padding: .3rem .65rem;
+  border: 0;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: var(--color-text-main) !important;
+  font-size: .75rem;
+}
+.plugin-presentation[data-ui-control='segment'][data-ui-selected='true'] > button {
+  background: color-mix(in srgb, var(--color-accent-primary) 18%, transparent) !important;
+}
+.plugin-presentation[data-ui-control='link'] > button {
+  padding: 0;
+  min-height: 1.75rem;
+  border: 0;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: var(--color-text-main);
+  text-align: left;
+  font-weight: 500;
+  font-size: .875rem;
+}
+.plugin-presentation[data-ui-control='matrix'] > button,
+.plugin-presentation[data-ui-control='matrix'] > .plugin-composed-text {
+  width: 2.25rem;
+  min-height: 2.25rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .125rem;
+  font-size: .75rem;
+}
+.plugin-presentation[data-ui-control='matrix'] > button {
+  color: var(--plugin-tone, var(--color-text-main)) !important;
+  background: color-mix(in srgb, var(--plugin-tone, var(--color-text-muted)) 15%, var(--color-app-bg)) !important;
+  border: 1px solid color-mix(in srgb, var(--plugin-tone, var(--color-text-muted)) 45%, transparent);
+  box-shadow: none !important;
+}
+.plugin-presentation[data-ui-control='matrix'][data-ui-selected='true'] > button {
+  outline: 2px solid var(--plugin-tone, var(--color-accent-primary));
+  outline-offset: 2px;
+}
+.plugin-presentation > .plugin-composed-field { position: relative; }
+.plugin-field-icon { position: absolute; left: .65rem; bottom: .5rem; pointer-events: none; }
+.plugin-presentation[data-ui-icon] > .plugin-composed-field > input { padding-left: 2rem; }
+.plugin-presentation[data-ui-editorheight] .axiom-record-editor {
+  border: max(1px, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
+  border-radius: var(--app-radius-sm);
+  overflow: hidden;
+}
+.plugin-presentation[data-ui-editorheight='small'] .tiptap { min-height: 6rem; }
+.plugin-presentation[data-ui-editorheight='medium'] .tiptap { min-height: 10rem; }
+.plugin-presentation[data-ui-editorheight='large'] .tiptap { min-height: 16rem; }
+.plugin-presentation[data-ui-justify='center'] > .plugin-composed-text { text-align: center; }
+@media (max-width: 40rem) {
+  .plugin-presentation[data-ui-width='double'] { flex-basis: 100%; }
+}
+
+.plugin-presentation .plugin-composed-field > input,
+.plugin-presentation .plugin-composed-field > select { font-size: 1rem; font-weight: 400; }
+.plugin-presentation[data-ui-label='hidden'] > .plugin-composed-checkbox input {
+  appearance: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1px solid var(--color-text-muted);
+  border-radius: 50%;
+  background: var(--color-app-bg);
+}
+.plugin-presentation[data-ui-label='hidden'] > .plugin-composed-checkbox input:checked {
+  background: var(--color-accent-primary);
+  box-shadow: inset 0 0 0 3px var(--color-app-bg);
+}
+.plugin-presentation[data-ui-label='hidden'] > .plugin-composed-checkbox input:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 3px;
+}
+
+.plugin-composed-field > input,
+.plugin-composed-field > select,
+.plugin-composed-field .axiom-record-editor { font-weight: 400; color: var(--color-text-main); }
+.plugin-presentation[data-ui-control='matrix'] > button,
+.plugin-presentation[data-ui-surface='badge'] > .plugin-composed-text {
+  color: color-mix(in srgb, var(--color-text-main) 80%, var(--plugin-tone, var(--color-text-main))) !important;
+}

@@ -1,0 +1,60 @@
+[package]
+name = "nemoto"
+version = "1.0.0-beta.1"
+license = "MPL-2.0"
+description = "Nemoto - Local-first Process Mapping"
+authors = ["Joseph Lundström"]
+edition = "2021"
+default-run = "nemoto"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+name = "nemoto_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2.0"
+semver = "1"
+sha2 = "0.10"
+base64 = "0.22"
+crc32fast = "1.5.0"
+flate2 = "1.1.8"
+uuid = { version = "1", features = ["v4"] }
+url = "2.5.8"
+directories = "5.0"
+tauri-plugin-window-state = "2.4.1"
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+chrono = { version = "0.4", features = ["serde"] }
+keyring = { version = "4.1", features = ["v1"] }
+wasmtime = { version = "=36.0.14", default-features = false, features = ["cranelift", "runtime", "std"] }
+wat = { version = "1.254.0", optional = true }
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_Security", "Win32_Storage_FileSystem", "Win32_System_JobObjects", "Win32_System_Threading"] }
+
+[dev-dependencies]
+tempfile = "3.24"
+wat = "1.254.0"
+
+# Wasm modules compile on first use. Running Cranelift itself without
+# optimization makes a cold plugin view take seconds even for a small guest.
+# This changes native compiler code only, not guest fuel/deadlines or admission.
+[profile.dev.package.cranelift-codegen]
+opt-level = 3
+
+
+
+[features]
+default = []
+portable = []
+test-execution-policy = []
+runtime-security-harness = ["dep:wat"]

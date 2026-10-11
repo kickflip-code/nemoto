@@ -1,0 +1,127 @@
+/* Core-owned declarative theme recipes.
+   This sheet is loaded after theme art direction and viewer overrides so a
+   selected recipe can intentionally replace presentation without raw CSS. */
+
+[data-theme-surface-style] :is(
+  .axiom-panel,
+  .axiom-side-panel,
+  .axiom-inspector-panel,
+  .axiom-journal-context-panel
+) {
+  background: var(--theme-panel-background, var(--color-app-sidebar)) !important;
+  backdrop-filter: var(--theme-surface-backdrop-filter, none);
+  -webkit-backdrop-filter: var(--theme-surface-backdrop-filter, none);
+}
+
+[data-theme-surface-style] .axiom-panel-header {
+  background: var(--theme-panel-header-background, var(--color-app-header)) !important;
+}
+
+[data-theme-surface-style] .axiom-panel-body {
+  background: var(--theme-panel-body-background, var(--color-app-sidebar)) !important;
+}
+
+[data-theme-surface-style] .axiom-panel-section {
+  background: var(--theme-panel-section-background, var(--color-app-surface)) !important;
+}
+
+[data-theme-surface-style] :is(.axiom-modal-panel, .axiom-dialog-panel) {
+  background: var(--theme-dialog-background, var(--color-app-surface)) !important;
+  backdrop-filter: var(--theme-surface-backdrop-filter, none);
+  -webkit-backdrop-filter: var(--theme-surface-backdrop-filter, none);
+}
+
+[data-theme-surface-style] :is(
+  .axiom-modal-sidebar,
+  .axiom-dialog-header,
+  .axiom-dialog-footer
+) {
+  background: var(--theme-dialog-header-background, var(--color-app-header)) !important;
+}
+
+[data-theme-surface-style] :is(.axiom-modal-content, .axiom-dialog-body) {
+  background: var(--theme-dialog-body-background, var(--color-app-bg)) !important;
+}
+
+[data-theme-surface-style] :is(
+  .axiom-popover,
+  .axiom-file-menu,
+  .axiom-context-menu
+) {
+  background: var(--theme-menu-background, var(--color-menu-bg)) !important;
+  backdrop-filter: var(--theme-surface-backdrop-filter, none);
+  -webkit-backdrop-filter: var(--theme-surface-backdrop-filter, none);
+}
+
+[data-theme-node-style] .react-flow__node > div {
+  box-shadow: none !important;
+}
+
+[data-theme-node-style] :is(
+  .react-flow__node .shape-rect,
+  .react-flow__node .shape-pill,
+  .react-flow__node .shape-resource,
+  .react-flow__node .shape-event,
+  .react-flow__node .shape-diamond-container,
+  .react-flow__node .shape-post-it,
+  .react-flow__node .shape-arrow,
+  .axiom-node
+) {
+  border-width: var(--theme-node-border-width, var(--app-node-border-width)) !important;
+  border-style: solid !important;
+  border-radius: var(--theme-node-radius, var(--app-radius-node)) !important;
+  box-shadow: var(--theme-node-shadow, var(--app-shadow-sm)) !important;
+}
+
+[data-theme-node-style] :is(
+  .react-flow__node .shape-pill,
+  .react-flow__node > div:has(.shape-pill)
+) {
+  border-radius: 9999px !important;
+}
+
+[data-theme-node-style] .react-flow__node:hover :is(
+  .shape-rect,
+  .shape-pill,
+  .shape-resource,
+  .shape-event,
+  .shape-diamond-container,
+  .shape-post-it,
+  .shape-arrow
+) {
+  border-color: var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+  box-shadow: var(--theme-node-hover-shadow, var(--theme-node-shadow)) !important;
+}
+
+[data-theme-node-style] .react-flow__node.selected :is(
+  .shape-rect,
+  .shape-pill,
+  .shape-resource,
+  .shape-event,
+  .shape-diamond-container,
+  .shape-post-it,
+  .shape-arrow
+) {
+  border-color: var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+  box-shadow: var(--theme-node-selected-shadow, var(--theme-node-hover-shadow)) !important;
+}
+
+[data-theme-node-style] .react-flow__node[data-id] > div:has(.clip-chamfer) {
+  box-shadow: none !important;
+  filter: var(--theme-node-filter, none) !important;
+}
+
+[data-theme-node-style] .react-flow__node[data-id]:hover > div:has(.clip-chamfer) {
+  filter: var(--theme-node-hover-filter, var(--theme-node-filter)) !important;
+}
+
+[data-theme-node-style] .react-flow__node[data-id].selected > div:has(.clip-chamfer) {
+  filter: var(--theme-node-selected-filter, var(--theme-node-hover-filter)) !important;
+}
+
+[data-theme-node-style] :is(.react-flow__node .editable-label, .node-label) {
+  font-family: var(--font-family-node, var(--font-family-ui)) !important;
+  font-weight: var(--theme-node-label-weight, 600) !important;
+  letter-spacing: var(--theme-node-label-letter-spacing, normal) !important;
+  text-transform: var(--theme-node-label-transform, none) !important;
+}

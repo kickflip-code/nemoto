@@ -1,0 +1,81 @@
+/* Resource category manager: calm navigation surfaces with category color kept as a compact signal. */
+
+.axiom-category-sidebar {
+  background: color-mix(in srgb, var(--color-app-sidebar) 86%, var(--color-app-surface));
+}
+
+.axiom-category-sidebar-header {
+  background: color-mix(in srgb, var(--color-app-sidebar) 76%, var(--color-app-surface));
+}
+
+.axiom-category-sidebar-header #category-manager-title {
+  color: var(--color-text-main);
+}
+
+.axiom-category-row {
+  border: 1px solid transparent;
+  color: var(--color-text-main);
+}
+
+.axiom-category-row.axiom-panel-row-active {
+  border-color: var(--color-app-border);
+  background: var(--color-app-active);
+  color: var(--color-text-main);
+}
+
+.axiom-category-icon-chip {
+  display: inline-flex;
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--category-color) 55%, var(--color-app-border));
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: color-mix(in srgb, var(--category-color) 16%, var(--color-app-surface));
+  color: var(--category-color);
+}
+
+[data-theme='hard'] .axiom-category-sidebar {
+  background: #fff0b8;
+  border-right: 3px solid #151515 !important;
+}
+
+[data-theme='hard'] .axiom-category-sidebar-header {
+  background: var(--palette-amber, #ffd166);
+  border-bottom: 3px solid #151515 !important;
+}
+
+[data-theme='hard'] .axiom-category-create {
+  border: 2px solid #151515;
+  background: #fffdf7;
+  color: #151515;
+  box-shadow: 2px 2px 0 #151515;
+}
+
+[data-theme='hard'] .axiom-category-row {
+  border: 2px solid #151515 !important;
+  border-radius: 0 !important;
+  background: #fffdf7 !important;
+  color: #151515 !important;
+  font-weight: 700;
+}
+
+[data-theme='hard'] .axiom-category-row:hover {
+  background: #e7ecff !important;
+  box-shadow: 2px 2px 0 #151515;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme='hard'] .axiom-category-row.axiom-panel-row-active {
+  background: var(--palette-amber, #ffd166) !important;
+  box-shadow: 3px 3px 0 #151515;
+  transform: translate(-1px, -1px);
+}
+
+[data-theme='hard'] .axiom-category-icon-chip {
+  border: 2px solid #151515;
+  border-radius: 0;
+  background: var(--category-color);
+  color: #151515;
+}

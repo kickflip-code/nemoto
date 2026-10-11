@@ -1,0 +1,16 @@
+.nemoto-mark {
+    --nemoto-ink: var(--color-text-main, #E4E4E7);
+    --nemoto-green: #63BFA4;
+    --nemoto-tip: #A2EBB2;
+    --nemoto-outcome: #8CD5B6;
+}
+[data-theme='soft'] .nemoto-mark {
+    --nemoto-green: #247561;
+    --nemoto-tip: #54A873;
+    --nemoto-outcome: #358B79;
+}
+[data-theme='hard'] .nemoto-mark {
+    --nemoto-green: #247561;
+    --nemoto-tip: #247561;
+    --nemoto-outcome: #247561;
+}

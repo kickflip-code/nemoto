@@ -1,0 +1,21 @@
+{
+  "query": {
+    "where": [[{"operand":{"path":["values","title"],"localDate":false},"operation":"contains","value":"Review"}]],
+    "order": [{"operand":{"path":["createdAt"],"localDate":false},"descending":true,"emptyLast":false}],
+    "timezoneOffsetMinutes": -120
+  },
+  "cases": [
+    {"name":"valid query","pointer":"","valid":true},
+    {"name":"prototype path","pointer":"/where/0/0/operand/path/0","value":"__proto__","valid":false},
+    {"name":"constructor path","pointer":"/where/0/0/operand/path/0","value":"constructor","valid":false},
+    {"name":"unknown operator","pointer":"/where/0/0/operation","value":"execute","valid":false},
+    {"name":"non-scalar","pointer":"/where/0/0/value","value":{},"valid":false},
+    {"name":"offset boundary","pointer":"/timezoneOffsetMinutes","value":840,"valid":true},
+    {"name":"offset overflow","pointer":"/timezoneOffsetMinutes","value":841,"valid":false},
+    {"name":"path depth","pointer":"/where/0/0/operand/path","value":["a","b","c","d","e","f"],"valid":false},
+    {"name":"empty OR","pointer":"/where/0","value":[],"valid":false},
+    {"name":"distinct scalar","pointer":"/distinctBy","value":[{"path":["id"],"localDate":false}],"valid":true},
+    {"name":"empty distinct","pointer":"/distinctBy","value":[],"valid":false},
+    {"name":"distinct prototype","pointer":"/distinctBy","value":[{"path":["constructor"],"localDate":false}],"valid":false}
+  ]
+}

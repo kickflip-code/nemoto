@@ -1,0 +1,1076 @@
+/* Shared Axiom React primitives.
+   Import after index.css and before external-renderer adapters. */
+
+/* Dock */
+.floating-dock .floating-dock-shell {
+  padding: var(--theme-dock-padding, 0.45rem 0.7rem);
+  gap: var(--theme-dock-gap, 0.35rem);
+  background: var(--color-dock-bg, var(--color-app-surface));
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-dock-border, var(--color-app-border));
+  border-radius: var(--dock-radius, var(--app-radius-md));
+  box-shadow: var(--dock-shadow, var(--app-shadow-md));
+}
+
+.floating-dock .dock-button {
+  position: relative;
+  width: var(--theme-dock-button-size, 2.5rem);
+  height: var(--theme-dock-button-size, 2.5rem);
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-dock-border, transparent);
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: var(--color-dock-button-bg, var(--color-control-bg));
+  color: var(--color-dock-button-text, var(--color-text-muted));
+  box-shadow: var(--control-shadow, var(--app-shadow-sm));
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-instant) var(--motion-ease-standard);
+}
+
+.floating-dock .dock-button:hover {
+  background: var(--color-dock-button-hover, var(--color-app-hover));
+  color: var(--color-text-main);
+  transform: translateY(-1px);
+}
+
+.floating-dock .dock-button:active {
+  background: var(--color-control-active, var(--color-app-active));
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+  transform: var(--control-active-transform, translateY(0));
+}
+
+.floating-dock .dock-button-active {
+  background: var(--color-dock-button-active-bg, var(--color-app-active));
+  color: var(--color-dock-button-active-text, var(--color-accent-primary));
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+  transform: translateY(0);
+}
+
+.floating-dock .dock-mini-node {
+  --dock-fill: color-mix(in srgb, var(--dock-color) 18%, transparent);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--dock-color);
+  background: var(--dock-fill);
+  color: var(--dock-color);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--dock-color) 10%, transparent);
+}
+
+.floating-dock .dock-mini-pill {
+  width: 1.55rem;
+  height: 0.78rem;
+  border-radius: 9999px;
+}
+
+.floating-dock .dock-mini-rect {
+  width: 1.45rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+}
+
+.floating-dock .dock-mini-diamond {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 0.18rem;
+  transform: rotate(45deg);
+}
+
+.floating-dock .dock-mini-system {
+  width: 1.62rem;
+  height: 1.14rem;
+  border: none;
+  background: var(--dock-color);
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  filter: drop-shadow(0 0 5px color-mix(in srgb, var(--dock-color) 40%, transparent));
+}
+
+.floating-dock .dock-mini-system::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: color-mix(in srgb, var(--dock-color) 18%, var(--color-app-surface));
+  clip-path: inherit;
+}
+
+.floating-dock .dock-mini-note {
+  width: 1.18rem;
+  height: 1.35rem;
+  border-radius: 0.18rem;
+}
+
+.floating-dock .dock-mini-note svg {
+  width: 0.86rem;
+  height: 0.86rem;
+}
+
+.floating-dock .dock-mini-event {
+  width: 1.38rem;
+  height: 1.18rem;
+  border-radius: 0.18rem;
+}
+
+.floating-dock .dock-mini-event svg {
+  width: 0.88rem;
+  height: 0.88rem;
+}
+
+.floating-dock .dock-divider {
+  background: var(--color-dock-divider, var(--color-app-border));
+  opacity: 0.65;
+}
+
+[data-theme='soft'] .floating-dock .dock-button {
+  border-radius: var(--app-radius-md);
+}
+
+[data-theme='soft'] .floating-dock .dock-button:hover {
+  box-shadow:
+    var(--app-shadow-inset),
+    0 0 0 2px color-mix(in srgb, var(--dock-color, var(--color-accent-primary)) 10%, transparent);
+}
+
+[data-theme='soft'] .floating-dock .dock-select-button {
+  color: var(--color-dock-button-active-text, var(--color-accent-primary));
+}
+
+[data-theme='soft'] .floating-dock .dock-button-active {
+  box-shadow: var(--app-shadow-inset);
+}
+
+[data-theme='soft'] .floating-dock .dock-mini-node {
+  background: color-mix(in srgb, var(--dock-color) 12%, var(--color-app-bg));
+  box-shadow:
+    inset 0.04rem 0.04rem 0.12rem rgba(255, 255, 255, 0.75),
+    0.06rem 0.06rem 0.16rem rgba(148, 163, 184, 0.18);
+}
+
+[data-theme='soft'] .floating-dock .dock-mini-system::after {
+  inset: 3px;
+  background: color-mix(in srgb, var(--dock-color) 10%, var(--color-app-bg));
+}
+
+[data-theme='soft'] .floating-dock .dock-mini-system {
+  background: var(--dock-color);
+  filter: drop-shadow(0.04rem 0.04rem 0.08rem rgba(126, 34, 206, 0.22));
+}
+
+[data-theme='void'] .floating-dock .dock-button {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  border-radius: var(--app-radius-sm);
+}
+
+[data-theme='void'] .floating-dock .dock-button:hover {
+  background: var(--color-dock-button-hover, var(--color-app-hover));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--dock-color, var(--color-accent-primary)) 25%, transparent);
+  transform: translateY(-1px);
+}
+
+[data-theme='void'] .floating-dock .dock-button-active {
+  background: color-mix(in srgb, var(--color-accent-primary) 18%, var(--color-app-surface));
+  box-shadow: 0 0 8px color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
+}
+
+[data-theme='void'] .floating-dock .dock-mini-node {
+  background: color-mix(in srgb, var(--dock-color) 16%, var(--color-app-surface));
+  box-shadow: 0 0 10px color-mix(in srgb, var(--dock-color) 22%, transparent);
+}
+
+[data-theme='void'] .floating-dock .dock-mini-system {
+  background: color-mix(in srgb, var(--dock-color) 85%, white);
+  filter:
+    drop-shadow(0 0 4px color-mix(in srgb, var(--dock-color) 80%, transparent))
+    drop-shadow(0 0 8px color-mix(in srgb, var(--dock-color) 40%, transparent));
+}
+
+[data-theme='void'] .floating-dock .dock-mini-system::after {
+  background: color-mix(in srgb, var(--dock-color) 20%, var(--color-app-surface));
+}
+
+[data-theme='void'] .floating-dock .dock-button:hover .dock-mini-system {
+  filter:
+    drop-shadow(0 0 6px color-mix(in srgb, var(--dock-color) 90%, transparent))
+    drop-shadow(0 0 12px color-mix(in srgb, var(--dock-color) 60%, transparent));
+}
+
+/* Buttons, fields, panels and dialogs */
+/* Explicit control primitives */
+.axiom-button,
+.axiom-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: var(--color-control-bg, var(--color-app-surface));
+  color: var(--color-control-text, var(--color-text-main));
+  box-shadow: var(--control-shadow, var(--app-shadow-sm));
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-instant) var(--motion-ease-standard);
+}
+
+.axiom-button {
+  min-height: var(--theme-control-size-base, 2rem);
+  padding: 0 var(--theme-control-padding-base, 0.75rem);
+  gap: 0.375rem;
+}
+
+.axiom-button-sm {
+  min-height: var(--theme-control-size-sm, 1.625rem);
+  padding: 0 var(--theme-control-padding-sm, 0.625rem);
+  font-size: 0.6875rem;
+}
+
+.axiom-icon-button {
+  width: var(--theme-icon-size-base, 2rem);
+  height: var(--theme-icon-size-base, 2rem);
+  padding: 0;
+}
+
+.axiom-icon-button-sm {
+  width: var(--theme-icon-size-sm, 1.5rem);
+  height: var(--theme-icon-size-sm, 1.5rem);
+}
+
+.axiom-button:not(:disabled):not([aria-disabled='true']):hover,
+.axiom-icon-button:not(:disabled):not([aria-disabled='true']):hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+  color: var(--color-control-text, var(--color-text-main));
+}
+
+.axiom-button:not(:disabled):not([aria-disabled='true']):active,
+.axiom-icon-button:not(:disabled):not([aria-disabled='true']):active,
+.axiom-button[aria-pressed='true'],
+.axiom-icon-button[aria-pressed='true'] {
+  background: var(--color-control-active, var(--color-app-active));
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+  transform: var(--control-active-transform, none);
+}
+
+.axiom-button.axiom-button-primary {
+  background: var(--color-control-primary-bg, var(--color-accent-primary));
+  color: var(--color-control-primary-text, var(--color-accent-primary-text));
+  border-color: var(--color-control-primary-bg, var(--color-accent-primary));
+}
+
+.axiom-button.axiom-button-primary:not(:disabled):not([aria-disabled='true']):hover {
+  background: color-mix(in srgb, var(--color-control-primary-bg, var(--color-accent-primary)) 88%, var(--color-control-hover, var(--color-app-hover)));
+  color: var(--color-control-primary-text, var(--color-accent-primary-text));
+}
+
+.axiom-button-danger {
+  background: var(--color-accent-danger-dim, color-mix(in srgb, var(--color-accent-danger) 12%, transparent));
+  color: var(--color-accent-danger);
+  border-color: color-mix(in srgb, var(--color-accent-danger) 45%, transparent);
+}
+
+.axiom-button-danger:not(:disabled):not([aria-disabled='true']):hover {
+  background: color-mix(in srgb, var(--color-accent-danger) 18%, transparent);
+  color: var(--color-accent-danger);
+}
+
+.axiom-button-warning,
+.axiom-icon-button-warning {
+  color: var(--color-accent-warning);
+}
+
+.axiom-button-warning:not(:disabled):not([aria-disabled='true']):hover,
+.axiom-icon-button-warning:not(:disabled):not([aria-disabled='true']):hover {
+  color: var(--color-accent-warning);
+}
+
+.axiom-button-ghost,
+.axiom-icon-button-ghost {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.axiom-button-ghost:not(:disabled):not([aria-disabled='true']):hover,
+.axiom-icon-button-ghost:not(:disabled):not([aria-disabled='true']):hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+}
+
+.axiom-button:disabled,
+.axiom-icon-button:disabled,
+.axiom-button[aria-disabled='true'],
+.axiom-icon-button[aria-disabled='true'] {
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+.axiom-field {
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-field-border, var(--color-app-border));
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: var(--color-field-bg, var(--color-app-input));
+  color: var(--color-field-text, var(--color-text-main));
+  box-shadow: var(--field-shadow, var(--app-shadow-inset));
+  transition:
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    background-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-field:focus {
+  border-color: var(--color-accent-primary);
+  box-shadow: var(--field-focus-shadow, 0 0 0 1px var(--color-accent-primary));
+  outline: none;
+}
+
+.axiom-range {
+  accent-color: var(--color-accent-primary);
+}
+
+.axiom-range:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 3px;
+}
+
+.axiom-range:disabled,
+.axiom-range[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.axiom-field:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
+}
+
+input[type='date'] {
+  color-scheme: dark;
+}
+
+[data-theme='soft'] input[type='date'],
+[data-theme='hard'] input[type='date'] {
+  color-scheme: light;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.85;
+  transition: opacity var(--motion-duration-fast);
+}
+
+input[type='date']::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+
+.axiom-field-sm {
+  padding: var(--theme-field-padding-sm, 0.375rem 0.5rem);
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.axiom-field-xs {
+  padding: var(--theme-field-padding-xs, 0.25rem 0.5rem);
+  font-size: 0.625rem;
+  line-height: 0.875rem;
+}
+
+/* Reserve space for an absolutely positioned icon at inline start. */
+.axiom-field-leading-icon {
+  padding-left: 2.25rem;
+}
+
+/* Reserve space for an absolutely positioned clear or reveal action. */
+.axiom-field-trailing-action {
+  padding-right: 2.25rem;
+}
+
+.axiom-field-textarea {
+  min-height: 5rem;
+  resize: none;
+}
+
+.axiom-panel,
+.axiom-side-panel,
+.axiom-inspector-panel,
+.axiom-journal-context-panel {
+  background: var(--color-app-sidebar);
+  border-color: var(--color-app-border);
+  color: var(--color-text-main);
+}
+
+.axiom-panel-header {
+  background: color-mix(in srgb, var(--color-app-header) 70%, transparent);
+  border-color: var(--color-app-border);
+}
+
+.axiom-panel-header.cursor-pointer:hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+}
+
+.axiom-panel-body {
+  background: color-mix(in srgb, var(--color-app-sidebar) 92%, var(--color-app-bg));
+}
+
+.axiom-panel-section {
+  background: color-mix(in srgb, var(--color-app-surface) 42%, transparent);
+  border-color: var(--color-app-border);
+}
+
+.axiom-panel-divider {
+  background: color-mix(in srgb, var(--color-app-border) 70%, transparent);
+}
+
+.axiom-panel-resizer {
+  background: transparent;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    width var(--motion-duration-fast) var(--motion-ease-standard),
+    height var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-panel-resizer:hover {
+  background: color-mix(in srgb, var(--color-accent-primary) 35%, transparent);
+}
+
+.axiom-panel-icon-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--control-border-width, var(--app-border-width)) solid transparent;
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: transparent;
+  color: var(--color-text-muted);
+  box-shadow: none;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-instant) var(--motion-ease-standard);
+}
+
+.axiom-panel-icon-button:not(:disabled):not([aria-disabled='true']):hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+  color: var(--color-text-main);
+}
+
+.axiom-panel-icon-button:not(:disabled):not([aria-disabled='true']):active {
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+  transform: var(--control-active-transform, none);
+}
+
+.axiom-panel-icon-button-danger {
+  color: var(--color-accent-danger);
+}
+
+.axiom-panel-icon-button-danger:not(:disabled):not([aria-disabled='true']):hover {
+  background: color-mix(in srgb, var(--color-accent-danger) 12%, transparent);
+  color: var(--color-accent-danger);
+}
+
+.axiom-panel-icon-button:disabled,
+.axiom-panel-icon-button[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.axiom-panel-card {
+  background: var(--color-field-bg, var(--color-app-bg));
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-field-border, var(--color-app-border));
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  color: var(--color-text-main);
+}
+
+.axiom-panel-card-danger {
+  border-color: color-mix(in srgb, var(--color-accent-danger) 35%, transparent);
+}
+
+.axiom-panel-row {
+  min-height: var(--theme-list-row-height, 2rem);
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  color: var(--color-text-muted);
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-panel-row-compact,
+.axiom-resource-row {
+  min-height: var(--theme-resource-row-height, calc(var(--theme-list-row-height, 2rem) * 0.75));
+}
+
+.axiom-panel-row:hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+  color: var(--color-text-main);
+}
+
+.axiom-panel-row-active {
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent);
+  color: var(--color-accent-primary);
+}
+
+.axiom-panel-row-selected {
+  background: var(--color-app-active);
+  color: var(--color-text-main);
+}
+
+.axiom-panel-row-selected .axiom-row-title {
+  color: var(--color-text-main);
+}
+
+.axiom-panel-row-border {
+  border-top: var(--control-border-width, var(--app-border-width)) solid color-mix(in srgb, var(--color-app-border) 30%, transparent);
+}
+
+.axiom-panel-row-handle {
+  color: var(--color-text-faint);
+}
+
+.axiom-panel-bulk-bar {
+  background: color-mix(in srgb, var(--color-app-surface) 92%, transparent);
+  border-color: var(--color-app-border);
+}
+
+.axiom-drag-proxy {
+  background: color-mix(in srgb, var(--color-app-surface) 92%, transparent);
+  border: var(--control-border-width, var(--app-border-width)) solid color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  box-shadow: var(--menu-shadow, var(--app-shadow-xl));
+  color: var(--color-text-main);
+}
+
+.axiom-modal-panel {
+  background: var(--color-app-surface);
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
+  border-radius: var(--dialog-radius, var(--app-radius-md));
+  box-shadow: var(--dialog-shadow, var(--menu-shadow, var(--app-shadow-xl)));
+  color: var(--color-text-main);
+}
+
+.axiom-modal-sidebar {
+  background: var(--color-app-header);
+  border-color: var(--color-app-border);
+}
+
+.axiom-modal-content {
+  background: var(--color-app-bg);
+}
+
+.axiom-dialog-backdrop {
+  background: color-mix(in srgb, var(--color-app-bg) 28%, rgba(0, 0, 0, 0.68));
+  backdrop-filter: blur(8px);
+}
+
+.axiom-dialog-panel {
+  background: var(--color-app-surface);
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
+  border-radius: var(--dialog-radius, var(--app-radius-md));
+  box-shadow: var(--dialog-shadow, var(--menu-shadow, var(--app-shadow-xl)));
+  color: var(--color-text-main);
+}
+
+.axiom-dialog-header,
+.axiom-dialog-footer {
+  background: color-mix(in srgb, var(--color-app-header) 78%, transparent);
+  border-color: var(--color-app-border);
+}
+
+.axiom-dialog-body {
+  background: var(--color-app-bg);
+}
+
+/* Brutalist dialogs keep the application visible beneath a crisp, unblurred scrim. */
+[data-theme='hard'] .axiom-dialog-backdrop {
+  background: rgba(21, 21, 21, 0.20) !important;
+  backdrop-filter: none !important;
+}
+
+[data-theme='hard'] .axiom-dialog-panel {
+  border-width: 3px;
+  box-shadow: 8px 8px 0 #151515;
+}
+
+[data-theme='hard'] .axiom-dialog-header,
+[data-theme='hard'] .axiom-dialog-footer {
+  background: var(--color-app-header);
+}
+
+.axiom-dialog-icon {
+  border-radius: var(--app-radius-md);
+}
+
+.axiom-dialog-icon-primary {
+  background: color-mix(in srgb, var(--color-accent-primary) 14%, transparent);
+  color: var(--color-accent-primary);
+}
+
+.axiom-dialog-icon-warning {
+  background: color-mix(in srgb, var(--color-accent-warning) 16%, transparent);
+  color: var(--color-accent-warning);
+}
+
+.axiom-dialog-icon-danger {
+  background: color-mix(in srgb, var(--color-accent-danger) 16%, transparent);
+  color: var(--color-accent-danger);
+}
+
+.axiom-dialog-row {
+  min-height: var(--theme-dialog-row-height, 2.5rem);
+  border: var(--control-border-width, var(--app-border-width)) solid transparent;
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: transparent;
+  color: var(--color-text-muted);
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-dialog-row:hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+  border-color: var(--color-app-border);
+  color: var(--color-text-main);
+}
+
+.axiom-dialog-row-selected {
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-app-surface));
+  border-color: color-mix(in srgb, var(--color-accent-primary) 45%, transparent);
+  color: var(--color-text-main);
+}
+
+.axiom-dialog-row[aria-selected='true'] {
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-app-surface));
+  border-color: color-mix(in srgb, var(--color-accent-primary) 45%, transparent);
+  color: var(--color-text-main);
+}
+
+.axiom-dialog-row[aria-pressed='true'] {
+  background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-app-surface));
+  border-color: color-mix(in srgb, var(--color-accent-primary) 45%, transparent);
+  color: var(--color-text-main);
+}
+
+.axiom-dialog-row-danger {
+  color: var(--color-accent-danger);
+}
+
+.axiom-dialog-row-danger:hover {
+  background: color-mix(in srgb, var(--color-accent-danger) 10%, transparent);
+  border-color: color-mix(in srgb, var(--color-accent-danger) 30%, transparent);
+}
+
+.axiom-dialog-row-icon {
+  background: var(--color-app-bg);
+  color: var(--color-text-muted);
+  border-radius: var(--control-radius, var(--app-radius-sm));
+}
+
+.axiom-dialog-row:hover .axiom-dialog-row-icon,
+.axiom-dialog-row-selected .axiom-dialog-row-icon {
+  background: var(--color-app-surface);
+  color: var(--color-text-main);
+}
+
+.axiom-dialog-row-selected .axiom-dialog-row-icon {
+  background: var(--color-control-primary-bg, var(--color-accent-primary));
+  color: var(--color-control-primary-text, var(--color-accent-primary-text));
+}
+
+.axiom-dialog-badge {
+  background: var(--color-app-bg);
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  color: var(--color-text-faint);
+}
+
+/* Selection, toolbar and popover controls */
+.axiom-icon-grid {
+  background: var(--color-app-surface);
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
+  border-radius: var(--app-radius-md);
+}
+
+.axiom-icon-tile {
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: transparent;
+  color: var(--color-text-muted);
+  box-shadow: none;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-icon-tile:hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+  color: var(--color-text-main);
+}
+
+.axiom-icon-tile-active {
+  background: var(--color-control-primary-bg, var(--color-accent-primary));
+  color: var(--color-control-primary-text, var(--color-accent-primary-text));
+  box-shadow: var(--control-shadow, var(--app-shadow-sm));
+}
+
+.axiom-canvas-toolbar {
+  background: color-mix(in srgb, var(--color-app-surface) 72%, transparent);
+  border-color: var(--color-app-border);
+}
+
+.axiom-canvas-toolbar-group {
+  border-color: color-mix(in srgb, var(--color-app-border) 70%, transparent);
+}
+
+.axiom-toolbar-button {
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: transparent;
+  color: var(--color-text-muted);
+  box-shadow: none;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-toolbar-button:not(:disabled):not([aria-disabled='true']):hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+  color: var(--color-text-main);
+}
+
+.axiom-toolbar-button.axiom-toolbar-button-labelled {
+  width: auto;
+  min-width: 1.5rem;
+  padding-inline: 0.5rem;
+  white-space: nowrap;
+}
+
+.axiom-toolbar-button:not(:disabled):not([aria-disabled='true']):active {
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+}
+
+.axiom-toolbar-button[aria-pressed='true'] {
+  background: var(--color-control-active, var(--color-app-active));
+  color: var(--color-accent-primary);
+  box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
+}
+
+.axiom-toolbar-button-danger {
+  color: var(--color-accent-danger);
+}
+
+.axiom-toolbar-button-danger:not(:disabled):not([aria-disabled='true']):hover {
+  background: color-mix(in srgb, var(--color-accent-danger) 12%, transparent);
+  color: var(--color-accent-danger);
+}
+
+.axiom-toolbar-button:disabled,
+.axiom-toolbar-button[aria-disabled='true'] {
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.axiom-segmented {
+  display: inline-flex;
+  padding: 0.125rem;
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: color-mix(in srgb, var(--color-app-surface) 72%, var(--color-app-bg));
+}
+
+.axiom-segmented-option {
+  min-height: 1.375rem;
+  padding: 0 0.625rem;
+  border: 0;
+  border-radius: calc(var(--control-radius, var(--app-radius-sm)) * 0.75);
+  background: transparent;
+  color: var(--color-text-faint);
+  box-shadow: none;
+  cursor: pointer;
+  font-size: 0.5625rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-segmented-option:not(:disabled):not([aria-disabled='true']):hover {
+  color: var(--color-text-main);
+}
+
+.axiom-segmented-option-active {
+  background: var(--color-control-primary-bg, var(--color-accent-primary));
+  color: var(--color-control-primary-text, var(--color-accent-primary-text));
+  box-shadow: var(--control-shadow, var(--app-shadow-sm));
+}
+
+.axiom-segmented-option[aria-pressed='true'] {
+  background: var(--color-control-primary-bg, var(--color-accent-primary));
+  color: var(--color-control-primary-text, var(--color-accent-primary-text));
+  box-shadow: var(--control-shadow, var(--app-shadow-sm));
+}
+
+.axiom-segmented-option:disabled,
+.axiom-segmented-option[aria-disabled='true'] {
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.axiom-toggle {
+  width: 2rem;
+  height: 1rem;
+  position: relative;
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
+  border-radius: 999px;
+  background: var(--color-control-active, var(--color-app-active));
+  box-shadow: var(--field-shadow, var(--app-shadow-inset));
+  cursor: pointer;
+}
+
+.axiom-toggle-active {
+  background: var(--color-control-primary-bg, var(--color-accent-primary));
+}
+
+.axiom-toggle:disabled,
+.axiom-toggle[aria-disabled='true'] {
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.axiom-toggle-knob {
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 999px;
+  background: var(--color-control-primary-text, #fff);
+  box-shadow: var(--control-shadow, var(--app-shadow-sm));
+  transition: left var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-toggle-active .axiom-toggle-knob {
+  left: 1.125rem;
+}
+
+.axiom-toggle-card {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 2rem;
+  padding: 0.5rem 0.625rem;
+  border: var(--control-border-width, var(--app-border-width)) solid transparent;
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  background: var(--color-app-bg);
+  color: var(--color-text-faint);
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-toggle-card:hover {
+  background: var(--color-control-hover, var(--color-app-hover));
+  color: var(--color-text-main);
+}
+
+.axiom-toggle-card-active,
+.axiom-toggle-card[aria-pressed='true'] {
+  border-color: var(--color-app-border);
+  background: var(--color-app-surface);
+  color: var(--color-text-main);
+}
+
+.axiom-toggle-card:disabled,
+.axiom-toggle-card[aria-disabled='true'] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.axiom-color-swatch {
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
+  box-shadow: none;
+  transition:
+    transform var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    border-color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-color-swatch:hover {
+  transform: scale(1.08);
+}
+
+.axiom-color-swatch-active {
+  box-shadow: 0 0 0 2px var(--color-app-surface), 0 0 0 4px var(--color-text-main);
+}
+
+.axiom-popover {
+  background: var(--color-menu-bg, var(--color-app-surface));
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-menu-border, var(--color-app-border));
+  border-radius: var(--control-radius, var(--app-radius-sm));
+  box-shadow: var(--menu-shadow, var(--app-shadow-xl));
+}
+
+/* Menus */
+.axiom-file-menu,
+.axiom-context-menu {
+  background: var(--color-menu-bg, var(--color-app-sidebar)) !important;
+  border: var(--control-border-width, var(--app-border-width)) solid var(--color-menu-border, var(--color-app-border)) !important;
+  border-radius: var(--control-radius, var(--app-radius-sm)) !important;
+  box-shadow: var(--menu-shadow, var(--app-shadow-lg)) !important;
+  color: var(--color-menu-text, var(--color-text-muted)) !important;
+  overflow: hidden;
+  padding: 0.25rem !important;
+}
+
+.axiom-scroll-menu {
+  max-height: var(--axiom-scroll-menu-max-height, min(20rem, calc(100vh - 6rem)));
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: color-mix(in srgb, var(--color-text-main) 42%, transparent) transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+}
+
+.settings-theme-menu {
+  --axiom-scroll-menu-max-height: min(15rem, calc(100vh - 12rem));
+}
+
+.axiom-scroll-menu::-webkit-scrollbar {
+  width: 8px;
+}
+
+.axiom-scroll-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.axiom-scroll-menu::-webkit-scrollbar-thumb {
+  border: 2px solid var(--color-menu-bg, var(--color-app-sidebar));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-text-main) 42%, transparent);
+}
+
+.axiom-scroll-menu::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-text-main) 62%, transparent);
+}
+
+.theme-color-swatch {
+  border: 1px solid color-mix(in srgb, var(--color-text-main) 46%, var(--color-app-bg)) !important;
+}
+
+.axiom-menu-item {
+  width: 100%;
+  min-height: var(--theme-menu-item-height, 2rem);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0 var(--theme-menu-item-padding, 0.75rem) !important;
+  border: 0 !important;
+  border-radius: var(--control-radius, var(--app-radius-sm)) !important;
+  background: transparent !important;
+  color: var(--color-menu-text, var(--color-text-muted)) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1rem;
+  text-align: left;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-standard),
+    box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
+    color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.axiom-menu-item:not(:disabled):not([aria-disabled='true']):hover {
+  background: var(--color-menu-hover, var(--color-app-hover)) !important;
+  color: var(--color-text-main) !important;
+  box-shadow: var(--menu-hover-shadow, none) !important;
+}
+
+.axiom-menu-item svg {
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.axiom-menu-item-danger {
+  color: var(--color-accent-danger) !important;
+}
+
+.axiom-menu-item-danger:not(:disabled):not([aria-disabled='true']):hover {
+  background: color-mix(in srgb, var(--color-accent-danger) 12%, transparent) !important;
+  color: var(--color-accent-danger) !important;
+}
+
+.axiom-menu-item[aria-selected='true'],
+.axiom-menu-item[aria-checked='true'] {
+  background: var(--color-menu-hover, var(--color-app-hover)) !important;
+  color: var(--color-text-main) !important;
+}
+
+.axiom-menu-item-compact {
+  min-height: 1.625rem;
+  padding: 0 0.625rem !important;
+  font-size: 0.75rem;
+}
+
+.axiom-menu-divider {
+  height: 1px !important;
+  margin: 0.25rem 0.5rem !important;
+  background: color-mix(in srgb, var(--color-menu-separator, var(--color-app-border)) 65%, transparent) !important;
+}
+
+/* Text actions retain native keyboard semantics and the shared focus outline. */
+.axiom-text-button {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+/* Give Polar's dock a continuous surface and room for its outer shadow. */
+[data-theme='soft'] .floating-dock { padding: 8px; }
+[data-theme='soft'] .floating-dock .floating-dock-shell {
+  background: color-mix(in srgb, var(--color-dock-bg) 88%, white);
+  border: 1px solid var(--color-dock-border);
+  box-shadow: var(--dock-shadow, var(--app-shadow-md));
+}
+[data-theme='soft'] .floating-dock .dock-mini-diamond {
+  border-color: var(--color-text-muted);
+  background: color-mix(in srgb, var(--color-text-muted) 12%, var(--color-dock-bg));
+}

@@ -1,0 +1,456 @@
+/* Focus must not scroll the hidden canvas surface behind its transform-based camera. */
+.axiom-division-canvas {
+  overflow: clip !important;
+}
+
+/* React Flow is an external rendering surface. Keep its adapter rules after the
+   shared design-system layers so specificity and import order remain explicit. */
+
+/* Override the library's outline reset and the edge's inline paint only while
+   keyboard focus is visible; selection and persisted colors remain separate. */
+.axiom-process-canvas .react-flow__node:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 4px;
+}
+
+.axiom-process-canvas .react-flow__edge:focus-visible .react-flow__edge-path {
+    stroke: var(--color-accent-primary) !important;
+    stroke-width: 3px !important;
+}
+
+.react-flow__controls {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--color-app-border);
+}
+
+.react-flow__controls-button {
+    background: var(--color-app-surface) !important;
+    border-bottom: 1px solid var(--color-app-border) !important;
+    fill: var(--color-text-muted) !important;
+    border-right: none !important;
+    transition:
+      background-color var(--motion-duration-fast) var(--motion-ease-standard),
+      fill var(--motion-duration-fast) var(--motion-ease-standard) !important;
+}
+
+.react-flow__controls-button:last-child {
+    border-bottom: none !important;
+}
+
+.react-flow__controls-button:hover {
+    background: var(--color-app-hover) !important;
+    fill: #fff !important;
+}
+
+.react-flow__controls-button svg {
+    max-width: 14px;
+    max-height: 14px;
+}
+
+/* These interaction overrides intentionally sit outside layers. */
+.react-flow__viewport .react-flow__handle {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition:
+    opacity var(--motion-duration-fast) var(--motion-ease-standard),
+    visibility var(--motion-duration-fast) var(--motion-ease-standard) !important;
+}
+
+.react-flow__node:hover .react-flow__handle,
+.react-flow__node.selected .react-flow__handle,
+.react-flow__node.connecting .react-flow__handle {
+  opacity: 0.8 !important;
+  visibility: visible !important;
+}
+
+.react-flow__handle:hover,
+.react-flow__handle.connecting,
+.react-flow__handle.valid {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: scale(1.2);
+}
+
+.gravity-well-graph .react-flow__handle {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.react-flow__handle {
+  z-index: 50 !important;
+}
+
+.react-flow__handle-top,
+.react-flow__handle-bottom {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.react-flow__handle-top:hover,
+.react-flow__handle-bottom:hover {
+  transform: translateX(-50%) scale(1.2) !important;
+}
+
+.react-flow__handle-left,
+.react-flow__handle-right {
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.react-flow__handle-left:hover,
+.react-flow__handle-right:hover {
+  transform: translateY(-50%) scale(1.2) !important;
+}
+
+.react-flow__node:hover .shape-diamond-container,
+.react-flow__node.selected .shape-diamond-container {
+  overflow: visible !important;
+}
+
+.shape-event {
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--node-border-color, var(--color-node-event-border)) 12%, transparent);
+}
+
+.shape-event .event-node-header {
+  color: var(--node-accent-color, var(--color-node-event-accent));
+}
+
+.shape-event .event-node-badge {
+  padding: 0.1rem 0.35rem;
+  border: 1px solid color-mix(in srgb, var(--node-accent-color, var(--color-node-event-accent)) 30%, transparent);
+  border-radius: var(--app-radius-sm);
+}
+
+.shape-event .event-node-behavior-emitted {
+  color: var(--node-bg-color, var(--color-node-event-bg));
+  background: var(--node-accent-color, var(--color-node-event-accent));
+}
+
+.shape-event .event-node-behavior-neutral {
+  opacity: 0.75;
+}
+
+.shape-event .event-node-time {
+  color: color-mix(in srgb, var(--node-text-color, var(--color-node-event-text)) 72%, transparent);
+}
+
+/* Void Theme Canvas Interaction & Node Styling */
+[data-theme='void'] .react-flow__node {
+  border-radius: var(--app-radius-node, 0.5rem);
+}
+
+[data-theme='void'] .react-flow__node .shape-rect,
+[data-theme='void'] .react-flow__node .shape-pill,
+[data-theme='void'] .react-flow__node .shape-resource,
+[data-theme='void'] .react-flow__node .shape-event,
+[data-theme='void'] .react-flow__node .shape-diamond-container,
+[data-theme='void'] .react-flow__node .shape-post-it,
+[data-theme='void'] .react-flow__node .shape-arrow {
+  background-color: var(--color-app-surface) !important;
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.5) !important;
+  transition:
+    box-shadow var(--motion-duration-base) var(--motion-ease-standard),
+    border-color var(--motion-duration-base) var(--motion-ease-standard),
+    background-color var(--motion-duration-base) var(--motion-ease-standard);
+}
+
+/* Void Hover: Clean, vibrant neon glow across all shapes with no murky dark shadow */
+[data-theme='void'] .react-flow__node:hover {
+  --color-app-hover: var(--color-app-surface);
+}
+
+[data-theme='void'] .react-flow__node:hover .shape-rect,
+[data-theme='void'] .react-flow__node:hover .shape-pill,
+[data-theme='void'] .react-flow__node:hover .shape-resource,
+[data-theme='void'] .react-flow__node:hover .shape-event,
+[data-theme='void'] .react-flow__node:hover .shape-diamond-container,
+[data-theme='void'] .react-flow__node:hover .shape-post-it,
+[data-theme='void'] .react-flow__node:hover .shape-arrow,
+[data-theme='void'] .shape-rect:hover,
+[data-theme='void'] .shape-pill:hover,
+[data-theme='void'] .shape-resource:hover,
+[data-theme='void'] .shape-event:hover,
+[data-theme='void'] .shape-diamond-container:hover,
+[data-theme='void'] .shape-post-it:hover,
+[data-theme='void'] .shape-arrow:hover {
+  background-color: var(--color-app-surface) !important;
+  border-color: var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+  box-shadow:
+    0 0 14px 1px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 65%, transparent),
+    0 0 28px 4px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 30%, transparent) !important;
+}
+
+[data-theme='void'] .react-flow__node:hover .shape-diamond-container,
+[data-theme='void'] .react-flow__node.selected .shape-diamond-container {
+  overflow: visible !important;
+}
+
+/* Void Selected: High-contrast focus ring with 3px black offset gap + ambient neon glow */
+[data-theme='void'] .react-flow__node.selected {
+  z-index: 30 !important;
+}
+
+[data-theme='void'] .react-flow__node.selected .shape-rect,
+[data-theme='void'] .react-flow__node.selected .shape-pill,
+[data-theme='void'] .react-flow__node.selected .shape-resource,
+[data-theme='void'] .react-flow__node.selected .shape-event,
+[data-theme='void'] .react-flow__node.selected .shape-diamond-container,
+[data-theme='void'] .react-flow__node.selected .shape-post-it,
+[data-theme='void'] .react-flow__node.selected .shape-arrow {
+  background-color: var(--color-app-surface) !important;
+  border-color: var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+  box-shadow:
+    0 0 0 3px var(--color-app-bg),
+    0 0 0 5.5px var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))),
+    0 0 20px 2px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 45%, transparent) !important;
+}
+
+[data-theme='void'] .react-flow__node.selected:hover .shape-rect,
+[data-theme='void'] .react-flow__node.selected:hover .shape-pill,
+[data-theme='void'] .react-flow__node.selected:hover .shape-resource,
+[data-theme='void'] .react-flow__node.selected:hover .shape-event,
+[data-theme='void'] .react-flow__node.selected:hover .shape-diamond-container,
+[data-theme='void'] .react-flow__node.selected:hover .shape-post-it,
+[data-theme='void'] .react-flow__node.selected:hover .shape-arrow {
+  border-color: var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) !important;
+  box-shadow:
+    0 0 0 3px var(--color-app-bg),
+    0 0 0 5.5px var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))),
+    0 0 28px 4px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 60%, transparent) !important;
+}
+
+/* Void System node (clip-chamfer): Controlled contour drop-shadows */
+[data-theme='void'] .react-flow__node[data-id]>div:has(.clip-chamfer) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+  transition: filter var(--motion-duration-base) var(--motion-ease-standard);
+}
+
+[data-theme='void'] .react-flow__node[data-id]:hover>div:has(.clip-chamfer) {
+  filter:
+    drop-shadow(0 0 8px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 65%, transparent))
+    drop-shadow(0 0 18px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 30%, transparent)) !important;
+}
+
+[data-theme='void'] .react-flow__node[data-id].selected>div:has(.clip-chamfer) {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 40%, transparent)) !important;
+}
+
+[data-theme='void'] .react-flow__node[data-id].selected:hover>div:has(.clip-chamfer) {
+  filter: drop-shadow(0 0 14px color-mix(in srgb, var(--node-accent-color, var(--node-bg-color, var(--color-accent-primary))) 55%, transparent)) !important;
+}
+
+[data-theme='void'] .react-flow__node[data-id] .shape-system,
+[data-theme='void'] .react-flow__node[data-id] .clip-chamfer {
+  opacity: 1 !important;
+}
+
+[data-theme='void'] .react-flow__node[data-id] .clip-chamfer .clip-chamfer,
+[data-theme='void'] .react-flow__node[data-id]:hover .clip-chamfer .clip-chamfer,
+[data-theme='void'] .react-flow__node[data-id].selected .clip-chamfer .clip-chamfer,
+[data-theme='void'] .react-flow__node[data-id].selected:hover .clip-chamfer .clip-chamfer {
+  background-color: var(--color-app-surface) !important;
+  opacity: 1 !important;
+  transition: background-color var(--motion-duration-base) var(--motion-ease-standard);
+}
+
+[data-theme='hard'] .shape-event {
+  background: var(--color-node-event-bg) !important;
+  border-radius: 0 !important;
+  box-shadow: 6px 6px 0 #151515 !important;
+  border: 4px solid #151515 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-header {
+  color: #151515 !important;
+  background: var(--node-accent-color, var(--color-node-event-accent)) !important;
+  border-bottom: 2px solid #151515 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-header > span:first-child {
+  background: var(--color-app-surface, #fffdf7) !important;
+  color: #151515 !important;
+  border: 1.5px solid #151515 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-badge {
+  background: var(--color-app-surface, #fffdf7) !important;
+  border: 1.5px solid #151515 !important;
+  color: #151515 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-title {
+  color: #151515 !important;
+}
+
+[data-theme='hard'] .resource-category-badge {
+  background: var(--color-app-surface, #fffdf7) !important;
+  color: #151515 !important;
+  border: 1.5px solid #151515 !important;
+  font-weight: 800 !important;
+}
+
+[data-theme='hard'] .resource-category-badge svg {
+  color: #151515 !important;
+}
+
+/* Brutalist Theme Handles: solid black border ensures handles pop prominently on white and colored nodes */
+[data-theme='hard'] .react-flow__handle {
+  border: 1.5px solid #000000 !important;
+  box-shadow: 1px 1px 0px #000000;
+}
+
+[data-theme='hard'] .react-flow__handle:hover,
+[data-theme='hard'] .react-flow__handle.connecting,
+[data-theme='hard'] .react-flow__handle.valid {
+  border: 2px solid #000000 !important;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+/* Edge reconnect updater handles */
+.react-flow__edgeupdater {
+  cursor: grab !important;
+  fill: var(--color-accent-primary, #3b82f6) !important;
+  stroke: var(--color-app-surface, #18181b) !important;
+  stroke-width: 2px !important;
+  opacity: 0;
+  transition:
+    opacity var(--motion-duration-fast) var(--motion-ease-standard),
+    r var(--motion-duration-fast) var(--motion-ease-standard),
+    transform var(--motion-duration-fast) var(--motion-ease-standard);
+  pointer-events: auto !important;
+}
+
+.react-flow__edge:hover .react-flow__edgeupdater,
+.react-flow__edge.selected .react-flow__edgeupdater {
+  opacity: 0.85 !important;
+  r: 5.5;
+}
+
+.react-flow__edgeupdater:hover {
+  opacity: 1 !important;
+  r: 7.5;
+  cursor: grabbing !important;
+  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.8));
+}
+
+.react-flow__edgeupdater:active {
+  cursor: grabbing !important;
+  r: 8.5;
+}
+
+/* Selected SVG edges use z-index 10. Their invisible hit path must not cover
+   the HTML labels and segment controls above it. The layer itself stays inert. */
+.axiom-process-canvas .react-flow__edgelabel-renderer {
+  z-index: 20;
+}
+
+/* Unified divisions keep the original swimlane header surface and theme tokens. */
+.axiom-division-heading {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  cursor: default;
+  overflow: hidden;
+  color: var(--color-text-main);
+}
+button.axiom-division-heading { cursor: pointer; }
+.axiom-division-column {
+  justify-content: center;
+  padding: 10px 18px;
+  border: 1px solid color-mix(in srgb, var(--color-app-border) 65%, transparent);
+  border-radius: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.axiom-division-column .axiom-division-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--division-accent);
+  opacity: .8;
+}
+.axiom-division-label { position: relative; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.axiom-division-row {
+  padding: 3px 9px;
+  gap: 7px;
+  border: 0;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--color-app-bg) 88%, transparent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+.axiom-division-row .axiom-division-accent {
+  width: 3px;
+  height: 12px;
+  flex-shrink: 0;
+  background: var(--division-accent);
+  opacity: .65;
+  border-radius: 2px;
+}
+.axiom-division-line { position: absolute; background: color-mix(in srgb, var(--color-text-muted) 25%, transparent); }
+.axiom-division-band { position: absolute; left: 0; background: color-mix(in srgb, var(--color-text-main) 2.5%, transparent); }
+.axiom-division-add {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 40px;
+  border: 1px solid color-mix(in srgb, var(--color-app-border) 40%, transparent);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--color-text-muted);
+}
+button.axiom-division-heading:hover, .axiom-division-add:hover { background-color: var(--color-app-hover); color: var(--color-text-main); }
+button.axiom-division-heading:focus-visible, .axiom-division-add:focus-visible { outline: 2px solid var(--color-accent-primary); outline-offset: 2px; }
+[data-theme='hard'] .axiom-division-column .axiom-division-accent { height: 100%; opacity: .85; }
+[data-theme='hard'] .axiom-division-column .axiom-division-label { color: #1a1b26; }
+[data-theme='hard'] .axiom-division-row { border-radius: 0; }
+.axiom-division-toolbar { min-height: 42px; }
+.axiom-division-resizer { position: absolute; z-index: 5; touch-action: none; outline: none; }
+.axiom-division-resizer.is-column { cursor: col-resize; }
+.axiom-division-resizer.is-row { cursor: row-resize; }
+.axiom-division-resizer:hover, .axiom-division-resizer:focus-visible {
+  background: color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
+}
+.axiom-division-name { z-index: 6; text-align: inherit; text-transform: none; outline: 2px solid var(--color-accent-primary); }
+
+/* Polar's general button treatment must not turn row labels into raised cards. */
+.react-flow__node[data-id="swimlane-stack"] .axiom-division-row {
+  box-shadow: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+.react-flow__node[data-id="swimlane-stack"] .axiom-division-column { border-radius: 0 !important; }
+.react-flow__node[data-id="swimlane-stack"] .axiom-division-add {
+  box-shadow: none !important;
+  background: transparent !important;
+}
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .axiom-division-column {
+  border-radius: 0 !important;
+}
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .axiom-division-column .axiom-division-accent {
+  position: absolute;
+  z-index: 0;
+}
+
+/* Brutalist divisions must read as structure above its fine square grid. */
+[data-theme='hard'] .axiom-division-line {
+  background: color-mix(in srgb, var(--color-text-main) 65%, transparent);
+}
+[data-theme='hard'] .axiom-division-line.is-column { width: 2px !important; }
+[data-theme='hard'] .axiom-division-line.is-row { height: 2px !important; }

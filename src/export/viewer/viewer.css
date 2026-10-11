@@ -1,0 +1,819 @@
+:root {
+    color-scheme: dark;
+}
+
+[data-theme='soft'],
+[data-theme='hard'] {
+    color-scheme: light;
+}
+
+/* Hard Theme Viewer Overrides */
+[data-theme='hard'] .viewer-header,
+[data-theme='hard'] .breadcrumb-bar,
+[data-theme='hard'] .viewer-sidebar,
+[data-theme='hard'] .viewer-footer {
+    border-width: 2px;
+}
+[data-theme='hard'] .asset-card,
+[data-theme='hard'] .journal-card,
+[data-theme='hard'] .info-card {
+    border-radius: 0;
+    border-width: 2px;
+    box-shadow: 4px 4px 0px 0px #000000;
+}
+[data-theme='hard'] .axiom-node {
+    border-width: 3px !important;
+    border-radius: 0 !important;
+    box-shadow: 6px 6px 0px 0px #000000;
+}
+[data-theme='hard'] .node-label {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-family: var(--font-family-node, 'Inter', sans-serif);
+}
+[data-theme='hard'] .view-switcher button.active {
+    border: 2px solid #000000;
+    box-shadow: 2px 2px 0px 0px #000000;
+}
+
+[data-theme='hard'] .react-flow__node,
+[data-theme='hard'] .react-flow__node * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+[data-theme='hard'] .shape-diamond-container span,
+[data-theme='soft'] .shape-diamond-container span {
+    color: var(--color-text-main) !important;
+}
+
+[data-theme='hard'] .shape-diamond-container {
+    border: 3px solid #151515 !important;
+    background-color: var(--node-bg-color, var(--color-app-surface)) !important;
+    box-shadow: 4px 4px 0px 0px #000000 !important;
+    border-radius: 0px !important;
+}
+
+[data-theme='soft'] .shape-diamond-container {
+    border-color: var(--node-accent-color, var(--palette-gray, #6b7280)) !important;
+}
+
+[data-theme='soft'] .shape-event {
+    background-color: var(--color-app-bg) !important;
+}
+
+[data-theme='hard'] .shape-system>.clip-chamfer {
+    inset: 4px !important;
+}
+
+[data-theme='hard'] .shape-system-selection-ring {
+    display: none !important;
+}
+
+[data-theme='hard'] .shape-event {
+    background: var(--color-node-event-bg) !important;
+    border-radius: 0 !important;
+    box-shadow: 6px 6px 0 #151515 !important;
+    border: 4px solid #151515 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-header {
+    color: #151515 !important;
+    background: var(--node-accent-color, var(--color-node-event-accent)) !important;
+    border-bottom: 2px solid #151515 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-header > span:first-child {
+    background: var(--color-app-surface, #fffdf7) !important;
+    color: #151515 !important;
+    border: 1.5px solid #151515 !important;
+    font-weight: 800 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-badge {
+    background: var(--color-app-surface, #fffdf7) !important;
+    border: 1.5px solid #151515 !important;
+    color: #151515 !important;
+    font-weight: 800 !important;
+}
+
+[data-theme='hard'] .shape-event .event-node-title {
+    color: #151515 !important;
+}
+
+[data-theme='hard'] .resource-category-badge {
+    background: var(--color-app-surface, #fffdf7) !important;
+    color: #151515 !important;
+    border: 1.5px solid #151515 !important;
+    font-weight: 800 !important;
+}
+
+[data-theme='hard'] .resource-category-badge svg {
+    color: #151515 !important;
+}
+
+[data-theme='hard'] .react-flow__handle {
+    border: 1.5px solid #000000 !important;
+    box-shadow: 1px 1px 0px #000000;
+}
+
+[data-theme='hard'] .react-flow__handle:hover {
+    border: 2px solid #000000 !important;
+    box-shadow: 2px 2px 0px #000000;
+}
+
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* The standalone reader must allow native selection and copying, including portals. */
+    -webkit-user-select: text;
+    user-select: text;
+    background-color: var(--color-app-bg);
+    color: var(--color-text-main);
+    font-family: var(--font-family-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif);
+    overflow: hidden;
+}
+
+/* Reader dialogs are portalled outside the viewer root. Declare selection on
+   their text surfaces directly instead of relying on body inheritance. */
+.viewer-reader,
+.viewer-reader .axiom-dialog-header,
+.viewer-reader .axiom-dialog-header h2,
+.viewer-reader .axiom-dialog-body,
+.viewer-reader .axiom-dialog-body * {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+.viewer-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+.viewer-header {
+    height: 56px;
+    background-color: var(--color-app-surface);
+    border-bottom: 1px solid var(--color-app-border);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    gap: 24px;
+}
+
+.viewer-header .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.viewer-header .logo {
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    font-size: 1.2rem;
+    color: var(--color-accent-primary);
+}
+
+.viewer-header .version {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.5;
+}
+
+.viewer-header h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 24px;
+}
+
+.view-switcher {
+    display: flex;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--color-app-border);
+    margin-right: auto;
+}
+
+.view-switcher button {
+    background: transparent;
+    border: none;
+    color: var(--color-text-muted);
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.view-switcher button:hover {
+    color: var(--color-text-main);
+}
+
+.view-switcher button.active {
+    background: var(--color-accent-primary);
+    color: var(--color-app-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.viewer-header .export-info {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.viewer-main {
+    flex: 1;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+}
+
+.canvas-container {
+    flex: 1;
+    background-image: radial-gradient(var(--color-app-border) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Breadcrumb Bar */
+.breadcrumb-bar {
+    background-color: var(--color-app-surface);
+    border-bottom: 1px solid var(--color-app-border);
+    padding: 6px 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0;
+}
+
+.breadcrumb-item {
+    display: inline-flex;
+    align-items: center;
+}
+
+.breadcrumb-separator {
+    color: var(--color-text-muted);
+    margin: 0 8px;
+    font-size: 14px;
+    opacity: 0.5;
+}
+
+.breadcrumb-link {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.breadcrumb-link:hover {
+    color: var(--color-text-main);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.breadcrumb-link.active {
+    color: var(--color-text-main);
+    cursor: default;
+}
+
+.breadcrumb-link.active:hover {
+    background: none;
+}
+
+.viewer-footer {
+    height: 32px;
+    background-color: var(--color-app-surface);
+    border-top: 1px solid var(--color-app-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+}
+
+/* Error/Loading Screens */
+.error-screen,
+.loading-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.spinner {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--color-app-border);
+    border-top-color: var(--color-accent-primary);
+    border-radius: 50%;
+    animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===== Node Styles (matches main Nemoto app theme) ===== */
+
+/* Base node — dark surface with border, backdrop blur */
+.axiom-node {
+    background: var(--color-app-surface);
+    border: 2px solid var(--color-app-border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    transition: all 0.3s;
+    backdrop-filter: blur(4px);
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.axiom-node:hover {
+    background: var(--color-app-hover);
+}
+
+/* Shape variants */
+.node-pill {
+    border-radius: 9999px;
+}
+
+.node-rect {
+    border-radius: 6px;
+}
+
+/* Label */
+.node-label {
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: center;
+    color: var(--color-text-main);
+}
+
+/* Meta text (asset count etc) */
+.node-meta {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+    margin-top: 4px;
+    text-align: center;
+}
+
+.drill-down-info {
+    font-size: 8px;
+    color: var(--color-accent-primary);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    opacity: 0.7;
+}
+
+/* Sidebar Styles */
+.viewer-sidebar {
+    width: 380px;
+    max-width: 45vw;
+    flex-shrink: 0;
+    min-height: 0;
+    background-color: var(--color-app-surface);
+    border-left: 1px solid var(--color-app-border);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.viewer-sidebar.empty {
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+}
+
+.sidebar-section {
+    padding: 24px;
+    border-bottom: 1px solid var(--color-app-border);
+}
+
+.section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.info-card {
+    background: var(--color-app-surface);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--color-app-border);
+}
+
+.label {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 16px;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.text-muted {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* Asset & Journal Lists */
+.asset-card,
+.journal-card {
+    background: var(--color-app-surface);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--color-app-border);
+    transition: all 0.2s ease;
+}
+
+.asset-card:hover,
+.journal-card:hover {
+    border-color: var(--color-accent-primary);
+    background: var(--color-app-hover);
+}
+
+.asset-header,
+.journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.asset-name,
+.journal-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.asset-category-tag {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border-left: 2px solid var(--color-accent-primary);
+    color: var(--color-text-muted);
+    border-radius: 2px;
+}
+
+.asset-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+.journal-date {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+}
+
+/* TipTap / ProseMirror Content Styling */
+.prosemirror-content {
+    font-size: 0.85rem;
+    color: var(--color-text-main);
+    line-height: 1.6;
+    transition: all 0.3s ease;
+}
+
+.journal-card .prosemirror-content {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.journal-card.expanded .prosemirror-content {
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+}
+
+.journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.expand-icon {
+    font-size: 1.2rem;
+    color: var(--color-accent-primary);
+    opacity: 0.5;
+    font-family: monospace;
+}
+
+.journal-card:hover .expand-icon {
+    opacity: 1;
+}
+
+.read-more {
+    margin-top: 12px;
+    font-size: 0.7rem;
+    color: var(--color-accent-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+.journal-card:hover .read-more {
+    opacity: 1;
+}
+
+.prosemirror-content p {
+    margin-bottom: 12px;
+}
+
+.prosemirror-content ul,
+.prosemirror-content ol {
+    padding-left: 20px;
+    margin-bottom: 12px;
+}
+
+.prosemirror-content li {
+    margin-bottom: 4px;
+}
+
+/* Task List Styling */
+.prosemirror-content ul[data-type="taskList"] {
+    list-style: none;
+    padding: 0;
+}
+
+.prosemirror-content li[data-type="taskItem"] {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.prosemirror-content li[data-type="taskItem"]>label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    margin-top: 4px;
+}
+
+.prosemirror-content li[data-type="taskItem"]>label input {
+    appearance: none;
+    background-color: transparent;
+    margin: 0;
+    font: inherit;
+    color: var(--color-accent-primary);
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--color-app-border);
+    border-radius: 3px;
+    display: grid;
+    place-content: center;
+    cursor: default;
+}
+
+.prosemirror-content li[data-type="taskItem"]>label input:checked {
+    background-color: var(--color-accent-primary);
+    border-color: var(--color-accent-primary);
+}
+
+.prosemirror-content li[data-type="taskItem"]>label input:checked::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    transform: scale(1);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 10px 10px #000;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.prosemirror-content li[data-type="taskItem"]>div {
+    flex: 1;
+}
+
+.prosemirror-content li[data-type="taskItem"]>div>p {
+    margin: 0;
+}
+
+.prosemirror-content li[data-checked="true"]>div {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+/* Links & Typography */
+.prosemirror-content a {
+    color: var(--color-accent-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.prosemirror-content blockquote {
+    border-left: 3px solid var(--color-app-border);
+    padding-left: 16px;
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+}
+
+.prosemirror-content code {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8rem;
+}
+
+/* Edge Label Pill (matches main app dark pill) */
+.edge-label-pill {
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    background: rgba(24, 24, 27, 0.85);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-muted);
+    white-space: nowrap;
+}
+
+/* ===== Embedded Journal Media ===== */
+.prosemirror-content figure.journal-image,
+.prosemirror-content figure[data-type="journal-image"] {
+    display: block;
+    max-width: 100%;
+    margin: 1.5rem auto;
+}
+
+.prosemirror-content figure.journal-image img,
+.prosemirror-content figure[data-type="journal-image"] img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border: 1px solid var(--color-app-border);
+    border-radius: 8px;
+}
+
+.prosemirror-content figure.journal-image figcaption,
+.prosemirror-content figure[data-type="journal-image"] figcaption {
+    margin-top: 0.6rem;
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+    font-style: italic;
+    line-height: 1.45;
+    text-align: center;
+}
+
+/* ===== Table Styling (TipTap / Journal Content) ===== */
+.prosemirror-content table,
+.prosemirror-content table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--color-app-border);
+    margin: 1em 0;
+    border-radius: 6px;
+    overflow: hidden;
+    font-size: 0.85rem;
+}
+
+.prosemirror-content th,
+.prosemirror-content th {
+    background-color: var(--color-app-surface);
+    border: 1px solid var(--color-app-border);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-text-main);
+}
+
+.prosemirror-content td,
+.prosemirror-content td {
+    border: 1px solid var(--color-app-border);
+    padding: 10px 14px;
+    color: var(--color-text-muted);
+    vertical-align: top;
+}
+
+.prosemirror-content tr:hover,
+.prosemirror-content tr:hover {
+    background-color: var(--color-app-hover);
+}
+
+/* ===== Mention Styling in Exported Content ===== */
+.prosemirror-content .mention,
+.prosemirror-content [data-mention-id],
+.prosemirror-content .mention,
+.prosemirror-content [data-mention-id] {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(245, 158, 11, 0.22));
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: var(--color-accent-primary);
+    font-weight: 600;
+    font-size: 0.85em;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+    white-space: nowrap;
+}
+
+/* ===== Node Type Badge (Sidebar) ===== */
+.node-type-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: var(--color-app-surface);
+    border: 1px solid var(--color-app-border);
+    color: var(--color-accent-primary);
+}
+
+/* ===== Drill-Down Cue Animation ===== */
+.drill-down-cue {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.group:hover .drill-down-cue {
+    transform: translateY(-1px);
+}
+
+/* ===== Process Header Node - exempt from ReactFlow defaults ===== */
+.react-flow__node-process-header {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* Custom scrollbar for viewer */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--color-app-border);
+    border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-text-muted);
+}
+
+.prosemirror-content .mention.mention-dangling,
+.prosemirror-content [data-dangling="true"] {
+    background: color-mix(in srgb, var(--palette-red) 12%, transparent);
+    border-color: color-mix(in srgb, var(--palette-red) 45%, transparent);
+    color: var(--palette-red);
+    text-decoration: underline wavy;
+    text-decoration-thickness: 1px;
+}

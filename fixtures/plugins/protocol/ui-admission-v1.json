@@ -1,0 +1,89 @@
+{
+  "manifest": {
+    "schema": "axiom.plugin",
+    "schemaVersion": 1,
+    "id": "org.axiom.ui-fixture",
+    "version": "1.0.0",
+    "name": "Composed UI fixture",
+    "description": "Cross-language admission fixture.",
+    "categories": ["domain"],
+    "compatibility": { "axiomPluginApi": ">=1.8.0 <2.0.0" },
+    "dataVersion": 1,
+    "capabilities": ["compute.isolated", "portfolio.read-scoped", "plugin-data.write", "workspace.navigate"],
+    "dependencies": [],
+    "runtime": {
+      "schema": "axiom.plugin-wasm-runtime",
+      "schemaVersion": 1,
+      "abi": "axiom-wasm-v1",
+      "module": "runtime/plugin.wasm"
+    },
+    "contributes": {
+      "views": [
+        { "id": "org.axiom.ui-fixture/legacy", "path": "contributions/legacy.view.json" },
+        { "id": "org.axiom.ui-fixture/composed", "path": "contributions/composed.view.json" }
+      ]
+    }
+  },
+  "legacyView": {
+    "schema": "axiom.plugin.view",
+    "schemaVersion": 1,
+    "id": "org.axiom.ui-fixture/legacy",
+    "renderer": "collection-list",
+    "navigation": { "surface": "app-rail", "label": "Records", "icon": "ClipboardCheck", "order": 300 },
+    "content": {
+      "eyebrow": "Fixture", "title": "Records", "description": "Legacy storage declaration.",
+      "emptyTitle": "No records", "emptyDescription": "Add one.", "addLabel": "Add"
+    },
+    "collection": {
+      "id": "records", "itemLabel": "record", "primaryField": "title",
+      "fields": [{ "key": "title", "label": "Title", "type": "text", "required": true, "maxLength": 500 }]
+    }
+  },
+  "composedView": {
+    "schema": "axiom.plugin.view",
+    "schemaVersion": 1,
+    "id": "org.axiom.ui-fixture/composed",
+    "renderer": "composed-view",
+    "navigation": { "surface": "app-rail", "label": "Composed records", "icon": "ClipboardCheck", "order": 301 },
+    "operation": "ui.records.reduce",
+    "storageViewId": "org.axiom.ui-fixture/legacy",
+    "ui": {
+      "schema": "axiom.plugin-ui",
+      "schemaVersion": 1,
+      "protocolVersion": 1,
+      "treeVersion": 1,
+      "effectsVersion": 1,
+      "abi": "axiom-wasm-v1",
+      "requiredPrimitives": ["stack", "text", "button"],
+      "requiredEffects": ["read.entity", "storage.collection.read-page", "storage.collection.transact", "workspace.open", "notice.show"]
+    }
+  },
+  "effectCapabilities": {
+    "read.search": ["portfolio.read-scoped"],
+    "read.entity": ["portfolio.read-scoped"],
+    "read.relations": ["portfolio.read-scoped"],
+    "storage.collection.read-page": [],
+    "storage.collection.transact": ["plugin-data.write"],
+    "storage.document.get": [],
+    "storage.document.list": [],
+    "storage.document.transact": ["plugin-data.write"],
+    "workspace.context": ["portfolio.read-scoped"],
+    "workspace.open": ["workspace.navigate"],
+    "output.text-file": ["file.write-selected"],
+    "output.clipboard-text": ["clipboard.write"],
+    "notice.show": []
+  },
+  "cases": [
+    { "name": "valid composed view", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated", "portfolio.read-scoped", "plugin-data.write", "workspace.navigate"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack", "text", "button"], "requiredEffects": ["read.entity", "storage.collection.read-page", "storage.collection.transact", "workspace.open", "notice.show"], "duplicateOperation": false, "valid": true },
+    { "name": "host range includes 1.7", "apiRange": ">=1.7.0 <2.0.0", "capabilities": ["compute.isolated", "portfolio.read-scoped", "plugin-data.write", "workspace.navigate"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack"], "requiredEffects": [], "duplicateOperation": false, "valid": false },
+    { "name": "high 1.7 patch range remains below UI API", "apiRange": ">1.7.999 <2.0.0", "capabilities": ["compute.isolated"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack"], "requiredEffects": [], "duplicateOperation": false, "valid": false },
+    { "name": "missing write capability", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated", "portfolio.read-scoped", "workspace.navigate"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack"], "requiredEffects": ["storage.collection.transact"], "duplicateOperation": false, "valid": false },
+    { "name": "missing navigation capability", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack"], "requiredEffects": ["workspace.open"], "duplicateOperation": false, "valid": false },
+    { "name": "foreign storage view", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated"], "operation": "ui.records.reduce", "storageViewId": "org.other.plugin/legacy", "requiredPrimitives": ["stack"], "requiredEffects": [], "duplicateOperation": false, "valid": false },
+    { "name": "invalid operation", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated"], "operation": "bad operation", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack"], "requiredEffects": [], "duplicateOperation": false, "valid": false },
+    { "name": "unknown primitive", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["html"], "requiredEffects": [], "duplicateOperation": false, "valid": false },
+    { "name": "unknown effect", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack"], "requiredEffects": ["host.invoke"], "duplicateOperation": false, "valid": false },
+    { "name": "missing own storage view", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/missing", "requiredPrimitives": ["stack"], "requiredEffects": [], "duplicateOperation": false, "valid": false },
+    { "name": "duplicate operation", "apiRange": ">=1.8.0 <2.0.0", "capabilities": ["compute.isolated"], "operation": "ui.records.reduce", "storageViewId": "org.axiom.ui-fixture/legacy", "requiredPrimitives": ["stack"], "requiredEffects": [], "duplicateOperation": true, "valid": false }
+  ]
+}

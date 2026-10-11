@@ -1,0 +1,5146 @@
+{
+  "format": "axiom",
+  "kind": "portfolio",
+  "schemaVersion": 3,
+  "version": "1.0.0",
+  "appVersion": "0.14.0-rc.2",
+  "timestamp": "2026-09-28T09:00:00.000Z",
+  "data": {
+    "schemaVersion": 3,
+    "version": "0.14.0-rc.2",
+    "lastModified": "2026-09-28T09:00:00.000Z",
+    "processes": [
+      {
+        "id": "lh-incident",
+        "title": "Incidenthantering",
+        "description": "Återställ tjänsten och bekräfta resultatet. Fortsatt orsaksutredning hanteras som separat uppföljning.",
+        "ownerId": "lh-manager",
+        "createdAt": "2026-09-28T09:00:00.000Z",
+        "updatedAt": "2026-09-28T09:00:00.000Z",
+        "graph": {
+          "nodes": [
+            {
+              "id": "lh-incident-start",
+              "type": "start",
+              "label": "Störning upptäckt",
+              "position": {
+                "x": 40,
+                "y": 144
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Ange vad som inte fungerar och när det senast fungerade."
+              },
+              "swimlaneId": "lh-incident-lane-0",
+              "assetIds": [
+                "lh-user"
+              ]
+            },
+            {
+              "id": "lh-incident-register",
+              "type": "action",
+              "label": "Registrera incident",
+              "position": {
+                "x": 344,
+                "y": 128
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Skapa ärende med kontakt, plats, tjänst och konkret påverkan."
+              },
+              "swimlaneId": "lh-incident-lane-1",
+              "assetIds": [
+                "lh-tickets",
+                "lh-desk"
+              ]
+            },
+            {
+              "id": "lh-incident-priority",
+              "type": "action",
+              "label": "Bedöm prioritet",
+              "position": {
+                "x": 344,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Bedöm påverkan och brådska enligt Journal 01."
+              },
+              "swimlaneId": "lh-incident-lane-1",
+              "assetIds": [
+                "lh-incidentdoc"
+              ],
+              "subGraphId": "lh-graph-priority"
+            },
+            {
+              "id": "lh-incident-diagnose",
+              "type": "action",
+              "label": "Grundfelsök",
+              "position": {
+                "x": 344,
+                "y": 544
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Arbeta med en förändring i taget. Dokumentera observerat resultat."
+              },
+              "swimlaneId": "lh-incident-lane-1",
+              "assetIds": [
+                "lh-identity",
+                "lh-print",
+                "lh-printer"
+              ],
+              "subGraphId": "lh-graph-diagnose"
+            },
+            {
+              "id": "lh-incident-decision",
+              "type": "decision",
+              "label": "Behövs specialist?",
+              "position": {
+                "x": 344,
+                "y": 720
+              },
+              "width": 224,
+              "height": 160,
+              "data": {
+                "description": "Kan servicedesk återställa säkert med godkänd instruktion?"
+              },
+              "swimlaneId": "lh-incident-lane-1",
+              "assetIds": [
+                "lh-desk"
+              ]
+            },
+            {
+              "id": "lh-incident-specialist",
+              "type": "action",
+              "label": "Avgränsa felet",
+              "position": {
+                "x": 648,
+                "y": 752
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Kontrollera omfattning och välj en reversibel åtgärd."
+              },
+              "swimlaneId": "lh-incident-lane-2",
+              "assetIds": [
+                "lh-specialist",
+                "lh-network"
+              ]
+            },
+            {
+              "id": "lh-incident-vendor",
+              "type": "action",
+              "label": "Eskalera vid behov",
+              "position": {
+                "x": 952,
+                "y": 960
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Vid avtalsärende: skicka avidentifierat underlag och få mottagningsbekräftelse. Annars hanterar specialist åtgärden."
+              },
+              "swimlaneId": "lh-incident-lane-3",
+              "assetIds": [
+                "lh-printvendor",
+                "lh-contract"
+              ],
+              "subGraphId": "lh-graph-escalation"
+            },
+            {
+              "id": "lh-incident-restore",
+              "type": "action",
+              "label": "Återställ tjänsten",
+              "position": {
+                "x": 648,
+                "y": 1168
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Använd verifierad åtgärd eller tidsbegränsad reservlösning."
+              },
+              "swimlaneId": "lh-incident-lane-2",
+              "assetIds": [
+                "lh-print",
+                "lh-printer"
+              ]
+            },
+            {
+              "id": "lh-incident-verify",
+              "type": "decision",
+              "label": "Fungerar tjänsten?",
+              "position": {
+                "x": 40,
+                "y": 1344
+              },
+              "width": 224,
+              "height": 160,
+              "data": {
+                "description": "Användaren provar sin normala uppgift. Vid kvarstående fel återupptas felsökning."
+              },
+              "swimlaneId": "lh-incident-lane-0",
+              "assetIds": [
+                "lh-user"
+              ]
+            },
+            {
+              "id": "lh-incident-close",
+              "type": "end",
+              "label": "Bekräfta och avsluta",
+              "position": {
+                "x": 344,
+                "y": 1600
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Dokumentera tid, verifiering och eventuell separat förbättring."
+              },
+              "swimlaneId": "lh-incident-lane-1",
+              "assetIds": [
+                "lh-tickets"
+              ]
+            }
+          ],
+          "edges": [
+            {
+              "id": "lh-incident-edge-0",
+              "sourceId": "lh-incident-start",
+              "targetId": "lh-incident-register",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-incident-edge-1",
+              "sourceId": "lh-incident-register",
+              "targetId": "lh-incident-priority",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-incident-edge-2",
+              "sourceId": "lh-incident-priority",
+              "targetId": "lh-incident-diagnose",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-incident-edge-3",
+              "sourceId": "lh-incident-diagnose",
+              "targetId": "lh-incident-decision",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-incident-edge-4",
+              "sourceId": "lh-incident-decision",
+              "targetId": "lh-incident-specialist",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Ja"
+            },
+            {
+              "id": "lh-incident-edge-5",
+              "sourceId": "lh-incident-decision",
+              "targetId": "lh-incident-restore",
+              "sourceHandleId": "s-left",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Nej – känd åtgärd",
+              "routingMode": "outside-left",
+              "routingMargin": 64
+            },
+            {
+              "id": "lh-incident-edge-6",
+              "sourceId": "lh-incident-specialist",
+              "targetId": "lh-incident-vendor",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Avtalsstöd behövs"
+            },
+            {
+              "id": "lh-incident-edge-7",
+              "sourceId": "lh-incident-specialist",
+              "targetId": "lh-incident-restore",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Egen åtgärd"
+            },
+            {
+              "id": "lh-incident-edge-8",
+              "sourceId": "lh-incident-vendor",
+              "targetId": "lh-incident-restore",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-incident-edge-9",
+              "sourceId": "lh-incident-restore",
+              "targetId": "lh-incident-verify",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-incident-edge-10",
+              "sourceId": "lh-incident-verify",
+              "targetId": "lh-incident-close",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Ja"
+            },
+            {
+              "id": "lh-incident-edge-11",
+              "sourceId": "lh-incident-verify",
+              "targetId": "lh-incident-diagnose",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-right",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Nej",
+              "routingMode": "outside-right",
+              "routingMargin": 64
+            }
+          ],
+          "swimlanes": [
+            {
+              "id": "lh-incident-lane-0",
+              "label": "Användare",
+              "color": "blue",
+              "order": 0,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-incident-lane-1",
+              "label": "Servicedesk",
+              "color": "emerald",
+              "order": 1,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-incident-lane-2",
+              "label": "Specialist",
+              "color": "amber",
+              "order": 2,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-incident-lane-3",
+              "label": "Leverantör",
+              "color": "purple",
+              "order": 3,
+              "height": 240,
+              "width": 304
+            }
+          ],
+          "mode": "swimlane-vertical",
+          "viewport": {
+            "x": 20,
+            "y": 20,
+            "zoom": 0.72
+          }
+        },
+        "subGraphs": {
+          "lh-graph-priority": {
+            "nodes": [
+              {
+                "id": "lh-priority-impact",
+                "type": "action",
+                "label": "Fastställ påverkan",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Räkna drabbade kontor och vilka arbetsuppgifter som stoppats."
+                },
+                "swimlaneId": "lh-priority-lane-0",
+                "assetIds": [
+                  "lh-tickets"
+                ]
+              },
+              {
+                "id": "lh-priority-urgency",
+                "type": "action",
+                "label": "Bedöm brådska",
+                "position": {
+                  "x": 496,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Fråga efter nästa verkliga verksamhetsfrist och möjlig reservrutin."
+                },
+                "swimlaneId": "lh-priority-lane-0",
+                "assetIds": [
+                  "lh-user"
+                ]
+              },
+              {
+                "id": "lh-priority-assign",
+                "type": "action",
+                "label": "Sätt och ompröva prioritet",
+                "position": {
+                  "x": 832,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Bekräfta P1–P3 och ange nästa återkopplingstid."
+                },
+                "swimlaneId": "lh-priority-lane-1",
+                "assetIds": [
+                  "lh-manager",
+                  "lh-incidentdoc"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-priority-edge-0",
+                "sourceId": "lh-priority-impact",
+                "targetId": "lh-priority-urgency",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-priority-edge-1",
+                "sourceId": "lh-priority-urgency",
+                "targetId": "lh-priority-assign",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-priority-lane-0",
+                "label": "Servicedesk",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-priority-lane-1",
+                "label": "Servicechef",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-diagnose": {
+            "nodes": [
+              {
+                "id": "lh-diagnose-scope",
+                "type": "decision",
+                "label": "Vilket symptom?",
+                "position": {
+                  "x": 160,
+                  "y": 40
+                },
+                "width": 224,
+                "height": 160,
+                "data": {
+                  "description": "Avgränsa till åtkomst eller utskrift. Andra symptom dokumenteras och lämnas till specialist utan osäkra försök."
+                },
+                "swimlaneId": "lh-diagnose-lane-0",
+                "assetIds": [
+                  "lh-tickets"
+                ]
+              },
+              {
+                "id": "lh-diagnose-login",
+                "type": "action",
+                "label": "Felsök inloggning",
+                "position": {
+                  "x": 496,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Följ Journal 02; skilj autentisering från saknad roll."
+                },
+                "swimlaneId": "lh-diagnose-lane-0",
+                "assetIds": [
+                  "lh-identity"
+                ],
+                "subGraphId": "lh-graph-login"
+              },
+              {
+                "id": "lh-diagnose-print",
+                "type": "action",
+                "label": "Prova säker utskrift",
+                "position": {
+                  "x": 832,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Skriv ut en neutral testsida. Kontrollera rätt kö och frisläppning."
+                },
+                "swimlaneId": "lh-diagnose-lane-1",
+                "assetIds": [
+                  "lh-print",
+                  "lh-printer"
+                ]
+              },
+              {
+                "id": "lh-diagnose-record",
+                "type": "action",
+                "label": "Spara testresultat",
+                "position": {
+                  "x": 1168,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Anteckna vad som prövats, tid och observerat utfall."
+                },
+                "swimlaneId": "lh-diagnose-lane-0",
+                "assetIds": [
+                  "lh-tickets"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-diagnose-edge-0",
+                "sourceId": "lh-diagnose-scope",
+                "targetId": "lh-diagnose-login",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep",
+                "label": "Åtkomst"
+              },
+              {
+                "id": "lh-diagnose-edge-1",
+                "sourceId": "lh-diagnose-scope",
+                "targetId": "lh-diagnose-print",
+                "sourceHandleId": "s-bottom",
+                "targetHandleId": "t-bottom",
+                "style": "solid",
+                "type": "smoothstep",
+                "label": "Utskrift",
+                "routingMode": "below",
+                "routingMargin": 64
+              },
+              {
+                "id": "lh-diagnose-edge-2",
+                "sourceId": "lh-diagnose-scope",
+                "targetId": "lh-diagnose-record",
+                "sourceHandleId": "s-top",
+                "targetHandleId": "t-top",
+                "style": "solid",
+                "type": "smoothstep",
+                "label": "Annat – avgränsa vidare",
+                "routingMode": "above",
+                "routingMargin": 64
+              },
+              {
+                "id": "lh-diagnose-edge-3",
+                "sourceId": "lh-diagnose-login",
+                "targetId": "lh-diagnose-record",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-diagnose-edge-4",
+                "sourceId": "lh-diagnose-print",
+                "targetId": "lh-diagnose-record",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-diagnose-lane-0",
+                "label": "Servicedesk",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-diagnose-lane-1",
+                "label": "Användare",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-login": {
+            "nodes": [
+              {
+                "id": "lh-login-identify",
+                "type": "action",
+                "label": "Bekräfta identiteten",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Använd etablerad kontaktväg. Be aldrig om lösenord eller engångskod."
+                },
+                "swimlaneId": "lh-login-lane-0",
+                "assetIds": [
+                  "lh-desk"
+                ]
+              },
+              {
+                "id": "lh-login-separate",
+                "type": "decision",
+                "label": "Inloggad men nekad?",
+                "position": {
+                  "x": 496,
+                  "y": 40
+                },
+                "width": 224,
+                "height": 160,
+                "data": {
+                  "description": "Kontrollera om startvyn nås; dokumentera nekad funktion och feltext."
+                },
+                "swimlaneId": "lh-login-lane-0",
+                "assetIds": [
+                  "lh-identity"
+                ]
+              },
+              {
+                "id": "lh-login-role",
+                "type": "action",
+                "label": "Kontrollera godkänd roll",
+                "position": {
+                  "x": 832,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Jämför beställning med gruppmedlemskap; chef godkänner ändring."
+                },
+                "swimlaneId": "lh-login-lane-1",
+                "assetIds": [
+                  "lh-identity",
+                  "lh-manager"
+                ]
+              },
+              {
+                "id": "lh-login-retry",
+                "type": "action",
+                "label": "Prova med ny session",
+                "position": {
+                  "x": 1168,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Användaren loggar in på nytt och verifierar den avsedda funktionen."
+                },
+                "swimlaneId": "lh-login-lane-0",
+                "assetIds": [
+                  "lh-user"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-login-edge-0",
+                "sourceId": "lh-login-identify",
+                "targetId": "lh-login-separate",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-login-edge-1",
+                "sourceId": "lh-login-separate",
+                "targetId": "lh-login-role",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep",
+                "label": "Ja"
+              },
+              {
+                "id": "lh-login-edge-2",
+                "sourceId": "lh-login-separate",
+                "targetId": "lh-login-retry",
+                "sourceHandleId": "s-top",
+                "targetHandleId": "t-top",
+                "style": "solid",
+                "type": "smoothstep",
+                "label": "Nej – kontrollera session",
+                "routingMode": "above",
+                "routingMargin": 64
+              },
+              {
+                "id": "lh-login-edge-3",
+                "sourceId": "lh-login-role",
+                "targetId": "lh-login-retry",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-login-lane-0",
+                "label": "Servicedesk",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-login-lane-1",
+                "label": "Specialist",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-escalation": {
+            "nodes": [
+              {
+                "id": "lh-escalation-prepare",
+                "type": "action",
+                "label": "Samla eskaleringsunderlag",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Ange tillgångs-ID, feltext, tider, påverkan och redan prövade steg."
+                },
+                "swimlaneId": "lh-escalation-lane-0",
+                "assetIds": [
+                  "lh-contract",
+                  "lh-printer"
+                ]
+              },
+              {
+                "id": "lh-escalation-accept",
+                "type": "action",
+                "label": "Bekräfta mottagare",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Notera leverantörens referens och tid för återkoppling."
+                },
+                "swimlaneId": "lh-escalation-lane-1",
+                "assetIds": [
+                  "lh-printvendor"
+                ]
+              },
+              {
+                "id": "lh-escalation-test",
+                "type": "action",
+                "label": "Granska och prova förslag",
+                "position": {
+                  "x": 832,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Bedöm påverkan och återställningsväg innan åtgärden utförs."
+                },
+                "swimlaneId": "lh-escalation-lane-0",
+                "assetIds": [
+                  "lh-specialist"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-escalation-edge-0",
+                "sourceId": "lh-escalation-prepare",
+                "targetId": "lh-escalation-accept",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-escalation-edge-1",
+                "sourceId": "lh-escalation-accept",
+                "targetId": "lh-escalation-test",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-escalation-lane-0",
+                "label": "Specialist",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-escalation-lane-1",
+                "label": "Leverantör",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          }
+        },
+        "folderId": "lh-process-folder",
+        "mode": "swimlane-vertical"
+      },
+      {
+        "id": "lh-onboard",
+        "title": "Introduktion av servicehandläggare",
+        "description": "Nora Viks första vecka på Norrängen, med gemensam service som stöd.",
+        "ownerId": "lh-manager",
+        "createdAt": "2026-09-28T09:00:00.000Z",
+        "updatedAt": "2026-09-28T09:00:00.000Z",
+        "graph": {
+          "nodes": [
+            {
+              "id": "lh-onboard-prepare",
+              "type": "action",
+              "label": "Förbered före start",
+              "position": {
+                "x": 40,
+                "y": 128
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Chef beställer dator, plats och namngivna rollbehörigheter."
+              },
+              "swimlaneId": "lh-onboard-lane-0",
+              "assetIds": [
+                "lh-manager",
+                "lh-onboarddoc"
+              ],
+              "subGraphId": "lh-graph-prepare"
+            },
+            {
+              "id": "lh-onboard-dayone",
+              "type": "action",
+              "label": "Första dagen",
+              "position": {
+                "x": 344,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Kvittera dator och kontrollera verklig åtkomst tillsammans."
+              },
+              "swimlaneId": "lh-onboard-lane-1",
+              "assetIds": [
+                "lh-pc",
+                "lh-identity",
+                "lh-north"
+              ]
+            },
+            {
+              "id": "lh-onboard-practice",
+              "type": "action",
+              "label": "Handledda ärenden",
+              "position": {
+                "x": 648,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Öva inloggningsärendet och utskriftsfallet utan riktiga kunduppgifter."
+              },
+              "swimlaneId": "lh-onboard-lane-2",
+              "assetIds": [
+                "lh-mentor",
+                "lh-incidentdoc"
+              ],
+              "subGraphId": "lh-graph-practice"
+            },
+            {
+              "id": "lh-onboard-ready",
+              "type": "decision",
+              "label": "Redo att arbeta själv?",
+              "position": {
+                "x": 40,
+                "y": 512
+              },
+              "width": 224,
+              "height": 160,
+              "data": {
+                "description": "Bedöm dokumentation, prioritering och säker eskalering."
+              },
+              "swimlaneId": "lh-onboard-lane-0",
+              "assetIds": [
+                "lh-mentor"
+              ]
+            },
+            {
+              "id": "lh-onboard-independent",
+              "type": "action",
+              "label": "Självständigt arbete",
+              "position": {
+                "x": 648,
+                "y": 752
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Handledare finns tillgänglig och granskar två ärenden varje dag första veckan."
+              },
+              "swimlaneId": "lh-onboard-lane-2",
+              "assetIds": [
+                "lh-desk"
+              ]
+            },
+            {
+              "id": "lh-onboard-review",
+              "type": "end",
+              "label": "Följ upp vecka ett",
+              "position": {
+                "x": 40,
+                "y": 976
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Stäm av kvarstående behov med Nora och besluta nästa övning."
+              },
+              "swimlaneId": "lh-onboard-lane-0",
+              "assetIds": [
+                "lh-onboarddoc"
+              ]
+            }
+          ],
+          "edges": [
+            {
+              "id": "lh-onboard-edge-0",
+              "sourceId": "lh-onboard-prepare",
+              "targetId": "lh-onboard-dayone",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-onboard-edge-1",
+              "sourceId": "lh-onboard-dayone",
+              "targetId": "lh-onboard-practice",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-onboard-edge-2",
+              "sourceId": "lh-onboard-practice",
+              "targetId": "lh-onboard-ready",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-onboard-edge-3",
+              "sourceId": "lh-onboard-ready",
+              "targetId": "lh-onboard-independent",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Ja"
+            },
+            {
+              "id": "lh-onboard-edge-4",
+              "sourceId": "lh-onboard-ready",
+              "targetId": "lh-onboard-practice",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-right",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Mer handledning",
+              "routingMode": "outside-right",
+              "routingMargin": 64
+            },
+            {
+              "id": "lh-onboard-edge-5",
+              "sourceId": "lh-onboard-independent",
+              "targetId": "lh-onboard-review",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            }
+          ],
+          "swimlanes": [
+            {
+              "id": "lh-onboard-lane-0",
+              "label": "Chef och handledare",
+              "color": "blue",
+              "order": 0,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-onboard-lane-1",
+              "label": "Gemensam service",
+              "color": "emerald",
+              "order": 1,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-onboard-lane-2",
+              "label": "Ny handläggare",
+              "color": "amber",
+              "order": 2,
+              "height": 240,
+              "width": 304
+            }
+          ],
+          "mode": "swimlane-vertical",
+          "viewport": {
+            "x": 20,
+            "y": 20,
+            "zoom": 0.72
+          }
+        },
+        "subGraphs": {
+          "lh-graph-prepare": {
+            "nodes": [
+              {
+                "id": "lh-prepare-role",
+                "type": "action",
+                "label": "Godkänn rollprofil",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Beställ handläggarroll och utskriftsåtkomst, inte administratör."
+                },
+                "swimlaneId": "lh-prepare-lane-0",
+                "assetIds": [
+                  "lh-manager",
+                  "lh-identity"
+                ]
+              },
+              {
+                "id": "lh-prepare-device",
+                "type": "action",
+                "label": "Reservera dator och plats",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Matcha startdatum med plats N-14 och leveranskvittens."
+                },
+                "swimlaneId": "lh-prepare-lane-1",
+                "assetIds": [
+                  "lh-pc",
+                  "lh-north",
+                  "lh-placedoc"
+                ]
+              },
+              {
+                "id": "lh-prepare-plan",
+                "type": "action",
+                "label": "Boka handledning",
+                "position": {
+                  "x": 832,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Boka 30 min avstämning dag 1, 3 och 5."
+                },
+                "swimlaneId": "lh-prepare-lane-0",
+                "assetIds": [
+                  "lh-mentor",
+                  "lh-onboarddoc"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-prepare-edge-0",
+                "sourceId": "lh-prepare-role",
+                "targetId": "lh-prepare-device",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-prepare-edge-1",
+                "sourceId": "lh-prepare-device",
+                "targetId": "lh-prepare-plan",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-prepare-lane-0",
+                "label": "Chef",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-prepare-lane-1",
+                "label": "Servicedesk",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-practice": {
+            "nodes": [
+              {
+                "id": "lh-practice-brief",
+                "type": "action",
+                "label": "Läs övningsfallet",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Journal 07 beskriver symptom, underlag och förväntad dokumentation."
+                },
+                "swimlaneId": "lh-practice-lane-0",
+                "assetIds": [
+                  "lh-incidentdoc"
+                ]
+              },
+              {
+                "id": "lh-practice-perform",
+                "type": "action",
+                "label": "Registrera och felsök",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Förklara högt vad som är observation och vad som är hypotes."
+                },
+                "swimlaneId": "lh-practice-lane-1",
+                "assetIds": [
+                  "lh-tickets",
+                  "lh-identity"
+                ]
+              },
+              {
+                "id": "lh-practice-feedback",
+                "type": "action",
+                "label": "Ge konkret återkoppling",
+                "position": {
+                  "x": 832,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Kontrollera identitet, avgränsning, eskalering och användarens verifiering."
+                },
+                "swimlaneId": "lh-practice-lane-0",
+                "assetIds": [
+                  "lh-mentor"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-practice-edge-0",
+                "sourceId": "lh-practice-brief",
+                "targetId": "lh-practice-perform",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-practice-edge-1",
+                "sourceId": "lh-practice-perform",
+                "targetId": "lh-practice-feedback",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-practice-lane-0",
+                "label": "Handledare",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-practice-lane-1",
+                "label": "Ny handläggare",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          }
+        },
+        "folderId": "lh-process-folder",
+        "mode": "swimlane-vertical"
+      },
+      {
+        "id": "lh-computer",
+        "title": "Datorns livscykel",
+        "description": "Spårbar tillgång från behov till återbruk eller dokumenterad avveckling.",
+        "ownerId": "lh-manager",
+        "createdAt": "2026-09-28T09:00:00.000Z",
+        "updatedAt": "2026-09-28T09:00:00.000Z",
+        "graph": {
+          "nodes": [
+            {
+              "id": "lh-computer-need",
+              "type": "start",
+              "label": "Beskriv behov",
+              "position": {
+                "x": 40,
+                "y": 144
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Ange arbetsuppgifter, plats, startdatum och tillbehör."
+              },
+              "swimlaneId": "lh-computer-lane-0",
+              "assetIds": [
+                "lh-user"
+              ]
+            },
+            {
+              "id": "lh-computer-order",
+              "type": "action",
+              "label": "Beställ och godkänn",
+              "position": {
+                "x": 40,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Leverans får bokas först efter godkänd kostnad."
+              },
+              "swimlaneId": "lh-computer-lane-0",
+              "assetIds": [
+                "lh-manager",
+                "lh-devicevendor"
+              ]
+            },
+            {
+              "id": "lh-computer-configure",
+              "type": "action",
+              "label": "Konfigurera dator",
+              "position": {
+                "x": 344,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Registrera ID, kryptering och standardprofil."
+              },
+              "swimlaneId": "lh-computer-lane-1",
+              "assetIds": [
+                "lh-mdm",
+                "lh-inventory"
+              ],
+              "subGraphId": "lh-graph-pcconfig"
+            },
+            {
+              "id": "lh-computer-handover",
+              "type": "action",
+              "label": "Lämna ut och kvittera",
+              "position": {
+                "x": 344,
+                "y": 544
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Prova inloggning och dokumentera innehavare."
+              },
+              "swimlaneId": "lh-computer-lane-1",
+              "assetIds": [
+                "lh-pc",
+                "lh-north"
+              ]
+            },
+            {
+              "id": "lh-computer-maintain",
+              "type": "action",
+              "label": "Använd och underhåll",
+              "position": {
+                "x": 40,
+                "y": 752
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Planera uppdateringar och felanmäl via incidentflödet."
+              },
+              "swimlaneId": "lh-computer-lane-0",
+              "assetIds": [
+                "lh-mdm"
+              ]
+            },
+            {
+              "id": "lh-computer-return",
+              "type": "action",
+              "label": "Ta emot återlämning",
+              "position": {
+                "x": 344,
+                "y": 960
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Räkna tillbehör och säkra godkänd informationsöverföring."
+              },
+              "swimlaneId": "lh-computer-lane-1",
+              "assetIds": [
+                "lh-returndoc",
+                "lh-inventory"
+              ],
+              "subGraphId": "lh-graph-pcreturn"
+            },
+            {
+              "id": "lh-computer-reuse",
+              "type": "decision",
+              "label": "Kan datorn återbrukas?",
+              "position": {
+                "x": 344,
+                "y": 1136
+              },
+              "width": 224,
+              "height": 160,
+              "data": {
+                "description": "Bedöm skick och radering, inte enbart ålder."
+              },
+              "swimlaneId": "lh-computer-lane-1",
+              "assetIds": [
+                "lh-inventory"
+              ]
+            },
+            {
+              "id": "lh-computer-recycle",
+              "type": "end",
+              "label": "Avveckla med kvittens",
+              "position": {
+                "x": 648,
+                "y": 1392
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Begär raderings- och återvinningsintyg."
+              },
+              "swimlaneId": "lh-computer-lane-2",
+              "assetIds": [
+                "lh-devicevendor"
+              ]
+            }
+          ],
+          "edges": [
+            {
+              "id": "lh-computer-edge-0",
+              "sourceId": "lh-computer-need",
+              "targetId": "lh-computer-order",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-computer-edge-1",
+              "sourceId": "lh-computer-order",
+              "targetId": "lh-computer-configure",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-computer-edge-2",
+              "sourceId": "lh-computer-configure",
+              "targetId": "lh-computer-handover",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-computer-edge-3",
+              "sourceId": "lh-computer-handover",
+              "targetId": "lh-computer-maintain",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-computer-edge-4",
+              "sourceId": "lh-computer-maintain",
+              "targetId": "lh-computer-return",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-computer-edge-5",
+              "sourceId": "lh-computer-return",
+              "targetId": "lh-computer-reuse",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-computer-edge-6",
+              "sourceId": "lh-computer-reuse",
+              "targetId": "lh-computer-configure",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-right",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Ja – ny innehavare",
+              "routingMode": "outside-right",
+              "routingMargin": 64
+            },
+            {
+              "id": "lh-computer-edge-7",
+              "sourceId": "lh-computer-reuse",
+              "targetId": "lh-computer-recycle",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Nej"
+            }
+          ],
+          "swimlanes": [
+            {
+              "id": "lh-computer-lane-0",
+              "label": "Beställare och chef",
+              "color": "blue",
+              "order": 0,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-computer-lane-1",
+              "label": "Gemensam service",
+              "color": "emerald",
+              "order": 1,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-computer-lane-2",
+              "label": "Leverantör",
+              "color": "amber",
+              "order": 2,
+              "height": 240,
+              "width": 304
+            }
+          ],
+          "mode": "swimlane-vertical",
+          "viewport": {
+            "x": 20,
+            "y": 20,
+            "zoom": 0.72
+          }
+        },
+        "subGraphs": {
+          "lh-graph-pcconfig": {
+            "nodes": [
+              {
+                "id": "lh-pcconfig-register",
+                "type": "action",
+                "label": "Registrera tillgång",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Notera serienummer, plats och status Under förberedelse."
+                },
+                "swimlaneId": "lh-pcconfig-lane-0",
+                "assetIds": [
+                  "lh-inventory",
+                  "lh-pc"
+                ]
+              },
+              {
+                "id": "lh-pcconfig-profile",
+                "type": "action",
+                "label": "Installera standardprofil",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Kontrollera kryptering, uppdatering och avsaknad av lokala onödiga rättigheter."
+                },
+                "swimlaneId": "lh-pcconfig-lane-1",
+                "assetIds": [
+                  "lh-mdm",
+                  "lh-identity"
+                ]
+              },
+              {
+                "id": "lh-pcconfig-test",
+                "type": "action",
+                "label": "Verifiera användning",
+                "position": {
+                  "x": 832,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Prova nätverk, inloggning och neutral utskrift före utlämning."
+                },
+                "swimlaneId": "lh-pcconfig-lane-0",
+                "assetIds": [
+                  "lh-network",
+                  "lh-print"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-pcconfig-edge-0",
+                "sourceId": "lh-pcconfig-register",
+                "targetId": "lh-pcconfig-profile",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-pcconfig-edge-1",
+                "sourceId": "lh-pcconfig-profile",
+                "targetId": "lh-pcconfig-test",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-pcconfig-lane-0",
+                "label": "Servicedesk",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-pcconfig-lane-1",
+                "label": "Specialist",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-pcreturn": {
+            "nodes": [
+              {
+                "id": "lh-pcreturn-transfer",
+                "type": "action",
+                "label": "Bekräfta informationsöverföring",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Ansvarig verksamhet bekräftar att nödvändigt arbete finns på godkänd plats."
+                },
+                "swimlaneId": "lh-pcreturn-lane-0",
+                "assetIds": [
+                  "lh-returndoc"
+                ]
+              },
+              {
+                "id": "lh-pcreturn-receive",
+                "type": "action",
+                "label": "Kvittera utrustningen",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Notera skick, laddare och återlämningsdatum."
+                },
+                "swimlaneId": "lh-pcreturn-lane-1",
+                "assetIds": [
+                  "lh-inventory"
+                ]
+              },
+              {
+                "id": "lh-pcreturn-erase",
+                "type": "action",
+                "label": "Radera och verifiera",
+                "position": {
+                  "x": 832,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Enheten lämnar inte kontrollen innan radering har verifierats."
+                },
+                "swimlaneId": "lh-pcreturn-lane-1",
+                "assetIds": [
+                  "lh-mdm",
+                  "lh-inventory"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-pcreturn-edge-0",
+                "sourceId": "lh-pcreturn-transfer",
+                "targetId": "lh-pcreturn-receive",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-pcreturn-edge-1",
+                "sourceId": "lh-pcreturn-receive",
+                "targetId": "lh-pcreturn-erase",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-pcreturn-lane-0",
+                "label": "Användare",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-pcreturn-lane-1",
+                "label": "Servicedesk",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          }
+        },
+        "folderId": "lh-process-folder",
+        "mode": "swimlane-vertical"
+      },
+      {
+        "id": "lh-mobile",
+        "title": "Mobilens livscykel",
+        "description": "Självständig mobilvariant med abonnemang, registrering och förlustväg.",
+        "ownerId": "lh-manager",
+        "createdAt": "2026-09-28T09:00:00.000Z",
+        "updatedAt": "2026-09-28T09:00:00.000Z",
+        "graph": {
+          "nodes": [
+            {
+              "id": "lh-mobile-need",
+              "type": "start",
+              "label": "Beskriv mobilbehov",
+              "position": {
+                "x": 40,
+                "y": 144
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Motivera tjänstebehov och om det gäller personlig eller gemensam mobil."
+              },
+              "swimlaneId": "lh-mobile-lane-0",
+              "assetIds": [
+                "lh-user"
+              ]
+            },
+            {
+              "id": "lh-mobile-order",
+              "type": "action",
+              "label": "Beställ och aktivera",
+              "position": {
+                "x": 648,
+                "y": 128
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Chef godkänner kostnad; notera abonnemangets innehavare."
+              },
+              "swimlaneId": "lh-mobile-lane-2",
+              "assetIds": [
+                "lh-carrier",
+                "lh-subscription"
+              ]
+            },
+            {
+              "id": "lh-mobile-register",
+              "type": "action",
+              "label": "Registrera och konfigurera",
+              "position": {
+                "x": 344,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Registrera enhet och policy innan arbetsdata används."
+              },
+              "swimlaneId": "lh-mobile-lane-1",
+              "assetIds": [
+                "lh-mobilemdm",
+                "lh-identity",
+                "lh-inventory"
+              ],
+              "subGraphId": "lh-graph-mobilereg"
+            },
+            {
+              "id": "lh-mobile-handover",
+              "type": "action",
+              "label": "Lämna ut mobilen",
+              "position": {
+                "x": 344,
+                "y": 544
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Kvittera låskodsrutin utan att registrera själva koden."
+              },
+              "swimlaneId": "lh-mobile-lane-1",
+              "assetIds": [
+                "lh-phone",
+                "lh-south"
+              ]
+            },
+            {
+              "id": "lh-mobile-use",
+              "type": "action",
+              "label": "Använd och underhåll",
+              "position": {
+                "x": 40,
+                "y": 752
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Installera godkända uppdateringar och rapportera avvikelser."
+              },
+              "swimlaneId": "lh-mobile-lane-0",
+              "assetIds": [
+                "lh-mobilemdm"
+              ]
+            },
+            {
+              "id": "lh-mobile-loss",
+              "type": "event",
+              "label": "Förlust rapporterad",
+              "position": {
+                "x": 32,
+                "y": 952
+              },
+              "width": 240,
+              "height": 112,
+              "data": {
+                "description": "Alternativ händelse under användning: ange senast kända tid och plats."
+              },
+              "swimlaneId": "lh-mobile-lane-0",
+              "assetIds": [
+                "lh-phone"
+              ],
+              "event": {
+                "kind": "error",
+                "behavior": "observed"
+              }
+            },
+            {
+              "id": "lh-mobile-block",
+              "type": "action",
+              "label": "Spärra och bedöm",
+              "position": {
+                "x": 344,
+                "y": 960
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Spärra abonnemang; specialist beslutar dokumenterad fjärråtgärd."
+              },
+              "swimlaneId": "lh-mobile-lane-1",
+              "assetIds": [
+                "lh-mobilemdm",
+                "lh-carrier"
+              ],
+              "subGraphId": "lh-graph-mobileloss"
+            },
+            {
+              "id": "lh-mobile-return",
+              "type": "action",
+              "label": "Återlämna eller ersätt",
+              "position": {
+                "x": 344,
+                "y": 1168
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Fysisk återlämning: kontrollera skick och radering. Saknad enhet: dokumentera avvikelse."
+              },
+              "swimlaneId": "lh-mobile-lane-1",
+              "assetIds": [
+                "lh-returndoc",
+                "lh-inventory"
+              ]
+            },
+            {
+              "id": "lh-mobile-end",
+              "type": "action",
+              "label": "Avsluta abonnemang",
+              "position": {
+                "x": 648,
+                "y": 1168
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Bekräfta avslut eller godkänd överföring av abonnemanget."
+              },
+              "swimlaneId": "lh-mobile-lane-2",
+              "assetIds": [
+                "lh-subscription",
+                "lh-carrier"
+              ]
+            },
+            {
+              "id": "lh-mobile-reuse",
+              "type": "decision",
+              "label": "Kan mobilen återbrukas?",
+              "position": {
+                "x": 344,
+                "y": 1344
+              },
+              "width": 224,
+              "height": 160,
+              "data": {
+                "description": "Återbruk kräver fysisk enhet, verifierad radering och godkänt skick. Saknad enhet kan inte återbrukas."
+              },
+              "swimlaneId": "lh-mobile-lane-1",
+              "assetIds": [
+                "lh-inventory",
+                "lh-mobilemdm"
+              ]
+            },
+            {
+              "id": "lh-mobile-retire",
+              "type": "end",
+              "label": "Avveckla och kvittera",
+              "position": {
+                "x": 344,
+                "y": 1600
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Dokumentera radering och återvinning, eller förluststatus med kvarstående datarisk."
+              },
+              "swimlaneId": "lh-mobile-lane-1",
+              "assetIds": [
+                "lh-inventory",
+                "lh-devicevendor"
+              ]
+            }
+          ],
+          "edges": [
+            {
+              "id": "lh-mobile-edge-0",
+              "sourceId": "lh-mobile-need",
+              "targetId": "lh-mobile-order",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-1",
+              "sourceId": "lh-mobile-order",
+              "targetId": "lh-mobile-register",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-2",
+              "sourceId": "lh-mobile-register",
+              "targetId": "lh-mobile-handover",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-3",
+              "sourceId": "lh-mobile-handover",
+              "targetId": "lh-mobile-use",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-4",
+              "sourceId": "lh-mobile-use",
+              "targetId": "lh-mobile-return",
+              "sourceHandleId": "s-left",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Planerat avslut",
+              "routingMode": "outside-left",
+              "routingMargin": 64
+            },
+            {
+              "id": "lh-mobile-edge-5",
+              "sourceId": "lh-mobile-use",
+              "targetId": "lh-mobile-loss",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Vid förlust"
+            },
+            {
+              "id": "lh-mobile-edge-6",
+              "sourceId": "lh-mobile-loss",
+              "targetId": "lh-mobile-block",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-7",
+              "sourceId": "lh-mobile-block",
+              "targetId": "lh-mobile-return",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-8",
+              "sourceId": "lh-mobile-return",
+              "targetId": "lh-mobile-end",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-9",
+              "sourceId": "lh-mobile-end",
+              "targetId": "lh-mobile-reuse",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-mobile-edge-10",
+              "sourceId": "lh-mobile-reuse",
+              "targetId": "lh-mobile-register",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-right",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Ja – ny registrering",
+              "routingMode": "outside-right",
+              "routingMargin": 64
+            },
+            {
+              "id": "lh-mobile-edge-11",
+              "sourceId": "lh-mobile-reuse",
+              "targetId": "lh-mobile-retire",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Nej"
+            }
+          ],
+          "swimlanes": [
+            {
+              "id": "lh-mobile-lane-0",
+              "label": "Beställare",
+              "color": "blue",
+              "order": 0,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-mobile-lane-1",
+              "label": "Gemensam service",
+              "color": "emerald",
+              "order": 1,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-mobile-lane-2",
+              "label": "Operatör",
+              "color": "amber",
+              "order": 2,
+              "height": 240,
+              "width": 304
+            }
+          ],
+          "mode": "swimlane-vertical",
+          "viewport": {
+            "x": 20,
+            "y": 20,
+            "zoom": 0.72
+          }
+        },
+        "subGraphs": {
+          "lh-graph-mobilereg": {
+            "nodes": [
+              {
+                "id": "lh-mobilereg-asset",
+                "type": "action",
+                "label": "Knyt enhet till abonnemang",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Kontrollera tillgångs-ID och att inget tidigare abonnemang ligger kvar."
+                },
+                "swimlaneId": "lh-mobilereg-lane-0",
+                "assetIds": [
+                  "lh-phone",
+                  "lh-subscription",
+                  "lh-inventory"
+                ]
+              },
+              {
+                "id": "lh-mobilereg-policy",
+                "type": "action",
+                "label": "Registrera i mobilhantering",
+                "position": {
+                  "x": 496,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Bekräfta policy och återställningsväg."
+                },
+                "swimlaneId": "lh-mobilereg-lane-0",
+                "assetIds": [
+                  "lh-mobilemdm",
+                  "lh-identity"
+                ]
+              },
+              {
+                "id": "lh-mobilereg-test",
+                "type": "action",
+                "label": "Prova samtal och arbetsåtkomst",
+                "position": {
+                  "x": 832,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Testa med handledare; notera resultat utan verkliga personuppgifter."
+                },
+                "swimlaneId": "lh-mobilereg-lane-1",
+                "assetIds": [
+                  "lh-carrier"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-mobilereg-edge-0",
+                "sourceId": "lh-mobilereg-asset",
+                "targetId": "lh-mobilereg-policy",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-mobilereg-edge-1",
+                "sourceId": "lh-mobilereg-policy",
+                "targetId": "lh-mobilereg-test",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-mobilereg-lane-0",
+                "label": "Servicedesk",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-mobilereg-lane-1",
+                "label": "Användare",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-mobileloss": {
+            "nodes": [
+              {
+                "id": "lh-mobileloss-time",
+                "type": "action",
+                "label": "Registrera förlusttid",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Skilj tid då mobilen sågs senast från tid då förlusten upptäcktes."
+                },
+                "swimlaneId": "lh-mobileloss-lane-0",
+                "assetIds": [
+                  "lh-tickets"
+                ]
+              },
+              {
+                "id": "lh-mobileloss-bar",
+                "type": "action",
+                "label": "Bekräfta abonnemangsspärr",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Spara operatörens kvittens i ärendet."
+                },
+                "swimlaneId": "lh-mobileloss-lane-1",
+                "assetIds": [
+                  "lh-carrier",
+                  "lh-subscription"
+                ]
+              },
+              {
+                "id": "lh-mobileloss-risk",
+                "type": "action",
+                "label": "Bedöm data och fjärråtgärd",
+                "position": {
+                  "x": 832,
+                  "y": 552
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Dokumentera beslut, genomförande och eventuell utebliven bekräftelse."
+                },
+                "swimlaneId": "lh-mobileloss-lane-2",
+                "assetIds": [
+                  "lh-mobilemdm",
+                  "lh-identity"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-mobileloss-edge-0",
+                "sourceId": "lh-mobileloss-time",
+                "targetId": "lh-mobileloss-bar",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-mobileloss-edge-1",
+                "sourceId": "lh-mobileloss-bar",
+                "targetId": "lh-mobileloss-risk",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-mobileloss-lane-0",
+                "label": "Servicedesk",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-mobileloss-lane-1",
+                "label": "Operatör",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-mobileloss-lane-2",
+                "label": "Specialist",
+                "color": "amber",
+                "order": 2,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          }
+        },
+        "folderId": "lh-process-folder",
+        "mode": "swimlane-vertical"
+      },
+      {
+        "id": "lh-printerlife",
+        "title": "Skrivarens livscykel",
+        "description": "LH-PR-003 och utskriftstjänsten delas med incidentflödet.",
+        "ownerId": "lh-manager",
+        "createdAt": "2026-09-28T09:00:00.000Z",
+        "updatedAt": "2026-09-28T09:00:00.000Z",
+        "graph": {
+          "nodes": [
+            {
+              "id": "lh-printerlife-need",
+              "type": "start",
+              "label": "Bestäm behov och placering",
+              "position": {
+                "x": 40,
+                "y": 144
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Kontrollera användarflöde, tillgänglighet, el och nätverk."
+              },
+              "swimlaneId": "lh-printerlife-lane-0",
+              "assetIds": [
+                "lh-local",
+                "lh-north"
+              ]
+            },
+            {
+              "id": "lh-printerlife-buy",
+              "type": "action",
+              "label": "Anskaffa med serviceavtal",
+              "position": {
+                "x": 40,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Jämför volym, servicevillkor och säker frisläppning."
+              },
+              "swimlaneId": "lh-printerlife-lane-0",
+              "assetIds": [
+                "lh-contract",
+                "lh-printvendor"
+              ]
+            },
+            {
+              "id": "lh-printerlife-install",
+              "type": "action",
+              "label": "Installera och verifiera",
+              "position": {
+                "x": 344,
+                "y": 336
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Testa utskrift från normal användarroll."
+              },
+              "swimlaneId": "lh-printerlife-lane-1",
+              "assetIds": [
+                "lh-printer",
+                "lh-print",
+                "lh-network"
+              ],
+              "subGraphId": "lh-graph-printinstall"
+            },
+            {
+              "id": "lh-printerlife-service",
+              "type": "action",
+              "label": "Drift och service",
+              "position": {
+                "x": 648,
+                "y": 544
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Följ intervall och koppla återkommande fel till separat förbättring."
+              },
+              "swimlaneId": "lh-printerlife-lane-2",
+              "assetIds": [
+                "lh-printvendor",
+                "lh-contract",
+                "lh-printer"
+              ],
+              "subGraphId": "lh-graph-printservice"
+            },
+            {
+              "id": "lh-printerlife-replace",
+              "type": "event",
+              "label": "Utbytesbehov bekräftat",
+              "position": {
+                "x": 32,
+                "y": 744
+              },
+              "width": 240,
+              "height": 112,
+              "data": {
+                "description": "Bedöm skick, driftstörningar och avtalets slut."
+              },
+              "swimlaneId": "lh-printerlife-lane-0",
+              "assetIds": [
+                "lh-inventory"
+              ],
+              "event": {
+                "kind": "milestone",
+                "behavior": "observed"
+              }
+            },
+            {
+              "id": "lh-printerlife-end",
+              "type": "end",
+              "label": "Avveckla säkert",
+              "position": {
+                "x": 648,
+                "y": 768
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Återställ lokal lagring, ta bort kö och avsluta inventariepost."
+              },
+              "swimlaneId": "lh-printerlife-lane-2",
+              "assetIds": [
+                "lh-printvendor",
+                "lh-inventory"
+              ]
+            }
+          ],
+          "edges": [
+            {
+              "id": "lh-printerlife-edge-0",
+              "sourceId": "lh-printerlife-need",
+              "targetId": "lh-printerlife-buy",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-printerlife-edge-1",
+              "sourceId": "lh-printerlife-buy",
+              "targetId": "lh-printerlife-install",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-printerlife-edge-2",
+              "sourceId": "lh-printerlife-install",
+              "targetId": "lh-printerlife-service",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-printerlife-edge-3",
+              "sourceId": "lh-printerlife-service",
+              "targetId": "lh-printerlife-replace",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-printerlife-edge-4",
+              "sourceId": "lh-printerlife-replace",
+              "targetId": "lh-printerlife-end",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            }
+          ],
+          "swimlanes": [
+            {
+              "id": "lh-printerlife-lane-0",
+              "label": "Lokalansvarig",
+              "color": "blue",
+              "order": 0,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-printerlife-lane-1",
+              "label": "Gemensam service",
+              "color": "emerald",
+              "order": 1,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-printerlife-lane-2",
+              "label": "Leverantör",
+              "color": "amber",
+              "order": 2,
+              "height": 240,
+              "width": 304
+            }
+          ],
+          "mode": "swimlane-vertical",
+          "viewport": {
+            "x": 20,
+            "y": 20,
+            "zoom": 0.72
+          }
+        },
+        "subGraphs": {
+          "lh-graph-printinstall": {
+            "nodes": [
+              {
+                "id": "lh-printinstall-site",
+                "type": "action",
+                "label": "Kontrollera plats N-02",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Märk uttag och säkerställ fri åtkomst."
+                },
+                "swimlaneId": "lh-printinstall-lane-0",
+                "assetIds": [
+                  "lh-local",
+                  "lh-network"
+                ]
+              },
+              {
+                "id": "lh-printinstall-queue",
+                "type": "action",
+                "label": "Anslut rätt kö",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Verifiera modellprofil och säker frisläppning."
+                },
+                "swimlaneId": "lh-printinstall-lane-1",
+                "assetIds": [
+                  "lh-print",
+                  "lh-printer"
+                ]
+              },
+              {
+                "id": "lh-printinstall-accept",
+                "type": "action",
+                "label": "Godkänn testsida",
+                "position": {
+                  "x": 832,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Två normala användare provar; kassera testsidan efter kontroll."
+                },
+                "swimlaneId": "lh-printinstall-lane-0",
+                "assetIds": [
+                  "lh-north"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-printinstall-edge-0",
+                "sourceId": "lh-printinstall-site",
+                "targetId": "lh-printinstall-queue",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-printinstall-edge-1",
+                "sourceId": "lh-printinstall-queue",
+                "targetId": "lh-printinstall-accept",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-printinstall-lane-0",
+                "label": "Lokalansvarig",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-printinstall-lane-1",
+                "label": "Specialist",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-printservice": {
+            "nodes": [
+              {
+                "id": "lh-printservice-history",
+                "type": "action",
+                "label": "Läs felhistoriken",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Jämför tid, kö, version och antal påverkade användare."
+                },
+                "swimlaneId": "lh-printservice-lane-0",
+                "assetIds": [
+                  "lh-tickets",
+                  "lh-printer"
+                ]
+              },
+              {
+                "id": "lh-printservice-visit",
+                "type": "action",
+                "label": "Utför avtalad service",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Samordna servicefönster och reservskrivare med lokalansvarig."
+                },
+                "swimlaneId": "lh-printservice-lane-1",
+                "assetIds": [
+                  "lh-printvendor",
+                  "lh-contract"
+                ]
+              },
+              {
+                "id": "lh-printservice-verify",
+                "type": "action",
+                "label": "Bekräfta återställd drift",
+                "position": {
+                  "x": 832,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Genomför samma test som före servicen och dokumentera skillnaden."
+                },
+                "swimlaneId": "lh-printservice-lane-0",
+                "assetIds": [
+                  "lh-print"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-printservice-edge-0",
+                "sourceId": "lh-printservice-history",
+                "targetId": "lh-printservice-visit",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-printservice-edge-1",
+                "sourceId": "lh-printservice-visit",
+                "targetId": "lh-printservice-verify",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-printservice-lane-0",
+                "label": "Servicedesk",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-printservice-lane-1",
+                "label": "Leverantör",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          }
+        },
+        "folderId": "lh-process-folder",
+        "mode": "swimlane-vertical"
+      },
+      {
+        "id": "lh-localservice",
+        "title": "Lokalservice",
+        "description": "Iordningställ arbetsplats N-14 för Nora Vik på Norrängen.",
+        "ownerId": "lh-local",
+        "createdAt": "2026-09-28T09:00:00.000Z",
+        "updatedAt": "2026-09-28T09:00:00.000Z",
+        "graph": {
+          "nodes": [
+            {
+              "id": "lh-localservice-receive",
+              "type": "start",
+              "label": "Ta emot beställning",
+              "position": {
+                "x": 40,
+                "y": 144
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Ange startdatum, kontor, rum och arbetsplatsnummer."
+              },
+              "swimlaneId": "lh-localservice-lane-0",
+              "assetIds": [
+                "lh-user",
+                "lh-placedoc"
+              ]
+            },
+            {
+              "id": "lh-localservice-check",
+              "type": "decision",
+              "label": "Är underlaget komplett?",
+              "position": {
+                "x": 344,
+                "y": 304
+              },
+              "width": 224,
+              "height": 160,
+              "data": {
+                "description": "Saknad placering ska kompletteras innan utförande bokas."
+              },
+              "swimlaneId": "lh-localservice-lane-1",
+              "assetIds": [
+                "lh-local",
+                "lh-placedoc"
+              ]
+            },
+            {
+              "id": "lh-localservice-complete",
+              "type": "action",
+              "label": "Komplettera placering",
+              "position": {
+                "x": 40,
+                "y": 544
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Bekräfta N-14 och nätverksuttag N14-B i beställningen."
+              },
+              "swimlaneId": "lh-localservice-lane-0",
+              "assetIds": [
+                "lh-north"
+              ]
+            },
+            {
+              "id": "lh-localservice-plan",
+              "type": "action",
+              "label": "Planera leveransen",
+              "position": {
+                "x": 344,
+                "y": 752
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Samordna möblering och datorleverans; håll deras status separat."
+              },
+              "swimlaneId": "lh-localservice-lane-1",
+              "assetIds": [
+                "lh-local",
+                "lh-contractor"
+              ],
+              "subGraphId": "lh-graph-localplan"
+            },
+            {
+              "id": "lh-localservice-perform",
+              "type": "action",
+              "label": "Iordningställ platsen",
+              "position": {
+                "x": 648,
+                "y": 752
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Kontrollera möbler, el, uttag och säker passage."
+              },
+              "swimlaneId": "lh-localservice-lane-2",
+              "assetIds": [
+                "lh-contractor",
+                "lh-network"
+              ],
+              "subGraphId": "lh-graph-localperform"
+            },
+            {
+              "id": "lh-localservice-approve",
+              "type": "action",
+              "label": "Godkänn arbetsplatsen",
+              "position": {
+                "x": 40,
+                "y": 960
+              },
+              "width": 224,
+              "height": 96,
+              "data": {
+                "description": "Beställaren kontrollerar funktion och noterar kvarstående avvikelse."
+              },
+              "swimlaneId": "lh-localservice-lane-0",
+              "assetIds": [
+                "lh-placedoc",
+                "lh-pc"
+              ]
+            },
+            {
+              "id": "lh-localservice-follow",
+              "type": "end",
+              "label": "Följ upp avvikelser",
+              "position": {
+                "x": 344,
+                "y": 976
+              },
+              "width": 224,
+              "height": 64,
+              "data": {
+                "description": "Verifiera stängda punkter och återför lärdomar."
+              },
+              "swimlaneId": "lh-localservice-lane-1",
+              "assetIds": [
+                "lh-local"
+              ]
+            }
+          ],
+          "edges": [
+            {
+              "id": "lh-localservice-edge-0",
+              "sourceId": "lh-localservice-receive",
+              "targetId": "lh-localservice-check",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-localservice-edge-1",
+              "sourceId": "lh-localservice-check",
+              "targetId": "lh-localservice-complete",
+              "sourceHandleId": "s-left",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Nej"
+            },
+            {
+              "id": "lh-localservice-edge-2",
+              "sourceId": "lh-localservice-complete",
+              "targetId": "lh-localservice-check",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Nytt underlag"
+            },
+            {
+              "id": "lh-localservice-edge-3",
+              "sourceId": "lh-localservice-check",
+              "targetId": "lh-localservice-plan",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep",
+              "label": "Ja"
+            },
+            {
+              "id": "lh-localservice-edge-4",
+              "sourceId": "lh-localservice-plan",
+              "targetId": "lh-localservice-perform",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-localservice-edge-5",
+              "sourceId": "lh-localservice-perform",
+              "targetId": "lh-localservice-approve",
+              "sourceHandleId": "s-bottom",
+              "targetHandleId": "t-top",
+              "style": "solid",
+              "type": "smoothstep"
+            },
+            {
+              "id": "lh-localservice-edge-6",
+              "sourceId": "lh-localservice-approve",
+              "targetId": "lh-localservice-follow",
+              "sourceHandleId": "s-right",
+              "targetHandleId": "t-left",
+              "style": "solid",
+              "type": "smoothstep"
+            }
+          ],
+          "swimlanes": [
+            {
+              "id": "lh-localservice-lane-0",
+              "label": "Beställare",
+              "color": "blue",
+              "order": 0,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-localservice-lane-1",
+              "label": "Lokalansvarig",
+              "color": "emerald",
+              "order": 1,
+              "height": 240,
+              "width": 304
+            },
+            {
+              "id": "lh-localservice-lane-2",
+              "label": "Extern utförare",
+              "color": "amber",
+              "order": 2,
+              "height": 240,
+              "width": 304
+            }
+          ],
+          "mode": "swimlane-vertical",
+          "viewport": {
+            "x": 20,
+            "y": 20,
+            "zoom": 0.72
+          }
+        },
+        "subGraphs": {
+          "lh-graph-localplan": {
+            "nodes": [
+              {
+                "id": "lh-localplan-site",
+                "type": "action",
+                "label": "Lås plats och datum",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Bekräfta N-14, tillträde och verksamhetens kontakt."
+                },
+                "swimlaneId": "lh-localplan-lane-0",
+                "assetIds": [
+                  "lh-north",
+                  "lh-local"
+                ]
+              },
+              {
+                "id": "lh-localplan-coordinate",
+                "type": "action",
+                "label": "Stäm av datorns status",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Godkänd beställning och leveransdatum kontrolleras separat."
+                },
+                "swimlaneId": "lh-localplan-lane-1",
+                "assetIds": [
+                  "lh-pc",
+                  "lh-devicevendor"
+                ]
+              },
+              {
+                "id": "lh-localplan-book",
+                "type": "action",
+                "label": "Boka utföraren",
+                "position": {
+                  "x": 832,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Skicka komplett arbetsorder och bestäm godkännandekriterier."
+                },
+                "swimlaneId": "lh-localplan-lane-0",
+                "assetIds": [
+                  "lh-contractor"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-localplan-edge-0",
+                "sourceId": "lh-localplan-site",
+                "targetId": "lh-localplan-coordinate",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-localplan-edge-1",
+                "sourceId": "lh-localplan-coordinate",
+                "targetId": "lh-localplan-book",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-localplan-lane-0",
+                "label": "Lokalansvarig",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-localplan-lane-1",
+                "label": "Gemensam service",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          },
+          "lh-graph-localperform": {
+            "nodes": [
+              {
+                "id": "lh-localperform-furniture",
+                "type": "action",
+                "label": "Montera och kontrollera",
+                "position": {
+                  "x": 160,
+                  "y": 72
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Kontrollera bord, stol, kablage och fri passage."
+                },
+                "swimlaneId": "lh-localperform-lane-0",
+                "assetIds": [
+                  "lh-contractor"
+                ]
+              },
+              {
+                "id": "lh-localperform-network",
+                "type": "action",
+                "label": "Verifiera anslutningen",
+                "position": {
+                  "x": 496,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Prova märkt uttag; elektriska brister lämnas till behörig utförare."
+                },
+                "swimlaneId": "lh-localperform-lane-1",
+                "assetIds": [
+                  "lh-network",
+                  "lh-placedoc"
+                ]
+              },
+              {
+                "id": "lh-localperform-handover",
+                "type": "action",
+                "label": "Överlämna med avvikelser",
+                "position": {
+                  "x": 832,
+                  "y": 312
+                },
+                "width": 224,
+                "height": 96,
+                "data": {
+                  "description": "Beställaren får kvittens med utförda och kvarstående punkter."
+                },
+                "swimlaneId": "lh-localperform-lane-1",
+                "assetIds": [
+                  "lh-local"
+                ]
+              }
+            ],
+            "edges": [
+              {
+                "id": "lh-localperform-edge-0",
+                "sourceId": "lh-localperform-furniture",
+                "targetId": "lh-localperform-network",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              },
+              {
+                "id": "lh-localperform-edge-1",
+                "sourceId": "lh-localperform-network",
+                "targetId": "lh-localperform-handover",
+                "sourceHandleId": "s-right",
+                "targetHandleId": "t-left",
+                "style": "solid",
+                "type": "smoothstep"
+              }
+            ],
+            "swimlanes": [
+              {
+                "id": "lh-localperform-lane-0",
+                "label": "Extern utförare",
+                "color": "blue",
+                "order": 0,
+                "height": 240,
+                "width": 304
+              },
+              {
+                "id": "lh-localperform-lane-1",
+                "label": "Lokalansvarig",
+                "color": "emerald",
+                "order": 1,
+                "height": 240,
+                "width": 304
+              }
+            ],
+            "mode": "swimlane",
+            "viewport": {
+              "x": 20,
+              "y": 20,
+              "zoom": 0.72
+            }
+          }
+        },
+        "folderId": "lh-process-folder",
+        "mode": "swimlane-vertical"
+      }
+    ],
+    "processFolders": [
+      {
+        "id": "lh-process-folder",
+        "title": "Lindhamn Service",
+        "createdAt": "2026-09-28T09:00:00.000Z"
+      }
+    ],
+    "assets": [
+      {
+        "id": "lh-hq",
+        "name": "Huvudkontor Lindhamn",
+        "type": "lh-location",
+        "metadata": {
+          "description": "Ledning, ekonomi och gemensam service. 45 arbetsplatser."
+        }
+      },
+      {
+        "id": "lh-north",
+        "name": "Lokalkontor Norrängen",
+        "type": "lh-location",
+        "metadata": {
+          "description": "18 arbetsplatser och besöksmottagning."
+        }
+      },
+      {
+        "id": "lh-south",
+        "name": "Lokalkontor Södra kajen",
+        "type": "lh-location",
+        "metadata": {
+          "description": "12 arbetsplatser och bokningsbar servicedisk."
+        }
+      },
+      {
+        "id": "lh-desk",
+        "name": "Gemensam servicedesk",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Äger ärendet tills mottagande specialist uttryckligen accepterat överlämningen."
+        }
+      },
+      {
+        "id": "lh-user",
+        "name": "Beställare och användare",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Beskriver behov, påverkan och bekräftar leveransen."
+        }
+      },
+      {
+        "id": "lh-specialist",
+        "name": "IT-specialist – Tova Gran",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Ansvarar för klienter, identitet och utskrift. Syntetisk person."
+        }
+      },
+      {
+        "id": "lh-manager",
+        "name": "Servicechef – Alva Lind",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Godkänner kostnad och rollbaserade behörigheter. Syntetisk person."
+        }
+      },
+      {
+        "id": "lh-mentor",
+        "name": "Handledare – Nils Ek",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Planerar övningar och observerar självständigt arbete. Syntetisk person."
+        }
+      },
+      {
+        "id": "lh-local",
+        "name": "Lokalansvarig – Mira Strand",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Bekräftar rum, arbetsplatsnummer, el och nätverksuttag. Syntetisk person."
+        }
+      },
+      {
+        "id": "lh-devicevendor",
+        "name": "Kustdata Utrustning",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Fiktiv leverantör av datorer och tillbehör."
+        }
+      },
+      {
+        "id": "lh-printvendor",
+        "name": "Tryggtryck Service",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Fiktiv utskriftsleverantör och avtalad tekniker."
+        }
+      },
+      {
+        "id": "lh-carrier",
+        "name": "Sund Mobil",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Fiktiv operatör; spärrar abonnemang efter verifierad beställning."
+        }
+      },
+      {
+        "id": "lh-contractor",
+        "name": "Rumslyftet Montage",
+        "type": "lh-role",
+        "metadata": {
+          "description": "Fiktiv extern utförare för arbetsplatser."
+        }
+      },
+      {
+        "id": "lh-identity",
+        "name": "Identitetstjänsten",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Rollgrupper, autentisering och kontolivscykel."
+        }
+      },
+      {
+        "id": "lh-inventory",
+        "name": "Gemensamt inventarieregister",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Tillgångs-ID, innehavare, plats, status och kvittens."
+        }
+      },
+      {
+        "id": "lh-mdm",
+        "name": "Enhetshantering för datorer",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Standardprofil, kryptering, uppdateringar och återställning."
+        }
+      },
+      {
+        "id": "lh-mobilemdm",
+        "name": "Mobilhantering",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Registrering, policy och dokumenterad fjärråtgärd."
+        }
+      },
+      {
+        "id": "lh-print",
+        "name": "Utskriftstjänsten",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Gemensam kö och säker frisläppning vid skrivaren."
+        }
+      },
+      {
+        "id": "lh-network",
+        "name": "Kontorsnätverket",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Nätverksuttag och segment på samtliga kontor."
+        }
+      },
+      {
+        "id": "lh-tickets",
+        "name": "Serviceärenderegistret",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Fiktiv extern ärendetjänst; exemplen finns i Journal och kräver ingen anslutning."
+        }
+      },
+      {
+        "id": "lh-pc",
+        "name": "Dator LH-PC-042",
+        "type": "lh-hardware",
+        "metadata": {
+          "description": "Nora Viks introduktionsdator, placerad Norrängen N-14."
+        }
+      },
+      {
+        "id": "lh-phone",
+        "name": "Mobil LH-MOB-017",
+        "type": "lh-hardware",
+        "metadata": {
+          "description": "Gemensam jourmobil på Södra kajen."
+        }
+      },
+      {
+        "id": "lh-printer",
+        "name": "Skrivare LH-PR-003",
+        "type": "lh-hardware",
+        "metadata": {
+          "description": "Norrängen, rum N-02; samma enhet i incident- och livscykelflödet."
+        }
+      },
+      {
+        "id": "lh-loan",
+        "name": "Lånedator LH-PC-009",
+        "type": "lh-hardware",
+        "metadata": {
+          "description": "Reserv på huvudkontoret; återställs mellan innehavare."
+        }
+      },
+      {
+        "id": "lh-onboarddoc",
+        "name": "Introduktionschecklista",
+        "type": "lh-document",
+        "metadata": {
+          "description": "Fullständig instruktion finns i Journal: 05 Introduktionsplan."
+        }
+      },
+      {
+        "id": "lh-returndoc",
+        "name": "Återlämningsinstruktion",
+        "type": "lh-document",
+        "metadata": {
+          "description": "Fullständig instruktion finns i Journal: 04 Återlämningschecklista."
+        }
+      },
+      {
+        "id": "lh-placedoc",
+        "name": "Checklista för arbetsplats",
+        "type": "lh-document",
+        "metadata": {
+          "description": "Fullständig instruktion finns i Journal: 09 Arbetsplatsbeställning."
+        }
+      },
+      {
+        "id": "lh-contract",
+        "name": "Serviceavtal utskrift – demo",
+        "type": "lh-document",
+        "metadata": {
+          "description": "Avtalsantaganden och kontaktväg finns offline i Journal: 10 Utskrift och serviceavtal."
+        }
+      },
+      {
+        "id": "lh-incidentdoc",
+        "name": "Incidentinstruktion",
+        "type": "lh-document",
+        "metadata": {
+          "description": "Prioritering, felsökning och eskalering finns i Journal 01–03."
+        }
+      },
+      {
+        "id": "lh-subscription",
+        "name": "Abonnemang JOUR-17",
+        "type": "lh-system",
+        "metadata": {
+          "description": "Fiktivt abonnemang för LH-MOB-017; inga verkliga nummer eller hemligheter."
+        }
+      }
+    ],
+    "assetCategories": [
+      {
+        "id": "lh-role",
+        "label": "Roll och team",
+        "icon": "users",
+        "color": "amber",
+        "baseType": "role"
+      },
+      {
+        "id": "lh-system",
+        "label": "Tjänst och system",
+        "icon": "database",
+        "color": "blue",
+        "baseType": "system"
+      },
+      {
+        "id": "lh-hardware",
+        "label": "Utrustning",
+        "icon": "laptop",
+        "color": "emerald",
+        "baseType": "hardware"
+      },
+      {
+        "id": "lh-location",
+        "label": "Kontor",
+        "icon": "map-pin",
+        "color": "red",
+        "baseType": "location"
+      },
+      {
+        "id": "lh-document",
+        "label": "Instruktion och avtal",
+        "icon": "file-text",
+        "color": "green",
+        "baseType": "document"
+      }
+    ],
+    "incidents": [],
+    "journal": {
+      "notebooks": [
+        {
+          "id": "lh-book-0",
+          "title": "Arbetssätt och instruktioner",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-book-1",
+          "title": "Observationer och avvikelser",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-book-2",
+          "title": "Beslut och förbättringar",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        }
+      ],
+      "folders": [],
+      "entries": [
+        {
+          "id": "lh-note-priority",
+          "notebookId": "lh-book-0",
+          "title": "01 Prioriteringsguide",
+          "content": "<h2>01 Prioriteringsguide</h2><p>Servicedesk bedömer påverkan och brådska tillsammans med beställaren. Prioritet uttrycker verksamhetens behov, inte vem som ropar högst. Följande tider är fiktiva interna mål under vardagar 08–17, inte ITIL-krav eller utlovade avtal.</p><table><tbody><tr><th><p>Påverkan / brådska</p></th><th><p>Ingen fungerande reservrutin</p></th><th><p>Reservrutin finns</p></th></tr><tr><td><p>Flera kontor stoppade</p></td><td><p>P1: börja direkt, återkoppla inom 15 min</p></td><td><p>P2: börja inom 2 timmar</p></td></tr><tr><td><p>En grupp eller en användare</p></td><td><p>P2: börja inom 2 timmar</p></td><td><p>P3: planera nästa arbetsdag</p></td></tr></tbody></table><ul><li><p>Ange vilka arbetsuppgifter som stoppas och nästa verkliga deadline.</p></li><li><p>Dokumentera reservrutinens kapacitet; en alternativ skrivare hjälper bara om den går att nå.</p></li><li><p>Vid ändrad påverkan: ompröva prioritet, ange varför och informera berörda.</p></li><li><p>P1 samordnas av servicechef. Sätt nästa uppdateringstid även när lösningstiden är okänd.</p></li></ul>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-incident-priority",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-priority"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-incidentdoc",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-manager",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-login",
+          "notebookId": "lh-book-0",
+          "title": "02 Felsökning av inloggning",
+          "content": "<h2>02 Felsökning av inloggning</h2><p>Målet är fungerande, godkänd åtkomst. En användare som kan logga in men inte öppna en funktion har inte nödvändigtvis ett lösenordsproblem.</p><ul><li><p>Bekräfta identiteten via etablerad kontaktväg. Samla aldrig lösenord, engångskoder eller återställningsnycklar i Journal.</p></li><li><p>Notera tjänst, tid, enhet, plats och exakt feltext utan kunduppgifter.</p></li><li><p>Be användaren öppna startvyn. Skilj misslyckad autentisering från nekad åtkomst efter inloggning.</p></li><li><p>Kontrollera om andra berörs och om driftinformation finns. Undvik upprepade inloggningsförsök som kan låsa kontot.</p></li><li><p>Vid saknad roll: jämför chefsbeställningen med gruppmedlemskapet. Chef godkänner; specialist tilldelar.</p></li><li><p>Be användaren starta en ny session och prova den avsedda arbetsuppgiften. Dokumentera resultat och tid.</p></li><li><p>Om felet kvarstår: eskalera med redan utförda kontroller och behåll en namngiven ärendeägare.</p></li></ul><p>Övningsexempel: Nora når startsidan men får ”Åtkomst saknas” i handläggarvyn. Åtgärden är godkänd rolltilldelning, inte bred administratörsbehörighet.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-4"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-diagnose-login",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-diagnose",
+                "lh-diagnose-login"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-login-role",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-diagnose",
+                "lh-diagnose-login",
+                "lh-login-role"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-identity",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-escalate",
+          "notebookId": "lh-book-0",
+          "title": "03 Eskaleringsunderlag",
+          "content": "<h2>03 Eskaleringsunderlag</h2><p>Servicedesk behåller samordningsansvaret tills mottagaren bekräftat övertagandet. En skickad e-post är inte en accepterad överlämning.</p><ul><li><p>Ärendereferens, kontaktväg och tid för nästa återkoppling.</p></li><li><p>Tjänst, tillgångs-ID, plats, starttid och verksamhetspåverkan.</p></li><li><p>Exakt symptom, neutral testsida eller avidentifierad feltext.</p></li><li><p>Utförda tester med resultat; skilj observation från hypotes.</p></li><li><p>Tillfällig lösning, kända begränsningar och säker återställningsväg.</p></li><li><p>Leverantörens referens, mottagare, bekräftelsetid och nästa avstämning.</p></li><li><p>Undvik lösenord, kunddokument och onödiga skärmbilder.</p></li></ul>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-incident-vendor",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-vendor"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-escalation-accept",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-vendor",
+                "lh-escalation-accept"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-printvendor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-contract",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-return",
+          "notebookId": "lh-book-0",
+          "title": "04 Återlämningschecklista",
+          "content": "<h2>04 Återlämningschecklista</h2><p>Kvittensen gäller vad som faktiskt mottagits. Radera inte information innan ansvarig verksamhet bekräftat den godkända överföringen.</p><ul><li><p>Bekräfta innehavare, tillgångs-ID och avslutsdatum.</p></li><li><p>Lista enhet, laddare och övriga tillbehör; markera saknade delar.</p></li><li><p>Anteckna synliga skador och att arbetsinformation har överförts enligt verksamhetens rutin.</p></li><li><p>Uppdatera inventariestatus till Mottagen, ej klar för utlämning.</p></li><li><p>Specialist genomför godkänd radering och verifierar resultatet.</p></li><li><p>Dator: ta bort tidigare profil och installera standardprofil före återbruk.</p></li><li><p>Mobil: ta bort tidigare kontokoppling, hantera abonnemang och verifiera registrering vid återbruk.</p></li><li><p>Spara raderingsresultat och mottagningskvittens; vid osäkerhet håll enheten i kontrollerat förvar.</p></li></ul>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-computer-return",
+              "type": "node",
+              "processId": "lh-computer",
+              "path": [
+                "lh-computer-return"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-mobile-return",
+              "type": "node",
+              "processId": "lh-mobile",
+              "path": [
+                "lh-mobile-return"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-inventory",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-returndoc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-intro",
+          "notebookId": "lh-book-0",
+          "title": "05 Introduktionsplan – Nora Viks första vecka",
+          "content": "<h2>05 Introduktionsplan – Nora Viks första vecka</h2><p>Nora börjar måndag 14 september 2026 på Norrängen. Alva är chef och Nils handledare. Planen är ett fiktivt arbetsupplägg och finns helt i denna Journal.</p><ul><li><p>Före start: Alva godkänner rollprofil, LH-PC-042 och arbetsplats N-14. Servicedesk bekräftar leveransstatus senast föregående arbetsdag.</p></li><li><p>Dag 1: kvittera dator, prova nätverk och inloggning. Kontrollera handläggarvyn och säker utskrift. Gå igenom kontaktvägar och integritet.</p></li><li><p>Dag 2: Nils demonstrerar prioritering och Nora dokumenterar övningsärendet i notering 07.</p></li><li><p>Dag 3: Nora leder två handledda ärenden och förklarar när specialist behövs. Stäm av saknad åtkomst separat.</p></li><li><p>Dag 4: självständiga lågprioriterade ärenden med handledare tillgänglig. Granska dokumentationen tillsammans.</p></li><li><p>Dag 5: följ upp vad Nora kan utföra själv, kvarstående behörigheter och ett konkret nästa lärandemål.</p></li></ul><p>Klart när Nora själv kan registrera påverkan, välja motiverad prioritet, följa en säker instruktion, lämna komplett eskalering och inhämta användarens verifiering. Extra handledning är en planerad åtgärd, inte ett misslyckande.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-4"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-onboard",
+              "type": "process",
+              "processId": "lh-onboard",
+              "source": "manual"
+            },
+            {
+              "id": "lh-onboarddoc",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-pc",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-identity",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-mentor",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-contacts",
+          "notebookId": "lh-book-0",
+          "title": "06 Kontaktvägar och ansvar",
+          "content": "<h2>06 Kontaktvägar och ansvar</h2><p>Alla namn och organisationer är syntetiska. Inga verkliga adresser, telefonnummer eller inloggningar ingår. Kontaktvägarna är roller i övningen; externa tjänster simuleras.</p><ul><li><p>Användare kontaktar Gemensam servicedesk för fel och beställningar.</p></li><li><p>Servicedesk ger ärendereferens, ansvarig och nästa återkopplingstid.</p></li><li><p>Tova Gran tar emot tekniska eskaleringar. Alva Lind godkänner kostnader och rollbehörigheter.</p></li><li><p>Mira Strand bekräftar placering på samtliga kontor och samordnar Rumslyftet Montage.</p></li><li><p>Kustdata hanterar utrustningsleverans; Tryggtryck hanterar utskriftsavtal; Sund Mobil hanterar abonnemang.</p></li><li><p>Vid osäkert ägarskap samordnar servicedesk och ber servicechef utse mottagare. Användaren ska inte behöva starta om ärendet.</p></li></ul>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-desk",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-specialist",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-manager",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-local",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-devicevendor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printvendor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-carrier",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-contractor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-hq",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-north",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-south",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-exercise",
+          "notebookId": "lh-book-0",
+          "title": "07 Övningsärende – startsidan fungerar, handläggarvyn nekar",
+          "content": "<h2>07 Övningsärende – startsidan fungerar, handläggarvyn nekar</h2><p>Scenario 15 september: Nora på LH-PC-042 når startsidan men handläggarvyn visar ”Åtkomst saknas”. Kollegans åtkomst fungerar. Nora kan följa Nils ärenden och en ordinarie arbetsuppgift ska vara klar i morgon. Använd inga riktiga kunduppgifter.</p><ul><li><p>Registrera plats, tid, feltext, berörd funktion och reservrutin.</p></li><li><p>Bedöm P3 med fungerande handledning; om en tidskritisk arbetsuppgift inte kan utföras ska prioriteten omprövas.</p></li><li><p>Visa varför fungerande startsida talar för att kontrollera behörighet före lösenordsåterställning. Det är en hypotes tills gruppmedlemskap och beställning kontrollerats.</p></li><li><p>Alva bekräftar beställd handläggarroll. Tova upptäcker utebliven gruppkoppling, rättar och dokumenterar.</p></li><li><p>Nora öppnar ny session, når handläggarvyn och genomför en neutral provuppgift.</p></li><li><p>Avsluta med observerat resultat, tid och vem som verifierade. Länka avvikelsen till introduktion och Identitetstjänsten.</p></li></ul><p>Handledarens facit: ingen administratörsroll, inga hemligheter i anteckningen, en namngiven ägare genom hela kedjan och användarverifiering före avslut.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-4"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-practice-perform",
+              "type": "node",
+              "processId": "lh-onboard",
+              "path": [
+                "lh-onboard-practice",
+                "lh-practice-perform"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-incident-diagnose",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-diagnose"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-identity",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-pc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-devices",
+          "notebookId": "lh-book-0",
+          "title": "08 Livscykelantaganden och enhetskontroll",
+          "content": "<h2>08 Livscykelantaganden och enhetskontroll</h2><p>Planeringsvärden i Lindhamn-demon: dator 4 år, mobil 3 år och skrivare 6 år. Detta är fiktiva verksamhetsantaganden, inte rekommenderade livslängder eller automatiska utbytesregler. Skick, support och behov avgör beslutet.</p><ul><li><p>Inventarieregistret är gemensamt men varje enhet har eget tillgångs-ID och egen innehavare.</p></li><li><p>Dator och mobil har självständiga processgrafer; ändring i den ena ska inte ändra den andra.</p></li><li><p>Godkännande, leverans, kvittens och radering är separata kontrollpunkter.</p></li><li><p>Lånedator LH-PC-009 kan användas vid väntetid efter verifierad återställning.</p></li><li><p>Registrera återbrukets nya innehavare först efter raderingskontroll och ny kvittens.</p></li></ul>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-computer",
+              "type": "process",
+              "processId": "lh-computer",
+              "source": "manual"
+            },
+            {
+              "id": "lh-mobile",
+              "type": "process",
+              "processId": "lh-mobile",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printerlife",
+              "type": "process",
+              "processId": "lh-printerlife",
+              "source": "manual"
+            },
+            {
+              "id": "lh-inventory",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-loan",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-place",
+          "notebookId": "lh-book-0",
+          "title": "09 Arbetsplatsbeställning – komplett underlag",
+          "content": "<h2>09 Arbetsplatsbeställning – komplett underlag</h2><p>Exempel: Nora Vik, Norrängen, rum N-01, plats N-14, uttag N14-B, önskad start 14 september 08:00. Beställaren bekräftar platsen och Mira samordnar utförandet.</p><ul><li><p>Kontor, rum, arbetsplatsnummer och kontaktperson för tillträde.</p></li><li><p>Önskat startdatum och senast acceptabla leverans.</p></li><li><p>Bord, stol, skärm, docka, el och märkt nätverksuttag.</p></li><li><p>Kostnadsgodkännande för dator anges separat med egen status.</p></li><li><p>Utföraren bekräftar möblering och funktion; beställaren godkänner faktisk användbarhet.</p></li><li><p>Saknade placeringsuppgifter blockerar bokning. Saknat datorgodkännande blockerar datorbeställning. Registrera två avvikelser om båda inträffar.</p></li></ul>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-localservice-check",
+              "type": "node",
+              "processId": "lh-localservice",
+              "path": [
+                "lh-localservice-check"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-localservice-approve",
+              "type": "node",
+              "processId": "lh-localservice",
+              "path": [
+                "lh-localservice-approve"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-placedoc",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-local",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-north",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-print",
+          "notebookId": "lh-book-0",
+          "title": "10 Utskrift och serviceavtal",
+          "content": "<h2>10 Utskrift och serviceavtal</h2><p>Fiktivt avtal: Tryggtryck tar emot fel under vardagar 08–17 och bekräftar ärendet inom två arbetstimmar. Det är ett demoantagande, ingen verklig utfästelse. LH-PR-003 finns i Norrängen N-02.</p><ul><li><p>Verifiera rätt kö och säker frisläppning med neutral testsida.</p></li><li><p>Vid köstopp: dokumentera tid och fel innan godkänd tömning av testjobbet. Ta inte bort andra användares jobb utan samordning.</p></li><li><p>Tillfällig rutin: använd huvudkontorets bemannade utskrift efter överenskommelse; känsliga dokument lämnas inte obevakade.</p></li><li><p>Servicedesk följer återställning; specialist utreder upprepning separat med leverantören.</p></li><li><p>Efter service: prova två normala användare och spara resultat. Avsluta incident när tjänsten verifierats, även om orsaksutredningen fortsätter.</p></li></ul>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-incident-restore",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-restore"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-printerlife-service",
+              "type": "node",
+              "processId": "lh-printerlife",
+              "path": [
+                "lh-printerlife-service"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-printer",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-print",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printvendor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-contract",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-sources",
+          "notebookId": "lh-book-0",
+          "title": "11 ITIL-inspiration och källor",
+          "content": "<h2>11 ITIL-inspiration och källor</h2><p>Incidenthanteringens mål här är att återställa tjänsten och minska påverkan. Återkommande orsaker och förebyggande förbättringar följs separat. Texten är egen och beskriver Lindhamns fiktiva arbetssätt; den återger ingen skyddad handbok och är inte en certifierad ITIL-process.</p><p>Principerna kontrollerades 28 september 2026 mot PeopleCerts officiella beskrivningar: <a href=\"https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil4-practices-incident-management-3684\">Incident Management</a> och <a href=\"https://www.peoplecert.org/browse-certifications/it-governance-and-service-management/ITIL-1/itil4-practices-problem-management-3688\">Problem Management</a>. Externa sidor följer inte med filen. De instruktioner som behövs för demon finns offline här.</p><p>Prioritetsmatris, roller, livslängder och tider är Lindhamns egna exempel. Journal Insight visar var taggade noteringar och deras referenser samlas; det bevisar inte orsakssamband eller operativa beroenden.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-incident",
+              "type": "process",
+              "processId": "lh-incident",
+              "source": "manual"
+            },
+            {
+              "id": "lh-incidentdoc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-access",
+          "notebookId": "lh-book-1",
+          "title": "O01 Saknad handläggarbehörighet",
+          "content": "<h2>O01 Saknad handläggarbehörighet</h2><p><strong>Datum:</strong> 14 september 2026.</p><p><strong>Situation:</strong> Nora kunde logga in på LH-PC-042 men handläggarvyn nekade åtkomst. Chefsbeställningen innehöll rätt roll; gruppkopplingen saknades.</p><p><strong>Konsekvens:</strong> Självständiga övningar sköts upp 90 minuter. Nora följde Nils ärenden under tiden.</p><p><strong>Hantering och status:</strong> Tova tilldelade den godkända rollen kl. 10:15. Nora verifierade med ny session kl. 10:30. Incident avslutad; checklistans kontrollpunkt följs upp.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-4",
+            "lh-tag-2"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-onboard-dayone",
+              "type": "node",
+              "processId": "lh-onboard",
+              "path": [
+                "lh-onboard-dayone"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-identity",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-pc",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-login-role",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-diagnose",
+                "lh-diagnose-login",
+                "lh-login-role"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-intro",
+              "type": "journalEntry",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-14T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-print1",
+          "notebookId": "lh-book-1",
+          "title": "O02 Utskriftskö stannade den 9 september",
+          "content": "<h2>O02 Utskriftskö stannade den 9 september</h2><p><strong>Datum:</strong> 9 september 2026.</p><p><strong>Situation:</strong> LH-PR-003 tog inte emot nya jobb från tre användare. Lokal testsida fungerade.</p><p><strong>Konsekvens:</strong> Gruppens utskrift fördröjdes 25 minuter; ärenden kunde fortsätta digitalt.</p><p><strong>Hantering och status:</strong> Specialist återställde kön enligt godkänd rutin. Två användare verifierade. Orsak inte fastställd; tider och köversion sparades.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-3"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-incident-diagnose",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-diagnose"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-print",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printer",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printvendor",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-09T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-print2",
+          "notebookId": "lh-book-1",
+          "title": "O03 Samma symptom den 16 september",
+          "content": "<h2>O03 Samma symptom den 16 september</h2><p><strong>Datum:</strong> 16 september 2026.</p><p><strong>Situation:</strong> Fem användare fick väntande jobb i samma kö. Att symptomen liknade O02 var en observation, inte bevis på samma orsak.</p><p><strong>Konsekvens:</strong> Utskriften stod still 35 minuter. Neutral testutskrift fungerade via reservrutinen.</p><p><strong>Hantering och status:</strong> Incidenten återställdes och verifierades 11:05. Tryggtryck fick avidentifierat underlag; separat förbättring öppnades.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-3",
+            "lh-tag-1"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-incident-restore",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-restore"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-printerlife-service",
+              "type": "node",
+              "processId": "lh-printerlife",
+              "path": [
+                "lh-printerlife-service"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-print",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printer",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printvendor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-print1",
+              "type": "journalEntry",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-16T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-print3",
+          "notebookId": "lh-book-1",
+          "title": "O04 Tillfällig utskriftsrutin saknade mottagare",
+          "content": "<h2>O04 Tillfällig utskriftsrutin saknade mottagare</h2><p><strong>Datum:</strong> 16 september 2026.</p><p><strong>Situation:</strong> Reservrutinen angav huvudkontoret men ingen mottagande roll.</p><p><strong>Konsekvens:</strong> Norrängen väntade ytterligare tio minuter på kvittens.</p><p><strong>Hantering och status:</strong> Servicedesk samordnade överlämningen och utsåg mottagare för detta tillfälle. Rutinens ansvar behöver preciseras.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-2",
+            "lh-tag-1"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-incident-vendor",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-vendor"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-desk",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-hq",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-print",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-print2",
+              "type": "journalEntry",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-16T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-placement",
+          "notebookId": "lh-book-1",
+          "title": "O05 Arbetsplats N-14 saknade placering",
+          "content": "<h2>O05 Arbetsplats N-14 saknade placering</h2><p><strong>Datum:</strong> 10 september 2026.</p><p><strong>Situation:</strong> Beställningen sade endast ”Norrängen”. Rum och arbetsplatsnummer saknades.</p><p><strong>Konsekvens:</strong> Rumslyftet kunde inte boka montering. Arbetsplatsen blev klar först 14 september kl. 13.</p><p><strong>Hantering och status:</strong> Mira fick kompletteringen N-01/N-14 den 11 september. Nora använde en tillfällig plats på förmiddagen. Avvikelsen gäller placeringsunderlag.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-0",
+            "lh-tag-1"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-localservice-check",
+              "type": "node",
+              "processId": "lh-localservice",
+              "path": [
+                "lh-localservice-check"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-localservice-plan",
+              "type": "node",
+              "processId": "lh-localservice",
+              "path": [
+                "lh-localservice-plan"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-local",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-north",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-placedoc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-10T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-approval",
+          "notebookId": "lh-book-1",
+          "title": "O06 Datorleverans väntade på godkännande",
+          "content": "<h2>O06 Datorleverans väntade på godkännande</h2><p><strong>Datum:</strong> 11 september 2026.</p><p><strong>Situation:</strong> LH-PC-042 var reserverad men kostnadsgodkännande saknades i datorbeställningen.</p><p><strong>Konsekvens:</strong> Utlämningen flyttades till 14 september kl. 09. Detta var en annan väntan än monteringen i O05.</p><p><strong>Hantering och status:</strong> Alva godkände beställningen 11 september kl. 15. Servicedesk höll båda leveransernas status separat.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-0",
+            "lh-tag-1"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-computer-order",
+              "type": "node",
+              "processId": "lh-computer",
+              "path": [
+                "lh-computer-order"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-pc",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-manager",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-devicevendor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-placement",
+              "type": "journalEntry",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-11T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-exerciseobs",
+          "notebookId": "lh-book-1",
+          "title": "O07 Övningen hoppade över användarverifiering",
+          "content": "<h2>O07 Övningen hoppade över användarverifiering</h2><p><strong>Datum:</strong> 15 september 2026.</p><p><strong>Situation:</strong> Nora skrev ”löst” efter att gruppen lagts till, innan en ny session provats.</p><p><strong>Konsekvens:</strong> Anteckningen visade inte att handläggarvyn faktiskt fungerade.</p><p><strong>Hantering och status:</strong> Nils bad Nora komplettera. Provuppgiften fungerade och verifieringstid lades till. Handledningspunkt, ingen driftincident.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-4"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-practice-feedback",
+              "type": "node",
+              "processId": "lh-onboard",
+              "path": [
+                "lh-onboard-practice",
+                "lh-practice-feedback"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-incident-verify",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-verify"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-mentor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-exercise",
+              "type": "journalEntry",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-15T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-charger",
+          "notebookId": "lh-book-1",
+          "title": "O08 Återlämnad dator saknade laddare",
+          "content": "<h2>O08 Återlämnad dator saknade laddare</h2><p><strong>Datum:</strong> 17 september 2026.</p><p><strong>Situation:</strong> LH-PC-009 återkom utan laddare efter ett utlån.</p><p><strong>Konsekvens:</strong> Enheten kunde inte markeras klar för nästa utlämning.</p><p><strong>Hantering och status:</strong> Mottagningen noterade saknad del i kvittensen och höll status Mottagen. Laddaren återkom den 18 september.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-0"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-pcreturn-receive",
+              "type": "node",
+              "processId": "lh-computer",
+              "path": [
+                "lh-computer-return",
+                "lh-pcreturn-receive"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-loan",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-inventory",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-returndoc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-17T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-mobile",
+          "notebookId": "lh-book-1",
+          "title": "O09 Jourmobilens abonnemang låg på tidigare innehavare",
+          "content": "<h2>O09 Jourmobilens abonnemang låg på tidigare innehavare</h2><p><strong>Datum:</strong> 18 september 2026.</p><p><strong>Situation:</strong> JOUR-17 var aktivt men registret angav en tidigare samordnare.</p><p><strong>Konsekvens:</strong> Operatören behövde kompletterad beställarbehörighet före ändring. Ingen driftförlust konstaterades.</p><p><strong>Hantering och status:</strong> Chef bekräftade behörig beställare; register och operatörsuppgift stämdes av samma dag.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-2",
+            "lh-tag-0"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-mobile-order",
+              "type": "node",
+              "processId": "lh-mobile",
+              "path": [
+                "lh-mobile-order"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-mobilereg-asset",
+              "type": "node",
+              "processId": "lh-mobile",
+              "path": [
+                "lh-mobile-register",
+                "lh-mobilereg-asset"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-subscription",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-carrier",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-inventory",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-18T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-loss",
+          "notebookId": "lh-book-1",
+          "title": "O10 Förlustövning på Södra kajen",
+          "content": "<h2>O10 Förlustövning på Södra kajen</h2><p><strong>Datum:</strong> 21 september 2026.</p><p><strong>Situation:</strong> Jourmobil LH-MOB-017 markerades som saknad i en skrivbordsövning. Senast sedd och upptäckt tid blandades ihop.</p><p><strong>Konsekvens:</strong> Övningsunderlaget gav ett oklart exponeringsintervall. Ingen verklig enhet spärrades.</p><p><strong>Hantering och status:</strong> Två separata tidsfält skrevs i övningsanteckningen. Operatörens och specialistens åtgärder simulerades.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-4",
+            "lh-tag-0"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-mobile-loss",
+              "type": "node",
+              "processId": "lh-mobile",
+              "path": [
+                "lh-mobile-loss"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-mobileloss-time",
+              "type": "node",
+              "processId": "lh-mobile",
+              "path": [
+                "lh-mobile-block",
+                "lh-mobileloss-time"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-phone",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-south",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-21T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-socket",
+          "notebookId": "lh-book-1",
+          "title": "O11 Felmärkt nätverksuttag",
+          "content": "<h2>O11 Felmärkt nätverksuttag</h2><p><strong>Datum:</strong> 22 september 2026.</p><p><strong>Situation:</strong> Uttaget vid N-14 var märkt N14-A medan arbetsordern angav N14-B.</p><p><strong>Konsekvens:</strong> Beställaren kunde inte godkänna platsen innan anslutningen provats och märkningen kontrollerats.</p><p><strong>Hantering och status:</strong> Mira och specialist verifierade rätt anslutning. Märkning och arbetsorder korrigerades; ingen elinstallation ändrades.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-0"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-localperform-network",
+              "type": "node",
+              "processId": "lh-localservice",
+              "path": [
+                "lh-localservice-perform",
+                "lh-localperform-network"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-network",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-placedoc",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-north",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-22T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-service",
+          "notebookId": "lh-book-1",
+          "title": "O12 Leverantören saknade tillgångs-ID",
+          "content": "<h2>O12 Leverantören saknade tillgångs-ID</h2><p><strong>Datum:</strong> 23 september 2026.</p><p><strong>Situation:</strong> Serviceanmälan angav ”skrivaren i Norrängen” men inte LH-PR-003.</p><p><strong>Konsekvens:</strong> Tryggtryck efterfrågade komplettering och bokningen dröjde två arbetstimmar.</p><p><strong>Hantering och status:</strong> Servicedesk kompletterade ID och avtalsreferens. Ingen teknisk orsak fastställdes av denna administrativa fördröjning.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-0",
+            "lh-tag-1"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-escalation-prepare",
+              "type": "node",
+              "processId": "lh-incident",
+              "path": [
+                "lh-incident-vendor",
+                "lh-escalation-prepare"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-printservice-visit",
+              "type": "node",
+              "processId": "lh-printerlife",
+              "path": [
+                "lh-printerlife-service",
+                "lh-printservice-visit"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-printer",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-contract",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printvendor",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-23T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-erase",
+          "notebookId": "lh-book-1",
+          "title": "O13 Raderingskvittens behövde förtydligas",
+          "content": "<h2>O13 Raderingskvittens behövde förtydligas</h2><p><strong>Datum:</strong> 24 september 2026.</p><p><strong>Situation:</strong> Datorns kvittens sade ”återställd” utan verifierat resultat.</p><p><strong>Konsekvens:</strong> Enheten hölls i förvar och kunde inte lämnas till ny innehavare.</p><p><strong>Hantering och status:</strong> Specialist utförde kontrollen och noterade metod, tid och resultat. Inventariestatus ändrades först därefter.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-2"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-pcreturn-erase",
+              "type": "node",
+              "processId": "lh-computer",
+              "path": [
+                "lh-computer-return",
+                "lh-pcreturn-erase"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-mdm",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-inventory",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-returndoc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-24T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-week",
+          "notebookId": "lh-book-1",
+          "title": "O14 Vecka ett – återkoppling från Nora",
+          "content": "<h2>O14 Vecka ett – återkoppling från Nora</h2><p><strong>Datum:</strong> 18 september 2026.</p><p><strong>Situation:</strong> Nora kunde prioritera och registrera själv men ville öva leverantörsöverlämning en gång till.</p><p><strong>Konsekvens:</strong> Självständiga enkla ärenden fungerade; mer komplexa ärenden behövde fortsatt handledning.</p><p><strong>Hantering och status:</strong> Nils bokade en 30-minutersövning den 22 september. Ingen bredare behörighet behövdes.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-4"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-onboard-review",
+              "type": "node",
+              "processId": "lh-onboard",
+              "path": [
+                "lh-onboard-review"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-mentor",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-intro",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-access",
+              "type": "journalEntry",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-18T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-rolecheck",
+          "notebookId": "lh-book-2",
+          "title": "B01 Prova rollen före första arbetsdagen",
+          "content": "<h2>B01 Prova rollen före första arbetsdagen</h2><p><strong>Beslut/ägare:</strong> Alva och Tova lägger till kontroll av faktiskt gruppmedlemskap före start. Chefsbeställningen är fortsatt obligatorisk.</p><p><strong>Uppföljning:</strong> Nästa två introduktioner ska ha dokumenterad rollkontroll och första-dagen-verifiering. Åtgärden är beslutad; effekten är ännu inte uppmätt.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-access",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-prepare-role",
+              "type": "node",
+              "processId": "lh-onboard",
+              "path": [
+                "lh-onboard-prepare",
+                "lh-prepare-role"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-identity",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-onboarddoc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-printinvest",
+          "notebookId": "lh-book-2",
+          "title": "B02 Utred återkommande köstopp separat",
+          "content": "<h2>B02 Utred återkommande köstopp separat</h2><p><strong>Beslut/ägare:</strong> Tova samlar köversion, tider och neutrala testresultat med Tryggtryck. Ingen rotorsak är fastställd. Incidenterna förblir avslutade när tjänsten återställts.</p><p><strong>Uppföljning:</strong> Jämför före och efter en godkänd ändring under tio arbetsdagar. Besluta fortsatt åtgärd om felet återkommer. Förslag under utredning.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-print1",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-print2",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printservice-history",
+              "type": "node",
+              "processId": "lh-printerlife",
+              "path": [
+                "lh-printerlife-service",
+                "lh-printservice-history"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-print",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printer",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printvendor",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-recipient",
+          "notebookId": "lh-book-2",
+          "title": "B03 Namnge mottagare för reservutskrift",
+          "content": "<h2>B03 Namnge mottagare för reservutskrift</h2><p><strong>Beslut/ägare:</strong> Servicedesk samordnar varje reservutskrift och bekräftar mottagare innan användaren skickas vidare.</p><p><strong>Uppföljning:</strong> Prova rutinen med en neutral testsida från Norrängen. Dokumentera överlämning utan kundinnehåll.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-print3",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-print",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-desk",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-hq",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-placeform",
+          "notebookId": "lh-book-2",
+          "title": "B04 Kontrollera placering innan bokning",
+          "content": "<h2>B04 Kontrollera placering innan bokning</h2><p><strong>Beslut/ägare:</strong> Mira kontrollerar kontor, rum, platsnummer och tillträdeskontakt. Ofullständig beställning får status Väntar på komplettering.</p><p><strong>Uppföljning:</strong> Granska nästa fem arbetsplatsbeställningar. Mät andel kompletta vid första kontrollen; blanda inte ihop utfallet med datorgodkännande.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-placement",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-socket",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-localservice-check",
+              "type": "node",
+              "processId": "lh-localservice",
+              "path": [
+                "lh-localservice-check"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-placedoc",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-approvalcheck",
+          "notebookId": "lh-book-2",
+          "title": "B05 Bekräfta datorgodkännande separat",
+          "content": "<h2>B05 Bekräfta datorgodkännande separat</h2><p><strong>Beslut/ägare:</strong> Alva godkänner kostnad och servicedesk bekräftar leveransdatum innan startdagen lovas.</p><p><strong>Uppföljning:</strong> Nästa tre leveranser ska ha spårbart godkännande före bokning. Jämför gärna taggen Väntetid med O05 men behåll två separata orsaksbeskrivningar.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-approval",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-computer-order",
+              "type": "node",
+              "processId": "lh-computer",
+              "path": [
+                "lh-computer-order"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-manager",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-returnupdate",
+          "notebookId": "lh-book-2",
+          "title": "B06 Förtydliga återlämningskvittensen",
+          "content": "<h2>B06 Förtydliga återlämningskvittensen</h2><p><strong>Beslut/ägare:</strong> Servicedesk registrerar saknade tillbehör och specialist skriver verifierat raderingsresultat före återbruk.</p><p><strong>Uppföljning:</strong> Två återlämningar granskas mot Journal 04. Formuleringen ”återställd” ensam räcker inte.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-charger",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-erase",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-return",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-pcreturn-erase",
+              "type": "node",
+              "processId": "lh-computer",
+              "path": [
+                "lh-computer-return",
+                "lh-pcreturn-erase"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-inventory",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-mobileupdate",
+          "notebookId": "lh-book-2",
+          "title": "B07 Kontrollera abonnemangsägare och förlusttider",
+          "content": "<h2>B07 Kontrollera abonnemangsägare och förlusttider</h2><p><strong>Beslut/ägare:</strong> Servicedesk stämmer av innehavare med operatören vid utlämning. Förlustövning skiljer senast sedd tid från upptäckt tid.</p><p><strong>Uppföljning:</strong> Upprepa skrivbordsövningen med JOUR-17. Båda tiderna och en verifierad beställarroll ska framgå; inga verkliga spärrar utförs i demon.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-mobile",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-loss",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-mobileloss-time",
+              "type": "node",
+              "processId": "lh-mobile",
+              "path": [
+                "lh-mobile-block",
+                "lh-mobileloss-time"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-subscription",
+              "type": "asset",
+              "source": "manual"
+            },
+            {
+              "id": "lh-carrier",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-coaching",
+          "notebookId": "lh-book-2",
+          "title": "B08 Behåll handledning tills verifiering sitter",
+          "content": "<h2>B08 Behåll handledning tills verifiering sitter</h2><p><strong>Beslut/ägare:</strong> Nils låter Nora själv formulera avslutskriterier och genomföra nästa leverantörsövning.</p><p><strong>Uppföljning:</strong> Två följande övningar ska innehålla användarens resultat, tid och accepterad överlämning. Planerat, ännu inte effektverifierat.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [
+            "lh-tag-5"
+          ],
+          "linkedContext": [
+            {
+              "id": "lh-note-exerciseobs",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-note-week",
+              "type": "journalEntry",
+              "source": "manual"
+            },
+            {
+              "id": "lh-practice-feedback",
+              "type": "node",
+              "processId": "lh-onboard",
+              "path": [
+                "lh-onboard-practice",
+                "lh-practice-feedback"
+              ],
+              "source": "manual"
+            },
+            {
+              "id": "lh-mentor",
+              "type": "asset",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        },
+        {
+          "id": "lh-note-demo",
+          "notebookId": "lh-book-0",
+          "title": "00 Börja här – demonstrationsordning",
+          "content": "<h2>00 Börja här – demonstrationsordning</h2><p>Lindhamn Service är helt fiktivt: huvudkontor Lindhamn, Norrängen, Södra kajen och gemensam service. Allt väsentligt innehåll finns offline. Inga plugins eller externa system krävs. Resursnamn för checklistor pekar på Journal-innehåll, inte bifogade dokument.</p><ul><li><p>1. Öppna Introduktion av servicehandläggare. Följ Förbered före start, Första dagen och Handledda ärenden. Läs 05 och 07 samt O01 och B01 via Linked Context.</p></li><li><p>2. Öppna Incidenthantering. Följ prioritering och grundfelsökning. Gå ned ytterligare en nivå i Felsök inloggning och återvänd via breadcrumb.</p></li><li><p>3. Följ utskriftsberättelsen i O02–O04 och B02–B03. Visa samma LH-PR-003, Utskriftstjänsten och Tryggtryck i Skrivarens livscykel. Återställning och orsaksutredning har olika mål.</p></li><li><p>4. Jämför Datorns livscykel och Mobilens livscykel. Visa gemensamt register och identitetstjänst, men egna grafer och mobila förlustvägen.</p></li><li><p>5. Läs O05 och O06 tillsammans med Lokalservice och datorns beställningssteg. Två väntetider, två skilda underlag.</p></li><li><p>6. I Dependency Map: fokusera på Utskriftstjänsten. I Journal Insight: välj Väntetid respektive Bristande underlag. Sammanställningen visar dokumenterade referenser, inte bevisade orsaker eller automatiskt härledda driftberoenden.</p></li><li><p>7. RC-verifiering görs med disponibla kopior: kopiera Grundfelsök med dess två nivåer till ett tomt drilldown i en annan process, klistra in två gånger och ändra bara första kopian. Kontrollera original, andra kopian och gemensamma resurser.</p></li><li><p>8. I en disponibel native Windows-profil: prova sök/Usage från drilldown till rot, panorera, redigera, byt process snabbt, Undo/Redo, spara och starta om. Exportera full .axiom och återläs; jämför alla grafer och Journal. Native resultat måste dokumenteras separat från kodtester.</p></li></ul><p>Långa huvudflöden behöver panorering vid läsbar zoom; använd process-trädet och Read map för orientering. Importera som tillfällig referens för att granska utan att ersätta aktiv Portfolio. Full restore ska bara användas i en disponibel profil under RC-test.</p>",
+          "contentFormat": "html",
+          "contentVersion": 2,
+          "tags": [],
+          "linkedContext": [
+            {
+              "id": "lh-onboard",
+              "type": "process",
+              "processId": "lh-onboard",
+              "source": "manual"
+            },
+            {
+              "id": "lh-incident",
+              "type": "process",
+              "processId": "lh-incident",
+              "source": "manual"
+            },
+            {
+              "id": "lh-computer",
+              "type": "process",
+              "processId": "lh-computer",
+              "source": "manual"
+            },
+            {
+              "id": "lh-mobile",
+              "type": "process",
+              "processId": "lh-mobile",
+              "source": "manual"
+            },
+            {
+              "id": "lh-printerlife",
+              "type": "process",
+              "processId": "lh-printerlife",
+              "source": "manual"
+            },
+            {
+              "id": "lh-localservice",
+              "type": "process",
+              "processId": "lh-localservice",
+              "source": "manual"
+            }
+          ],
+          "sharePolicy": "shareable",
+          "createdAt": "2026-09-28T09:00:00.000Z",
+          "updatedAt": "2026-09-28T09:00:00.000Z"
+        }
+      ],
+      "tags": [
+        {
+          "id": "lh-tag-0",
+          "label": "Bristande underlag",
+          "color": "red"
+        },
+        {
+          "id": "lh-tag-1",
+          "label": "Väntetid",
+          "color": "amber"
+        },
+        {
+          "id": "lh-tag-2",
+          "label": "Otydligt ansvar",
+          "color": "purple"
+        },
+        {
+          "id": "lh-tag-3",
+          "label": "Återkommande fel",
+          "color": "blue"
+        },
+        {
+          "id": "lh-tag-4",
+          "label": "Kunskapsbehov",
+          "color": "emerald"
+        },
+        {
+          "id": "lh-tag-5",
+          "label": "Förbättringsförslag",
+          "color": "green"
+        }
+      ]
+    },
+    "customThemes": [],
+    "activeThemeId": null,
+    "plugins": {
+      "schemaVersion": 1,
+      "requirements": [],
+      "semanticData": {
+        "records": [],
+        "relations": [],
+        "annotations": []
+      },
+      "migrations": []
+    }
+  }
+}
