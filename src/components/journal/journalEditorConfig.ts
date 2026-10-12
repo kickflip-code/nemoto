@@ -151,7 +151,7 @@ export function createJournalEditorProps(
             role: 'textbox',
             'aria-label': 'Journal note content',
             'aria-multiline': 'true',
-            class: 'axiom-journal-prose w-full h-full bg-transparent text-base leading-relaxed text-text-main focus:outline-none prose prose-invert max-w-none prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5',
+            class: 'nemoto-journal-prose w-full h-full bg-transparent text-base leading-relaxed text-text-main focus:outline-none prose prose-invert max-w-none prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5',
         },
         transformPastedHTML: normalizeJournalPasteHtml,
         handlePaste: (_view, event) => {

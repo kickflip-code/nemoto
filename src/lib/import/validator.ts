@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { Portfolio } from '../../types';
 import { decodePortfolioJson, PortfolioCodecError } from '../portfolioCodec';
-import type { AxiomDocumentKind } from '../portfolioCodec';
+import type { NemotoDocumentKind } from '../portfolioCodec';
 import type { MigrationReport } from './migrate';
 import type { PortfolioIntegrityReport } from '../portfolioIntegrity';
 
@@ -10,7 +10,7 @@ export interface ValidationResult {
     data?: Portfolio;
     error?: string;
     issues?: z.ZodIssue[];
-    kind?: AxiomDocumentKind;
+    kind?: NemotoDocumentKind;
     migration?: MigrationReport;
     integrity?: PortfolioIntegrityReport;
     sourceSchemaVersion?: number;

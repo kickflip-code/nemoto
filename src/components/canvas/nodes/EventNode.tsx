@@ -98,7 +98,7 @@ export const EventNode = memo(({ id, data, selected }: NodeProps) => {
             >
                 <div
                     className={clsx(
-                        'shape-event relative flex h-full w-full flex-col justify-between overflow-hidden border axiom-transition-canvas backdrop-blur-sm pointer-events-auto',
+                        'shape-event relative flex h-full w-full flex-col justify-between overflow-hidden border nemoto-transition-canvas backdrop-blur-sm pointer-events-auto',
                         'hover:shadow-[0_0_16px_-2px_var(--node-glow-color)] shadow-soft-down',
                         selected && 'ring-[2px] ring-offset-[4px] ring-offset-app-bg z-20',
                     )}

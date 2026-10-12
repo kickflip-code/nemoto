@@ -67,12 +67,12 @@ describe('CSS entry-point architecture', () => {
 
     it('keeps app feature styling in dedicated sheets', () => {
         const featureSelectors = [
-            ['.axiom-journal-topbar {', journalCss],
-            ['.axiom-suggestion-item[aria-selected=', journalCss],
-            ['.axiom-omnibox-modal {', omniboxCss],
-            ["[data-theme='hard'] .axiom-portfolio-chat {", portfolioChatCss],
-            ['.axiom-category-sidebar {', resourceCategoriesCss],
-            ['.axiom-settings-nav {', settingsCss],
+            ['.nemoto-journal-topbar {', journalCss],
+            ['.nemoto-suggestion-item[aria-selected=', journalCss],
+            ['.nemoto-omnibox-modal {', omniboxCss],
+            ["[data-theme='hard'] .nemoto-portfolio-chat {", portfolioChatCss],
+            ['.nemoto-category-sidebar {', resourceCategoriesCss],
+            ['.nemoto-settings-nav {', settingsCss],
             ['.theme-studio-preview-target {', themeStudioCss],
         ] as const;
 
@@ -92,10 +92,10 @@ describe('CSS entry-point architecture', () => {
 
     it('keeps shared React primitive styling in its dedicated sheet', () => {
         const primitiveSelectors = [
-            '.axiom-button {',
-            '.axiom-dialog-panel {',
-            '.axiom-segmented {',
-            '.axiom-menu-item {',
+            '.nemoto-button {',
+            '.nemoto-dialog-panel {',
+            '.nemoto-segmented {',
+            '.nemoto-menu-item {',
         ];
 
         primitiveSelectors.forEach(selector => {
@@ -108,8 +108,8 @@ describe('CSS entry-point architecture', () => {
     });
 
     it('lets bounded menu lists override the base menu overflow clipping', () => {
-        const baseMenuRule = uiPrimitivesCss.indexOf('.axiom-file-menu,');
-        const scrollMenuRule = uiPrimitivesCss.indexOf('.axiom-scroll-menu {');
+        const baseMenuRule = uiPrimitivesCss.indexOf('.nemoto-file-menu,');
+        const scrollMenuRule = uiPrimitivesCss.indexOf('.nemoto-scroll-menu {');
 
         expect(baseMenuRule).toBeGreaterThan(-1);
         expect(scrollMenuRule).toBeGreaterThan(baseMenuRule);
@@ -134,17 +134,17 @@ describe('CSS entry-point architecture', () => {
     });
 
     it('uses production panel semantics in the Theme Studio application preview', () => {
-        expect(themePreviewScenes).toContain('axiom-panel axiom-side-panel');
-        expect(themePreviewScenes).toContain('axiom-panel axiom-inspector-panel');
-        expect(themePreviewScenes).toContain('axiom-panel-body');
-        expect(themePreviewScenes).toContain('axiom-panel-section');
+        expect(themePreviewScenes).toContain('nemoto-panel nemoto-side-panel');
+        expect(themePreviewScenes).toContain('nemoto-panel nemoto-inspector-panel');
+        expect(themePreviewScenes).toContain('nemoto-panel-body');
+        expect(themePreviewScenes).toContain('nemoto-panel-section');
     });
 
     it('scopes Polar header elevation to the application header', () => {
-        expect(appHeader).toContain('axiom-app-header');
-        expect(indexCss).toContain("[data-theme='soft'] .axiom-app-header");
+        expect(appHeader).toContain('nemoto-app-header');
+        expect(indexCss).toContain("[data-theme='soft'] .nemoto-app-header");
         expect(indexCss).not.toMatch(/\[data-theme='soft'\]\s+header(?:\s|,|\{)/);
-        expect(indexCss.match(/\[data-theme='soft'\] button:not\(\.axiom-field\)/g)).toHaveLength(2);
+        expect(indexCss.match(/\[data-theme='soft'\] button:not\(\.nemoto-field\)/g)).toHaveLength(2);
     });
 
     it('keeps Polar nodes raised while interactions add glow without inset shadows', () => {

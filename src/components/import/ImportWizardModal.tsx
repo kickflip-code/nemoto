@@ -31,15 +31,15 @@ import { parseResourceWorkbook } from '../../lib/import/resourceXlsx';
 import type { ImportedPortfolio } from '../../types';
 import { generateId } from '../../lib/id';
 import { importVisioPortfolio } from '../../export/VisioImportService';
-import AxiomDocumentMetadata from './AxiomDocumentMetadata';
+import NemotoDocumentMetadata from './NemotoDocumentMetadata';
 import { useImportFileDrop } from './useImportFileDrop';
 import {
-    AxiomButton,
-    AxiomChoiceCard,
-    AxiomDialog,
-    AxiomInput,
-    AxiomSelect,
-    AxiomTextarea,
+    NemotoButton,
+    NemotoChoiceCard,
+    NemotoDialog,
+    NemotoInput,
+    NemotoSelect,
+    NemotoTextarea,
 } from '../ui';
 
 interface ImportWizardModalProps {
@@ -374,12 +374,12 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
     if (!isOpen) return null;
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-labelledby="import-dialog-title"
             onClose={onClose}
             panelClassName="w-full max-w-[820px] flex flex-col max-h-[88vh] overflow-hidden"
         >
-            <header className="axiom-dialog-header border-b px-5 py-4">
+            <header className="nemoto-dialog-header border-b px-5 py-4">
                 <div className="flex items-center justify-between gap-4">
                     <div className="min-w-0">
                         <h2 id="import-dialog-title" className="flex items-center gap-2 text-sm font-semibold text-text-main">
@@ -398,13 +398,13 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                             </div>
                         )}
                     </div>
-                    <AxiomButton icon size="sm" variant="ghost" aria-label="Close import dialog" onClick={onClose}>
+                    <NemotoButton icon size="sm" variant="ghost" aria-label="Close import dialog" onClick={onClose}>
                         <X size={16} />
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
             </header>
 
-            <div ref={bodyRef} className="axiom-dialog-body min-h-0 flex-1 overflow-y-auto p-5">
+            <div ref={bodyRef} className="nemoto-dialog-body min-h-0 flex-1 overflow-y-auto p-5">
                 {step === 'choose' && (
                     <div className="mx-auto max-w-[680px] py-4">
                         <div className="mb-5 text-center">
@@ -412,7 +412,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                             <p className="mt-1 text-xs text-text-muted">Choose an import type to see only the options that belong to it.</p>
                         </div>
                         <div className="grid gap-3 sm:grid-cols-2">
-                            <AxiomChoiceCard
+                            <NemotoChoiceCard
                                 aria-label="Import resources"
                                 selected={false}
                                 className="flex min-h-[170px] flex-col items-start p-5 text-left"
@@ -427,8 +427,8 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                 <span className="text-sm font-semibold text-text-main">Resources</span>
                                 <span className="mt-1 text-xs leading-relaxed text-text-muted">Create resources from a spreadsheet, JSON, or a pasted table.</span>
                                 <span className="mt-auto pt-4 text-[10px] text-text-faint">CSV · TSV · XLSX · JSON · Paste</span>
-                            </AxiomChoiceCard>
-                            <AxiomChoiceCard
+                            </NemotoChoiceCard>
+                            <NemotoChoiceCard
                                 aria-label="Open portfolio or process"
                                 selected={false}
                                 className="flex min-h-[170px] flex-col items-start p-5 text-left"
@@ -443,7 +443,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                 <span className="text-sm font-semibold text-text-main">Portfolio or process</span>
                                 <span className="mt-1 text-xs leading-relaxed text-text-muted">Open a Nemoto portfolio, process fragment, or Visio file as a temporary reference.</span>
                                 <span className="mt-auto pt-4 text-[10px] text-text-faint">NEMOTO · NEMOTO-PROCESS · JSON · VSDX</span>
-                            </AxiomChoiceCard>
+                            </NemotoChoiceCard>
                         </div>
                     </div>
                 )}
@@ -482,16 +482,16 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                         </div>
 
                         {!pasteOpen ? (
-                            <AxiomButton className="mx-auto flex" onClick={() => setPasteOpen(true)}>
+                            <NemotoButton className="mx-auto flex" onClick={() => setPasteOpen(true)}>
                                 <ClipboardPaste size={14} /> Paste a table
-                            </AxiomButton>
+                            </NemotoButton>
                         ) : (
-                            <div className="axiom-dialog-panel space-y-3 p-4">
+                            <div className="nemoto-dialog-panel space-y-3 p-4">
                                 <div>
                                     <label htmlFor="resource-import-paste" className="text-xs font-medium text-text-main">Paste rows and columns</label>
                                     <p className="mt-1 text-[10px] text-text-faint">The first row should contain column names.</p>
                                 </div>
-                                <AxiomTextarea
+                                <NemotoTextarea
                                     id="resource-import-paste"
                                     aria-label="Pasted resource table"
                                     value={pasteText}
@@ -500,8 +500,8 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                     placeholder={'Resource name\tOwner\tLocation\nLaptop\tSupport\tStockholm'}
                                 />
                                 <div className="flex justify-end gap-2">
-                                    <AxiomButton size="sm" variant="ghost" onClick={() => setPasteOpen(false)}>Hide</AxiomButton>
-                                    <AxiomButton size="sm" variant="primary" disabled={!pasteText.trim()} onClick={handlePaste}>Use pasted table</AxiomButton>
+                                    <NemotoButton size="sm" variant="ghost" onClick={() => setPasteOpen(false)}>Hide</NemotoButton>
+                                    <NemotoButton size="sm" variant="primary" disabled={!pasteText.trim()} onClick={handlePaste}>Use pasted table</NemotoButton>
                                 </div>
                             </div>
                         )}
@@ -570,23 +570,23 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                             {resourceSource.sheets.length > 1 && (
                                 <div>
                                     <label htmlFor="resource-import-sheet" className="mb-1 block text-[10px] text-text-faint">Worksheet</label>
-                                    <AxiomSelect
+                                    <NemotoSelect
                                         id="resource-import-sheet"
                                         controlSize="sm"
                                         value={activeSheet.id}
                                         onChange={event => selectSheet(event.target.value)}
                                     >
                                         {resourceSource.sheets.map(sheet => <option key={sheet.id} value={sheet.id}>{sheet.name}</option>)}
-                                    </AxiomSelect>
+                                    </NemotoSelect>
                                 </div>
                             )}
                         </div>
 
                         <div className="grid gap-3 sm:grid-cols-2">
-                            <div className="axiom-dialog-panel p-4">
+                            <div className="nemoto-dialog-panel p-4">
                                 <label htmlFor="resource-name-column" className="text-xs font-medium text-text-main">Resource name</label>
                                 <p className="mb-3 mt-1 text-[10px] text-text-faint">Choose the column that identifies each resource.</p>
-                                <AxiomSelect
+                                <NemotoSelect
                                     id="resource-name-column"
                                     controlSize="sm"
                                     className="w-full"
@@ -594,12 +594,12 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                     onChange={event => selectNameColumn(Number(event.target.value))}
                                 >
                                     {activeSheet.headers.map((header, index) => <option key={header} value={index}>{header}</option>)}
-                                </AxiomSelect>
+                                </NemotoSelect>
                             </div>
-                            <div className="axiom-dialog-panel p-4">
+                            <div className="nemoto-dialog-panel p-4">
                                 <label htmlFor="resource-category" className="text-xs font-medium text-text-main">Category</label>
                                 <p className="mb-3 mt-1 text-[10px] text-text-faint">Applied to every resource in this import.</p>
-                                <AxiomSelect
+                                <NemotoSelect
                                     id="resource-category"
                                     controlSize="sm"
                                     className="w-full"
@@ -610,14 +610,14 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                     {portfolio.assetCategories.map(category => (
                                         <option key={category.id} value={category.id}>{category.label}</option>
                                     ))}
-                                </AxiomSelect>
+                                </NemotoSelect>
                                 {portfolio.assetCategories.length === 0 && (
                                     <p className="mt-2 text-[10px] text-text-faint">Create a resource category in Portfolio before importing.</p>
                                 )}
                             </div>
                         </div>
 
-                        <section aria-labelledby="resource-properties-title" className="axiom-dialog-panel overflow-hidden">
+                        <section aria-labelledby="resource-properties-title" className="nemoto-dialog-panel overflow-hidden">
                             <div className="flex items-center justify-between border-b border-app-border px-4 py-3">
                                 <div>
                                     <h3 id="resource-properties-title" className="text-xs font-medium text-text-main">Properties</h3>
@@ -642,14 +642,14 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                                 className="h-3.5 w-3.5 accent-accent-primary"
                                             />
                                             <span className="truncate text-xs text-text-muted" title={header}>{header}</span>
-                                            <AxiomInput
+                                            <NemotoInput
                                                 controlSize="xs"
                                                 aria-label={`Property name for ${header}`}
                                                 value={property.propertyName}
                                                 disabled={!property.enabled || isName}
                                                 onChange={event => updateProperty(property.columnIndex, { propertyName: event.target.value })}
                                             />
-                                            <AxiomSelect
+                                            <NemotoSelect
                                                 controlSize="xs"
                                                 aria-label={`Property type for ${header}`}
                                                 value={property.valueType}
@@ -663,7 +663,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                                 <option value="number">Number</option>
                                                 <option value="boolean">Boolean</option>
                                                 <option value="date">Date</option>
-                                            </AxiomSelect>
+                                            </NemotoSelect>
                                         </div>
                                     );
                                 })}
@@ -703,30 +703,30 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                         </div>
 
                         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                            <div className="axiom-dialog-panel p-3">
+                            <div className="nemoto-dialog-panel p-3">
                                 <div className="text-xl font-semibold tabular-nums text-text-main">{planResult.plan.assets.length}</div>
                                 <div className="mt-1 text-[10px] text-text-faint">Resources</div>
                             </div>
-                            <div className="axiom-dialog-panel p-3">
+                            <div className="nemoto-dialog-panel p-3">
                                 <div className="text-xl font-semibold tabular-nums text-text-main">{mapping.properties.filter(property => property.enabled).length}</div>
                                 <div className="mt-1 text-[10px] text-text-faint">Properties</div>
                             </div>
-                            <div className="axiom-dialog-panel p-3">
+                            <div className="nemoto-dialog-panel p-3">
                                 <div className="text-xl font-semibold tabular-nums text-text-main">{planResult.plan.duplicateRows}</div>
                                 <div className="mt-1 text-[10px] text-text-faint">Duplicates skipped</div>
                             </div>
-                            <div className="axiom-dialog-panel p-3">
+                            <div className="nemoto-dialog-panel p-3">
                                 <div className="text-xl font-semibold tabular-nums text-text-main">{planResult.plan.emptyNameRows}</div>
                                 <div className="mt-1 text-[10px] text-text-faint">Unnamed rows skipped</div>
                             </div>
                         </div>
 
-                        <div className="axiom-dialog-panel flex flex-wrap items-center justify-between gap-3 p-4">
+                        <div className="nemoto-dialog-panel flex flex-wrap items-center justify-between gap-3 p-4">
                             <div>
                                 <label htmlFor="resource-duplicate-strategy" className="text-xs font-medium text-text-main">If a resource already exists</label>
                                 <p className="mt-1 text-[10px] text-text-faint">Resources are compared by name and category.</p>
                             </div>
-                            <AxiomSelect
+                            <NemotoSelect
                                 id="resource-duplicate-strategy"
                                 controlSize="sm"
                                 value={mapping.duplicateStrategy}
@@ -737,7 +737,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                             >
                                 <option value="skip">Skip existing</option>
                                 <option value="create">Create another</option>
-                            </AxiomSelect>
+                            </NemotoSelect>
                         </div>
 
                         {(planResult.plan.invalidValues > 0 || planResult.plan.emptyNameRows > 0) && (
@@ -807,7 +807,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                     <p className="mt-1 text-xs text-text-muted">{validationResult.error}</p>
                                     <div className="mt-3 space-y-2">
                                         <div className="px-1 text-[10px] font-bold uppercase tracking-wider text-text-faint">Problem checklist</div>
-                                        <div className="axiom-dialog-panel overflow-hidden">
+                                        <div className="nemoto-dialog-panel overflow-hidden">
                                             {(validationResult.issues || []).map((issue: any, index: number) => {
                                                 const path = issue.path?.join(' → ') || 'Root';
                                                 const friendlyPath = path
@@ -829,7 +829,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                             )}
                                         </div>
                                     </div>
-                                    <AxiomButton
+                                    <NemotoButton
                                         size="sm"
                                         className="mt-3"
                                         onClick={() => {
@@ -842,7 +842,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                         }}
                                     >
                                         <Upload size={12} className="rotate-180" /> Copy error
-                                    </AxiomButton>
+                                    </NemotoButton>
                                 </div>
                             </div>
                         )}
@@ -852,7 +852,7 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                                 {validationResult.kind
                                     && validationResult.sourceSchemaVersion !== undefined
                                     && validationResult.migration && (
-                                    <AxiomDocumentMetadata
+                                    <NemotoDocumentMetadata
                                         kind={validationResult.kind}
                                         sourceSchemaVersion={validationResult.sourceSchemaVersion}
                                         targetSchemaVersion={validationResult.migration.targetSchemaVersion}
@@ -889,10 +889,10 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                 )}
             </div>
 
-            <footer className="axiom-dialog-footer flex items-center justify-between gap-3 border-t p-4">
+            <footer className="nemoto-dialog-footer flex items-center justify-between gap-3 border-t p-4">
                 <div>
                     {step !== 'choose' && (
-                        <AxiomButton
+                        <NemotoButton
                             size="sm"
                             variant="ghost"
                             onClick={() => {
@@ -904,13 +904,13 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                             }}
                         >
                             <ArrowLeft size={13} /> Back
-                        </AxiomButton>
+                        </NemotoButton>
                     )}
                 </div>
                 <div className="flex items-center gap-2">
-                    <AxiomButton size="sm" onClick={onClose}>Cancel</AxiomButton>
+                    <NemotoButton size="sm" onClick={onClose}>Cancel</NemotoButton>
                     {step === 'mapping' && (
-                        <AxiomButton
+                        <NemotoButton
                             size="sm"
                             variant="primary"
                             disabled={!planResult.plan}
@@ -918,25 +918,25 @@ export default function ImportWizardModal({ isOpen, onClose }: ImportWizardModal
                             onClick={() => setStep('review')}
                         >
                             Review <ArrowRight size={13} />
-                        </AxiomButton>
+                        </NemotoButton>
                     )}
                     {step === 'review' && planResult.plan && (
-                        <AxiomButton
+                        <NemotoButton
                             size="sm"
                             variant="primary"
                             disabled={planResult.plan.assets.length === 0}
                             onClick={handleResourceImport}
                         >
                             <Layers3 size={13} /> Import {planResult.plan.assets.length}
-                        </AxiomButton>
+                        </NemotoButton>
                     )}
                     {step === 'reference-analysis' && validationResult?.success && (
-                        <AxiomButton size="sm" variant="primary" onClick={handleImportAsReference}>
+                        <NemotoButton size="sm" variant="primary" onClick={handleImportAsReference}>
                             <FileJson size={13} /> Open temporary reference
-                        </AxiomButton>
+                        </NemotoButton>
                     )}
                 </div>
             </footer>
-        </AxiomDialog>
+        </NemotoDialog>
     );
 }

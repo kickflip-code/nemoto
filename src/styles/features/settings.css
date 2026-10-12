@@ -1,10 +1,10 @@
 /* Settings owns its section navigation; colors and geometry remain theme-driven. */
 
-.axiom-settings-nav {
+.nemoto-settings-nav {
   background: color-mix(in srgb, var(--color-app-sidebar) 72%, var(--color-app-surface));
 }
 
-.axiom-settings-nav-item {
+.nemoto-settings-nav-item {
   display: flex;
   width: 100%;
   align-items: flex-start;
@@ -22,83 +22,83 @@
     transform var(--motion-duration-instant) var(--motion-ease-standard);
 }
 
-.axiom-settings-nav-item:hover {
+.nemoto-settings-nav-item:hover {
   background: var(--color-app-hover);
   color: var(--color-text-main);
 }
 
-.axiom-settings-nav-icon {
+.nemoto-settings-nav-icon {
   margin-top: 0.1rem;
   color: var(--color-text-faint);
 }
 
-.axiom-settings-nav-item-active {
+.nemoto-settings-nav-item-active {
   background: var(--color-app-active);
   border-color: var(--color-app-border);
   color: var(--color-text-main);
   box-shadow: var(--control-shadow, var(--app-shadow-sm));
 }
 
-.axiom-settings-nav-item-active .axiom-settings-nav-icon {
+.nemoto-settings-nav-item-active .nemoto-settings-nav-icon {
   color: var(--color-accent-primary);
 }
 
-[data-theme='hard'] .axiom-settings-nav {
+[data-theme='hard'] .nemoto-settings-nav {
   background: var(--color-app-sidebar);
   border-right: 3px solid #151515 !important;
 }
 
-[data-theme='hard'] .axiom-settings-nav-item {
+[data-theme='hard'] .nemoto-settings-nav-item {
   border-radius: 0;
 }
 
-[data-theme='hard'] .axiom-settings-nav-item-active {
+[data-theme='hard'] .nemoto-settings-nav-item-active {
   background: var(--palette-amber, #ffd166);
   border: 2px solid #151515;
   box-shadow: 3px 3px 0 #151515;
   transform: translate(-1px, -1px);
 }
 
-[data-theme='hard'] .axiom-settings-nav-item-active .axiom-settings-nav-icon {
+[data-theme='hard'] .nemoto-settings-nav-item-active .nemoto-settings-nav-icon {
   color: #151515;
 }
 
 @media (max-width: 680px) {
-  .axiom-settings-layout {
+  .nemoto-settings-layout {
     flex-direction: column;
   }
 
-  .axiom-settings-nav {
+  .nemoto-settings-nav {
     width: 100%;
     border-right: 0;
     border-bottom: 1px solid var(--color-app-border);
     padding: 0.6rem;
   }
 
-  .axiom-settings-nav > div:first-child {
+  .nemoto-settings-nav > div:first-child {
     display: none;
   }
 
-  .axiom-settings-nav > div:last-child {
+  .nemoto-settings-nav > div:last-child {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.35rem;
   }
 
-  .axiom-settings-nav > div:last-child > * {
+  .nemoto-settings-nav > div:last-child > * {
     margin-top: 0 !important;
   }
 
-  .axiom-settings-nav-item {
+  .nemoto-settings-nav-item {
     justify-content: center;
     padding: 0.55rem 0.4rem;
   }
 
-  .axiom-settings-nav-detail {
+  .nemoto-settings-nav-detail {
     display: none;
   }
 
-  [data-theme='hard'] .axiom-settings-nav {
+  [data-theme='hard'] .nemoto-settings-nav {
     border-right: 0 !important;
     border-bottom: 3px solid #151515;
   }

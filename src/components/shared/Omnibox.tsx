@@ -296,12 +296,12 @@ export default function Omnibox({ pluginRuntime }: OmniboxProps) {
             className="fixed inset-0 z-[10100] flex items-start justify-center pt-[15vh] px-4"
         >
             {/* Backdrop */}
-            <div className="axiom-dialog-backdrop absolute inset-0" onClick={closeOmnibox} />
+            <div className="nemoto-dialog-backdrop absolute inset-0" onClick={closeOmnibox} />
 
             {/* Modal Container */}
             <motion.div
                 {...dialogPanelMotion}
-                className="axiom-omnibox-modal w-full max-w-2xl overflow-hidden flex flex-col relative z-10"
+                className="nemoto-omnibox-modal w-full max-w-2xl overflow-hidden flex flex-col relative z-10"
             >
 
                 {/* Search Header */}
@@ -314,23 +314,23 @@ export default function Omnibox({ pluginRuntime }: OmniboxProps) {
                         placeholder={linkingTarget ? 'Search notes to link...' : 'Search Nemoto...'}
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        className="axiom-omnibox-input min-w-0 flex-1 bg-transparent border-none py-6 pl-[4.5rem] pr-3 text-lg placeholder-text-faint/30 outline-none"
+                        className="nemoto-omnibox-input min-w-0 flex-1 bg-transparent border-none py-6 pl-[4.5rem] pr-3 text-lg placeholder-text-faint/30 outline-none"
                     />
                     <div role="group" aria-label="Omnibox controls" className="flex shrink-0 items-center gap-2 pr-6">
                         {linkingTarget && (
-                            <div className="axiom-omnibox-chip axiom-omnibox-chip-accent hidden sm:flex items-center gap-1.5 px-2 py-1 mr-2">
+                            <div className="nemoto-omnibox-chip nemoto-omnibox-chip-accent hidden sm:flex items-center gap-1.5 px-2 py-1 mr-2">
                                 <span className="text-[10px] text-accent-primary font-bold uppercase tracking-widest">Linking Mode</span>
                                 <button
                                     type="button"
                                     aria-label="Exit linking mode"
                                     onClick={() => setLinkingTarget(null)}
-                                    className="axiom-panel-icon-button axiom-icon-button-sm axiom-omnibox-chip-close"
+                                    className="nemoto-panel-icon-button nemoto-icon-button-sm nemoto-omnibox-chip-close"
                                 >
                                     <X size={10} />
                                 </button>
                             </div>
                         )}
-                        <div className="axiom-omnibox-kbd flex items-center gap-1.5 px-2 py-1">
+                        <div className="nemoto-omnibox-kbd flex items-center gap-1.5 px-2 py-1">
                             <span className="text-[10px] text-text-faint font-mono">ESC</span>
                         </div>
                     </div>
@@ -338,20 +338,20 @@ export default function Omnibox({ pluginRuntime }: OmniboxProps) {
 
                 {/* Results List */}
                 {results.length > 0 ? (
-                    <div className="axiom-omnibox-results max-h-[60vh] overflow-y-auto border-t px-3 py-3 flex flex-col gap-1 custom-scrollbar">
+                    <div className="nemoto-omnibox-results max-h-[60vh] overflow-y-auto border-t px-3 py-3 flex flex-col gap-1 custom-scrollbar">
                         {results.map((r, i) => (
                             <div
                                 key={`${r.type}-${r.id}`}
                                 onMouseEnter={() => setSelectedIndex(i)}
                                 onClick={() => { void handleSelect(r); }}
                                 className={`
-                                    axiom-omnibox-result flex items-center gap-4 px-4 py-3.5 cursor-pointer axiom-transition-interactive
+                                    nemoto-omnibox-result flex items-center gap-4 px-4 py-3.5 cursor-pointer nemoto-transition-interactive
                                     ${i === selectedIndex
-                                        ? 'axiom-omnibox-result-active'
+                                        ? 'nemoto-omnibox-result-active'
                                         : ''}
                                 `}
                             >
-                                <div className="axiom-omnibox-result-icon p-2 rounded-sm">
+                                <div className="nemoto-omnibox-result-icon p-2 rounded-sm">
                                     <r.icon size={16} />
                                 </div>
                                 <div className="flex-1 min-w-0">
@@ -359,7 +359,7 @@ export default function Omnibox({ pluginRuntime }: OmniboxProps) {
                                     <div className="text-[10px] uppercase font-bold tracking-widest opacity-50">{r.sub || r.type}</div>
                                 </div>
                                 {i === selectedIndex && (
-                                    <div className="flex items-center gap-2 text-accent-primary axiom-motion-feedback-top">
+                                    <div className="flex items-center gap-2 text-accent-primary nemoto-motion-feedback-top">
                                         <span className="text-[10px] font-bold uppercase tracking-widest">
                                             {linkingTarget && r.type === 'note'
                                                 ? 'Link Entry'
@@ -372,12 +372,12 @@ export default function Omnibox({ pluginRuntime }: OmniboxProps) {
                         ))}
                     </div>
                 ) : query.trim() ? (
-                    <div className="axiom-omnibox-empty p-12 text-center border-t">
+                    <div className="nemoto-omnibox-empty p-12 text-center border-t">
                         <div className="text-4xl mb-4 opacity-10">🔍</div>
                         <div className="text-sm text-text-faint font-medium">No matches found for "<span className="text-text-muted">{query}</span>"</div>
                     </div>
                 ) : (
-                    <div className="axiom-omnibox-footer px-6 py-6 border-t flex items-center justify-between">
+                    <div className="nemoto-omnibox-footer px-6 py-6 border-t flex items-center justify-between">
                         <div className="flex items-center gap-6">
                             <div className="flex items-center gap-2 text-text-faint">
                                 <Command size={12} />

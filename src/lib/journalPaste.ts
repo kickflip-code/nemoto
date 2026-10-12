@@ -40,12 +40,12 @@ function normalizeOfficeLists(document: Document) {
         const listTag = ordered ? 'ol' : 'ul';
         const previous = element.previousElementSibling;
         const list = previous?.tagName.toLowerCase() === listTag
-            && previous.hasAttribute('data-axiom-paste-list')
+            && previous.hasAttribute('data-nemoto-paste-list')
             ? previous
             : element.ownerDocument.createElement(listTag);
 
         if (!list.isConnected) {
-            list.setAttribute('data-axiom-paste-list', 'true');
+            list.setAttribute('data-nemoto-paste-list', 'true');
             element.before(list);
         }
 
@@ -55,8 +55,8 @@ function normalizeOfficeLists(document: Document) {
         element.remove();
     });
 
-    document.body.querySelectorAll('[data-axiom-paste-list]').forEach(list => {
-        list.removeAttribute('data-axiom-paste-list');
+    document.body.querySelectorAll('[data-nemoto-paste-list]').forEach(list => {
+        list.removeAttribute('data-nemoto-paste-list');
     });
 }
 

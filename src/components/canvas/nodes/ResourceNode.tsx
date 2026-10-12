@@ -116,7 +116,7 @@ export const ResourceNode = memo(({ id, data, selected }: NodeProps) => {
                 <div
                     onMouseUp={handleMouseUp}
                     className={clsx(
-                        "shape-resource relative flex flex-col justify-between p-2.5 axiom-transition-canvas backdrop-blur-sm pointer-events-auto",
+                        "shape-resource relative flex flex-col justify-between p-2.5 nemoto-transition-canvas backdrop-blur-sm pointer-events-auto",
                         "bg-app-surface hover:bg-app-hover border shadow-soft-down",
                         selected && "ring-[2px] ring-offset-[4px] ring-offset-app-bg z-20",
                         isMissingAsset && "border-dashed border-accent-danger/70 bg-accent-danger/5"

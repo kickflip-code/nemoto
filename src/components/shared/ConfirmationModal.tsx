@@ -1,5 +1,5 @@
 import { AlertTriangle, Info, Trash2 } from 'lucide-react';
-import { AxiomButton, AxiomDialog, type AxiomButtonVariant } from '../ui';
+import { NemotoButton, NemotoDialog, type NemotoButtonVariant } from '../ui';
 
 interface ConfirmationModalProps {
     isOpen: boolean;
@@ -25,7 +25,7 @@ function ConfirmationDialogContent({
     variant = 'primary',
     hideCancel = false,
 }: ConfirmationDialogSurfaceProps) {
-    const confirmVariant: Record<NonNullable<ConfirmationModalProps['variant']>, AxiomButtonVariant> = {
+    const confirmVariant: Record<NonNullable<ConfirmationModalProps['variant']>, NemotoButtonVariant> = {
         primary: 'primary',
         warning: 'warning',
         danger: 'danger',
@@ -33,14 +33,14 @@ function ConfirmationDialogContent({
 
     const Icon = variant === 'danger' ? Trash2 : variant === 'warning' ? AlertTriangle : Info;
     const iconVariantClass = {
-        primary: 'axiom-dialog-icon-primary',
-        warning: 'axiom-dialog-icon-warning',
-        danger: 'axiom-dialog-icon-danger',
+        primary: 'nemoto-dialog-icon-primary',
+        warning: 'nemoto-dialog-icon-warning',
+        danger: 'nemoto-dialog-icon-danger',
     }[variant];
 
     return (
         <div className="p-8 flex flex-col items-center text-center">
-                <div className={`axiom-dialog-icon ${iconVariantClass} p-4 mb-6`}>
+                <div className={`nemoto-dialog-icon ${iconVariantClass} p-4 mb-6`}>
                     <Icon size={32} />
                 </div>
 
@@ -51,20 +51,20 @@ function ConfirmationDialogContent({
 
                 <div className="flex w-full gap-4 mt-10">
                     {!hideCancel && (
-                        <AxiomButton
+                        <NemotoButton
                             onClick={onClose}
                             className="flex-1 text-sm"
                         >
                             {cancelLabel}
-                        </AxiomButton>
+                        </NemotoButton>
                     )}
-                    <AxiomButton
+                    <NemotoButton
                         onClick={() => { onConfirm(); onClose(); }}
                         variant={confirmVariant[variant]}
                         className={`flex-1 text-sm ${hideCancel ? 'max-w-[200px] mx-auto' : ''}`}
                     >
                         {confirmLabel}
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
         </div>
     );
@@ -72,7 +72,7 @@ function ConfirmationDialogContent({
 
 export function ConfirmationDialogSurface(props: ConfirmationDialogSurfaceProps) {
     return (
-        <div className="axiom-dialog-panel relative w-full max-w-md flex flex-col overflow-hidden axiom-motion-dialog">
+        <div className="nemoto-dialog-panel relative w-full max-w-md flex flex-col overflow-hidden nemoto-motion-dialog">
             <ConfirmationDialogContent {...props} />
         </div>
     );
@@ -92,7 +92,7 @@ export default function ConfirmationModal({
     if (!isOpen) return null;
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="confirmation-dialog-message"
             aria-labelledby="confirmation-dialog-title"
             onClose={onClose}
@@ -108,6 +108,6 @@ export default function ConfirmationModal({
                 variant={variant}
                 hideCancel={hideCancel}
             />
-        </AxiomDialog>
+        </NemotoDialog>
     );
 }

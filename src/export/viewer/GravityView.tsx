@@ -26,14 +26,14 @@ import { getDependencyEdgeStroke } from '../../lib/dependencyEdgeStyles';
 import { getPaletteColor } from '../../constants/palette';
 import { GravityNode } from '../../components/views/GravityNode';
 import {
-    AxiomButton,
-    AxiomInput,
-    AxiomPanelRowButton,
-    AxiomRange,
-    AxiomSegmented,
-    AxiomSegmentedOption,
-    AxiomSelect,
-    AxiomToggleCard,
+    NemotoButton,
+    NemotoInput,
+    NemotoPanelRowButton,
+    NemotoRange,
+    NemotoSegmented,
+    NemotoSegmentedOption,
+    NemotoSelect,
+    NemotoToggleCard,
 } from '../../components/ui';
 import { getMotionDurationMs, motionDurationMs } from '../../lib/motion';
 
@@ -167,7 +167,7 @@ function Toggle({
     onClick: () => void;
 }) {
     return (
-        <AxiomToggleCard
+        <NemotoToggleCard
             active={enabled}
             onClick={onClick}
             className="px-2.5"
@@ -180,7 +180,7 @@ function Toggle({
                 <span className="truncate">{label}</span>
             </span>
             <span className="font-mono text-[10px] text-text-muted">{count}</span>
-        </AxiomToggleCard>
+        </NemotoToggleCard>
     );
 }
 
@@ -455,7 +455,7 @@ export const GravityView = ({ data, onNodeClick }: GravityViewProps) => {
                         <div className="mb-2 flex items-center justify-between gap-2">
                             <h3 className="text-[10px] font-bold uppercase tracking-[0.12em] text-text-muted">Focal point</h3>
                             {activeFocal && (
-                                <AxiomButton size="sm" variant="ghost" onClick={() => { setFocalNodeId(null); setSelectedNodeId(null); }} className="min-h-0 px-2 py-1 text-[10px]">Clear</AxiomButton>
+                                <NemotoButton size="sm" variant="ghost" onClick={() => { setFocalNodeId(null); setSelectedNodeId(null); }} className="min-h-0 px-2 py-1 text-[10px]">Clear</NemotoButton>
                             )}
                         </div>
                         {activeFocal && (
@@ -466,30 +466,30 @@ export const GravityView = ({ data, onNodeClick }: GravityViewProps) => {
                         <div className="relative">
                             <Search size={13} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" />
                             <label htmlFor="viewer-dependency-search" className="sr-only">Search for a focal point</label>
-                            <AxiomInput
+                            <NemotoInput
                                 id="viewer-dependency-search"
                                 type="search"
                                 controlSize="sm"
                                 value={search}
                                 onChange={event => setSearch(event.target.value)}
                                 placeholder="Search entities…"
-                                className="axiom-field-leading-icon w-full"
+                                className="nemoto-field-leading-icon w-full"
                             />
                         </div>
                         {searchResults.length > 0 && (
                             <div className="mt-1 max-h-44 space-y-1 overflow-y-auto rounded-md border border-app-border bg-app-surface p-1" aria-label="Focal point search results">
                                 {searchResults.map(entity => (
-                                    <AxiomPanelRowButton key={entity.id} onClick={() => chooseFocalPoint(entity)} className="justify-between gap-2 px-2 py-1.5">
+                                    <NemotoPanelRowButton key={entity.id} onClick={() => chooseFocalPoint(entity)} className="justify-between gap-2 px-2 py-1.5">
                                         <span className="truncate text-[11px]">{entity.label}</span>
                                         <span className="shrink-0 text-[9px] uppercase text-text-faint">{getEntityTypeLabel(entity.type)}</span>
-                                    </AxiomPanelRowButton>
+                                    </NemotoPanelRowButton>
                                 ))}
                             </div>
                         )}
                         {activeFocal && !selectedTagId && (
                             <div className="mt-3">
                                 <div className="mb-1 flex justify-between text-[10px] text-text-faint"><span>Reach</span><span>{depth} {depth === 1 ? 'step' : 'steps'}</span></div>
-                                <AxiomRange aria-label="Dependency reach" min={1} max={3} step={1} value={depth} onChange={event => setDepth(Number(event.target.value))} className="w-full" />
+                                <NemotoRange aria-label="Dependency reach" min={1} max={3} step={1} value={depth} onChange={event => setDepth(Number(event.target.value))} className="w-full" />
                             </div>
                         )}
                     </section>
@@ -498,7 +498,7 @@ export const GravityView = ({ data, onNodeClick }: GravityViewProps) => {
                         <section>
                             <h3 className="mb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-text-muted">Journal insight</h3>
                             <label htmlFor="viewer-dependency-tag" className="sr-only">Filter by journal tag</label>
-                            <AxiomSelect
+                            <NemotoSelect
                                 id="viewer-dependency-tag"
                                 controlSize="sm"
                                 value={selectedTagId || ''}
@@ -507,16 +507,16 @@ export const GravityView = ({ data, onNodeClick }: GravityViewProps) => {
                             >
                                 <option value="">No tag insight</option>
                                 {availableTags.map(tag => <option key={tag.id} value={tag.id}>{tag.label}</option>)}
-                            </AxiomSelect>
+                            </NemotoSelect>
                             {selectedTagId && viewGraph.tagInsight && (
                                 <div role="status" className="mt-2 rounded-md border border-app-border bg-app-surface p-3 text-[10px] leading-relaxed text-text-muted">
                                     <p><strong className="text-text-main">{viewGraph.tagInsight.taggedEntryCount} tagged {viewGraph.tagInsight.taggedEntryCount === 1 ? 'note' : 'notes'}</strong>{' '}
                                         {viewGraph.tagInsight.taggedEntryCount === 1 ? 'points' : 'point'} to <strong className="text-text-main">{viewGraph.tagInsight.referencedEntityCount} {viewGraph.tagInsight.referencedEntityCount === 1 ? 'entity' : 'entities'}</strong>.</p>
                                     {!includeTaggedEntries && viewGraph.tagInsight.referencedEntityCount > 0 && <p className="mt-1 text-text-faint">Repeated references are combined; numbers show frequency.</p>}
                                     {viewGraph.tagInsight.taggedEntryCount > 0 && (
-                                        <AxiomButton size="sm" variant="ghost" onClick={() => setIncludeTaggedEntries(value => !value)} className="mt-2 min-h-0 px-0 py-1 font-semibold text-accent-primary">
+                                        <NemotoButton size="sm" variant="ghost" onClick={() => setIncludeTaggedEntries(value => !value)} className="mt-2 min-h-0 px-0 py-1 font-semibold text-accent-primary">
                                             {includeTaggedEntries ? 'Return to insight summary' : `Show ${viewGraph.tagInsight.taggedEntryCount} individual ${viewGraph.tagInsight.taggedEntryCount === 1 ? 'note' : 'notes'}`}
-                                        </AxiomButton>
+                                        </NemotoButton>
                                     )}
                                 </div>
                             )}
@@ -555,11 +555,11 @@ export const GravityView = ({ data, onNodeClick }: GravityViewProps) => {
                             ))}
                         </div>
                         {query.kind === 'focus' && activeFocal && (
-                            <AxiomSegmented className="mt-3 grid w-full grid-cols-3" aria-label="Relationship direction">
+                            <NemotoSegmented className="mt-3 grid w-full grid-cols-3" aria-label="Relationship direction">
                                 {([['both', 'All'], ['incoming', 'Into'], ['outgoing', 'Out of']] as Array<[RelationDirection, string]>).map(([direction, label]) => (
-                                    <AxiomSegmentedOption key={direction} active={relationDirection === direction} onClick={() => setRelationDirection(direction)}>{label}</AxiomSegmentedOption>
+                                    <NemotoSegmentedOption key={direction} active={relationDirection === direction} onClick={() => setRelationDirection(direction)}>{label}</NemotoSegmentedOption>
                                 ))}
-                            </AxiomSegmented>
+                            </NemotoSegmented>
                         )}
                     </section>
 
@@ -573,9 +573,9 @@ export const GravityView = ({ data, onNodeClick }: GravityViewProps) => {
                 </div>
 
                 <div className="mt-auto border-t border-app-border p-3">
-                    <AxiomButton onClick={() => { setNodes(baseNodes); reactFlowInstance.current?.fitView({ padding: 0.2, duration: getMotionDurationMs(motionDurationMs.slow) }); }} className="w-full justify-center">
+                    <NemotoButton onClick={() => { setNodes(baseNodes); reactFlowInstance.current?.fitView({ padding: 0.2, duration: getMotionDurationMs(motionDurationMs.slow) }); }} className="w-full justify-center">
                         <RefreshCw size={13} /> Reset layout and fit
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
             </aside>
 

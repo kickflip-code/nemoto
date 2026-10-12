@@ -1,5 +1,5 @@
 import { reviewPluginVersionTransition } from '../plugins/pluginVersionTransition';
-import { AXIOM_PLUGIN_API_VERSION } from '../plugins/activation';
+import { NEMOTO_PLUGIN_API_VERSION } from '../plugins/activation';
 import {
     readPluginCollection,
     readPluginCollectionPage,
@@ -234,7 +234,7 @@ const getActivePluginIdentity = (pluginId: string): PluginApiIdentity | null => 
         || !satisfiesVersionRange(document.manifest.version, requirement.version)
         || document.manifest.dataVersion !== requirement.dataVersion
         || !satisfiesVersionRange(
-            AXIOM_PLUGIN_API_VERSION,
+            NEMOTO_PLUGIN_API_VERSION,
             document.manifest.compatibility.axiomPluginApi,
         )
     ) return null;
@@ -259,7 +259,7 @@ const elapsedSince = (startedAt: number): number => (
 );
 
 export const pluginHostServices: PluginHostServices = {
-    apiVersion: AXIOM_PLUGIN_API_VERSION,
+    apiVersion: NEMOTO_PLUGIN_API_VERSION,
     getSnapshot: () => currentSnapshot,
     subscribe: listener => {
         snapshotListeners.add(listener);

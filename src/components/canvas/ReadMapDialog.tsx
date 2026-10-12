@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { useCanvasStore } from '../../stores/useCanvasStore';
 import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import { useProcessSessionStore } from '../../stores/useProcessSessionStore';
-import { AxiomButton, AxiomDialog } from '../ui';
+import { NemotoButton, NemotoDialog } from '../ui';
 import { buildReadMap, readMapPath } from './readMap';
 
 export default function ReadMapDialog({ onClose }: { onClose: () => void }) {
@@ -36,12 +36,12 @@ export default function ReadMapDialog({ onClose }: { onClose: () => void }) {
         </li>;
     };
 
-    return createPortal(<AxiomDialog aria-labelledby={`${prefix}-title`} aria-describedby={`${prefix}-description`}
+    return createPortal(<NemotoDialog aria-labelledby={`${prefix}-title`} aria-describedby={`${prefix}-description`}
         onClose={onClose} isolateBackground rootClassName="z-[10100]" panelClassName="w-full max-w-3xl max-h-[calc(100vh-2rem)] flex flex-col overflow-hidden">
-        <header className="axiom-dialog-header shrink-0 flex items-start justify-between gap-4 px-5 py-4">
+        <header className="nemoto-dialog-header shrink-0 flex items-start justify-between gap-4 px-5 py-4">
             <div className="min-w-0"><h2 id={`${prefix}-title`} className="font-bold">Read map</h2>
                 <p className="text-sm break-words">{location}</p></div>
-            <AxiomButton onClick={onClose}>Close</AxiomButton>
+            <NemotoButton onClick={onClose}>Close</NemotoButton>
         </header>
         <div role="region" aria-label="Map contents" tabIndex={0}
             className="min-h-0 overflow-y-auto p-5 space-y-5 text-sm select-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-primary focus-visible:-outline-offset-2">
@@ -70,5 +70,5 @@ export default function ReadMapDialog({ onClose }: { onClose: () => void }) {
                 <ul>{map.connections.flatMap((edge, index) => !edge.source || !edge.target ? [connection(index)] : [])}</ul>
             </section>}
         </div>
-    </AxiomDialog>, document.body);
+    </NemotoDialog>, document.body);
 }

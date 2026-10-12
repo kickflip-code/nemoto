@@ -1,4 +1,4 @@
-import { AXIOM_PLUGIN_API_VERSION } from '../plugins/activation';
+import { NEMOTO_PLUGIN_API_VERSION } from '../plugins/activation';
 import {
     buildPluginDiagnosticInventory,
     createSanitizedPluginDiagnosticBundle,
@@ -194,11 +194,11 @@ export class PluginDeveloperDiagnosticsService {
         const packages = buildPluginDiagnosticInventory(
             this.#getInstalledPlugins(),
             this.#getRequirements(),
-            AXIOM_PLUGIN_API_VERSION,
+            NEMOTO_PLUGIN_API_VERSION,
         );
         return Object.freeze({
             enabled: log.enabled,
-            hostPluginApiVersion: AXIOM_PLUGIN_API_VERSION,
+            hostPluginApiVersion: NEMOTO_PLUGIN_API_VERSION,
             packages: Object.freeze(packages),
             limits: Object.freeze({
                 ...log.limits,

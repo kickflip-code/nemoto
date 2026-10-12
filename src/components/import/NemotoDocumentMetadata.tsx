@@ -1,7 +1,7 @@
-import type { AxiomDocumentKind } from '../../lib/portfolioCodec';
+import type { NemotoDocumentKind } from '../../lib/portfolioCodec';
 
-interface AxiomDocumentMetadataProps {
-    kind: AxiomDocumentKind;
+interface NemotoDocumentMetadataProps {
+    kind: NemotoDocumentKind;
     sourceSchemaVersion: number;
     targetSchemaVersion: number;
     sourceAppVersion?: string;
@@ -15,14 +15,14 @@ function formatTimestamp(timestamp: string | undefined): string {
     return Number.isNaN(date.getTime()) ? timestamp : date.toLocaleString();
 }
 
-export default function AxiomDocumentMetadata({
+export default function NemotoDocumentMetadata({
     kind,
     sourceSchemaVersion,
     targetSchemaVersion,
     sourceAppVersion,
     sourceTimestamp,
     wasWrapped,
-}: AxiomDocumentMetadataProps) {
+}: NemotoDocumentMetadataProps) {
     const needsSchemaMigration = sourceSchemaVersion < targetSchemaVersion;
     const typeLabel = kind === 'process-fragment' ? 'Process fragment' : 'Portfolio';
     const versionLabel = needsSchemaMigration
@@ -30,7 +30,7 @@ export default function AxiomDocumentMetadata({
         : String(sourceSchemaVersion);
 
     return (
-        <div className="axiom-dialog-panel overflow-hidden" data-testid="axiom-document-metadata">
+        <div className="nemoto-dialog-panel overflow-hidden" data-testid="nemoto-document-metadata">
             <div className="grid grid-cols-2 gap-x-6 gap-y-3 p-3 text-xs">
                 <div>
                     <div className="text-[10px] uppercase tracking-wider text-text-faint">File type</div>

@@ -19,7 +19,7 @@ vi.mock('reactflow', () => ({
 }));
 
 function modifyExport(update: (payload: any) => void) {
-    const element = document.getElementById('axiom-data')!;
+    const element = document.getElementById('nemoto-data')!;
     const bytes = Uint8Array.from(atob(element.textContent!), c => c.charCodeAt(0));
     const payload = JSON.parse(pako.inflate(bytes, { to: 'string' }));
     update(payload);
@@ -40,12 +40,12 @@ describe('standalone reader interactions', () => {
         };
         const element = document.createElement('script');
         element.type = 'application/json';
-        element.id = 'axiom-data';
+        element.id = 'nemoto-data';
         element.textContent = btoa(String.fromCharCode(...pako.gzip(JSON.stringify(payload))));
         document.body.appendChild(element);
     });
 
-    afterEach(() => document.getElementById('axiom-data')?.remove());
+    afterEach(() => document.getElementById('nemoto-data')?.remove());
 
     it('explicitly allows selection on portalled reader text even when the page disables it', () => {
         const style = document.createElement('style');

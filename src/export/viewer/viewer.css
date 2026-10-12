@@ -21,7 +21,7 @@
     border-width: 2px;
     box-shadow: 4px 4px 0px 0px #000000;
 }
-[data-theme='hard'] .axiom-node {
+[data-theme='hard'] .nemoto-node {
     border-width: 3px !important;
     border-radius: 0 !important;
     box-shadow: 6px 6px 0px 0px #000000;
@@ -143,10 +143,10 @@ body {
 /* Reader dialogs are portalled outside the viewer root. Declare selection on
    their text surfaces directly instead of relying on body inheritance. */
 .viewer-reader,
-.viewer-reader .axiom-dialog-header,
-.viewer-reader .axiom-dialog-header h2,
-.viewer-reader .axiom-dialog-body,
-.viewer-reader .axiom-dialog-body * {
+.viewer-reader .nemoto-dialog-header,
+.viewer-reader .nemoto-dialog-header h2,
+.viewer-reader .nemoto-dialog-body,
+.viewer-reader .nemoto-dialog-body * {
     -webkit-user-select: text;
     user-select: text;
 }
@@ -341,7 +341,7 @@ body {
 /* ===== Node Styles (matches main Nemoto app theme) ===== */
 
 /* Base node — dark surface with border, backdrop blur */
-.axiom-node {
+.nemoto-node {
     background: var(--color-app-surface);
     border: 2px solid var(--color-app-border);
     display: flex;
@@ -355,7 +355,7 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.axiom-node:hover {
+.nemoto-node:hover {
     background: var(--color-app-hover);
 }
 

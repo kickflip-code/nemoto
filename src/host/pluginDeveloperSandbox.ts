@@ -1,4 +1,4 @@
-import { AXIOM_PLUGIN_API_VERSION } from '../plugins/activation';
+import { NEMOTO_PLUGIN_API_VERSION } from '../plugins/activation';
 import { createActivePluginRuntime } from '../plugins/activeRuntime';
 import {
     readPluginCollection,
@@ -197,7 +197,7 @@ export function createPluginDeveloperSandboxSession({
     };
 
     const services: PluginHostServices = {
-        apiVersion: AXIOM_PLUGIN_API_VERSION,
+        apiVersion: NEMOTO_PLUGIN_API_VERSION,
         getSnapshot: () => snapshot,
         subscribe: listener => {
             snapshotListeners.add(listener);

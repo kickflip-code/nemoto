@@ -24,15 +24,15 @@ import { createDefaultEventData } from '../../lib/events';
 import type { CanvasEdge, EdgeRoutingMode, NodeType } from '../../types';
 import { EventInspectorFields } from './EventInspectorFields';
 import {
-    AxiomPanel,
-    AxiomButton,
-    AxiomPanelBody,
-    AxiomPanelDivider,
-    AxiomPanelHeader,
-    AxiomPanelIconButton,
-    AxiomSegmented,
-    AxiomSegmentedOption,
-    AxiomSwitch,
+    NemotoPanel,
+    NemotoButton,
+    NemotoPanelBody,
+    NemotoPanelDivider,
+    NemotoPanelHeader,
+    NemotoPanelIconButton,
+    NemotoSegmented,
+    NemotoSegmentedOption,
+    NemotoSwitch,
 } from '../ui';
 
 export default function Inspector() {
@@ -95,14 +95,14 @@ export default function Inspector() {
     else if (showNode) title = 'Node Properties';
 
     return (
-        <AxiomPanel
+        <NemotoPanel
             as="aside"
-            className="axiom-inspector-panel border-l flex flex-col shrink-0 z-20 shadow-xl relative h-full"
+            className="nemoto-inspector-panel border-l flex flex-col shrink-0 z-20 shadow-xl relative h-full"
             style={{ width: `${width}px` }}
         >
             {/* Resize Handle */}
             <div
-                className="axiom-panel-resizer absolute left-0 top-0 bottom-0 w-1.5 hover:w-2 -ml-0.5 cursor-ew-resize z-50"
+                className="nemoto-panel-resizer absolute left-0 top-0 bottom-0 w-1.5 hover:w-2 -ml-0.5 cursor-ew-resize z-50"
                 onMouseDown={(e) => {
                     e.preventDefault(); // Prevent text selection start
                     setIsResizing(true);
@@ -110,9 +110,9 @@ export default function Inspector() {
             />
 
             {/* Header */}
-            <AxiomPanelHeader className="h-10 px-4 flex items-center justify-between border-b">
+            <NemotoPanelHeader className="h-10 px-4 flex items-center justify-between border-b">
                 <span className="text-xs font-bold text-text-main">{title}</span>
-                <AxiomPanelIconButton
+                <NemotoPanelIconButton
                     aria-label={`Close ${title}`}
                     onClick={() => {
                         if (selectedAssetId) selectAsset(null);
@@ -122,10 +122,10 @@ export default function Inspector() {
                     }}
                 >
                     <X size={16} />
-                </AxiomPanelIconButton>
-            </AxiomPanelHeader>
+                </NemotoPanelIconButton>
+            </NemotoPanelHeader>
 
-            <AxiomPanelBody className="flex-1 overflow-y-auto app-scroll p-4 space-y-6">
+            <NemotoPanelBody className="flex-1 overflow-y-auto app-scroll p-4 space-y-6">
                 {showAsset ? (
                     <AssetInspector id={activeAssetId!} />
                 ) : showSwimlane ? (
@@ -139,8 +139,8 @@ export default function Inspector() {
                 ) : (
                     <ProcessInspector />
                 )}
-            </AxiomPanelBody>
-        </AxiomPanel>
+            </NemotoPanelBody>
+        </NemotoPanel>
     );
 }
 
@@ -153,7 +153,7 @@ function MultiSelectionInspector({ nodeCount, edgeCount }: { nodeCount: number; 
 
     return (
         <div className="space-y-5" data-testid="multi-selection-inspector">
-            <div className="axiom-panel-card flex items-center gap-3 p-4">
+            <div className="nemoto-panel-card flex items-center gap-3 p-4">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded bg-accent-primary/10 text-accent-primary">
                     <MousePointer2 size={19} />
                 </div>
@@ -177,7 +177,7 @@ function MultiSelectionInspector({ nodeCount, edgeCount }: { nodeCount: number; 
                 </div>
             )}
 
-            <AxiomPanelDivider />
+            <NemotoPanelDivider />
 
             <p className="text-[10px] leading-relaxed text-text-faint">
                 Connected lines remain attached and update automatically when the selected nodes move.
@@ -204,7 +204,7 @@ function SwimlaneInspector({ id }: { id: string }) {
                     <span className="text-[10px] text-text-faint">Header Title</span>
                     <input
                         type="text"
-                        className="axiom-field axiom-field-sm w-full font-bold tracking-wider"
+                        className="nemoto-field nemoto-field-sm w-full font-bold tracking-wider"
                         placeholder="Name..."
                         aria-label="Division heading"
                         value={lane.label || ''}
@@ -213,7 +213,7 @@ function SwimlaneInspector({ id }: { id: string }) {
                 </div>
             </div>
 
-            <AxiomPanelDivider />
+            <NemotoPanelDivider />
 
             {/* Appearance Section */}
             <div>
@@ -225,7 +225,7 @@ function SwimlaneInspector({ id }: { id: string }) {
                     <div className="flex flex-wrap gap-2">
                         {PALETTE.map(c => (
                             <button key={c.id} onClick={() => updateSwimlane(id, { color: c.id })}
-                                className={`axiom-color-swatch w-6 h-6 rounded-full flex items-center justify-center ${lane.color === c.id ? 'axiom-color-swatch-active' : ''}`}
+                                className={`nemoto-color-swatch w-6 h-6 rounded-full flex items-center justify-center ${lane.color === c.id ? 'nemoto-color-swatch-active' : ''}`}
                                 style={{ backgroundColor: c.hex }} title={c.label}>
                                 {lane.color === c.id && <div className="w-1.5 h-1.5 rounded-full bg-text-main/50" />}
                             </button>
@@ -233,23 +233,23 @@ function SwimlaneInspector({ id }: { id: string }) {
                     </div>
                 </div>
             </div>
-            <AxiomPanelDivider />
+            <NemotoPanelDivider />
             <section aria-label="Division actions" className="space-y-3">
                 <h3 className="text-[10px] font-bold uppercase text-text-faint tracking-wider">Position</h3>
                 <div className="grid grid-cols-2 gap-2">
-                    <AxiomButton size="sm" className="w-full gap-2" disabled={index === 0} onClick={() => moveSwimlane(id, 'up')}>
+                    <NemotoButton size="sm" className="w-full gap-2" disabled={index === 0} onClick={() => moveSwimlane(id, 'up')}>
                         {column ? <ArrowLeft size={16} aria-hidden="true" /> : <ArrowUp size={16} aria-hidden="true" />}
                         {column ? 'Move left' : 'Move up'}
-                    </AxiomButton>
-                    <AxiomButton size="sm" className="w-full gap-2" disabled={index === ordered.length - 1} onClick={() => moveSwimlane(id, 'down')}>
+                    </NemotoButton>
+                    <NemotoButton size="sm" className="w-full gap-2" disabled={index === ordered.length - 1} onClick={() => moveSwimlane(id, 'down')}>
                         {column ? <ArrowRight size={16} aria-hidden="true" /> : <ArrowDown size={16} aria-hidden="true" />}
                         {column ? 'Move right' : 'Move down'}
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
-                <AxiomButton variant="danger" size="sm" className="w-full gap-2" title="Delete this division; keep its process steps" onClick={() => {
+                <NemotoButton variant="danger" size="sm" className="w-full gap-2" title="Delete this division; keep its process steps" onClick={() => {
                     document.getElementById(`add-division-${laneAxis(graph, lane)}`)?.focus();
                     removeSwimlane(id); useUIStore.getState().selectSwimlane(null);
-                }}><Trash2 size={16} aria-hidden="true" />Delete {column ? 'column' : 'row'}</AxiomButton>
+                }}><Trash2 size={16} aria-hidden="true" />Delete {column ? 'column' : 'row'}</NemotoButton>
             </section>
 
             {/* Meta */}
@@ -336,7 +336,7 @@ function EdgeInspector({ id }: { id: string }) {
                                     e.stopPropagation();
                                     updateEdge(id, { color: c.value });
                                 }}
-                                className={`axiom-color-swatch w-5 h-5 rounded-full ${edge.color === c.value ? 'axiom-color-swatch-active' : ''}`}
+                                className={`nemoto-color-swatch w-5 h-5 rounded-full ${edge.color === c.value ? 'nemoto-color-swatch-active' : ''}`}
                                 style={{ backgroundColor: c.value }}
                                 title={c.label}
                             />
@@ -351,7 +351,7 @@ function EdgeInspector({ id }: { id: string }) {
                         <select
                             value={edge.style}
                             onChange={(e) => updateEdge(id, { style: e.target.value as any })}
-                            className="axiom-field axiom-field-sm w-full appearance-none"
+                            className="nemoto-field nemoto-field-sm w-full appearance-none"
                         >
                             <option value="solid">Solid</option>
                             <option value="dashed">Dashed</option>
@@ -368,7 +368,7 @@ function EdgeInspector({ id }: { id: string }) {
                                 updateEdge(id, { type: newType });
                                 useCanvasStore.getState().setLastEdgeType(newType);
                             }}
-                            className="axiom-field axiom-field-sm w-full appearance-none"
+                            className="nemoto-field nemoto-field-sm w-full appearance-none"
                         >
                             <option value="default">Bezier (Default)</option>
                             <option value="smoothstep">Smooth Step</option>
@@ -383,7 +383,7 @@ function EdgeInspector({ id }: { id: string }) {
                     <select
                         value={hasImportedRoute ? 'imported' : routingMode}
                         onChange={(e) => applyRoutingMode(e.target.value as EdgeRoutingMode)}
-                        className="axiom-field axiom-field-sm w-full appearance-none"
+                        className="nemoto-field nemoto-field-sm w-full appearance-none"
                     >
                         {hasImportedRoute && <option value="imported" disabled>{edge.routingManual ? 'Manual route' : 'Imported route'}</option>}
                         <option value="auto">Auto</option>
@@ -416,20 +416,20 @@ function EdgeInspector({ id }: { id: string }) {
                 {hasImportedRoute && (
                     <div className="mt-3 flex flex-col items-stretch gap-2 rounded-md border border-app-border bg-app-surface p-2">
                         <span className="text-[10px] text-text-faint">{edge.routingManual ? 'Drag the segment handles on the canvas' : 'Imported connector route'}</span>
-                        <AxiomButton
+                        <NemotoButton
                             size="sm"
                             variant="ghost"
                             onClick={() => applyRoutingMode(edge.routingManual ? (edge.routingMode ?? 'auto') : 'auto')}
                         >
                             {edge.routingManual ? 'Reset automatic route' : 'Use Nemoto routing'}
-                        </AxiomButton>
+                        </NemotoButton>
                     </div>
                 )}
 
                 {/* Animation Toggle */}
                 <div className="mt-4 flex items-center justify-between">
                     <span className="text-[10px] text-text-faint">Flow Animation</span>
-                    <AxiomSwitch
+                    <NemotoSwitch
                         checked={edge.animated ?? false}
                         label="Flow animation"
                         onCheckedChange={checked => updateEdge(id, { animated: checked })}
@@ -437,7 +437,7 @@ function EdgeInspector({ id }: { id: string }) {
                 </div>
             </div>
 
-            <AxiomPanelDivider />
+            <NemotoPanelDivider />
 
             {/* Label Section */}
             <div>
@@ -446,7 +446,7 @@ function EdgeInspector({ id }: { id: string }) {
                     <span className="text-[10px] text-text-faint">Label</span>
                     <input
                         type="text"
-                        className="axiom-field axiom-field-sm w-full"
+                        className="nemoto-field nemoto-field-sm w-full"
                         placeholder="Action name..."
                         value={edge.label || ''}
                         aria-label="Label"
@@ -478,40 +478,40 @@ function EdgeInspector({ id }: { id: string }) {
                 {/* Orientation Toggle */}
                 <div className="flex items-center justify-between">
                     <span className="text-[10px] text-text-faint uppercase font-semibold">Orientation</span>
-                    <AxiomSegmented aria-label="Edge label orientation">
-                        <AxiomSegmentedOption
+                    <NemotoSegmented aria-label="Edge label orientation">
+                        <NemotoSegmentedOption
                             active={(edge.labelOrientation || 'horizontal') === 'horizontal'}
                             onClick={() => updateEdge(id, { labelOrientation: 'horizontal' })}
                         >
                             Horiz
-                        </AxiomSegmentedOption>
-                        <AxiomSegmentedOption
+                        </NemotoSegmentedOption>
+                        <NemotoSegmentedOption
                             active={edge.labelOrientation === 'vertical'}
                             onClick={() => updateEdge(id, { labelOrientation: 'vertical' })}
                         >
                             Vert
-                        </AxiomSegmentedOption>
-                    </AxiomSegmented>
+                        </NemotoSegmentedOption>
+                    </NemotoSegmented>
                 </div>
 
-                <AxiomPanelDivider className="my-4" />
+                <NemotoPanelDivider className="my-4" />
 
                 <label className="text-[10px] font-bold uppercase text-text-faint tracking-wider mb-3 block">Label Styling</label>
 
                 {/* Size Toggle */}
                 <div className="flex items-center justify-between mb-4">
                     <span className="text-[10px] text-text-faint uppercase font-semibold">Size</span>
-                    <AxiomSegmented aria-label="Edge label size">
+                    <NemotoSegmented aria-label="Edge label size">
                         {['sm', 'md', 'lg'].map(size => (
-                            <AxiomSegmentedOption
+                            <NemotoSegmentedOption
                                 active={(edge.labelSize || 'sm') === size}
                                 key={size}
                                 onClick={() => updateEdge(id, { labelSize: size as any })}
                             >
                                 {size}
-                            </AxiomSegmentedOption>
+                            </NemotoSegmentedOption>
                         ))}
-                    </AxiomSegmented>
+                    </NemotoSegmented>
                 </div>
 
                 {/* Color Picker */}
@@ -521,7 +521,7 @@ function EdgeInspector({ id }: { id: string }) {
                         {/* Null/Default option */}
                         <button
                             onClick={() => updateEdge(id, { labelColor: undefined })}
-                            className={`axiom-color-swatch w-5 h-5 rounded-full flex items-center justify-center ${!edge.labelColor ? 'axiom-color-swatch-active' : ''}`}
+                            className={`nemoto-color-swatch w-5 h-5 rounded-full flex items-center justify-center ${!edge.labelColor ? 'nemoto-color-swatch-active' : ''}`}
                             title="Default"
                         >
                             <span className="text-[8px] text-text-faint font-bold">X</span>
@@ -530,7 +530,7 @@ function EdgeInspector({ id }: { id: string }) {
                             <button
                                 key={`text-${c.value}`}
                                 onClick={() => updateEdge(id, { labelColor: c.value })}
-                                className={`axiom-color-swatch w-5 h-5 rounded-full ${edge.labelColor === c.value ? 'axiom-color-swatch-active' : ''}`}
+                                className={`nemoto-color-swatch w-5 h-5 rounded-full ${edge.labelColor === c.value ? 'nemoto-color-swatch-active' : ''}`}
                                 style={{ backgroundColor: c.value }}
                                 title={c.label}
                             />
@@ -539,17 +539,17 @@ function EdgeInspector({ id }: { id: string }) {
                 </div>
             </div>
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             {/* Connection Info */}
             <div className="space-y-2">
                 <label className="text-[10px] font-bold uppercase text-text-faint tracking-wider block">Endpoints</label>
-                <div className="axiom-panel-card p-2 space-y-1.5 opacity-70">
+                <div className="nemoto-panel-card p-2 space-y-1.5 opacity-70">
                     <div className="flex justify-between text-[10px]">
                         <span className="text-text-faint">From</span>
                         <span className="text-text-main font-medium truncate max-w-[120px]">{sourceNode?.label || edge.sourceId}</span>
                     </div>
-                    <div className="axiom-panel-divider h-px"></div>
+                    <div className="nemoto-panel-divider h-px"></div>
                     <div className="flex justify-between text-[10px]">
                         <span className="text-text-faint">To</span>
                         <span className="text-text-main font-medium truncate max-w-[120px]">{targetNode?.label || edge.targetId}</span>
@@ -592,7 +592,7 @@ function NodeInspector({ id }: { id: string }) {
                 <legend className="text-sm font-bold">Division</legend>
                 {(['row', 'column'] as const).map(axis => <label key={axis} className="block text-xs">
                     {axis === 'row' ? 'Row' : 'Column'}
-                    <select className="axiom-field w-full" aria-label={axis === 'row' ? 'Row' : 'Column'}
+                    <select className="nemoto-field w-full" aria-label={axis === 'row' ? 'Row' : 'Column'}
                         value={node[axis === 'row' ? 'rowId' : 'columnId'] ?? ''}
                         onChange={e => updateNode(id, { [axis === 'row' ? 'rowId' : 'columnId']: e.target.value || null })}>
                         <option value="">Unassigned</option>
@@ -608,7 +608,7 @@ function NodeInspector({ id }: { id: string }) {
                         <span className="text-[10px] text-text-faint">Node Type</span>
                         <select
                             aria-label="Node Type"
-                            className="axiom-field axiom-field-sm w-full appearance-none"
+                            className="nemoto-field nemoto-field-sm w-full appearance-none"
                             value={node.type}
                             onChange={(e) => {
                                 const type = e.target.value as NodeType;
@@ -637,7 +637,7 @@ function NodeInspector({ id }: { id: string }) {
                         <span className="text-[10px] text-text-faint">Label</span>
                         <input
                             type="text"
-                            className="axiom-field axiom-field-sm w-full"
+                            className="nemoto-field nemoto-field-sm w-full"
                             value={node.label ?? ''}
                             aria-label="Label"
                             onChange={(e) => updateNode(id, { label: e.target.value })}
@@ -646,7 +646,7 @@ function NodeInspector({ id }: { id: string }) {
                     <div className="space-y-1">
                         <span className="text-[10px] text-text-faint">Description</span>
                         <textarea
-                            className="axiom-field axiom-field-sm axiom-field-textarea w-full"
+                            className="nemoto-field nemoto-field-sm nemoto-field-textarea w-full"
                             value={(node.data?.description as string) || ''}
                             aria-label="Description"
                             placeholder="Add details about this step..."
@@ -659,7 +659,7 @@ function NodeInspector({ id }: { id: string }) {
                         <span className="text-[10px] text-text-faint">Eyebrow Label</span>
                         <input
                             type="text"
-                            className="axiom-field axiom-field-sm w-full uppercase tracking-wider"
+                            className="nemoto-field nemoto-field-sm w-full uppercase tracking-wider"
                             value={(node.data?.eyebrow as string) || ''}
                             aria-label="Eyebrow Label"
                             placeholder="e.g. Support, Finance..."
@@ -674,12 +674,12 @@ function NodeInspector({ id }: { id: string }) {
 
             {node.type === 'event' && (
                 <>
-                    <div className="axiom-panel-divider h-[1px]"></div>
+                    <div className="nemoto-panel-divider h-[1px]"></div>
                     <EventInspectorFields node={node} onChange={event => updateNode(id, { event })} />
                 </>
             )}
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             <div>
                 <label className="text-[10px] font-bold uppercase text-text-faint tracking-wider mb-3 block">Drilldown</label>
@@ -687,7 +687,7 @@ function NodeInspector({ id }: { id: string }) {
                     type="button"
                     disabled={!canUseDrilldown}
                     onClick={() => openOrCreateNodeDrilldown(id, graph)}
-                    className={`axiom-panel-card w-full flex items-center justify-between px-3 py-2 text-xs font-semibold transition-colors
+                    className={`nemoto-panel-card w-full flex items-center justify-between px-3 py-2 text-xs font-semibold transition-colors
                         ${canUseDrilldown
                             ? 'text-text-main hover:border-accent-primary hover:text-accent-primary'
                             : 'text-text-faint cursor-not-allowed opacity-60'
@@ -705,7 +705,7 @@ function NodeInspector({ id }: { id: string }) {
                 </p>
             </div>
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             {/* Appearance Section - Now available for all nodes */}
             <div>
@@ -721,9 +721,9 @@ function NodeInspector({ id }: { id: string }) {
                                 onClick={() => {
                                     updateNode(id, { data: { ...node.data, color: c.id } });
                                 }}
-                                className={`axiom-color-swatch w-6 h-6 rounded-full flex items-center justify-center
+                                className={`nemoto-color-swatch w-6 h-6 rounded-full flex items-center justify-center
                                     ${(node.data?.color || 'default') === c.id
-                                        ? 'axiom-color-swatch-active' : ''}
+                                        ? 'nemoto-color-swatch-active' : ''}
                                 `}
                                 style={{ backgroundColor: c.hex }}
                                 title={c.label}
@@ -738,7 +738,7 @@ function NodeInspector({ id }: { id: string }) {
                 </div>
             </div>
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             {/* Legacy rotation section for imported arrow nodes */}
             {node.type === 'arrow' && (
@@ -750,7 +750,7 @@ function NodeInspector({ id }: { id: string }) {
                             <div className="flex items-center gap-1">
                                 <input
                                     type="number"
-                                    className="axiom-field axiom-field-xs w-12 text-accent-primary font-mono text-center"
+                                    className="nemoto-field nemoto-field-xs w-12 text-accent-primary font-mono text-center"
                                     value={Math.round((node.data?.rotation as number) || 0)}
                                     onChange={(e) => {
                                         let val = parseInt(e.target.value) || 0;
@@ -775,14 +775,14 @@ function NodeInspector({ id }: { id: string }) {
                                 <button
                                     key={angle}
                                     onClick={() => updateNode(id, { data: { ...node.data, rotation: angle } })}
-                                    className="axiom-button axiom-button-sm axiom-button-ghost text-[9px] text-text-faint hover:text-accent-primary px-1.5 py-0.5"
+                                    className="nemoto-button nemoto-button-sm nemoto-button-ghost text-[9px] text-text-faint hover:text-accent-primary px-1.5 py-0.5"
                                 >
                                     {angle}°
                                 </button>
                             ))}
                         </div>
                     </div>
-                    <div className="axiom-panel-divider h-[1px] mt-6"></div>
+                    <div className="nemoto-panel-divider h-[1px] mt-6"></div>
                 </div>
             )}
             <div>
@@ -795,7 +795,7 @@ function NodeInspector({ id }: { id: string }) {
                                 e.preventDefault();
                                 setIsAssetPickerOpen(true);
                             }}
-                            className="axiom-panel-icon-button axiom-icon-button-sm"
+                            className="nemoto-panel-icon-button nemoto-icon-button-sm"
                             title="Search and Link Resource"
                         >
                             <Plus size={12} />
@@ -824,7 +824,7 @@ function NodeInspector({ id }: { id: string }) {
                                 return (
                                     <div
                                         key={assetId}
-                                        className="axiom-panel-card axiom-panel-card-danger p-2.5 flex items-start gap-3"
+                                        className="nemoto-panel-card nemoto-panel-card-danger p-2.5 flex items-start gap-3"
                                     >
                                         <div className="mt-0.5 w-7 h-7 rounded bg-accent-danger/10 flex items-center justify-center border border-accent-danger/20">
                                             <Server size={14} className="text-accent-danger" />
@@ -835,7 +835,7 @@ function NodeInspector({ id }: { id: string }) {
                                         </div>
                                         <button
                                             onClick={() => handleUnlinkAsset(assetId)}
-                                            className="axiom-panel-icon-button axiom-icon-button-sm axiom-panel-icon-button-danger"
+                                            className="nemoto-panel-icon-button nemoto-icon-button-sm nemoto-panel-icon-button-danger"
                                             title="Unlink broken resource"
                                         >
                                             <Trash2 size={12} />
@@ -854,7 +854,7 @@ function NodeInspector({ id }: { id: string }) {
                             return (
                                 <div
                                     key={assetId}
-                                    className="axiom-panel-card p-2.5 flex items-start gap-3 group hover:border-accent-primary/50 transition-colors"
+                                    className="nemoto-panel-card p-2.5 flex items-start gap-3 group hover:border-accent-primary/50 transition-colors"
                                 >
                                     <div
                                         className="mt-0.5 w-7 h-7 rounded flex items-center justify-center border"
@@ -873,7 +873,7 @@ function NodeInspector({ id }: { id: string }) {
                                     </div>
                                     <button
                                         onClick={() => handleUnlinkAsset(assetId)}
-                                        className="axiom-panel-icon-button axiom-icon-button-sm axiom-panel-icon-button-danger opacity-0 group-hover:opacity-100 transition-opacity"
+                                        className="nemoto-panel-icon-button nemoto-icon-button-sm nemoto-panel-icon-button-danger opacity-0 group-hover:opacity-100 transition-opacity"
                                         title="Unlink resource"
                                     >
                                         <Trash2 size={12} />
@@ -889,12 +889,12 @@ function NodeInspector({ id }: { id: string }) {
                 </div>
             </div>
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             {/* Linked Notes Section */}
             <LinkedNotes entityId={id} entityType="node" name={node.label ?? ''} />
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             {/* Meta */}
             <div className="space-y-2">

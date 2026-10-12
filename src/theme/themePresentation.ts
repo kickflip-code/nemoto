@@ -6,7 +6,7 @@ import type {
   ThemeSurfaceRecipe,
 } from './themeContract';
 
-export const THEME_PRESENTATION_STYLE_ID = 'axiom-active-theme-presentation';
+export const THEME_PRESENTATION_STYLE_ID = 'nemoto-active-theme-presentation';
 
 export const THEME_PRESENTATION_VARIABLE_NAMES = [
   '--font-family-ui',
@@ -425,7 +425,7 @@ export const resolveThemePresentation = (theme?: ThemeConfig): ResolvedThemePres
 
   const assets = theme.assets || {};
   const logoAsset = theme.brand?.logoAssetId ? assets[theme.brand.logoAssetId] : undefined;
-  const family = `AxiomTheme-${theme.id.replace(/[^a-z0-9-]/g, '-')}`;
+  const family = `NemotoTheme-${theme.id.replace(/[^a-z0-9-]/g, '-')}`;
   const fontFaces = [
     getFontFace(assets, theme.typography?.regularAssetId, family, 400),
     getFontFace(assets, theme.typography?.mediumAssetId, family, 500),

@@ -8,14 +8,14 @@ import {
     type MigrationReport,
 } from './import/migrate';
 import { inspectPortfolioIntegrity, type PortfolioIntegrityReport } from './portfolioIntegrity';
-import type { AxiomAppearanceBackup } from '../theme/themeBackup';
+import type { NemotoAppearanceBackup } from '../theme/themeBackup';
 
-export const AXIOM_FORMAT_ID = 'axiom';
-export type AxiomDocumentKind = 'portfolio' | 'process-fragment';
+export const NEMOTO_FORMAT_ID = 'axiom';
+export type NemotoDocumentKind = 'portfolio' | 'process-fragment';
 
-export interface AxiomEnvelope {
-    format: typeof AXIOM_FORMAT_ID;
-    kind: AxiomDocumentKind;
+export interface NemotoEnvelope {
+    format: typeof NEMOTO_FORMAT_ID;
+    kind: NemotoDocumentKind;
     schemaVersion: number;
     /** Legacy wrapper alias retained for older legacy readers. */
     version: string;
@@ -24,14 +24,14 @@ export interface AxiomEnvelope {
     type?: 'partial';
     sourceId?: string;
     /** Optional, non-canonical snapshot used to reproduce the active appearance after restore. */
-    appearance?: AxiomAppearanceBackup;
+    appearance?: NemotoAppearanceBackup;
     data: Portfolio;
     extensions?: Record<string, unknown>;
 }
 
 export interface DecodedPortfolio {
     portfolio: Portfolio;
-    kind: AxiomDocumentKind;
+    kind: NemotoDocumentKind;
     wasWrapped: boolean;
     sourceSchemaVersion: number;
     sourceAppVersion?: string;
@@ -71,7 +71,7 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isEnvelopeLike(value: Record<string, unknown>): boolean {
     if (!isRecord(value.data)) return false;
-    return value.format === AXIOM_FORMAT_ID
+    return value.format === NEMOTO_FORMAT_ID
         || value.kind === 'portfolio'
         || value.kind === 'process-fragment'
         || value.type === 'partial'
@@ -83,7 +83,7 @@ function isEnvelopeLike(value: Record<string, unknown>): boolean {
         || typeof value.source === 'string';
 }
 
-function inferDocumentKind(wrapper: Record<string, unknown> | undefined): AxiomDocumentKind {
+function inferDocumentKind(wrapper: Record<string, unknown> | undefined): NemotoDocumentKind {
     if (wrapper?.kind === 'process-fragment' || wrapper?.type === 'partial') {
         return 'process-fragment';
     }
@@ -229,7 +229,7 @@ export function preparePortfolioForPersistence(input: Portfolio): Portfolio {
 }
 
 export interface CreateEnvelopeOptions {
-    kind?: AxiomDocumentKind;
+    kind?: NemotoDocumentKind;
     sourceId?: string;
     timestamp?: string;
 }
@@ -237,11 +237,11 @@ export interface CreateEnvelopeOptions {
 export function createPortfolioEnvelope(
     input: Portfolio,
     options: CreateEnvelopeOptions = {},
-): AxiomEnvelope {
+): NemotoEnvelope {
     const kind = options.kind || 'portfolio';
     assertPortfolioIntegrity(input);
     return {
-        format: AXIOM_FORMAT_ID,
+        format: NEMOTO_FORMAT_ID,
         kind,
         schemaVersion: CURRENT_PORTFOLIO_SCHEMA_VERSION,
         version: '1.0.0',

@@ -1,5 +1,5 @@
 import { AlertTriangle, History, RotateCcw } from 'lucide-react';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 import PortfolioProcessRepair from './PortfolioProcessRepair';
 
 interface PortfolioLoadFailureProps {
@@ -20,9 +20,9 @@ export default function PortfolioLoadFailure({
             <section
                 aria-describedby="portfolio-load-error-description portfolio-load-error-detail"
                 aria-labelledby="portfolio-load-error-title"
-                className="axiom-dialog-panel my-auto w-full max-w-2xl p-8"
+                className="nemoto-dialog-panel my-auto w-full max-w-2xl p-8"
             >
-                <div className="axiom-dialog-icon axiom-dialog-icon-warning mb-5 flex h-14 w-14 items-center justify-center">
+                <div className="nemoto-dialog-icon nemoto-dialog-icon-warning mb-5 flex h-14 w-14 items-center justify-center">
                     <AlertTriangle aria-hidden="true" size={28} />
                 </div>
                 <h1 id="portfolio-load-error-title" className="text-xl font-bold">
@@ -39,15 +39,15 @@ export default function PortfolioLoadFailure({
                     {error}
                 </div>
                 <div className="mt-6 flex flex-wrap justify-end gap-3">
-                    <AxiomButton onClick={onRetry}>
+                    <NemotoButton onClick={onRetry}>
                         <RotateCcw aria-hidden="true" size={15} />
                         Try again
-                    </AxiomButton>
+                    </NemotoButton>
                     {recoveryAvailable && (
-                        <AxiomButton onClick={onRecover} variant="primary">
+                        <NemotoButton onClick={onRecover} variant="primary">
                             <History aria-hidden="true" size={15} />
                             Restore recovery file
-                        </AxiomButton>
+                        </NemotoButton>
                     )}
                 </div>
                 <PortfolioProcessRepair onRepaired={onRetry} />

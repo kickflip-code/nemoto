@@ -1,6 +1,6 @@
 import { useEffect, useState, useSyncExternalStore } from 'react';
 import { registerPluginViewLeaveGuard } from '../../plugins/pluginViewLeaveGuard';
-import { AxiomButton, AxiomDialog, AxiomDialogBody, AxiomDialogFooter, AxiomDialogHeader } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoDialogBody, NemotoDialogFooter, NemotoDialogHeader } from '../ui';
 import { createHostPluginUiSession } from '../../host/pluginHostServices';
 import { resolveActiveComposedViewAuthority } from '../../plugins/activeRuntime';
 import { usePluginHostSnapshot } from './PluginHostServicesContext';
@@ -148,12 +148,12 @@ function SessionComposedView({
             <div className="flex h-full flex-col items-center justify-center gap-4 bg-app-bg p-8 text-sm text-accent-danger" role="alert">
                 <p>{snapshot.error || 'Composed plugin view failed.'}</p>
                 {storageViewId ? (
-                    <AxiomButton
+                    <NemotoButton
                         variant="primary"
                         onClick={() => useUIStore.getState().setActiveView(storageViewId as never)}
                     >
                         Open standard view
-                    </AxiomButton>
+                    </NemotoButton>
                 ) : null}
             </div>
         );
@@ -167,29 +167,29 @@ function SessionComposedView({
     }
     const inactive = snapshot.status === 'error' || snapshot.status === 'disposed';
     return <>
-        {pendingLeave && <AxiomDialog aria-labelledby="plugin-leave-title" onClose={() => setPendingLeave(null)}>
-            <AxiomDialogHeader><h2 id="plugin-leave-title">Discard plugin changes?</h2></AxiomDialogHeader>
-            <AxiomDialogBody>Your plugin edits have not been saved. Keep editing or discard them before leaving this view.</AxiomDialogBody>
-            <AxiomDialogFooter>
-                <AxiomButton onClick={() => setPendingLeave(null)}>Keep editing</AxiomButton>
-                <AxiomButton variant="danger" onClick={() => {
+        {pendingLeave && <NemotoDialog aria-labelledby="plugin-leave-title" onClose={() => setPendingLeave(null)}>
+            <NemotoDialogHeader><h2 id="plugin-leave-title">Discard plugin changes?</h2></NemotoDialogHeader>
+            <NemotoDialogBody>Your plugin edits have not been saved. Keep editing or discard them before leaving this view.</NemotoDialogBody>
+            <NemotoDialogFooter>
+                <NemotoButton onClick={() => setPendingLeave(null)}>Keep editing</NemotoButton>
+                <NemotoButton variant="danger" onClick={() => {
                     const navigate = pendingLeave;
                     setPendingLeave(null);
                     session.requestClose(true);
                     navigate();
-                }}>Discard changes</AxiomButton>
-            </AxiomDialogFooter>
-        </AxiomDialog>}
+                }}>Discard changes</NemotoButton>
+            </NemotoDialogFooter>
+        </NemotoDialog>}
         {inactive && (
             <div className="flex flex-wrap items-center justify-between gap-2 border-b border-app-border bg-accent-danger/10 px-4 py-2 text-sm text-accent-danger" role="alert">
                 <span>{snapshot.error || 'Plugin view closed. Writes are disabled.'}</span>
                 {storageViewId ? (
-                    <AxiomButton
+                    <NemotoButton
                         size="sm"
                         onClick={() => useUIStore.getState().setActiveView(storageViewId as never)}
                     >
                         Open standard view
-                    </AxiomButton>
+                    </NemotoButton>
                 ) : null}
             </div>
         )}

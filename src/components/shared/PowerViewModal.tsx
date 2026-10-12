@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { dialogOverlayMotion, dialogPanelMotion } from '../../lib/motion';
-import { AxiomDialogContext } from '../ui/AxiomDialog';
+import { NemotoDialogContext } from '../ui/NemotoDialog';
 
 interface PowerViewModalProps {
     title: string;
@@ -17,18 +17,18 @@ export default function PowerViewModal({ title, isOpen, onClose, children, actio
     if (!isOpen) return null;
 
     return createPortal(
-        <AxiomDialogContext.Provider value={1}>
+        <NemotoDialogContext.Provider value={1}>
         <motion.div
             {...dialogOverlayMotion}
             className="fixed inset-0 z-[10100] flex items-center justify-center"
         >
-            <div className="axiom-dialog-backdrop absolute inset-0" onClick={onClose} />
+            <div className="nemoto-dialog-backdrop absolute inset-0" onClick={onClose} />
             <motion.div
                 {...dialogPanelMotion}
-                className="axiom-dialog-panel relative w-[90vw] h-[85vh] flex flex-col overflow-hidden"
+                className="nemoto-dialog-panel relative w-[90vw] h-[85vh] flex flex-col overflow-hidden"
             >
                 {/* Header */}
-                <div className="axiom-dialog-header h-16 px-6 border-b flex items-center justify-between shrink-0">
+                <div className="nemoto-dialog-header h-16 px-6 border-b flex items-center justify-between shrink-0">
                     <div className="flex items-center gap-4">
                         <h2 className="text-xl font-bold tracking-tight text-text-main">{title}</h2>
                         {actions && <div className="h-6 w-px bg-app-border mx-2" />}
@@ -37,19 +37,19 @@ export default function PowerViewModal({ title, isOpen, onClose, children, actio
                     <button
                         aria-label={`Close ${title}`}
                         onClick={onClose}
-                        className="axiom-icon-button axiom-icon-button-ghost"
+                        className="nemoto-icon-button nemoto-icon-button-ghost"
                     >
                         <X size={20} />
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="axiom-dialog-body flex-1 overflow-hidden relative">
+                <div className="nemoto-dialog-body flex-1 overflow-hidden relative">
                     {children}
                 </div>
             </motion.div>
         </motion.div>
-        </AxiomDialogContext.Provider>,
+        </NemotoDialogContext.Provider>,
         document.body,
     );
 }

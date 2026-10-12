@@ -54,7 +54,7 @@ export default function ProcessHeader() {
             {(owner || (process.description && process.metaSettings?.showDescriptionInCanvas)) && (
                 <div className="flex items-center gap-3">
                     {owner && (
-                        <div className="flex items-center gap-2 px-2 py-0.5 rounded bg-app-surface shadow-sm border border-app-border text-[9px] font-bold uppercase tracking-[0.1em] text-text-muted axiom-transition-interactive group-hover:text-text-main group-hover:bg-app-hover group-hover:border-accent-primary/30">
+                        <div className="flex items-center gap-2 px-2 py-0.5 rounded bg-app-surface shadow-sm border border-app-border text-[9px] font-bold uppercase tracking-[0.1em] text-text-muted nemoto-transition-interactive group-hover:text-text-main group-hover:bg-app-hover group-hover:border-accent-primary/30">
                             {IconComponent && <IconComponent size={10} strokeWidth={2.5} className="text-accent-primary" />}
                             <span>{owner.displayName}</span>
                         </div>

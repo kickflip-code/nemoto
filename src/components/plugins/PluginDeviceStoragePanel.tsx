@@ -16,7 +16,7 @@ import {
 } from '../../host/pluginDeviceStorageAdmin';
 import type { InstalledPluginDocument } from '../../plugins/installedPackages';
 import ConfirmationModal from '../shared/ConfirmationModal';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 
 interface PluginDeviceStoragePanelProps {
     installedPlugins: readonly InstalledPluginDocument[];
@@ -89,7 +89,7 @@ export default function PluginDeviceStoragePanel({
                         Review settings and protected credentials retained outside Portfolio files. Secret values are never displayed. Clearing does not change any Portfolio.
                     </p>
                 </div>
-                <AxiomButton
+                <NemotoButton
                     icon
                     size="sm"
                     title="Refresh device-local plugin data"
@@ -98,7 +98,7 @@ export default function PluginDeviceStoragePanel({
                     onClick={() => { void load(); }}
                 >
                     {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
-                </AxiomButton>
+                </NemotoButton>
             </div>
 
             {loadFailed ? (
@@ -114,7 +114,7 @@ export default function PluginDeviceStoragePanel({
                     <Loader2 size={14} className="animate-spin" /> Inspecting retained plugin data…
                 </div>
             ) : entries.length === 0 ? (
-                <div className="axiom-dialog-panel flex items-start gap-3 p-4 text-xs text-text-muted">
+                <div className="nemoto-dialog-panel flex items-start gap-3 p-4 text-xs text-text-muted">
                     <ShieldCheck size={16} className="mt-0.5 shrink-0 text-accent-success" />
                     No device-local plugin settings or secret metadata are retained.
                 </div>
@@ -124,7 +124,7 @@ export default function PluginDeviceStoragePanel({
                         const name = names.get(entry.pluginId);
                         const clearing = clearingPluginId === entry.pluginId;
                         return (
-                            <article key={entry.pluginId} className="axiom-dialog-row p-3">
+                            <article key={entry.pluginId} className="nemoto-dialog-row p-3">
                                 <div className="flex flex-wrap items-start justify-between gap-3">
                                     <div className="min-w-0">
                                         <div className="text-xs font-bold text-text-main">
@@ -148,7 +148,7 @@ export default function PluginDeviceStoragePanel({
                                             )}
                                         </div>
                                     </div>
-                                    <AxiomButton
+                                    <NemotoButton
                                         size="sm"
                                         variant="danger"
                                         disabled={clearingPluginId !== null}
@@ -156,7 +156,7 @@ export default function PluginDeviceStoragePanel({
                                     >
                                         {clearing ? <Loader2 size={14} className="animate-spin" /> : <Trash2 size={14} />}
                                         {clearing ? 'Clearing…' : 'Clear device data'}
-                                    </AxiomButton>
+                                    </NemotoButton>
                                 </div>
                             </article>
                         );

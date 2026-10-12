@@ -4,10 +4,10 @@ import { PluginCapabilitySchema, type PluginCapability } from './manifest';
 import { PluginIdSchema, SemanticVersionSchema } from './identifiers';
 import { compareSemanticVersions, parseSemanticVersion } from './versionRange';
 
-export const AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA = 'axiom.executable-package-review';
-export const AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION = 1;
-export const AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA = 'axiom.executable-install-approval';
-export const AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION = 1;
+export const NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA = 'axiom.executable-package-review';
+export const NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION = 1;
+export const NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA = 'axiom.executable-install-approval';
+export const NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION = 1;
 export const ISOLATED_COMPUTE_RISK_ACKNOWLEDGEMENT = 'isolated-compute-v1';
 
 const Sha256Schema = z.string().regex(/^[0-9a-f]{64}$/);
@@ -25,8 +25,8 @@ export const WasmPluginIdentitySchema = z.object({
 }).strict().readonly();
 
 export const ExecutablePackageReviewSchema = z.object({
-    schema: z.literal(AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA),
-    schemaVersion: z.literal(AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION),
+    schema: z.literal(NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA),
+    schemaVersion: z.literal(NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION),
     archiveSha256: Sha256Schema,
     identity: WasmPluginIdentitySchema,
     name: z.string().trim().min(1).max(120),
@@ -66,8 +66,8 @@ export const ExecutablePackageReviewSchema = z.object({
 export type ExecutablePackageReview = z.infer<typeof ExecutablePackageReviewSchema>;
 
 export const ExecutableInstallApprovalSchema = z.object({
-    schema: z.literal(AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA),
-    schemaVersion: z.literal(AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION),
+    schema: z.literal(NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA),
+    schemaVersion: z.literal(NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION),
     archiveSha256: Sha256Schema,
     identity: WasmPluginIdentitySchema,
     grantedCapabilities: z.array(PluginCapabilitySchema).min(1).max(32)
@@ -169,8 +169,8 @@ export function createExecutableInstallApproval(
         throw new Error('Approval must grant every capability required by an interactive operation.');
     }
     return ExecutableInstallApprovalSchema.parse({
-        schema: AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA,
-        schemaVersion: AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
+        schema: NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA,
+        schemaVersion: NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
         archiveSha256: review.archiveSha256,
         identity: review.identity,
         grantedCapabilities: [...grantedCapabilities],

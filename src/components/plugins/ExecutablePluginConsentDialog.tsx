@@ -9,11 +9,11 @@ import {
 import type { InstalledPluginDocument } from '../../plugins/installedPackages';
 import type { PluginCapability } from '../../plugins/manifest';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogFooter,
-    AxiomDialogHeader,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogFooter,
+    NemotoDialogHeader,
 } from '../ui';
 
 const CAPABILITY_LABELS: Partial<Record<PluginCapability, { title: string; detail: string }>> = {
@@ -151,7 +151,7 @@ export default function ExecutablePluginConsentDialog({
     };
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="executable-plugin-consent-description"
             aria-labelledby="executable-plugin-consent-title"
             closeOnBackdrop={false}
@@ -160,7 +160,7 @@ export default function ExecutablePluginConsentDialog({
             panelClassName="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden border-2 border-accent-warning/60 shadow-2xl shadow-black/40"
             rootClassName="z-[10160]"
         >
-            <AxiomDialogHeader className="flex shrink-0 items-start justify-between gap-4 border-b border-accent-warning/40 bg-accent-warning/10 px-5 py-4">
+            <NemotoDialogHeader className="flex shrink-0 items-start justify-between gap-4 border-b border-accent-warning/40 bg-accent-warning/10 px-5 py-4">
                 <div className="flex min-w-0 items-start gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent-warning/50 bg-accent-warning/15 text-accent-warning">
                         <ShieldAlert size={21} />
@@ -177,12 +177,12 @@ export default function ExecutablePluginConsentDialog({
                         </p>
                     </div>
                 </div>
-                <AxiomButton aria-label="Cancel executable plugin review" disabled={busy} icon onClick={onCancel} size="sm" variant="ghost">
+                <NemotoButton aria-label="Cancel executable plugin review" disabled={busy} icon onClick={onCancel} size="sm" variant="ghost">
                     <X size={16} />
-                </AxiomButton>
-            </AxiomDialogHeader>
+                </NemotoButton>
+            </NemotoDialogHeader>
 
-            <AxiomDialogBody className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
+            <NemotoDialogBody className="min-h-0 flex-1 space-y-4 overflow-y-auto p-5">
                 <section className="rounded-lg border border-app-border bg-app-surface p-4">
                     <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0">
@@ -305,9 +305,9 @@ export default function ExecutablePluginConsentDialog({
                         <span className="mt-1 block text-[11px] leading-relaxed text-text-muted">I approve the exact reviewed archive and the selected capabilities for {review.name} v{review.identity.pluginVersion}.</span>
                     </span>
                 </label>
-            </AxiomDialogBody>
+            </NemotoDialogBody>
 
-            <AxiomDialogFooter className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-app-border px-5 py-4">
+            <NemotoDialogFooter className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-app-border px-5 py-4">
                 <div className="min-w-0 space-y-0.5">
                     <p className="text-[10px] leading-relaxed text-text-faint">
                         Archive {review.archiveSha256.slice(0, 12)}… · changing the file invalidates this approval.
@@ -319,12 +319,12 @@ export default function ExecutablePluginConsentDialog({
                     )}
                 </div>
                 <div className="flex items-center gap-2">
-                    <AxiomButton ref={cancelRef} disabled={busy} onClick={onCancel}>Cancel</AxiomButton>
-                    <AxiomButton disabled={busy || rejected || !acknowledged || missingInteractiveGrant} onClick={approve} variant="warning">
+                    <NemotoButton ref={cancelRef} disabled={busy} onClick={onCancel}>Cancel</NemotoButton>
+                    <NemotoButton disabled={busy || rejected || !acknowledged || missingInteractiveGrant} onClick={approve} variant="warning">
                         <ShieldAlert size={15} /> {actionLabel}
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
-            </AxiomDialogFooter>
-        </AxiomDialog>
+            </NemotoDialogFooter>
+        </NemotoDialog>
     );
 }

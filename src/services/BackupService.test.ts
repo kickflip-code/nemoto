@@ -18,7 +18,7 @@ const { saveMainPortfolio, saveDialog, writeExport } = vi.hoisted(() => ({
 vi.mock('@tauri-apps/plugin-dialog', () => ({ save: saveDialog }));
 vi.mock('../lib/tauri', () => ({
     savePortfolio: saveMainPortfolio,
-    writeAxiomFileAtomic: writeExport,
+    writeNemotoFileAtomic: writeExport,
 }));
 
 import { BackupService } from './BackupService';

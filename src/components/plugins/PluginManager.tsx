@@ -15,7 +15,7 @@ import type {
 } from '../../plugins/executablePackageConsent';
 import { inspectPluginPackage } from '../../plugins/packageInspection';
 import type { InstalledPluginDocument } from '../../plugins/installedPackages';
-import { AxiomButton, AxiomSwitch, AxiomDialog } from '../ui';
+import { NemotoButton, NemotoSwitch, NemotoDialog } from '../ui';
 import { satisfiesVersionRange } from '../../plugins/versionRange';
 import { usePluginHostServices, usePluginHostSnapshot } from './PluginHostServicesContext';
 import PluginDeviceStoragePanel from './PluginDeviceStoragePanel';
@@ -222,7 +222,7 @@ export default function PluginManager() {
                     aria-label="Choose Nemoto plugin package"
                     onChange={handlePackage}
                 />
-                <AxiomButton
+                <NemotoButton
                     size="sm"
                     disabled={busy}
                     onClick={() => { void handleInspectPackage(); }}
@@ -230,7 +230,7 @@ export default function PluginManager() {
                 >
                     {busy ? <Loader2 size={14} className="animate-spin" /> : <FileArchive size={14} />}
                     Inspect package
-                </AxiomButton>
+                </NemotoButton>
             </div>
 
             {loadError && (
@@ -281,7 +281,7 @@ export default function PluginManager() {
             )}
 
             {pending && (
-                <section aria-label="Plugin permission review" className="axiom-dialog-panel space-y-4 p-4">
+                <section aria-label="Plugin permission review" className="nemoto-dialog-panel space-y-4 p-4">
                     <div className="flex items-start gap-3">
                         <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-accent-success" />
                         <div>
@@ -311,22 +311,22 @@ export default function PluginManager() {
                         )}
                     </div>
                     <div className="flex justify-end gap-2">
-                        <AxiomButton size="sm" onClick={() => setPending(null)}>Cancel</AxiomButton>
-                        <AxiomButton size="sm" variant="primary" disabled={busy} onClick={() => { void handleInstall(); }}>
+                        <NemotoButton size="sm" onClick={() => setPending(null)}>Cancel</NemotoButton>
+                        <NemotoButton size="sm" variant="primary" disabled={busy} onClick={() => { void handleInstall(); }}>
                             Install and grant access
-                        </AxiomButton>
+                        </NemotoButton>
                     </div>
                 </section>
             )}
 
             {versionReview && (
-                <AxiomDialog aria-labelledby="plugin-version-review-title" onClose={() => setVersionReview(null)} panelClassName="w-full max-w-lg space-y-3 p-5">
+                <NemotoDialog aria-labelledby="plugin-version-review-title" onClose={() => setVersionReview(null)} panelClassName="w-full max-w-lg space-y-3 p-5">
                     <h4 id="plugin-version-review-title" className="font-bold">Review plugin version change</h4>
                     <p>{versionReview.name}: {versionReview.fromVersion} → {versionReview.toVersion} · data {versionReview.dataVersion}</p>
                     <p>All {versionReview.recordCount} saved collection records match the installed package declarations. Their contents will be preserved. This changes the current portfolio requirement and activates the installed version using its existing grants. Save the portfolio to retain the change.</p>
                     <div className="flex gap-2">
-                        <AxiomButton size="sm" onClick={() => setVersionReview(null)}>Cancel version change</AxiomButton>
-                        <AxiomButton size="sm" variant="primary" onClick={() => {
+                        <NemotoButton size="sm" onClick={() => setVersionReview(null)}>Cancel version change</NemotoButton>
+                        <NemotoButton size="sm" variant="primary" onClick={() => {
                             try {
                                 versionReview.approve();
                                 setVersionReview(null);
@@ -335,9 +335,9 @@ export default function PluginManager() {
                                 setVersionReview(null);
                                 toast.error(error instanceof Error ? error.message : 'Review the version change again.');
                             }
-                        }}>Use version and activate</AxiomButton>
+                        }}>Use version and activate</NemotoButton>
                     </div>
-                </AxiomDialog>
+                </NemotoDialog>
             )}
 
             {!initialized ? (
@@ -357,7 +357,7 @@ export default function PluginManager() {
                         const executable = Boolean(document.manifest.runtime);
                         const confirming = confirmUninstall === document.manifest.id;
                         return (
-                            <article key={document.manifest.id} className="axiom-dialog-row p-4">
+                            <article key={document.manifest.id} className="nemoto-dialog-row p-4">
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="min-w-0">
                                         <h4 className="text-sm font-bold text-text-main">
@@ -366,7 +366,7 @@ export default function PluginManager() {
                                         <p className="mt-1 text-xs leading-relaxed text-text-muted">{document.manifest.description}</p>
                                         <p className="mt-2 font-mono text-[10px] text-text-faint">{document.manifest.id}</p>
                                     </div>
-                                    <AxiomSwitch
+                                    <NemotoSwitch
                                         checked={active}
                                         disabled={busy}
                                         label={`${active ? 'Deactivate' : 'Activate'} ${document.manifest.name}`}
@@ -385,13 +385,13 @@ export default function PluginManager() {
                                     </p>
                                     {confirming ? (
                                         <div className="flex shrink-0 gap-2">
-                                            <AxiomButton size="sm" onClick={() => setConfirmUninstall(null)}>Cancel</AxiomButton>
-                                            <AxiomButton size="sm" variant="danger" disabled={busy} onClick={() => { void handleUninstall(document); }}>
+                                            <NemotoButton size="sm" onClick={() => setConfirmUninstall(null)}>Cancel</NemotoButton>
+                                            <NemotoButton size="sm" variant="danger" disabled={busy} onClick={() => { void handleUninstall(document); }}>
                                                 Confirm uninstall
-                                            </AxiomButton>
+                                            </NemotoButton>
                                         </div>
                                     ) : (
-                                        <AxiomButton
+                                        <NemotoButton
                                             icon
                                             size="sm"
                                             title={`Uninstall ${document.manifest.name}`}
@@ -400,7 +400,7 @@ export default function PluginManager() {
                                             onClick={() => setConfirmUninstall(document.manifest.id)}
                                         >
                                             <Trash2 size={14} />
-                                        </AxiomButton>
+                                        </NemotoButton>
                                     )}
                                 </div>
                             </article>

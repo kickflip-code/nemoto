@@ -3,7 +3,7 @@ name = "nemoto"
 version = "1.0.0-beta.1"
 license = "MPL-2.0"
 description = "Nemoto - Local-first Process Mapping"
-authors = ["Joseph Lundström"]
+authors = ["Kickflip Code"]
 edition = "2021"
 default-run = "nemoto"
 

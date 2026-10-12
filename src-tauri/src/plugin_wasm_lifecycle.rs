@@ -27,7 +27,7 @@ use crate::{
         PORTFOLIO_READ_SCOPED_CAPABILITY, PROPOSAL_CREATE_CAPABILITY,
     },
     plugin_wasm_session::{
-        validate_wasm_plugin_identity, AxiomWasmSessionManager, WasmInvocationRequest,
+        validate_wasm_plugin_identity, NemotoWasmSessionManager, WasmInvocationRequest,
         WasmInvocationResponse, WasmPluginIdentity, WasmSessionError, WasmSessionErrorCode,
         WasmSessionHandle, ISOLATED_COMPUTE_CAPABILITY,
     },
@@ -38,10 +38,10 @@ use crate::{
     },
 };
 
-pub const AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA: &str = "axiom.wasm-install-candidate";
-pub const AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA: &str = "axiom.wasm-lifecycle-authority";
-pub const AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA: &str = "axiom.wasm-install-candidate";
+pub const NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA: &str = "axiom.wasm-lifecycle-authority";
+pub const NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION: u32 = 1;
 
 pub trait WasmAdmissionProvider: Send + Sync {
     fn admit(
@@ -228,26 +228,26 @@ struct LifecycleState {
     authorities: HashMap<LifecycleAuthorityKey, LifecycleAuthorityRecord>,
 }
 
-pub struct AxiomWasmLifecycle<A: WasmAdmissionProvider> {
+pub struct NemotoWasmLifecycle<A: WasmAdmissionProvider> {
     admission: A,
     storage_root: PathBuf,
-    sessions: AxiomWasmSessionManager,
+    sessions: NemotoWasmSessionManager,
     state: Mutex<LifecycleState>,
 }
 
-impl AxiomWasmLifecycle<NativeWasmAdmission> {
+impl NemotoWasmLifecycle<NativeWasmAdmission> {
     pub fn native(storage_root: PathBuf) -> Result<Self, WasmLifecycleError> {
         let admission = NativeWasmAdmission::new().map_err(WasmLifecycleError::admission)?;
         Self::with_admission(storage_root, admission)
     }
 }
 
-impl<A: WasmAdmissionProvider> AxiomWasmLifecycle<A> {
+impl<A: WasmAdmissionProvider> NemotoWasmLifecycle<A> {
     pub fn with_admission(storage_root: PathBuf, admission: A) -> Result<Self, WasmLifecycleError> {
         Ok(Self {
             admission,
             storage_root,
-            sessions: AxiomWasmSessionManager::new().map_err(WasmLifecycleError::session)?,
+            sessions: NemotoWasmSessionManager::new().map_err(WasmLifecycleError::session)?,
             state: Mutex::new(LifecycleState::default()),
         })
     }
@@ -605,8 +605,8 @@ impl<A: WasmAdmissionProvider> AxiomWasmLifecycle<A> {
 }
 
 fn validate_install_candidate(candidate: &WasmInstallCandidate) -> Result<(), WasmLifecycleError> {
-    if candidate.schema != AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA
-        || candidate.schema_version != AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION
+    if candidate.schema != NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA
+        || candidate.schema_version != NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION
         || candidate.capability != ISOLATED_COMPUTE_CAPABILITY
         || candidate.module_bytes.is_empty()
         || candidate.module_bytes.len() > ISOLATED_COMPUTE_POLICY_V1.max_module_bytes
@@ -621,8 +621,8 @@ fn validate_install_candidate(candidate: &WasmInstallCandidate) -> Result<(), Wa
 fn validate_lifecycle_authority(
     authority: &WasmLifecycleAuthority,
 ) -> Result<(), WasmLifecycleError> {
-    if authority.schema != AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA
-        || authority.schema_version != AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION
+    if authority.schema != NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA
+        || authority.schema_version != NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION
         || validate_wasm_plugin_identity(&authority.identity).is_err()
         || (!authority.installed
             && (authority.active
@@ -688,13 +688,13 @@ mod tests {
     use super::*;
     use crate::{
         plugin_wasm_admission::{
-            module_sha256, AXIOM_WASM_ADMISSION_SCHEMA, AXIOM_WASM_ADMISSION_SCHEMA_VERSION,
+            module_sha256, NEMOTO_WASM_ADMISSION_SCHEMA, NEMOTO_WASM_ADMISSION_SCHEMA_VERSION,
             WASM_COMPILER_CPU_TIME_LIMIT_MS, WASM_COMPILER_MEMORY_LIMIT_BYTES,
             WASM_COMPILER_WALL_DEADLINE_MS,
         },
-        plugin_wasm_host::{AXIOM_WASM_ABI_NAME, AXIOM_WASM_ABI_VERSION, WASMTIME_ENGINE_VERSION},
+        plugin_wasm_host::{NEMOTO_WASM_ABI_NAME, NEMOTO_WASM_ABI_VERSION, WASMTIME_ENGINE_VERSION},
         plugin_wasm_storage::{
-            AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA, AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION,
+            NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA, NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION,
         },
     };
 
@@ -733,17 +733,17 @@ mod tests {
 
     fn entrypoint() -> PluginWasmEntrypoint {
         PluginWasmEntrypoint {
-            schema: AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA.to_owned(),
-            schema_version: AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION,
-            abi: AXIOM_WASM_ABI_NAME.to_owned(),
+            schema: NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA.to_owned(),
+            schema_version: NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION,
+            abi: NEMOTO_WASM_ABI_NAME.to_owned(),
             module: "runtime/plugin.wasm".to_owned(),
         }
     }
 
     fn candidate(identity: WasmPluginIdentity, module_bytes: Vec<u8>) -> WasmInstallCandidate {
         WasmInstallCandidate {
-            schema: AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION,
             identity,
             capability: ISOLATED_COMPUTE_CAPABILITY.to_owned(),
             entrypoint: entrypoint(),
@@ -753,8 +753,8 @@ mod tests {
 
     fn authority(identity: WasmPluginIdentity) -> WasmLifecycleAuthority {
         WasmLifecycleAuthority {
-            schema: AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION,
             authority_scope_id: SCOPE_ID.to_owned(),
             identity,
             installed: true,
@@ -793,14 +793,14 @@ mod tests {
 
     fn test_receipt(identity: &WasmPluginIdentity, module_bytes: &[u8]) -> WasmAdmissionReceipt {
         WasmAdmissionReceipt {
-            schema: AXIOM_WASM_ADMISSION_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_ADMISSION_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_ADMISSION_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_ADMISSION_SCHEMA_VERSION,
             identity: identity.clone(),
             module_sha256: module_sha256(module_bytes),
             module_bytes: module_bytes.len() as u64,
             compiled_artifact_bytes: 4096,
-            abi_name: AXIOM_WASM_ABI_NAME.to_owned(),
-            abi_version: AXIOM_WASM_ABI_VERSION,
+            abi_name: NEMOTO_WASM_ABI_NAME.to_owned(),
+            abi_version: NEMOTO_WASM_ABI_VERSION,
             compute_policy_version: ISOLATED_COMPUTE_POLICY_V1.policy_version,
             engine: "wasmtime".to_owned(),
             engine_version: WASMTIME_ENGINE_VERSION.to_owned(),
@@ -813,7 +813,7 @@ mod tests {
     #[test]
     fn install_authorize_execute_update_rollback_and_uninstall_are_one_revoking_chain() {
         let directory = tempfile::tempdir().unwrap();
-        let lifecycle = AxiomWasmLifecycle::with_admission(
+        let lifecycle = NemotoWasmLifecycle::with_admission(
             directory.path().to_path_buf(),
             FakeAdmission::default(),
         )
@@ -889,7 +889,7 @@ mod tests {
     #[test]
     fn admission_failure_and_invalid_updates_preserve_the_current_authorized_session() {
         let directory = tempfile::tempdir().unwrap();
-        let lifecycle = AxiomWasmLifecycle::with_admission(
+        let lifecycle = NemotoWasmLifecycle::with_admission(
             directory.path().to_path_buf(),
             FakeAdmission::default(),
         )
@@ -935,7 +935,7 @@ mod tests {
     #[test]
     fn backup_identity_requires_explicit_rollback_before_authorization() {
         let directory = tempfile::tempdir().unwrap();
-        let lifecycle = AxiomWasmLifecycle::with_admission(
+        let lifecycle = NemotoWasmLifecycle::with_admission(
             directory.path().to_path_buf(),
             FakeAdmission::default(),
         )
@@ -969,7 +969,7 @@ mod tests {
     #[test]
     fn lifecycle_owns_idempotent_monotonic_authority_and_revokes_on_disable() {
         let directory = tempfile::tempdir().unwrap();
-        let lifecycle = AxiomWasmLifecycle::with_admission(
+        let lifecycle = NemotoWasmLifecycle::with_admission(
             directory.path().to_path_buf(),
             FakeAdmission::default(),
         )
@@ -1012,7 +1012,7 @@ mod tests {
     #[test]
     fn invalid_compute_results_close_the_bound_session() {
         let directory = tempfile::tempdir().unwrap();
-        let lifecycle = AxiomWasmLifecycle::with_admission(
+        let lifecycle = NemotoWasmLifecycle::with_admission(
             directory.path().to_path_buf(),
             FakeAdmission::default(),
         )
@@ -1031,10 +1031,10 @@ mod tests {
                 1,
                 "analysis.echo",
                 WasmComputeRequest {
-                    schema: crate::plugin_wasm_data_plane::AXIOM_WASM_COMPUTE_REQUEST_SCHEMA
+                    schema: crate::plugin_wasm_data_plane::NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA
                         .to_owned(),
                     schema_version:
-                        crate::plugin_wasm_data_plane::AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
+                        crate::plugin_wasm_data_plane::NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
                     request_id: "compute:invalid-result:1".to_owned(),
                     base_revision: "portfolio-revision-aabbccdd".to_owned(),
                     portfolio_revision: 1,

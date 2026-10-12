@@ -8,7 +8,7 @@ import {
 } from 'react';
 import clsx from 'clsx';
 
-export interface AxiomMenuProps extends HTMLAttributes<HTMLDivElement> {
+export interface NemotoMenuProps extends HTMLAttributes<HTMLDivElement> {
     onClose?: () => void;
     surface?: 'file' | 'context';
 }
@@ -19,7 +19,7 @@ const getEnabledItems = (menu: HTMLElement): HTMLElement[] => (
     ))
 );
 
-export const AxiomMenu = forwardRef<HTMLDivElement, AxiomMenuProps>(function AxiomMenu(
+export const NemotoMenu = forwardRef<HTMLDivElement, NemotoMenuProps>(function NemotoMenu(
     {
         children,
         className,
@@ -104,7 +104,7 @@ export const AxiomMenu = forwardRef<HTMLDivElement, AxiomMenuProps>(function Axi
             role="menu"
             tabIndex={-1}
             className={clsx(
-                surface === 'file' ? 'axiom-file-menu' : 'axiom-context-menu',
+                surface === 'file' ? 'nemoto-file-menu' : 'nemoto-context-menu',
                 className,
             )}
             onKeyDown={handleKeyDown}
@@ -115,12 +115,12 @@ export const AxiomMenu = forwardRef<HTMLDivElement, AxiomMenuProps>(function Axi
     );
 });
 
-export interface AxiomMenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface NemotoMenuItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     compact?: boolean;
     danger?: boolean;
 }
 
-export const AxiomMenuItem = forwardRef<HTMLButtonElement, AxiomMenuItemProps>(function AxiomMenuItem(
+export const NemotoMenuItem = forwardRef<HTMLButtonElement, NemotoMenuItemProps>(function NemotoMenuItem(
     {
         className,
         compact = false,
@@ -137,9 +137,9 @@ export const AxiomMenuItem = forwardRef<HTMLButtonElement, AxiomMenuItemProps>(f
             type={type}
             role={role}
             className={clsx(
-                'axiom-menu-item',
-                compact && 'axiom-menu-item-compact',
-                danger && 'axiom-menu-item-danger',
+                'nemoto-menu-item',
+                compact && 'nemoto-menu-item-compact',
+                danger && 'nemoto-menu-item-danger',
                 className,
             )}
             {...props}
@@ -147,6 +147,6 @@ export const AxiomMenuItem = forwardRef<HTMLButtonElement, AxiomMenuItemProps>(f
     );
 });
 
-export function AxiomMenuDivider({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-    return <div role="separator" className={clsx('axiom-menu-divider', className)} {...props} />;
+export function NemotoMenuDivider({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+    return <div role="separator" className={clsx('nemoto-menu-divider', className)} {...props} />;
 }

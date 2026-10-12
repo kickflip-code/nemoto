@@ -139,7 +139,7 @@ describe('Theme Studio interaction shell', () => {
     const themePicker = await screen.findByRole('button', { name: 'Theme to preview or edit' });
     await user.click(themePicker);
     const themeMenu = screen.getByRole('menu', { name: 'Themes to preview or edit' });
-    expect(themeMenu).toHaveClass('axiom-scroll-menu');
+    expect(themeMenu).toHaveClass('nemoto-scroll-menu');
     expect(within(themeMenu).getByRole('menuitemradio', { name: /Void baseline/ })).toBeInTheDocument();
     expect(within(themeMenu).getByRole('menuitemradio', { name: /Polar baseline/ })).toBeInTheDocument();
     expect(within(themeMenu).getByRole('menuitemradio', { name: /Brutalist baseline/ })).toBeInTheDocument();

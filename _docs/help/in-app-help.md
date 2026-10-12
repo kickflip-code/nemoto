@@ -746,7 +746,7 @@ candidate targets Windows x64 and uses an English interface.
 
 **Publisher:** Kickflip Code
 
-**Copyright:** © 2026 Joseph Lundström
+**Copyright:** © 2026 Kickflip Code
 
 **Core license:** Mozilla Public License 2.0 (MPL-2.0).
 Owner-authored plugins have a separate Apache-2.0 license; their publication

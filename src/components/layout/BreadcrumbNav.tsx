@@ -80,7 +80,7 @@ export default function BreadcrumbNav() {
             {/* Root / Home */}
             <button
                 onClick={() => navigateToLevel(-1)}
-                className="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-app-hover text-text-muted hover:text-text-main axiom-transition-interactive group"
+                className="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-app-hover text-text-muted hover:text-text-main nemoto-transition-interactive group"
             >
                 <Folder size={12} className="text-text-faint group-hover:text-text-main transition-colors" />
                 <span className="font-medium tracking-tight">{activeProcess.title}</span>
@@ -95,7 +95,7 @@ export default function BreadcrumbNav() {
                         <button
                             onClick={() => navigateToLevel(index)}
                             disabled={isLast}
-                            className={`flex items-center gap-1.5 px-2 py-1 rounded axiom-transition-interactive ${isLast
+                            className={`flex items-center gap-1.5 px-2 py-1 rounded nemoto-transition-interactive ${isLast
                                 ? 'text-accent-primary font-bold bg-accent-primary/10 shadow-glow-primary'
                                 : 'text-text-muted hover:bg-app-hover hover:text-text-main group'
                                 }`}

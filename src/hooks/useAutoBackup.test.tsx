@@ -8,14 +8,14 @@ import { useAutoBackup } from './useAutoBackup';
 import { toast } from 'sonner';
 
 const nativeFileMocks = vi.hoisted(() => ({
-  writeAxiomFileAtomic: vi.fn(),
+  writeNemotoFileAtomic: vi.fn(),
   readDir: vi.fn(),
   remove: vi.fn(),
   mkdir: vi.fn(),
 }));
 
 vi.mock('../lib/tauri', () => ({
-  writeAxiomFileAtomic: nativeFileMocks.writeAxiomFileAtomic,
+  writeNemotoFileAtomic: nativeFileMocks.writeNemotoFileAtomic,
 }));
 vi.mock('@tauri-apps/plugin-fs', () => ({
   readDir: nativeFileMocks.readDir,
@@ -38,7 +38,7 @@ describe('scheduled Portfolio appearance backup', () => {
     render(<AutoBackupProbe />);
     await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
     expect(nativeFileMocks.mkdir).toHaveBeenCalledWith('C:/Documents/NemotoBackups', { recursive: true });
-    expect(nativeFileMocks.writeAxiomFileAtomic).toHaveBeenCalledWith(
+    expect(nativeFileMocks.writeNemotoFileAtomic).toHaveBeenCalledWith(
       expect.stringMatching(/^C:\/Documents\/NemotoBackups\/auto-backup-.*\.nemoto$/),
       expect.any(String), false,
     );
@@ -48,8 +48,8 @@ describe('scheduled Portfolio appearance backup', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
-    nativeFileMocks.writeAxiomFileAtomic.mockReset();
-    nativeFileMocks.writeAxiomFileAtomic.mockResolvedValue(undefined);
+    nativeFileMocks.writeNemotoFileAtomic.mockReset();
+    nativeFileMocks.writeNemotoFileAtomic.mockResolvedValue(undefined);
     nativeFileMocks.readDir.mockReset();
     nativeFileMocks.readDir.mockResolvedValue([]);
     nativeFileMocks.remove.mockReset();
@@ -85,8 +85,8 @@ describe('scheduled Portfolio appearance backup', () => {
       await vi.advanceTimersByTimeAsync(60_000);
     });
 
-    expect(nativeFileMocks.writeAxiomFileAtomic).toHaveBeenCalledOnce();
-    const [path, content, createBackup] = nativeFileMocks.writeAxiomFileAtomic.mock.calls[0];
+    expect(nativeFileMocks.writeNemotoFileAtomic).toHaveBeenCalledOnce();
+    const [path, content, createBackup] = nativeFileMocks.writeNemotoFileAtomic.mock.calls[0];
     const archive = JSON.parse(content as string);
     expect(path).toMatch(/^C:\/AxiomBackups\/auto-backup-.*\.nemoto$/);
     expect(createBackup).toBe(false);
@@ -111,7 +111,7 @@ describe('scheduled Portfolio appearance backup', () => {
   });
 
   it('does not report a successful backup when the atomic disk write fails', async () => {
-    nativeFileMocks.writeAxiomFileAtomic.mockRejectedValueOnce(new Error('disk full'));
+    nativeFileMocks.writeNemotoFileAtomic.mockRejectedValueOnce(new Error('disk full'));
     const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined);
     render(<AutoBackupProbe />);
 
@@ -130,7 +130,7 @@ describe('scheduled Portfolio appearance backup', () => {
   it('retains failure status, suppresses repeated notifications, and reports recovery once', async () => {
     const error = vi.spyOn(toast, 'error');
     const success = vi.spyOn(toast, 'success');
-    nativeFileMocks.writeAxiomFileAtomic.mockRejectedValue(new Error('disk full'));
+    nativeFileMocks.writeNemotoFileAtomic.mockRejectedValue(new Error('disk full'));
     const { unmount } = render(<AutoBackupProbe />);
     await act(async () => { await vi.advanceTimersByTimeAsync(120_000); });
     expect(error).toHaveBeenCalledTimes(1);
@@ -146,7 +146,7 @@ describe('scheduled Portfolio appearance backup', () => {
     render(<AutoBackupProbe />);
     await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
     expect(error).toHaveBeenCalledTimes(1);
-    nativeFileMocks.writeAxiomFileAtomic.mockResolvedValue(undefined);
+    nativeFileMocks.writeNemotoFileAtomic.mockResolvedValue(undefined);
     await act(async () => { await vi.advanceTimersByTimeAsync(120_000); });
     expect(success).toHaveBeenCalledTimes(1);
     expect(useSettingsStore.getState().autoBackupStatus?.kind).toBe('saved');
@@ -171,12 +171,12 @@ describe('scheduled Portfolio appearance backup', () => {
 
   it('does not overlap slow backup attempts', async () => {
     let finish!: () => void;
-    nativeFileMocks.writeAxiomFileAtomic.mockImplementationOnce(() => new Promise<void>(resolve => { finish = resolve; }));
+    nativeFileMocks.writeNemotoFileAtomic.mockImplementationOnce(() => new Promise<void>(resolve => { finish = resolve; }));
     render(<AutoBackupProbe />);
     await act(async () => { await vi.advanceTimersByTimeAsync(180_000); });
-    expect(nativeFileMocks.writeAxiomFileAtomic).toHaveBeenCalledTimes(1);
+    expect(nativeFileMocks.writeNemotoFileAtomic).toHaveBeenCalledTimes(1);
     await act(async () => { finish(); });
     await act(async () => { await vi.advanceTimersByTimeAsync(60_000); });
-    expect(nativeFileMocks.writeAxiomFileAtomic).toHaveBeenCalledTimes(2);
+    expect(nativeFileMocks.writeNemotoFileAtomic).toHaveBeenCalledTimes(2);
   });
 });

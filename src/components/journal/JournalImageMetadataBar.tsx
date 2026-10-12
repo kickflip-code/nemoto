@@ -2,7 +2,7 @@ import type { Editor } from '@tiptap/core';
 import { Image as ImageIcon, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { formatJournalMediaBytes } from '../../lib/journalMedia';
-import { AxiomButton, AxiomInput } from '../ui';
+import { NemotoButton, NemotoInput } from '../ui';
 
 export interface SelectedJournalImage {
     position: number;
@@ -71,8 +71,8 @@ export default function JournalImageMetadataBar({ editor, image }: JournalImageM
     };
 
     return (
-        <div className="axiom-journal-image-metadata-bar shrink-0 border-b border-app-border/40 bg-app-header">
-            <div className="axiom-journal-toolbar-inner flex items-end gap-3 px-6 py-2">
+        <div className="nemoto-journal-image-metadata-bar shrink-0 border-b border-app-border/40 bg-app-header">
+            <div className="nemoto-journal-toolbar-inner flex items-end gap-3 px-6 py-2">
                 <div className="flex min-w-24 items-center gap-2 self-center text-[10px] font-bold uppercase tracking-wider text-text-faint">
                     <ImageIcon size={13} />
                     <span>Image details</span>
@@ -80,7 +80,7 @@ export default function JournalImageMetadataBar({ editor, image }: JournalImageM
 
                 <label className="flex min-w-0 flex-1 flex-col gap-1 text-[9px] font-bold uppercase tracking-wider text-text-faint">
                     Alt text
-                    <AxiomInput
+                    <NemotoInput
                         value={altDraft}
                         onChange={event => setAltDraft(event.target.value)}
                         onBlur={event => updateImageAtPosition(editor, image.position, { alt: event.currentTarget.value })}
@@ -93,7 +93,7 @@ export default function JournalImageMetadataBar({ editor, image }: JournalImageM
 
                 <label className="flex min-w-0 flex-1 flex-col gap-1 text-[9px] font-bold uppercase tracking-wider text-text-faint">
                     Caption
-                    <AxiomInput
+                    <NemotoInput
                         value={captionDraft}
                         onChange={event => setCaptionDraft(event.target.value)}
                         onBlur={event => updateImageAtPosition(editor, image.position, { caption: event.currentTarget.value })}
@@ -110,7 +110,7 @@ export default function JournalImageMetadataBar({ editor, image }: JournalImageM
                             ? `Embedded${image.embeddedSize ? ` · ${formatJournalMediaBytes(image.embeddedSize)}` : ''}`
                             : 'External image'}
                     </span>
-                    <AxiomButton
+                    <NemotoButton
                         size="sm"
                         variant="ghost"
                         onClick={deleteImage}
@@ -118,7 +118,7 @@ export default function JournalImageMetadataBar({ editor, image }: JournalImageM
                         title="Delete image"
                     >
                         <Trash2 size={11} /> Delete
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
             </div>
         </div>

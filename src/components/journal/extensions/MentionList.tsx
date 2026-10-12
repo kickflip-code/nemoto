@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import { Box, LayoutGrid, Server } from 'lucide-react';
-import { AxiomMenuItem, AxiomPopover } from '../../ui';
+import { NemotoMenuItem, NemotoPopover } from '../../ui';
 
 interface MentionItem {
     id: string;
@@ -61,25 +61,25 @@ const MentionList = forwardRef((props: MentionListProps, ref) => {
 
     if (props.items.length === 0) {
         return (
-            <AxiomPopover role="status" className="p-3 text-text-faint text-xs">
+            <NemotoPopover role="status" className="p-3 text-text-faint text-xs">
                 No resources found
-            </AxiomPopover>
+            </NemotoPopover>
         );
     }
 
     return (
-        <AxiomPopover
+        <NemotoPopover
             role="listbox"
             aria-label="Entity suggestions"
             className="py-1 overflow-hidden min-w-[200px] max-h-[300px] overflow-y-auto custom-scrollbar"
         >
             {props.items.map((item, index) => (
-                <AxiomMenuItem
+                <NemotoMenuItem
                     key={item.id}
                     role="option"
                     aria-selected={index === selectedIndex}
                     onClick={() => selectItem(index)}
-                    className="axiom-suggestion-item min-h-[2.25rem] gap-2.5 text-sm"
+                    className="nemoto-suggestion-item min-h-[2.25rem] gap-2.5 text-sm"
                 >
                     {item.type === 'asset' ? (
                         <Box size={14} className="text-accent-primary shrink-0 mt-0.5" />
@@ -96,9 +96,9 @@ const MentionList = forwardRef((props: MentionListProps, ref) => {
                             </span>
                         )}
                     </div>
-                </AxiomMenuItem>
+                </NemotoMenuItem>
             ))}
-        </AxiomPopover>
+        </NemotoPopover>
     );
 });
 

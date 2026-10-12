@@ -310,9 +310,9 @@
   background-color: var(--color-app-bg);
 }
 
-[data-theme='soft'] .axiom-app-header,
-[data-theme='soft'] .axiom-side-panel,
-[data-theme='soft'] .axiom-inspector-panel,
+[data-theme='soft'] .nemoto-app-header,
+[data-theme='soft'] .nemoto-side-panel,
+[data-theme='soft'] .nemoto-inspector-panel,
 [data-theme='soft'] .bg-app-header,
 [data-theme='soft'] .bg-app-sidebar,
 [data-theme='soft'] .border-app-border,
@@ -325,15 +325,15 @@
 }
 
 /* Give main layout pieces elevation */
-[data-theme='soft'] .axiom-app-header {
+[data-theme='soft'] .nemoto-app-header {
   box-shadow: var(--app-shadow-md);
   margin-bottom: 2px;
   /* Small gap to let shadow breathe */
   z-index: 100;
 }
 
-[data-theme='soft'] .axiom-side-panel,
-[data-theme='soft'] .axiom-inspector-panel {
+[data-theme='soft'] .nemoto-side-panel,
+[data-theme='soft'] .nemoto-inspector-panel {
   box-shadow: var(--app-shadow-lg);
   margin-right: 2px;
   z-index: 90;
@@ -544,16 +544,16 @@
 }
 
 /* Specific Component Refinements */
-.axiom-app-rail {
+.nemoto-app-rail {
   background: var(--color-rail-bg, var(--color-app-header));
   border-right: var(--app-border-width) solid var(--color-app-border);
 }
 
-.axiom-rail-divider {
+.nemoto-rail-divider {
   background: color-mix(in srgb, var(--color-rail-button-text, var(--color-text-muted)) 28%, transparent);
 }
 
-.axiom-rail-button {
+.nemoto-rail-button {
   width: var(--theme-rail-button-size, 2rem);
   height: var(--theme-rail-button-size, 2rem);
   padding: 0;
@@ -573,17 +573,17 @@
     transform 0.08s ease;
 }
 
-.axiom-rail-button:hover {
+.nemoto-rail-button:hover {
   background: var(--color-rail-button-hover, var(--color-app-hover));
   color: var(--color-text-main);
 }
 
-.axiom-rail-button:active {
+.nemoto-rail-button:active {
   box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
   transform: var(--control-active-transform, none);
 }
 
-.axiom-rail-button-active {
+.nemoto-rail-button-active {
   background: var(--color-rail-button-active-bg, var(--color-app-active));
   border-color: var(--color-control-border, transparent);
   color: var(--color-rail-button-active-text, var(--color-accent-primary));
@@ -604,17 +604,17 @@
 }
 
 /* Buttons */
-[data-theme='soft'] button:not(.axiom-field):not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.text-accent-primary):not(.axiom-menu-item):not(.axiom-tag-close):not(.axiom-dialog-row):not(.dock-button) {
+[data-theme='soft'] button:not(.nemoto-field):not(.nemoto-text-button):not(.nemoto-button):not(.nemoto-icon-button):not(.nemoto-panel-icon-button):not(.nemoto-toolbar-button):not(.nemoto-segmented-option):not(.nemoto-toggle):not(.nemoto-toggle-card):not(.nemoto-color-swatch):not(.nemoto-rail-button):not(.text-accent-primary):not(.nemoto-menu-item):not(.nemoto-tag-close):not(.nemoto-dialog-row):not(.dock-button) {
   box-shadow: var(--app-shadow-sm);
   background: var(--color-app-bg);
   border-radius: var(--app-radius-sm);
 }
 
-[data-theme='soft'] button:not(.axiom-field):not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.axiom-menu-item):not(.axiom-dialog-row):not(.dock-button):active {
+[data-theme='soft'] button:not(.nemoto-field):not(.nemoto-text-button):not(.nemoto-button):not(.nemoto-icon-button):not(.nemoto-panel-icon-button):not(.nemoto-toolbar-button):not(.nemoto-segmented-option):not(.nemoto-toggle):not(.nemoto-toggle-card):not(.nemoto-color-swatch):not(.nemoto-rail-button):not(.nemoto-menu-item):not(.nemoto-dialog-row):not(.dock-button):active {
   box-shadow: var(--app-shadow-inset);
 }
 
-[data-theme='soft'] .axiom-dialog-backdrop {
+[data-theme='soft'] .nemoto-dialog-backdrop {
   background: color-mix(in srgb, var(--color-app-bg) 18%, rgba(24, 29, 38, 0.64));
   backdrop-filter: blur(5px);
 }
@@ -761,27 +761,27 @@
 }
 
 /* --- Side Panel & Inspector --- */
-[data-theme='hard'] .axiom-side-panel,
-[data-theme='hard'] .axiom-inspector-panel {
+[data-theme='hard'] .nemoto-side-panel,
+[data-theme='hard'] .nemoto-inspector-panel {
   background: var(--color-app-sidebar);
   border-color: #000 !important;
   border-radius: 0 !important;
 }
 
 /* Section headers — bright accent backgrounds like mockup */
-[data-theme='hard'] .axiom-side-panel .text-text-muted.uppercase,
-[data-theme='hard'] .axiom-side-panel .text-text-faint.uppercase,
-[data-theme='hard'] .axiom-inspector-panel .text-text-muted.uppercase,
-[data-theme='hard'] .axiom-inspector-panel .text-text-faint.uppercase {
+[data-theme='hard'] .nemoto-side-panel .text-text-muted.uppercase,
+[data-theme='hard'] .nemoto-side-panel .text-text-faint.uppercase,
+[data-theme='hard'] .nemoto-inspector-panel .text-text-muted.uppercase,
+[data-theme='hard'] .nemoto-inspector-panel .text-text-faint.uppercase {
   color: var(--color-text-main) !important;
   font-weight: 900 !important;
   letter-spacing: 0.02em;
 }
 
 /* --- Inputs & Selects — thick bordered, no rounded --- */
-[data-theme='hard'] input:not(.axiom-field),
-[data-theme='hard'] textarea:not(.axiom-field),
-[data-theme='hard'] select:not(.axiom-field) {
+[data-theme='hard'] input:not(.nemoto-field),
+[data-theme='hard'] textarea:not(.nemoto-field),
+[data-theme='hard'] select:not(.nemoto-field) {
   border: 2px solid #000 !important;
   border-radius: 0px !important;
   background: #fff !important;
@@ -790,23 +790,23 @@
   transition: box-shadow 0.1s ease;
 }
 
-[data-theme='hard'] input:not(.axiom-field):focus,
-[data-theme='hard'] textarea:not(.axiom-field):focus,
-[data-theme='hard'] select:not(.axiom-field):focus {
+[data-theme='hard'] input:not(.nemoto-field):focus,
+[data-theme='hard'] textarea:not(.nemoto-field):focus,
+[data-theme='hard'] select:not(.nemoto-field):focus {
   box-shadow: var(--app-shadow-sm) !important;
   outline: none !important;
   border-color: #000 !important;
 }
 
 /* --- Buttons — neubrutalism press effect --- */
-[data-theme='hard'] button:not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.axiom-menu-item):not(.axiom-dialog-row):not(.dock-button) {
+[data-theme='hard'] button:not(.nemoto-text-button):not(.nemoto-button):not(.nemoto-icon-button):not(.nemoto-panel-icon-button):not(.nemoto-toolbar-button):not(.nemoto-segmented-option):not(.nemoto-toggle):not(.nemoto-toggle-card):not(.nemoto-color-swatch):not(.nemoto-rail-button):not(.nemoto-menu-item):not(.nemoto-dialog-row):not(.dock-button) {
   border-radius: 4px !important;
   font-weight: 700 !important;
   transition: all 0.1s ease !important;
   border: 2px solid #000;
 }
 
-[data-theme='hard'] button:not(.axiom-text-button):not(.axiom-button):not(.axiom-icon-button):not(.axiom-panel-icon-button):not(.axiom-toolbar-button):not(.axiom-segmented-option):not(.axiom-toggle):not(.axiom-toggle-card):not(.axiom-color-swatch):not(.axiom-rail-button):not(.axiom-menu-item):not(.axiom-dialog-row):not(.dock-button):active {
+[data-theme='hard'] button:not(.nemoto-text-button):not(.nemoto-button):not(.nemoto-icon-button):not(.nemoto-panel-icon-button):not(.nemoto-toolbar-button):not(.nemoto-segmented-option):not(.nemoto-toggle):not(.nemoto-toggle-card):not(.nemoto-color-swatch):not(.nemoto-rail-button):not(.nemoto-menu-item):not(.nemoto-dialog-row):not(.dock-button):active {
   transform: translate(2px, 2px) !important;
   box-shadow: var(--app-shadow-active) !important;
 }
@@ -1240,7 +1240,7 @@ body {
 }
 
 /* Shared interaction-state contract for app UI and future plugin primitives. */
-.axiom-process-canvas:focus-visible {
+.nemoto-process-canvas:focus-visible {
   outline: 2px solid var(--color-accent-primary);
   outline-offset: -2px;
 }

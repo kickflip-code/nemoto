@@ -1,18 +1,18 @@
 import { z } from 'zod';
-import { AXIOM_PLUGIN_API_VERSION } from './activation';
+import { NEMOTO_PLUGIN_API_VERSION } from './activation';
 import { WasmPluginIdentitySchema } from './executablePackageConsent';
 import { PluginCapabilitySchema } from './manifest';
 import { PortfolioPluginRequirementSchema, type PortfolioPluginRequirement } from './portfolioData';
 
-export const AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA = 'axiom.executable-activation-snapshot';
-export const AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION = 1;
-export const AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA = 'axiom.executable-authority-sync';
-export const AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION = 1;
+export const NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA = 'axiom.executable-activation-snapshot';
+export const NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION = 1;
+export const NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA = 'axiom.executable-authority-sync';
+export const NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION = 1;
 export const MAIN_PORTFOLIO_AUTHORITY_SCOPE_ID = 'portfolio:main';
 
 export const ExecutableActivationSnapshotSchema = z.object({
-    schema: z.literal(AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA),
-    schemaVersion: z.literal(AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION),
+    schema: z.literal(NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA),
+    schemaVersion: z.literal(NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION),
     requirements: z.array(PortfolioPluginRequirementSchema).max(1_000)
         .refine(
             requirements => new Set(requirements.map(requirement => requirement.pluginId)).size
@@ -39,10 +39,10 @@ const ExecutableAuthorityDecisionSchema = z.object({
 }).strict().readonly();
 
 export const ExecutableAuthoritySyncOutcomeSchema = z.object({
-    schema: z.literal(AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA),
-    schemaVersion: z.literal(AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION),
+    schema: z.literal(NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA),
+    schemaVersion: z.literal(NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION),
     authorityScopeId: z.literal(MAIN_PORTFOLIO_AUTHORITY_SCOPE_ID),
-    hostPluginApiVersion: z.literal(AXIOM_PLUGIN_API_VERSION),
+    hostPluginApiVersion: z.literal(NEMOTO_PLUGIN_API_VERSION),
     executionEnabled: z.boolean(),
     decisions: z.array(ExecutableAuthorityDecisionSchema).max(1_000),
 }).strict().superRefine((outcome, context) => {
@@ -73,8 +73,8 @@ export function createExecutableActivationSnapshot(
     requirements: readonly PortfolioPluginRequirement[],
 ): ExecutableActivationSnapshot {
     return ExecutableActivationSnapshotSchema.parse({
-        schema: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA,
-        schemaVersion: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
+        schema: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA,
+        schemaVersion: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
         requirements: structuredClone(requirements),
     });
 }

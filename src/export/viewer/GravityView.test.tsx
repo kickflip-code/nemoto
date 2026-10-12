@@ -100,7 +100,7 @@ describe('export viewer Dependency Map', () => {
         render(<GravityView data={{ rootProcessId: 'process-1', data: createPortfolio() }} onNodeClick={onNodeClick} />);
 
         expect(screen.getByText('Portfolio overview')).toBeInTheDocument();
-        expect(screen.getByRole('searchbox', { name: 'Search for a focal point' })).toHaveClass('axiom-field-leading-icon');
+        expect(screen.getByRole('searchbox', { name: 'Search for a focal point' })).toHaveClass('nemoto-field-leading-icon');
         await waitFor(() => {
             expect(screen.getByTestId('viewer-dependency-graph')).toHaveAttribute('data-node-count', '2');
             expect(screen.getByTestId('viewer-dependency-graph')).toHaveAttribute('data-edge-count', '1');

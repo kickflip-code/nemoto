@@ -102,7 +102,7 @@ describe('offline viewer theme export', () => {
         const result = appendViewerThemeStyles(html, "[data-theme='soft'] { color: white; }");
 
         expect(result).toContain('<script>const embeddedHtml = "<head></head>";</script>');
-        expect(result.indexOf('id="axiom-dynamic-themes"')).toBeGreaterThan(result.indexOf('id="viewer"'));
-        expect(result.indexOf('id="axiom-dynamic-themes"')).toBeLessThan(result.lastIndexOf('</head>'));
+        expect(result.indexOf('id="nemoto-dynamic-themes"')).toBeGreaterThan(result.indexOf('id="viewer"'));
+        expect(result.indexOf('id="nemoto-dynamic-themes"')).toBeLessThan(result.lastIndexOf('</head>'));
     });
 });

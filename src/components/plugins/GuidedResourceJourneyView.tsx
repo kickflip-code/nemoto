@@ -22,12 +22,12 @@ import type {
     PluginVocabularyContributionSchema,
 } from '../../plugins/contributionSchemas';
 import {
-    AxiomPanel,
-    AxiomPanelBody,
-    AxiomPanelCard,
-    AxiomPanelHeader,
-    AxiomPanelRowButton,
-    AxiomButton,
+    NemotoPanel,
+    NemotoPanelBody,
+    NemotoPanelCard,
+    NemotoPanelHeader,
+    NemotoPanelRowButton,
+    NemotoButton,
 } from '../ui';
 import type { z } from 'zod';
 import {
@@ -93,23 +93,23 @@ export default function GuidedResourceJourneyView({
 
     return (
         <div className="flex h-full min-h-0 w-full bg-app-bg" data-testid="plugin-role-journey">
-            <AxiomPanel as="aside" className="flex w-[280px] shrink-0 flex-col border-y-0 border-l-0">
-                <AxiomPanelHeader className="block px-4 py-4">
+            <NemotoPanel as="aside" className="flex w-[280px] shrink-0 flex-col border-y-0 border-l-0">
+                <NemotoPanelHeader className="block px-4 py-4">
                     <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-accent-primary">
                         <GraduationCap size={14} />
                         {view.content.eyebrow}
                     </div>
                     <h1 className="mt-2 text-base font-semibold leading-tight text-text-main">{view.navigation.label}</h1>
                     <p className="mt-2 text-[11px] leading-relaxed text-text-muted">{view.content.description}</p>
-                </AxiomPanelHeader>
+                </NemotoPanelHeader>
 
-                <AxiomPanelBody className="min-h-0 flex-1 overflow-y-auto p-3 app-scroll">
+                <NemotoPanelBody className="min-h-0 flex-1 overflow-y-auto p-3 app-scroll">
                     <div className="mb-2 px-1 text-[10px] font-bold uppercase tracking-[0.12em] text-text-faint">
                         {view.scope.selectorLabel}
                     </div>
                     <div className="space-y-1" role="list" aria-label={view.scope.selectorLabel}>
                         {roleOptions.map(role => (
-                            <AxiomPanelRowButton
+                            <NemotoPanelRowButton
                                 key={role.id}
                                 active={role.id === selectedRoleId}
                                 aria-pressed={role.id === selectedRoleId}
@@ -123,7 +123,7 @@ export default function GuidedResourceJourneyView({
                                     <span className="block truncate text-xs font-semibold text-text-main">{role.name}</span>
                                     <span className="block truncate text-[10px] text-text-faint">{role.categoryLabel}</span>
                                 </span>
-                            </AxiomPanelRowButton>
+                            </NemotoPanelRowButton>
                         ))}
                     </div>
 
@@ -132,7 +132,7 @@ export default function GuidedResourceJourneyView({
                             No role resources are available.
                         </div>
                     )}
-                </AxiomPanelBody>
+                </NemotoPanelBody>
 
                 <footer className="border-t border-app-border px-4 py-3 text-[10px] leading-relaxed text-text-faint">
                     <div className="flex items-center gap-1.5 font-semibold text-text-muted">
@@ -140,16 +140,16 @@ export default function GuidedResourceJourneyView({
                     </div>
                     <div className="mt-1">This view can read the selected context, but it cannot change your portfolio.</div>
                 </footer>
-            </AxiomPanel>
+            </NemotoPanel>
 
             <main className="min-h-0 min-w-0 flex-1 overflow-y-auto app-scroll">
                 {!projection ? (
                     <div className="flex h-full items-center justify-center p-8">
-                        <AxiomPanelCard className="max-w-md p-7 text-center">
+                        <NemotoPanelCard className="max-w-md p-7 text-center">
                             <GraduationCap size={28} className="mx-auto text-text-faint" />
                             <h2 className="mt-4 text-base font-semibold text-text-main">{view.content.emptyTitle}</h2>
                             <p className="mt-2 text-xs leading-relaxed text-text-muted">{view.content.emptyDescription}</p>
-                        </AxiomPanelCard>
+                        </NemotoPanelCard>
                     </div>
                 ) : (
                     <div className="mx-auto max-w-[1320px] p-6 lg:p-8">
@@ -307,14 +307,14 @@ export default function GuidedResourceJourneyView({
                                     <div className="mt-2 text-[10px] text-text-faint">
                                         {vocabulary?.terms.length || 0} domain terms are available to the declared adviser profile.
                                     </div>
-                                    <AxiomButton
+                                    <NemotoButton
                                         className="mt-3 w-full justify-center"
                                         disabled={!selectedRoleId || sandbox}
                                         onClick={() => setAiDialogOpen(true)}
                                         variant="primary"
                                     >
                                         <Bot size={14} /> {sandbox ? 'Unavailable in sandbox' : 'Ask local AI'}
-                                    </AxiomButton>
+                                    </NemotoButton>
                                 </section>
                             </aside>
                         </div>

@@ -11,12 +11,12 @@ import { resolveEntity, inferEntityType } from '../../lib/entityResolver';
 import type { EntityReference } from '../../types/journal';
 import ConfirmationModal from '../shared/ConfirmationModal';
 import {
-    AxiomButton,
-    AxiomPanel,
-    AxiomPanelBody,
-    AxiomPanelHeader,
-    AxiomPanelIconButton,
-    AxiomPanelRowButton,
+    NemotoButton,
+    NemotoPanel,
+    NemotoPanelBody,
+    NemotoPanelHeader,
+    NemotoPanelIconButton,
+    NemotoPanelRowButton,
 } from '../ui';
 
 export default function JournalContextPanel() {
@@ -92,22 +92,22 @@ export default function JournalContextPanel() {
     if (rightPanelMode !== 'journal') return null;
 
     return (
-        <AxiomPanel as="aside" className="axiom-journal-context-panel w-[300px] border-l flex flex-col shrink-0 z-20 shadow-xl relative">
+        <NemotoPanel as="aside" className="nemoto-journal-context-panel w-[300px] border-l flex flex-col shrink-0 z-20 shadow-xl relative">
             {/* Header */}
-            <AxiomPanelHeader className="h-10 px-4 flex items-center justify-between border-b bg-accent-primary/5">
+            <NemotoPanelHeader className="h-10 px-4 flex items-center justify-between border-b bg-accent-primary/5">
                 <div className="flex items-center gap-2">
                     <Book size={14} className="text-accent-primary" />
                     <span className="text-[10px] uppercase font-black tracking-[0.2em] text-text-main">Context</span>
                 </div>
-                <AxiomPanelIconButton
+                <NemotoPanelIconButton
                     aria-label="Close journal context"
                     onClick={handleClose}
                 >
                     <X size={16} />
-                </AxiomPanelIconButton>
-            </AxiomPanelHeader>
+                </NemotoPanelIconButton>
+            </NemotoPanelHeader>
 
-            <AxiomPanelBody className="flex-1 overflow-y-auto p-4">
+            <NemotoPanelBody className="flex-1 overflow-y-auto p-4">
                 {!contextId ? (
                     <div className="text-center mt-10 space-y-2">
                         <p className="text-sm text-text-muted">No selection</p>
@@ -125,21 +125,21 @@ export default function JournalContextPanel() {
                                 })()}
                             </span>
                             <div className="flex items-center gap-2">
-                                <AxiomButton
+                                <NemotoButton
                                     size="sm"
                                     onClick={() => setPickerOpen(true)}
                                     className="text-[10px] px-2 py-1 bg-app-surface hover:bg-app-hover text-text-muted hover:text-text-main rounded transition-colors flex items-center gap-1 border border-app-border"
                                 >
                                     <Link2 size={10} /> Link Note
-                                </AxiomButton>
-                                <AxiomButton
+                                </NemotoButton>
+                                <NemotoButton
                                     size="sm"
                                     variant="primary"
                                     onClick={handleCreateLinkedEntry}
                                     className="text-[10px] px-2 py-1 flex items-center gap-1.5 font-bold uppercase tracking-wider"
                                 >
                                     <Plus size={10} /> Add Note
-                                </AxiomButton>
+                                </NemotoButton>
                             </div>
                         </div>
 
@@ -150,10 +150,10 @@ export default function JournalContextPanel() {
                         ) : (
                             <div className="space-y-2">
                                 {linkedEntries.map(entry => (
-                                    <AxiomPanelRowButton
+                                    <NemotoPanelRowButton
                                         key={entry.id}
                                         aria-label={`Open note ${entry.title || 'Untitled Note'}`}
-                                        className="bg-app-bg border border-app-border rounded-sm p-3.5 hover:border-accent-primary/40 axiom-transition-interactive group cursor-pointer relative overflow-hidden"
+                                        className="bg-app-bg border border-app-border rounded-sm p-3.5 hover:border-accent-primary/40 nemoto-transition-interactive group cursor-pointer relative overflow-hidden"
                                         onClick={() => handleOpenEntry(entry.id)}
                                         onMouseUp={(e) => handleDrop(entry.id, e)}
                                     >
@@ -170,13 +170,13 @@ export default function JournalContextPanel() {
                                         <div className="text-[9px] text-text-faint font-mono flex justify-end">
                                             {new Date(entry.updatedAt).toLocaleDateString()}
                                         </div>
-                                    </AxiomPanelRowButton>
+                                    </NemotoPanelRowButton>
                                 ))}
                             </div>
                         )}
                     </div>
                 )}
-            </AxiomPanelBody>
+            </NemotoPanelBody>
             {pickerOpen && contextId && createPortal(
                 <JournalEntryPicker
                     onClose={() => setPickerOpen(false)}
@@ -200,6 +200,6 @@ export default function JournalContextPanel() {
                 hideCancel={true}
                 confirmLabel="Understood"
             />
-        </AxiomPanel>
+        </NemotoPanel>
     );
 }

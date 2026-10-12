@@ -5,7 +5,7 @@ import type { PluginCollectionListView } from './contributionSchemas';
 import type { PluginCapability } from './manifest';
 import type { PluginProposal } from './proposals';
 import type { PluginSearchRequest, PluginSearchResult } from './searchReadModel';
-import { AXIOM_PLUGIN_API_VERSION } from './activation';
+import { NEMOTO_PLUGIN_API_VERSION } from './activation';
 import type {
     PluginEntityRelationPage,
     PluginEntityRelationQueryInput,
@@ -49,8 +49,8 @@ import type {
  * ADR-034 composed UI uses a separate contribution-bound effect broker. This
  * synchronous API object is not a native guest RPC service or a UI entrypoint.
  */
-export interface AxiomPluginApi {
-    readonly apiVersion: typeof AXIOM_PLUGIN_API_VERSION;
+export interface NemotoPluginApi {
+    readonly apiVersion: typeof NEMOTO_PLUGIN_API_VERSION;
     readonly identity: PluginApiIdentity;
     readonly read: PluginReadApi;
     readonly storage: PluginStorageApi;

@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { formatError } from '../lib/errorUtils';
 import { BackupService } from '../services/BackupService';
 import { getAutoBackupFilesToPrune } from '../lib/autoBackupRetention';
-import { writeAxiomFileAtomic } from '../lib/tauri';
+import { writeNemotoFileAtomic } from '../lib/tauri';
 
 function reportBackupStatus(status: AutoBackupStatus) {
     const previous = useSettingsStore.getState().autoBackupStatus;
@@ -66,7 +66,7 @@ export function useAutoBackup() {
                 const fullPath = `${resolvedBackupPath}/${filename}`;
 
                 const { readDir, remove } = await import('@tauri-apps/plugin-fs');
-                await writeAxiomFileAtomic(fullPath, json, false);
+                await writeNemotoFileAtomic(fullPath, json, false);
 
                 const now = new Date().toISOString();
                 setLastBackupTime(now);

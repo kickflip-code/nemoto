@@ -55,7 +55,7 @@ import { usePortfolioChatStore } from '../../stores/usePortfolioChatStore';
 import { useProcessSessionStore } from '../../stores/useProcessSessionStore';
 import { useSettingsStore } from '../../stores/useSettingsStore';
 import { useUIStore } from '../../stores/useUIStore';
-import { AxiomButton, AxiomInput, AxiomSelect, AxiomTextarea } from '../ui';
+import { NemotoButton, NemotoInput, NemotoSelect, NemotoTextarea } from '../ui';
 
 const broker = new PortfolioChatBroker();
 const MINIMUM_PANEL_WIDTH = 360;
@@ -633,7 +633,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
     return (
         <aside
             aria-labelledby="portfolio-chat-title"
-            className="axiom-portfolio-chat relative z-30 flex h-full shrink-0 flex-col overflow-hidden border-l border-app-border bg-app-header shadow-2xl"
+            className="nemoto-portfolio-chat relative z-30 flex h-full shrink-0 flex-col overflow-hidden border-l border-app-border bg-app-header shadow-2xl"
             style={{ width: panelWidth }}
         >
             <div
@@ -647,14 +647,14 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                 onKeyDown={handleResizeKeyDown}
                 onPointerDown={handleResizePointerDown}
             >
-                <span className="axiom-portfolio-chat-resize-handle flex h-12 w-3 items-center justify-center rounded-full border border-app-border bg-app-header text-text-faint opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus:opacity-100">
+                <span className="nemoto-portfolio-chat-resize-handle flex h-12 w-3 items-center justify-center rounded-full border border-app-border bg-app-header text-text-faint opacity-0 shadow-sm transition-opacity group-hover:opacity-100 group-focus:opacity-100">
                     <GripVertical size={11} />
                 </span>
             </div>
 
-            <header className="axiom-portfolio-chat-header flex min-h-16 shrink-0 items-center justify-between border-b border-app-border px-4">
+            <header className="nemoto-portfolio-chat-header flex min-h-16 shrink-0 items-center justify-between border-b border-app-border px-4">
                 <div className="flex min-w-0 items-center gap-3">
-                    <div className="axiom-portfolio-chat-mark flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10 text-accent-primary">
+                    <div className="nemoto-portfolio-chat-mark flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10 text-accent-primary">
                         <MessagesSquare size={18} />
                     </div>
                     <div className="min-w-0">
@@ -663,7 +663,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                     </div>
                 </div>
                 <div className="flex items-center gap-0.5">
-                    <AxiomButton
+                    <NemotoButton
                         aria-label="New conversation"
                         icon
                         variant="ghost"
@@ -672,8 +672,8 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                         onClick={startNewConversation}
                     >
                         <Plus size={17} />
-                    </AxiomButton>
-                    <AxiomButton
+                    </NemotoButton>
+                    <NemotoButton
                         aria-label="Chat history"
                         aria-expanded={historyOpen}
                         icon
@@ -686,10 +686,10 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                         }}
                     >
                         {historyOpen ? <ChevronUp size={17} /> : <History size={17} />}
-                    </AxiomButton>
-                    <AxiomButton aria-label="Close Portfolio Chat" icon variant="ghost" onClick={close}>
+                    </NemotoButton>
+                    <NemotoButton aria-label="Close Portfolio Chat" icon variant="ghost" onClick={close}>
                         <X size={17} />
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
             </header>
 
@@ -732,13 +732,13 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                 <div
                                     key={conversation.id}
                                     data-active={active ? 'true' : undefined}
-                                    className={`axiom-chat-history-item rounded-lg border p-2 transition-colors ${active
+                                    className={`nemoto-chat-history-item rounded-lg border p-2 transition-colors ${active
                                         ? 'border-accent-primary/35 bg-accent-primary/8'
                                         : 'border-app-border bg-app-surface/60'}`}
                                 >
                                     {renaming ? (
                                         <div className="flex items-center gap-1.5">
-                                            <AxiomInput
+                                            <NemotoInput
                                                 aria-label="Conversation name"
                                                 autoFocus
                                                 className="min-w-0 flex-1"
@@ -751,12 +751,12 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                                     if (event.key === 'Escape') setRenamingConversationId(null);
                                                 }}
                                             />
-                                            <AxiomButton aria-label="Save conversation name" icon size="sm" variant="ghost" onClick={commitRename}>
+                                            <NemotoButton aria-label="Save conversation name" icon size="sm" variant="ghost" onClick={commitRename}>
                                                 <Check size={13} />
-                                            </AxiomButton>
-                                            <AxiomButton aria-label="Cancel rename" icon size="sm" variant="ghost" onClick={() => setRenamingConversationId(null)}>
+                                            </NemotoButton>
+                                            <NemotoButton aria-label="Cancel rename" icon size="sm" variant="ghost" onClick={() => setRenamingConversationId(null)}>
                                                 <X size={13} />
-                                            </AxiomButton>
+                                            </NemotoButton>
                                         </div>
                                     ) : (
                                         <div className="flex items-start gap-1.5">
@@ -772,7 +772,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                                     {conversation.messages.length} messages · {conversationTime(conversation.updatedAt)}
                                                 </span>
                                             </button>
-                                            <AxiomButton
+                                            <NemotoButton
                                                 aria-label={`Rename ${conversation.title}`}
                                                 icon
                                                 size="sm"
@@ -781,8 +781,8 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                                 onClick={() => beginRename(conversation)}
                                             >
                                                 <Pencil size={12} />
-                                            </AxiomButton>
-                                            <AxiomButton
+                                            </NemotoButton>
+                                            <NemotoButton
                                                 aria-label={deleteArmed ? `Confirm delete ${conversation.title}` : `Delete ${conversation.title}`}
                                                 className={deleteArmed ? 'text-accent-danger' : ''}
                                                 icon={!deleteArmed}
@@ -800,7 +800,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                                 }}
                                             >
                                                 <Trash2 size={12} /> {deleteArmed && 'Delete?'}
-                                            </AxiomButton>
+                                            </NemotoButton>
                                         </div>
                                     )}
                                 </div>
@@ -810,9 +810,9 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                 </section>
             )}
 
-            <section className="axiom-portfolio-chat-context shrink-0 border-b border-app-border bg-app-sidebar/60 px-4 py-3">
+            <section className="nemoto-portfolio-chat-context shrink-0 border-b border-app-border bg-app-sidebar/60 px-4 py-3">
                 <div className="flex items-center gap-2">
-                    <AxiomSelect
+                    <NemotoSelect
                         aria-label="Portfolio Chat scope"
                         className="min-w-0 flex-1"
                         controlSize="sm"
@@ -823,14 +823,14 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                         {canUseSelectionScope && <option value="selection">Pinned selection</option>}
                         {canUseProcessScope && <option value="process">Pinned process</option>}
                         <option value="portfolio">Entire portfolio</option>
-                    </AxiomSelect>
+                    </NemotoSelect>
                     <div className="flex h-8 shrink-0 items-center gap-1 rounded-md border border-accent-success/20 bg-accent-success/5 px-2 text-[9px] font-semibold text-accent-success" title="Nemoto sends only bounded read-only context">
                         <LockKeyhole size={11} /> Read-only
                     </div>
                 </div>
 
-                <div className="axiom-portfolio-chat-context-card mt-2.5 flex items-start gap-2 rounded-lg border border-app-border bg-app-bg p-2.5">
-                    <Pin size={13} className="axiom-portfolio-chat-pin mt-0.5 shrink-0 text-accent-primary" />
+                <div className="nemoto-portfolio-chat-context-card mt-2.5 flex items-start gap-2 rounded-lg border border-app-border bg-app-bg p-2.5">
+                    <Pin size={13} className="nemoto-portfolio-chat-pin mt-0.5 shrink-0 text-accent-primary" />
                     <div className="min-w-0 flex-1">
                         <div className="text-[9px] font-bold uppercase tracking-wider text-text-faint">{contextDetail}</div>
                         <div className="mt-0.5 truncate text-[11px] font-semibold text-text-main" title={contextLabel}>{contextLabel}</div>
@@ -845,9 +845,9 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                 : 'The canvas context changed. This conversation remains pinned.'}
                         </div>
                         {liveProcess && (
-                            <AxiomButton className="shrink-0" size="sm" disabled={running} onClick={adoptLiveContext}>
+                            <NemotoButton className="shrink-0" size="sm" disabled={running} onClick={adoptLiveContext}>
                                 <RefreshCw size={12} /> New with current
-                            </AxiomButton>
+                            </NemotoButton>
                         )}
                     </div>
                 )}
@@ -868,9 +868,9 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                 </div>
             </section>
 
-            <section className="axiom-portfolio-chat-transcript min-h-0 flex-1 overflow-y-auto px-4 py-4 app-scroll" aria-live="polite">
+            <section className="nemoto-portfolio-chat-transcript min-h-0 flex-1 overflow-y-auto px-4 py-4 app-scroll" aria-live="polite">
                 {messages.length === 0 && !running && !error && (
-                    <div className="axiom-portfolio-chat-empty flex min-h-full flex-col items-center justify-center py-6 text-center">
+                    <div className="nemoto-portfolio-chat-empty flex min-h-full flex-col items-center justify-center py-6 text-center">
                         <Bot size={28} className="text-accent-primary" />
                         <div className="mt-3 text-sm font-semibold text-text-main">Ask while you explore</div>
                         <div className="mt-1 max-w-xs text-[11px] leading-relaxed text-text-muted">
@@ -906,23 +906,23 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                     )}
                     {messages.map(message => message.role === 'user' ? (
                         <div key={message.id} className="flex justify-end">
-                            <div className="axiom-chat-message-user max-w-[88%] cursor-text select-text rounded-2xl rounded-br-sm bg-accent-primary px-3.5 py-2.5 text-xs leading-relaxed text-white shadow-sm">
+                            <div className="nemoto-chat-message-user max-w-[88%] cursor-text select-text rounded-2xl rounded-br-sm bg-accent-primary px-3.5 py-2.5 text-xs leading-relaxed text-white shadow-sm">
                                 {message.content}
                             </div>
                         </div>
                     ) : (
                         <div key={message.id} className="flex gap-2.5">
                             <div
-                                className="axiom-chat-assistant-mark mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10 text-accent-primary"
+                                className="nemoto-chat-assistant-mark mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10 text-accent-primary"
                                 title={`Generated by ${message.modelId}`}
                             >
                                 <Bot size={14} />
                             </div>
                             <div className="min-w-0 flex-1">
-                                <div className="axiom-chat-message-assistant rounded-2xl rounded-tl-sm border border-app-border bg-app-bg p-3">
+                                <div className="nemoto-chat-message-assistant rounded-2xl rounded-tl-sm border border-app-border bg-app-bg p-3">
                                     <div className="cursor-text select-text whitespace-pre-wrap text-xs leading-relaxed text-text-main">{message.content}</div>
                                 </div>
-                                <div className="axiom-chat-sources mt-2 rounded-xl border border-app-border bg-app-bg/60 p-2.5">
+                                <div className="nemoto-chat-sources mt-2 rounded-xl border border-app-border bg-app-bg/60 p-2.5">
                                     <div className="flex items-center justify-between gap-2">
                                         <div className="text-[9px] font-bold uppercase tracking-wider text-text-faint">Sources cited</div>
                                         <div className="text-[9px] text-text-faint">
@@ -940,7 +940,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                             return (
                                                 <button
                                                     key={citation.sourceId}
-                                                    className="axiom-chat-citation group flex w-full items-start gap-2 rounded-lg border border-transparent p-1.5 text-left transition-colors enabled:hover:border-app-border enabled:hover:bg-app-surface disabled:cursor-not-allowed disabled:opacity-60"
+                                                    className="nemoto-chat-citation group flex w-full items-start gap-2 rounded-lg border border-transparent p-1.5 text-left transition-colors enabled:hover:border-app-border enabled:hover:bg-app-surface disabled:cursor-not-allowed disabled:opacity-60"
                                                     type="button"
                                                     disabled={!sourceState.navigable}
                                                     title={sourceState.navigable
@@ -971,7 +971,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                                     </div>
                                     {message.retrieval && (
                                         <details className="mt-2 border-t border-app-border pt-2">
-                                            <summary className="axiom-chat-inspect cursor-pointer select-none text-[9px] font-semibold text-accent-primary">
+                                            <summary className="nemoto-chat-inspect cursor-pointer select-none text-[9px] font-semibold text-accent-primary">
                                                 Inspect retrieved context
                                             </summary>
                                             <div className="mt-2 rounded-lg border border-app-border bg-app-surface/50 p-2">
@@ -1031,7 +1031,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
 
                     {running && (
                         <div className="flex items-center gap-2.5 text-[10px] text-text-muted">
-                            <div className="axiom-chat-thinking-mark flex h-7 w-7 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10">
+                            <div className="nemoto-chat-thinking-mark flex h-7 w-7 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10">
                                 <Loader2 size={14} className="animate-spin text-accent-primary" />
                             </div>
                             <div>
@@ -1051,8 +1051,8 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                 </div>
             </section>
 
-            <section className="axiom-portfolio-chat-composer shrink-0 border-t border-app-border bg-app-bg/70 p-3">
-                <AxiomTextarea
+            <section className="nemoto-portfolio-chat-composer shrink-0 border-t border-app-border bg-app-bg/70 p-3">
+                <NemotoTextarea
                     ref={promptRef}
                     aria-label="Message Portfolio Chat"
                     className="min-h-20 w-full resize-none"
@@ -1072,7 +1072,7 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                 />
                 <div className="mt-2 flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                        <AxiomButton
+                        <NemotoButton
                             aria-label="Clear chat"
                             icon
                             size="sm"
@@ -1082,10 +1082,10 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                             onClick={clearConversation}
                         >
                             <Eraser size={14} />
-                        </AxiomButton>
+                        </NemotoButton>
                         <span className="text-[9px] text-text-faint">{prompt.length}/4000 · Ctrl+Enter</span>
                     </div>
-                    <AxiomButton
+                    <NemotoButton
                         size="sm"
                         variant="primary"
                         disabled={!configured || !canContinueConversation || !prompt.trim() || running}
@@ -1093,11 +1093,11 @@ export default function PortfolioChatPanel({ onClose }: PortfolioChatPanelProps)
                     >
                         {running ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
                         {running ? 'Thinking…' : 'Send'}
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
             </section>
 
-            <footer className="axiom-portfolio-chat-footer flex min-h-9 shrink-0 items-center border-t border-app-border px-3 text-[9px] text-text-faint">
+            <footer className="nemoto-portfolio-chat-footer flex min-h-9 shrink-0 items-center border-t border-app-border px-3 text-[9px] text-text-faint">
                 <LockKeyhole size={10} className="mr-1.5 shrink-0 text-accent-success" />
                 Nemoto owns this local archive · it is not stored in the portfolio.
             </footer>

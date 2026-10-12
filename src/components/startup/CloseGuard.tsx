@@ -5,7 +5,7 @@ import { AlertTriangle } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import { hasUnsavedPluginChanges } from '../../plugins/pluginViewLeaveGuard';
-import { AxiomButton, AxiomDialog, AxiomDialogBody, AxiomDialogFooter, AxiomDialogHeader } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoDialogBody, NemotoDialogFooter, NemotoDialogHeader } from '../ui';
 
 export default function CloseGuard() {
     const { isDirty, isSaving, saveError, savePortfolio } = usePortfolioStore(
@@ -102,15 +102,15 @@ export default function CloseGuard() {
     if (!dialogOpen) return null;
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="close-guard-description"
             aria-labelledby="close-guard-title"
             closeOnBackdrop={false}
             onClose={() => setDialogOpen(false)}
             panelClassName="w-full max-w-lg overflow-hidden"
         >
-            <AxiomDialogHeader className="flex items-center gap-3 border-b p-5">
-                <div className="axiom-dialog-icon axiom-dialog-icon-warning flex h-10 w-10 items-center justify-center">
+            <NemotoDialogHeader className="flex items-center gap-3 border-b p-5">
+                <div className="nemoto-dialog-icon nemoto-dialog-icon-warning flex h-10 w-10 items-center justify-center">
                     <AlertTriangle aria-hidden="true" size={20} />
                 </div>
                 <div>
@@ -123,8 +123,8 @@ export default function CloseGuard() {
                             : 'Your latest changes are saved. You can safely try closing the window again.'}
                     </p>
                 </div>
-            </AxiomDialogHeader>
-            <AxiomDialogBody className="p-5">
+            </NemotoDialogHeader>
+            <NemotoDialogBody className="p-5">
                 {pluginDraft && <p role="alert">Return to the plugin and save or discard its edits before saving and closing Nemoto. Saving the Portfolio does not save a plugin draft.</p>}
                 {(actionError || saveError) && (
                     <p className="rounded border border-accent-danger/40 bg-accent-danger/10 p-3 text-sm text-accent-danger" role="alert">
@@ -136,20 +136,20 @@ export default function CloseGuard() {
                         The latest changes have now been saved. You can close Nemoto safely.
                     </p>
                 )}
-            </AxiomDialogBody>
-            <AxiomDialogFooter className="flex flex-wrap justify-end gap-3 border-t p-4">
-                <AxiomButton onClick={() => setDialogOpen(false)}>Cancel</AxiomButton>
-                <AxiomButton onClick={() => { void closeApplication(); }} variant="danger">
+            </NemotoDialogBody>
+            <NemotoDialogFooter className="flex flex-wrap justify-end gap-3 border-t p-4">
+                <NemotoButton onClick={() => setDialogOpen(false)}>Cancel</NemotoButton>
+                <NemotoButton onClick={() => { void closeApplication(); }} variant="danger">
                     Close without saving
-                </AxiomButton>
-                <AxiomButton
+                </NemotoButton>
+                <NemotoButton
                     disabled={isSaving || pluginDraft}
                     onClick={() => { void handleSaveAndClose(); }}
                     variant="primary"
                 >
                     {isSaving ? 'Saving...' : isDirty ? 'Save and close' : 'Close Nemoto'}
-                </AxiomButton>
-            </AxiomDialogFooter>
-        </AxiomDialog>
+                </NemotoButton>
+            </NemotoDialogFooter>
+        </NemotoDialog>
     );
 }

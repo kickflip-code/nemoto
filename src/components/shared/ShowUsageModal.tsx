@@ -6,7 +6,7 @@ import { useUIStore } from '../../stores/useUIStore';
 import { useJournalStore } from '../../stores/useJournalStore';
 import { useMemo } from 'react';
 import type { CanvasGraph } from '../../types';
-import { AxiomDialog } from '../ui';
+import { NemotoDialog } from '../ui';
 
 interface ShowUsageModalProps {
     resourceId: string;
@@ -127,13 +127,13 @@ export default function ShowUsageModal({ resourceId, resourceName, onClose }: Sh
     const totalUsage = usage.processes.length + usage.nodes.length + usage.entries.length;
 
     return createPortal(
-        <AxiomDialog
+        <NemotoDialog
             aria-labelledby="show-usage-title"
             onClose={onClose}
             panelClassName="w-[400px] max-h-[500px] flex flex-col overflow-hidden"
         >
                 {/* Header */}
-                <div className="axiom-dialog-header flex items-center justify-between px-4 py-3 border-b">
+                <div className="nemoto-dialog-header flex items-center justify-between px-4 py-3 border-b">
                     <div>
                         <h2 id="show-usage-title" className="text-sm font-semibold text-text-main">Usage: {resourceName}</h2>
                         <p className="text-[10px] text-text-faint mt-0.5">
@@ -143,14 +143,14 @@ export default function ShowUsageModal({ resourceId, resourceName, onClose }: Sh
                     <button
                         onClick={onClose}
                         aria-label="Close usage dialog"
-                        className="axiom-icon-button axiom-icon-button-sm axiom-icon-button-ghost"
+                        className="nemoto-icon-button nemoto-icon-button-sm nemoto-icon-button-ghost"
                     >
                         <X size={16} />
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="axiom-dialog-body flex-1 overflow-y-auto p-4 space-y-4">
+                <div className="nemoto-dialog-body flex-1 overflow-y-auto p-4 space-y-4">
                     {totalUsage === 0 ? (
                         <div className="text-center py-8 text-text-faint text-xs">
                             This resource is not linked to any processes or journal entries.
@@ -169,7 +169,7 @@ export default function ShowUsageModal({ resourceId, resourceName, onClose }: Sh
                                             <button
                                                 key={`${p.id}-${idx}`}
                                                 onClick={() => handleNavigateToProcess(p.id, p.nodePath)}
-                                                className="axiom-dialog-row w-full text-left px-3 py-2 text-xs flex items-center gap-2 group"
+                                                className="nemoto-dialog-row w-full text-left px-3 py-2 text-xs flex items-center gap-2 group"
                                             >
                                                 <LayoutGrid size={12} className="text-text-faint" />
                                                 <span className="flex-1 truncate">{p.title}</span>
@@ -192,7 +192,7 @@ export default function ShowUsageModal({ resourceId, resourceName, onClose }: Sh
                                             <button
                                                 key={`${n.id}-${idx}`}
                                                 onClick={() => handleNavigateToProcess(n.processId)}
-                                                className="axiom-dialog-row w-full text-left px-3 py-2 text-xs flex items-center gap-2 group"
+                                                className="nemoto-dialog-row w-full text-left px-3 py-2 text-xs flex items-center gap-2 group"
                                             >
                                                 <Server size={12} className="text-accent-primary" />
                                                 <div className="flex-1 min-w-0">
@@ -218,7 +218,7 @@ export default function ShowUsageModal({ resourceId, resourceName, onClose }: Sh
                                             <button
                                                 key={e.id}
                                                 onClick={() => handleNavigateToEntry(e.id)}
-                                                className="axiom-dialog-row w-full text-left px-3 py-2 text-xs flex items-center gap-2 group"
+                                                className="nemoto-dialog-row w-full text-left px-3 py-2 text-xs flex items-center gap-2 group"
                                             >
                                                 <FileText size={12} className="text-accent-warning" />
                                                 <span className="flex-1 truncate">{e.title}</span>
@@ -233,15 +233,15 @@ export default function ShowUsageModal({ resourceId, resourceName, onClose }: Sh
                 </div>
 
                 {/* Footer */}
-                <div className="axiom-dialog-footer px-4 py-3 border-t flex justify-end">
+                <div className="nemoto-dialog-footer px-4 py-3 border-t flex justify-end">
                     <button
                         onClick={onClose}
-                        className="axiom-button axiom-button-sm"
+                        className="nemoto-button nemoto-button-sm"
                     >
                         Close
                     </button>
                 </div>
-        </AxiomDialog>,
+        </NemotoDialog>,
         document.body,
     );
 }

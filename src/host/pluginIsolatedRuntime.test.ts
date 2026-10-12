@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { AXIOM_PLUGIN_API_VERSION } from '../plugins/activation';
-import type { AxiomPluginApi } from '../plugins/publicApi';
+import { NEMOTO_PLUGIN_API_VERSION } from '../plugins/activation';
+import type { NemotoPluginApi } from '../plugins/publicApi';
 import type { PluginRuntimeLauncherStatusMessage } from './pluginRuntimeLauncherContracts';
 import {
     launchIsolatedPluginRuntime,
@@ -73,14 +73,14 @@ const fakeChannel = (): MessageChannel & { port1: FakePort; port2: FakePort } =>
     return { port1, port2 } as unknown as MessageChannel & { port1: FakePort; port2: FakePort };
 };
 
-const api = (): AxiomPluginApi => ({
-    apiVersion: AXIOM_PLUGIN_API_VERSION,
+const api = (): NemotoPluginApi => ({
+    apiVersion: NEMOTO_PLUGIN_API_VERSION,
     identity: {
         pluginId: 'org.axiom.runtime-fixture',
         pluginVersion: '0.1.0',
         dataVersion: 1,
     },
-} as AxiomPluginApi);
+} as NemotoPluginApi);
 
 const status = (
     kind: PluginRuntimeLauncherStatusMessage['kind'],

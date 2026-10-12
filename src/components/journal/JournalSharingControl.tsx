@@ -1,5 +1,5 @@
 import { Globe2, LockKeyhole } from 'lucide-react';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 
 interface JournalSharingControlProps {
     internal: boolean;
@@ -14,19 +14,19 @@ export default function JournalSharingControl({ internal, onChange }: JournalSha
     const Icon = internal ? LockKeyhole : Globe2;
 
     return (
-        <AxiomButton
+        <NemotoButton
             size="sm"
             variant="ghost"
             aria-label={`Sharing: ${label}`}
             aria-pressed={internal}
             title={`${label}. ${description}`}
             onClick={() => onChange(!internal)}
-            className={`axiom-journal-sharing-control gap-1.5 ${
+            className={`nemoto-journal-sharing-control gap-1.5 ${
                 internal ? 'text-accent-warning' : 'text-text-faint'
             }`}
         >
             <Icon size={12} aria-hidden="true" />
             <span>{label}</span>
-        </AxiomButton>
+        </NemotoButton>
     );
 }

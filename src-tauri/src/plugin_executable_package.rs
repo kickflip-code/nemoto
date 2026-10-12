@@ -31,15 +31,15 @@ use crate::{
     plugin_wasm_admission::{NativeWasmAdmission, WasmAdmissionError, WasmAdmissionReceipt},
     plugin_wasm_data_plane::{WasmComputeRequest, WasmComputeResult},
     plugin_wasm_lifecycle::{
-        AxiomWasmLifecycle, WasmAdmissionProvider, WasmAuthorityOutcome, WasmInstallCandidate,
+        NemotoWasmLifecycle, WasmAdmissionProvider, WasmAuthorityOutcome, WasmInstallCandidate,
         WasmInstallOutcome, WasmLifecycleAuthority, WasmLifecycleError, WasmLifecycleErrorCode,
-        AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA, AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION,
-        AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA, AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION,
+        NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA, NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION,
+        NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA, NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION,
     },
     plugin_wasm_session::{
         validate_stable_contract_id, WasmPluginIdentity, ISOLATED_COMPUTE_CAPABILITY,
     },
-    plugin_wasm_storage::{PluginWasmEntrypoint, AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA},
+    plugin_wasm_storage::{PluginWasmEntrypoint, NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA},
     utils::{
         atomic_file::{atomic_write_verified, backup_path},
         paths::{
@@ -48,24 +48,24 @@ use crate::{
     },
 };
 
-pub const AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA: &str = "axiom.executable-install-approval";
-pub const AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA: &str =
+pub const NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA: &str = "axiom.executable-install-approval";
+pub const NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA: &str =
     "axiom.executable-install-transaction";
-pub const AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION: u32 = 1;
 pub const ISOLATED_COMPUTE_RISK_ACKNOWLEDGEMENT: &str = "isolated-compute-v1";
-pub const AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA: &str =
+pub const NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA: &str =
     "axiom.executable-activation-snapshot";
-pub const AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA: &str = "axiom.executable-authority-sync";
-pub const AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA: &str =
+pub const NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA: &str = "axiom.executable-authority-sync";
+pub const NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA: &str =
     "axiom.executable-proposal-command-result";
-pub const AXIOM_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA_VERSION: u32 = 1;
 
 /// The public host API and authority scope are native-owned inputs. The main
 /// WebView cannot substitute either value when it synchronizes Portfolio state.
-pub const AXIOM_PLUGIN_API_VERSION: &str = "1.8.0";
+pub const NEMOTO_PLUGIN_API_VERSION: &str = "1.8.0";
 pub const MAIN_PORTFOLIO_AUTHORITY_SCOPE_ID: &str = "portfolio:main";
 
 /// Enabled after the packaged Windows host proved compiler-helper isolation,
@@ -84,8 +84,8 @@ const MAX_PENDING_TRANSACTION_FILES: usize = 1_000;
 const ACTIVE_PROCESS_COMMAND_CONTEXT: &str = "active-process";
 const SELECTED_ENTITY_COMMAND_CONTEXT: &str = "selected-entity";
 
-pub const AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA: &str = "axiom.executable-package-review";
-pub const AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA: &str = "axiom.executable-package-review";
+pub const NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION: u32 = 1;
 
 const KNOWN_CAPABILITIES: &[&str] = &[
     "portfolio.read-scoped",
@@ -535,7 +535,7 @@ struct NativeComposedViewNavigation {
 }
 
 pub struct ExecutablePackageAdapter<A: WasmAdmissionProvider> {
-    lifecycle: Arc<AxiomWasmLifecycle<A>>,
+    lifecycle: Arc<NemotoWasmLifecycle<A>>,
     installed_plugins_root: PathBuf,
     transactions_root: PathBuf,
     metadata_writer: Arc<MetadataWriter>,
@@ -563,7 +563,7 @@ impl ExecutablePackageAdapter<NativeWasmAdmission> {
         transactions_root: PathBuf,
     ) -> Result<Self, ExecutablePackageError> {
         let lifecycle = Arc::new(
-            AxiomWasmLifecycle::native(runtime_storage_root)
+            NemotoWasmLifecycle::native(runtime_storage_root)
                 .map_err(ExecutablePackageError::lifecycle)?,
         );
         Ok(Self::with_lifecycle(
@@ -583,7 +583,7 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
     }
 
     pub fn with_lifecycle(
-        lifecycle: Arc<AxiomWasmLifecycle<A>>,
+        lifecycle: Arc<NemotoWasmLifecycle<A>>,
         installed_plugins_root: PathBuf,
         transactions_root: PathBuf,
     ) -> Self {
@@ -596,7 +596,7 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
     }
 
     fn with_lifecycle_and_execution_policy(
-        lifecycle: Arc<AxiomWasmLifecycle<A>>,
+        lifecycle: Arc<NemotoWasmLifecycle<A>>,
         installed_plugins_root: PathBuf,
         transactions_root: PathBuf,
         execution_enabled: bool,
@@ -606,12 +606,12 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
             installed_plugins_root,
             transactions_root,
             execution_enabled,
-            AXIOM_PLUGIN_API_VERSION,
+            NEMOTO_PLUGIN_API_VERSION,
         )
     }
 
     fn with_lifecycle_execution_policy_and_api(
-        lifecycle: Arc<AxiomWasmLifecycle<A>>,
+        lifecycle: Arc<NemotoWasmLifecycle<A>>,
         installed_plugins_root: PathBuf,
         transactions_root: PathBuf,
         execution_enabled: bool,
@@ -634,7 +634,7 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
     /// Production builds do not expose a way to override the closed policy.
     #[cfg(feature = "test-execution-policy")]
     pub fn with_lifecycle_for_execution_tests(
-        lifecycle: Arc<AxiomWasmLifecycle<A>>,
+        lifecycle: Arc<NemotoWasmLifecycle<A>>,
         installed_plugins_root: PathBuf,
         transactions_root: PathBuf,
     ) -> Self {
@@ -652,7 +652,7 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
     #[cfg(feature = "runtime-security-harness")]
     #[doc(hidden)]
     pub fn with_lifecycle_for_interrupted_commit_harness(
-        lifecycle: Arc<AxiomWasmLifecycle<A>>,
+        lifecycle: Arc<NemotoWasmLifecycle<A>>,
         installed_plugins_root: PathBuf,
         transactions_root: PathBuf,
     ) -> Self {
@@ -675,7 +675,7 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
         adapter
     }
 
-    pub fn lifecycle(&self) -> &AxiomWasmLifecycle<A> {
+    pub fn lifecycle(&self) -> &NemotoWasmLifecycle<A> {
         &self.lifecycle
     }
 
@@ -743,8 +743,8 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
         let normalized_manifest =
             serde_json::to_value(&manifest).map_err(|_| invalid_manifest())?;
         let candidate = WasmInstallCandidate {
-            schema: AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_INSTALL_CANDIDATE_SCHEMA_VERSION,
             identity: identity.clone(),
             capability: ISOLATED_COMPUTE_CAPABILITY.to_owned(),
             entrypoint: manifest.runtime.clone(),
@@ -820,8 +820,8 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
         let encoded_document = encode_document(&installed_document)?;
         let transaction_id = Uuid::new_v4().simple().to_string();
         let transaction = InstallTransaction {
-            schema: AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA.to_owned(),
-            schema_version: AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA.to_owned(),
+            schema_version: NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION,
             transaction_id: transaction_id.clone(),
             archive_sha256: inspection.archive_sha256,
             plugin_id: inspection.identity.plugin_id.clone(),
@@ -928,8 +928,8 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
         *self.lock_synchronized_plugin_ids()? = current_plugin_ids;
 
         Ok(ExecutableAuthoritySyncOutcome {
-            schema: AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA,
-            schema_version: AXIOM_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA,
+            schema_version: NEMOTO_EXECUTABLE_AUTHORITY_SYNC_SCHEMA_VERSION,
             authority_scope_id: MAIN_PORTFOLIO_AUTHORITY_SCOPE_ID,
             host_plugin_api_version: self.host_plugin_api_version,
             execution_enabled: self.execution_enabled,
@@ -1015,8 +1015,8 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
         validate_proposal_command_result(&result, command_id)?;
 
         Ok(ExecutableProposalCommandOutcome {
-            schema: AXIOM_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA,
-            schema_version: AXIOM_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA,
+            schema_version: NEMOTO_EXECUTABLE_PROPOSAL_COMMAND_RESULT_SCHEMA_VERSION,
             command_id: command_id.to_owned(),
             identity,
             effective_capabilities: effective_capabilities.into_iter().collect(),
@@ -1220,8 +1220,8 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
 
         let transaction_id = Uuid::new_v4().simple().to_string();
         let transaction = InstallTransaction {
-            schema: AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA.to_owned(),
-            schema_version: AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA.to_owned(),
+            schema_version: NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION,
             transaction_id: transaction_id.clone(),
             archive_sha256: canonical_document_hash(&previous_document)?,
             plugin_id: plugin_id.clone(),
@@ -1297,8 +1297,8 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
         let isolated_compute_granted = effective_capabilities.contains(ISOLATED_COMPUTE_CAPABILITY);
         let eligible = portfolio_active && compatible && isolated_compute_granted;
         let authority = WasmLifecycleAuthority {
-            schema: AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_LIFECYCLE_AUTHORITY_SCHEMA_VERSION,
             authority_scope_id: MAIN_PORTFOLIO_AUTHORITY_SCOPE_ID.to_owned(),
             identity: identity.clone(),
             installed: true,
@@ -1493,8 +1493,8 @@ impl<A: WasmAdmissionProvider> ExecutablePackageAdapter<A> {
 impl ExecutablePackageInspection {
     pub fn review(&self) -> ExecutablePackageReview {
         ExecutablePackageReview {
-            schema: AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA.to_owned(),
-            schema_version: AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA.to_owned(),
+            schema_version: NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA_VERSION,
             archive_sha256: self.archive_sha256.clone(),
             identity: self.identity.clone(),
             name: self.name.clone(),
@@ -1686,8 +1686,8 @@ fn validate_activation_snapshot(
     snapshot: &ExecutableActivationSnapshot,
 ) -> Result<(), ExecutablePackageError> {
     let mut plugin_ids = BTreeSet::new();
-    if snapshot.schema != AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA
-        || snapshot.schema_version != AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION
+    if snapshot.schema != NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA
+        || snapshot.schema_version != NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION
         || snapshot.requirements.len() > 1_000
         || snapshot.requirements.iter().any(|requirement| {
             !is_valid_plugin_id(&requirement.plugin_id)
@@ -1765,7 +1765,7 @@ fn normalize_and_validate_manifest(
             .any(|capability| capability == ISOLATED_COMPUTE_CAPABILITY)
         || !manifest.dependencies.is_empty()
         || !valid_version_range(&manifest.compatibility.axiom_plugin_api)
-        || manifest.runtime.schema != AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA
+        || manifest.runtime.schema != NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA
         || crate::plugin_wasm_storage::validate_plugin_wasm_entrypoint(&manifest.runtime).is_err()
     {
         return Err(invalid_manifest());
@@ -1833,8 +1833,8 @@ fn validate_approval(
         .iter()
         .map(String::as_str)
         .collect::<BTreeSet<_>>();
-    if approval.schema != AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA
-        || approval.schema_version != AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION
+    if approval.schema != NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA
+        || approval.schema_version != NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION
         || approval.archive_sha256 != inspection.archive_sha256
         || approval.identity != inspection.identity
         || approval.risk_acknowledgement != ISOLATED_COMPUTE_RISK_ACKNOWLEDGEMENT
@@ -2210,8 +2210,8 @@ fn installed_document_identity(
 }
 
 fn validate_transaction(transaction: &InstallTransaction) -> Result<(), ExecutablePackageError> {
-    if transaction.schema != AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA
-        || transaction.schema_version != AXIOM_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION
+    if transaction.schema != NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA
+        || transaction.schema_version != NEMOTO_EXECUTABLE_INSTALL_TRANSACTION_SCHEMA_VERSION
         || transaction.transaction_id.len() != 32
         || !transaction
             .transaction_id
@@ -2637,17 +2637,17 @@ mod tests {
     use crate::{
         plugin_compute_policy::ISOLATED_COMPUTE_POLICY_V1,
         plugin_wasm_admission::{
-            module_sha256, WasmAdmissionError, WasmAdmissionReceipt, AXIOM_WASM_ADMISSION_SCHEMA,
-            AXIOM_WASM_ADMISSION_SCHEMA_VERSION, WASM_COMPILER_CPU_TIME_LIMIT_MS,
+            module_sha256, WasmAdmissionError, WasmAdmissionReceipt, NEMOTO_WASM_ADMISSION_SCHEMA,
+            NEMOTO_WASM_ADMISSION_SCHEMA_VERSION, WASM_COMPILER_CPU_TIME_LIMIT_MS,
             WASM_COMPILER_MEMORY_LIMIT_BYTES, WASM_COMPILER_WALL_DEADLINE_MS,
         },
         plugin_wasm_data_plane::{
             WasmEntityLocation, WasmEntityReference, WasmEntitySnapshot,
-            AXIOM_ENTITY_REFERENCE_SCHEMA, AXIOM_ENTITY_REFERENCE_SCHEMA_VERSION,
-            AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA, AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION,
-            AXIOM_WASM_COMPUTE_REQUEST_SCHEMA, AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
+            NEMOTO_ENTITY_REFERENCE_SCHEMA, NEMOTO_ENTITY_REFERENCE_SCHEMA_VERSION,
+            NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA, NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION,
+            NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA, NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
         },
-        plugin_wasm_host::{AXIOM_WASM_ABI_NAME, AXIOM_WASM_ABI_VERSION, WASMTIME_ENGINE_VERSION},
+        plugin_wasm_host::{NEMOTO_WASM_ABI_NAME, NEMOTO_WASM_ABI_VERSION, WASMTIME_ENGINE_VERSION},
     };
 
     #[derive(Default)]
@@ -2663,14 +2663,14 @@ mod tests {
         ) -> Result<WasmAdmissionReceipt, WasmAdmissionError> {
             self.calls.fetch_add(1, Ordering::Relaxed);
             Ok(WasmAdmissionReceipt {
-                schema: AXIOM_WASM_ADMISSION_SCHEMA.to_owned(),
-                schema_version: AXIOM_WASM_ADMISSION_SCHEMA_VERSION,
+                schema: NEMOTO_WASM_ADMISSION_SCHEMA.to_owned(),
+                schema_version: NEMOTO_WASM_ADMISSION_SCHEMA_VERSION,
                 identity: identity.clone(),
                 module_sha256: module_sha256(module_bytes),
                 module_bytes: module_bytes.len() as u64,
                 compiled_artifact_bytes: 4096,
-                abi_name: AXIOM_WASM_ABI_NAME.to_owned(),
-                abi_version: AXIOM_WASM_ABI_VERSION,
+                abi_name: NEMOTO_WASM_ABI_NAME.to_owned(),
+                abi_version: NEMOTO_WASM_ABI_VERSION,
                 compute_policy_version: ISOLATED_COMPUTE_POLICY_V1.policy_version,
                 engine: "wasmtime".to_owned(),
                 engine_version: WASMTIME_ENGINE_VERSION.to_owned(),
@@ -2927,8 +2927,8 @@ mod tests {
 
     fn approval(inspection: &ExecutablePackageInspection) -> ExecutableInstallApproval {
         ExecutableInstallApproval {
-            schema: AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA.to_owned(),
-            schema_version: AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA.to_owned(),
+            schema_version: NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
             archive_sha256: inspection.archive_sha256.clone(),
             identity: inspection.identity.clone(),
             granted_capabilities: vec![ISOLATED_COMPUTE_CAPABILITY.to_owned()],
@@ -2943,7 +2943,7 @@ mod tests {
 
     fn adapter(root: &Path) -> ExecutablePackageAdapter<FakeAdmission> {
         let lifecycle =
-            AxiomWasmLifecycle::with_admission(root.join("runtime"), FakeAdmission::default())
+            NemotoWasmLifecycle::with_admission(root.join("runtime"), FakeAdmission::default())
                 .unwrap();
         ExecutablePackageAdapter::with_lifecycle(
             Arc::new(lifecycle),
@@ -2957,7 +2957,7 @@ mod tests {
         execution_enabled: bool,
     ) -> ExecutablePackageAdapter<FakeAdmission> {
         let lifecycle =
-            AxiomWasmLifecycle::with_admission(root.join("runtime"), FakeAdmission::default())
+            NemotoWasmLifecycle::with_admission(root.join("runtime"), FakeAdmission::default())
                 .unwrap();
         ExecutablePackageAdapter::with_lifecycle_and_execution_policy(
             Arc::new(lifecycle),
@@ -2969,7 +2969,7 @@ mod tests {
 
     fn ui_adapter(root: &Path) -> ExecutablePackageAdapter<FakeAdmission> {
         let lifecycle =
-            AxiomWasmLifecycle::with_admission(root.join("runtime"), FakeAdmission::default())
+            NemotoWasmLifecycle::with_admission(root.join("runtime"), FakeAdmission::default())
                 .unwrap();
         ExecutablePackageAdapter::with_lifecycle_execution_policy_and_api(
             Arc::new(lifecycle),
@@ -2982,8 +2982,8 @@ mod tests {
 
     fn ui_activation_snapshot(activation: &str) -> ExecutableActivationSnapshot {
         ExecutableActivationSnapshot {
-            schema: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA.to_owned(),
-            schema_version: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA.to_owned(),
+            schema_version: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
             requirements: vec![ExecutablePortfolioRequirement {
                 plugin_id: "org.axiom.ui-fixture".to_owned(),
                 version: "=1.0.0".to_owned(),
@@ -3022,8 +3022,8 @@ mod tests {
 
     fn activation_snapshot(activation: &str, version: &str) -> ExecutableActivationSnapshot {
         ExecutableActivationSnapshot {
-            schema: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA.to_owned(),
-            schema_version: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
+            schema: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA.to_owned(),
+            schema_version: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
             requirements: vec![ExecutablePortfolioRequirement {
                 plugin_id: "org.axiom.executable-fixture".to_owned(),
                 version: version.to_owned(),
@@ -3069,18 +3069,18 @@ mod tests {
                 }
             });
         WasmComputeRequest {
-            schema: AXIOM_WASM_COMPUTE_REQUEST_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
             request_id: "compute:selected-entity:1".to_owned(),
             base_revision: "portfolio-revision-aabbccdd".to_owned(),
             portfolio_revision: 7,
             snapshots: vec![WasmEntitySnapshot {
-                schema: AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA.to_owned(),
-                schema_version: AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION,
+                schema: NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA.to_owned(),
+                schema_version: NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION,
                 portfolio_revision: 7,
                 reference: WasmEntityReference {
-                    schema: AXIOM_ENTITY_REFERENCE_SCHEMA.to_owned(),
-                    schema_version: AXIOM_ENTITY_REFERENCE_SCHEMA_VERSION,
+                    schema: NEMOTO_ENTITY_REFERENCE_SCHEMA.to_owned(),
+                    schema_version: NEMOTO_ENTITY_REFERENCE_SCHEMA_VERSION,
                     kind: reference_kind.to_owned(),
                     id: "selected-entity".to_owned(),
                     location,
@@ -3145,7 +3145,7 @@ mod tests {
         assert_eq!(inspection.contribution_count, 1);
         assert_eq!(inspection.module_sha256.len(), 64);
         let review = inspection.review();
-        assert_eq!(review.schema, AXIOM_EXECUTABLE_PACKAGE_REVIEW_SCHEMA);
+        assert_eq!(review.schema, NEMOTO_EXECUTABLE_PACKAGE_REVIEW_SCHEMA);
         assert_eq!(review.description, "Native adapter fixture.");
 
         let hidden = package(&[("runtime/hidden.wasm", module())]);
@@ -3468,7 +3468,7 @@ mod tests {
         let fail_once = Arc::new(AtomicBool::new(true));
         let fail_for_writer = Arc::clone(&fail_once);
         let lifecycle = Arc::new(
-            AxiomWasmLifecycle::with_admission(
+            NemotoWasmLifecycle::with_admission(
                 directory.path().join("runtime"),
                 FakeAdmission::default(),
             )
@@ -3489,7 +3489,7 @@ mod tests {
             ui_rate: Mutex::new(crate::plugin_ui_rate::PluginUiRateBudget::default()),
             synchronized_plugin_ids: Mutex::new(BTreeSet::new()),
             execution_enabled: false,
-            host_plugin_api_version: AXIOM_PLUGIN_API_VERSION,
+            host_plugin_api_version: NEMOTO_PLUGIN_API_VERSION,
         };
         let archive = package(&[]);
         let inspection =
@@ -3520,7 +3520,7 @@ mod tests {
         let writes = Arc::new(AtomicUsize::new(0));
         let writes_for_writer = Arc::clone(&writes);
         let lifecycle = Arc::new(
-            AxiomWasmLifecycle::with_admission(
+            NemotoWasmLifecycle::with_admission(
                 directory.path().join("runtime"),
                 FakeAdmission::default(),
             )
@@ -3543,7 +3543,7 @@ mod tests {
             ui_rate: Mutex::new(crate::plugin_ui_rate::PluginUiRateBudget::default()),
             synchronized_plugin_ids: Mutex::new(BTreeSet::new()),
             execution_enabled: false,
-            host_plugin_api_version: AXIOM_PLUGIN_API_VERSION,
+            host_plugin_api_version: NEMOTO_PLUGIN_API_VERSION,
         };
         let archive = package(&[]);
         let inspection =
@@ -3885,7 +3885,7 @@ mod tests {
             let outcome = adapter
                 .synchronize_authority(activation_snapshot("active", "=1.0.0"))
                 .unwrap();
-            assert_eq!(outcome.host_plugin_api_version, AXIOM_PLUGIN_API_VERSION);
+            assert_eq!(outcome.host_plugin_api_version, NEMOTO_PLUGIN_API_VERSION);
             assert_eq!(outcome.decisions[0].compatible, compatible, "{range}");
             assert_eq!(outcome.decisions[0].authorized, compatible, "{range}");
             assert_eq!(
@@ -3904,11 +3904,11 @@ mod tests {
         let fixture: Value =
             serde_json::from_str(include_str!("../../fixtures/plugins/protocol/ui-v1.json"))
                 .unwrap();
-        assert_eq!(fixture["hostApiVersion"], AXIOM_PLUGIN_API_VERSION);
+        assert_eq!(fixture["hostApiVersion"], NEMOTO_PLUGIN_API_VERSION);
         for case in fixture["compatibility"].as_array().unwrap() {
             let range = case["range"].as_str().unwrap();
             assert_eq!(
-                satisfies_version_range(AXIOM_PLUGIN_API_VERSION, range),
+                satisfies_version_range(NEMOTO_PLUGIN_API_VERSION, range),
                 case["compatible"].as_bool().unwrap(),
                 "{range}"
             );

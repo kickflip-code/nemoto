@@ -35,7 +35,7 @@ import { useCanvasRecordIndicators } from './contextualRecordState';
 import { coreEntityReference } from '../../plugins/universalReference';
 import { LINKED_CONTENT_NODE_TYPES, buildNodeLinkedContent } from './NodeLinkedContent';
 import { duplicateCanvasSelection, copyCanvasSelection, pasteCanvasSelection } from './duplicateCanvasSelection';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 
 const DEFAULT_CANVAS_VIEWPORT: Viewport = { x: 0, y: 16, zoom: 1 };
 const STANDARD_SNAP_GRID: SnapGrid = [16, 16];
@@ -666,7 +666,7 @@ function CanvasContent() {
     return (
         <div
             ref={reactFlowWrapper}
-            className="axiom-process-canvas absolute inset-0 bg-app-bg"
+            className="nemoto-process-canvas absolute inset-0 bg-app-bg"
             aria-label="Process canvas"
             tabIndex={0}
             onKeyDown={(event) => {
@@ -693,14 +693,14 @@ function CanvasContent() {
             }}
         >
             {isPreview && (
-                <div className="absolute top-4 left-1/2 z-50 bg-accent-primary text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 axiom-motion-feedback-top-centered pointer-events-auto">
+                <div className="absolute top-4 left-1/2 z-50 bg-accent-primary text-white px-6 py-3 rounded-full shadow-2xl flex items-center gap-4 nemoto-motion-feedback-top-centered pointer-events-auto">
                     <div className="flex flex-col">
                         <span className="font-bold text-sm tracking-wide">PREVIEW MODE</span>
                         <span className="text-[10px] opacity-80">Read-only view of imported process</span>
                     </div>
                     <div className="h-6 w-[1px] bg-app-active"></div>
                     <div className="flex gap-2">
-                        <AxiomButton
+                        <NemotoButton
                             size="sm"
                             onClick={() => {
                                 setPreviewGraph(null);
@@ -708,13 +708,13 @@ function CanvasContent() {
                             className="px-3 py-1.5 bg-app-hover hover:bg-app-active rounded text-xs font-medium transition-colors"
                         >
                             Exit Preview
-                        </AxiomButton>
+                        </NemotoButton>
                     </div>
                 </div>
             )}
 
             <ReactFlow
-                className="axiom-division-canvas"
+                className="nemoto-division-canvas"
                 {...GRAPH_NAVIGATION}
                 nodes={nodes}
                 edges={edges}

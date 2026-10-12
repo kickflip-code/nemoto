@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { AlertTriangle, RotateCcw } from 'lucide-react';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 
 interface AppErrorBoundaryProps {
     children: ReactNode;
@@ -26,8 +26,8 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
 
         return (
             <main className="flex h-screen w-screen items-center justify-center bg-app-bg p-6 text-text-main">
-                <section aria-labelledby="app-error-title" className="axiom-dialog-panel w-full max-w-lg p-8" role="alert">
-                    <div className="axiom-dialog-icon axiom-dialog-icon-warning mb-5 flex h-14 w-14 items-center justify-center">
+                <section aria-labelledby="app-error-title" className="nemoto-dialog-panel w-full max-w-lg p-8" role="alert">
+                    <div className="nemoto-dialog-icon nemoto-dialog-icon-warning mb-5 flex h-14 w-14 items-center justify-center">
                         <AlertTriangle aria-hidden="true" size={28} />
                     </div>
                     <h1 id="app-error-title" className="text-xl font-bold">Nemoto hit an unexpected problem</h1>
@@ -38,10 +38,10 @@ export default class AppErrorBoundary extends Component<AppErrorBoundaryProps, A
                         {this.state.error.message || 'Unknown interface error'}
                     </div>
                     <div className="mt-6 flex justify-end">
-                        <AxiomButton onClick={() => this.setState({ error: null })} variant="primary">
+                        <NemotoButton onClick={() => this.setState({ error: null })} variant="primary">
                             <RotateCcw aria-hidden="true" size={15} />
                             Try reopening the view
-                        </AxiomButton>
+                        </NemotoButton>
                     </div>
                 </section>
             </main>

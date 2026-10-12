@@ -6,7 +6,7 @@ import type {
     PluginCollectionListView,
 } from '../../plugins/contributionSchemas';
 import type { PluginCollectionItem } from '../../plugins/collectionStorage';
-import { AxiomButton, AxiomInput } from '../ui';
+import { NemotoButton, NemotoInput } from '../ui';
 import {
     usePluginHostServices,
     usePluginHostSnapshot,
@@ -108,14 +108,14 @@ export default function CollectionListView({ pluginId, view }: CollectionListVie
                 {!collection.error && canWrite && (
                     <form
                         aria-label={`Add ${view.collection.itemLabel}`}
-                        className="axiom-dialog-panel grid gap-3 p-4 md:grid-cols-[minmax(0,1fr)_auto]"
+                        className="nemoto-dialog-panel grid gap-3 p-4 md:grid-cols-[minmax(0,1fr)_auto]"
                         onSubmit={event => { event.preventDefault(); addItem(); }}
                     >
                         <div className="grid gap-3 sm:grid-cols-2">
                             {view.collection.fields.filter(field => field.type !== 'boolean').map(field => (
                                 <label key={field.key} className="grid gap-1.5 text-xs text-text-muted">
                                     {field.label}
-                                    <AxiomInput
+                                    <NemotoInput
                                         type={field.type === 'date' ? 'date' : 'text'}
                                         value={String(draft[field.key] || '')}
                                         maxLength={field.maxLength}
@@ -129,10 +129,10 @@ export default function CollectionListView({ pluginId, view }: CollectionListVie
                                 </label>
                             ))}
                         </div>
-                        <AxiomButton type="submit" className="self-end">
+                        <NemotoButton type="submit" className="self-end">
                             <Plus size={14} />
                             {view.content.addLabel}
-                        </AxiomButton>
+                        </NemotoButton>
                     </form>
                 )}
 
@@ -152,7 +152,7 @@ export default function CollectionListView({ pluginId, view }: CollectionListVie
                             const dateField = view.collection.fields.find(field => field.type === 'date');
                             const completed = booleanField ? item.values[booleanField.key] === true : false;
                             return (
-                                <li key={item.id} className="axiom-dialog-row flex items-center gap-3 p-3">
+                                <li key={item.id} className="nemoto-dialog-row flex items-center gap-3 p-3">
                                     {booleanField && (
                                         <input
                                             type="checkbox"
@@ -175,14 +175,14 @@ export default function CollectionListView({ pluginId, view }: CollectionListVie
                                         )}
                                     </div>
                                     {canWrite && (
-                                        <AxiomButton
+                                        <NemotoButton
                                             icon
                                             aria-label={`Delete ${primary}`}
                                             title={`Delete ${primary}`}
                                             onClick={() => commit(collection.items.filter(candidate => candidate.id !== item.id))}
                                         >
                                             <Trash2 size={14} />
-                                        </AxiomButton>
+                                        </NemotoButton>
                                     )}
                                 </li>
                             );

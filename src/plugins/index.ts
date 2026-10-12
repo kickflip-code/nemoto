@@ -5,7 +5,7 @@
  * application, migrations, and native bridges out of this barrel. Core code
  * imports those modules by their private paths.
  */
-export { AXIOM_PLUGIN_API_VERSION } from './activation';
+export { NEMOTO_PLUGIN_API_VERSION } from './activation';
 export * from './publicApi';
 export * from './manifest';
 export * from './contributionSchemas';

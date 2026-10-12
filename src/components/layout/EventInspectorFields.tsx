@@ -146,7 +146,7 @@ export function EventInspectorFields({
                 <select
                     id={`event-kind-${node.id}`}
                     aria-label="Event kind"
-                    className="axiom-field axiom-field-sm w-full appearance-none"
+                    className="nemoto-field nemoto-field-sm w-full appearance-none"
                     value={event.kind}
                     onChange={change => onChange({ ...event, kind: change.target.value as EventKind })}
                 >
@@ -159,7 +159,7 @@ export function EventInspectorFields({
                 <select
                     id={`event-behavior-${node.id}`}
                     aria-label="Event behavior"
-                    className="axiom-field axiom-field-sm w-full appearance-none"
+                    className="nemoto-field nemoto-field-sm w-full appearance-none"
                     value={event.behavior || 'neutral'}
                     onChange={change => onChange({ ...event, behavior: change.target.value as EventBehavior })}
                 >
@@ -171,7 +171,7 @@ export function EventInspectorFields({
 
             <button
                 type="button"
-                className="axiom-button axiom-button-sm axiom-button-ghost flex w-full items-center justify-between"
+                className="nemoto-button nemoto-button-sm nemoto-button-ghost flex w-full items-center justify-between"
                 aria-expanded={timingExpanded}
                 aria-controls={`event-timing-${node.id}`}
                 onClick={() => setTimingExpanded(expanded => !expanded)}
@@ -187,7 +187,7 @@ export function EventInspectorFields({
                         <select
                             id={`event-precision-${node.id}`}
                             aria-label="Event date precision"
-                            className="axiom-field axiom-field-sm w-full appearance-none"
+                            className="nemoto-field nemoto-field-sm w-full appearance-none"
                             value={precision}
                             onChange={change => changePrecision(change.target.value as EditingPrecision)}
                         >
@@ -203,7 +203,7 @@ export function EventInspectorFields({
                             <input
                                 aria-label="Event start"
                                 type={inputType}
-                                className="axiom-field axiom-field-sm w-full"
+                                className="nemoto-field nemoto-field-sm w-full"
                                 value={startDraft}
                                 onChange={change => setStartDraft(change.target.value)}
                                 onBlur={() => commitTiming()}
@@ -214,7 +214,7 @@ export function EventInspectorFields({
                             <input
                                 aria-label="Event end"
                                 type={inputType}
-                                className="axiom-field axiom-field-sm w-full"
+                                className="nemoto-field nemoto-field-sm w-full"
                                 value={endDraft}
                                 min={startDraft || undefined}
                                 onChange={change => setEndDraft(change.target.value)}

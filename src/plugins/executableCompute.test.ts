@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import type { PluginEntitySnapshot } from './entityReadContracts';
 import {
-    AXIOM_WASM_COMPUTE_RESULT_SCHEMA,
-    AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
+    NEMOTO_WASM_COMPUTE_RESULT_SCHEMA,
+    NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
     createExecutableComputeRequest,
     validateExecutableComputeResult,
 } from './executableCompute';
@@ -44,8 +44,8 @@ describe('executable compute data plane', () => {
 
     it('binds a proposal draft to Core identity, time, and revision', () => {
         const validated = validateExecutableComputeResult({
-            schema: AXIOM_WASM_COMPUTE_RESULT_SCHEMA,
-            schemaVersion: AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_COMPUTE_RESULT_SCHEMA,
+            schemaVersion: NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
             requestId: request.requestId,
             baseRevision: request.baseRevision,
             output: { riskCount: 1 },
@@ -97,8 +97,8 @@ describe('executable compute data plane', () => {
 
     it('rejects stale correlation, missing proposal grants, and hidden entity references', () => {
         const base = {
-            schema: AXIOM_WASM_COMPUTE_RESULT_SCHEMA,
-            schemaVersion: AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_COMPUTE_RESULT_SCHEMA,
+            schemaVersion: NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
             requestId: request.requestId,
             baseRevision: request.baseRevision,
             output: null,

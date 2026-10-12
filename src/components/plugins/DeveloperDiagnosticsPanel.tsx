@@ -25,7 +25,7 @@ import {
 } from '../../host/pluginDiagnosticBundleExport';
 import { pluginDeveloperRuntimeReload } from '../../host/pluginDeveloperRuntimeReload';
 import { pluginDeveloperSandbox } from '../../host/pluginDeveloperSandbox';
-import { AxiomButton, AxiomSwitch } from '../ui';
+import { NemotoButton, NemotoSwitch } from '../ui';
 import DeveloperDiagnosticBundleDialog from './DeveloperDiagnosticBundleDialog';
 import DeveloperPluginSandboxDialog from './DeveloperPluginSandboxDialog';
 
@@ -136,7 +136,7 @@ export default function DeveloperDiagnosticsPanel({
                 </p>
             </div>
 
-            <div className="axiom-dialog-row flex items-start justify-between gap-5 p-4">
+            <div className="nemoto-dialog-row flex items-start justify-between gap-5 p-4">
                 <div className="flex min-w-0 items-start gap-3">
                     <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${enabled
                         ? 'border-accent-warning/35 bg-accent-warning/10 text-accent-warning'
@@ -151,7 +151,7 @@ export default function DeveloperDiagnosticsPanel({
                         </p>
                     </div>
                 </div>
-                <AxiomSwitch
+                <NemotoSwitch
                     checked={enabled}
                     label="Developer Mode diagnostic capture"
                     onCheckedChange={onEnabledChange}
@@ -160,7 +160,7 @@ export default function DeveloperDiagnosticsPanel({
             </div>
 
             {!enabled ? (
-                <div className="axiom-dialog-panel flex items-start gap-3 p-4 text-xs text-text-muted">
+                <div className="nemoto-dialog-panel flex items-start gap-3 p-4 text-xs text-text-muted">
                     <ShieldCheck size={17} className="mt-0.5 shrink-0 text-accent-success" />
                     <p className="leading-relaxed">
                         Developer Mode is off. Nemoto is not retaining plugin diagnostic entries. Package permissions and normal runtime validation remain active.
@@ -182,25 +182,25 @@ export default function DeveloperDiagnosticsPanel({
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-                        <div className="axiom-dialog-panel p-3">
+                        <div className="nemoto-dialog-panel p-3">
                             <div className="text-[9px] font-bold uppercase tracking-wider text-text-faint">Host plugin API</div>
                             <div className="mt-1 font-mono text-xs text-text-main">{snapshot.hostPluginApiVersion}</div>
                         </div>
-                        <div className="axiom-dialog-panel p-3">
+                        <div className="nemoto-dialog-panel p-3">
                             <div className="text-[9px] font-bold uppercase tracking-wider text-text-faint">Packages</div>
                             <div className="mt-1 text-xs font-semibold text-text-main">{snapshot.packages.length}</div>
                         </div>
-                        <div className="axiom-dialog-panel p-3">
+                        <div className="nemoto-dialog-panel p-3">
                             <div className="text-[9px] font-bold uppercase tracking-wider text-text-faint">Log retention</div>
                             <div className="mt-1 text-xs font-semibold text-text-main">{snapshot.entries.length} / {snapshot.limits.maxEntries}</div>
                         </div>
-                        <div className="axiom-dialog-panel p-3">
+                        <div className="nemoto-dialog-panel p-3">
                             <div className="text-[9px] font-bold uppercase tracking-wider text-text-faint">Context limit</div>
                             <div className="mt-1 text-xs font-semibold text-text-main">{formatBytes(snapshot.limits.maxContextBytes)}</div>
                         </div>
                     </div>
 
-                    <div className="axiom-dialog-row flex flex-wrap items-start justify-between gap-4 p-4">
+                    <div className="nemoto-dialog-row flex flex-wrap items-start justify-between gap-4 p-4">
                         <div className="flex min-w-0 flex-1 items-start gap-3">
                             <FileJson2 size={17} className="mt-0.5 shrink-0 text-accent-neutral" />
                             <div>
@@ -210,14 +210,14 @@ export default function DeveloperDiagnosticsPanel({
                                 </p>
                             </div>
                         </div>
-                        <AxiomButton onClick={handleBundlePreview} size="sm">
+                        <NemotoButton onClick={handleBundlePreview} size="sm">
                             <FileJson2 size={15} />
                             Preview support bundle
-                        </AxiomButton>
+                        </NemotoButton>
                     </div>
 
                     <div className="grid gap-3 lg:grid-cols-2" aria-label="Developer runtime tools">
-                        <article className="axiom-dialog-panel flex flex-col p-4">
+                        <article className="nemoto-dialog-panel flex flex-col p-4">
                             <div className="flex items-start gap-3">
                                 <RefreshCw size={17} className="mt-0.5 shrink-0 text-accent-neutral" />
                                 <div>
@@ -235,7 +235,7 @@ export default function DeveloperDiagnosticsPanel({
                                             ? `Last reload rejected · ${reloadSnapshot.lastErrorCode?.replace(/-/g, ' ')}`
                                             : 'Invalid candidates are rejected before publication.'}
                                 </div>
-                                <AxiomButton
+                                <NemotoButton
                                     disabled={reloadSnapshot.status === 'reloading'}
                                     onClick={() => void handleRuntimeReload()}
                                     size="sm"
@@ -244,11 +244,11 @@ export default function DeveloperDiagnosticsPanel({
                                         ? <Loader2 size={15} className="animate-spin" />
                                         : <RefreshCw size={15} />}
                                     {reloadSnapshot.status === 'reloading' ? 'Validating…' : 'Reload packages'}
-                                </AxiomButton>
+                                </NemotoButton>
                             </div>
                         </article>
 
-                        <article className="axiom-dialog-panel flex flex-col border-accent-warning/20 p-4">
+                        <article className="nemoto-dialog-panel flex flex-col border-accent-warning/20 p-4">
                             <div className="flex items-start gap-3">
                                 <FlaskConical size={17} className="mt-0.5 shrink-0 text-accent-warning" />
                                 <div>
@@ -264,9 +264,9 @@ export default function DeveloperDiagnosticsPanel({
                                         ? `${sandboxSnapshot.session.changeCount} disposable changes · source revision ${sandboxSnapshot.session.sourceRevision}`
                                         : 'Uses the same production capability grants.'}
                                 </div>
-                                <AxiomButton onClick={handleSandboxOpen} size="sm" variant="warning">
+                                <NemotoButton onClick={handleSandboxOpen} size="sm" variant="warning">
                                     <FlaskConical size={15} /> Open sandbox clone
-                                </AxiomButton>
+                                </NemotoButton>
                             </div>
                         </article>
                     </div>
@@ -280,11 +280,11 @@ export default function DeveloperDiagnosticsPanel({
                             <span className="text-[10px] text-text-faint">Read-only effective state</span>
                         </div>
                         {snapshot.packages.length === 0 ? (
-                            <div className="axiom-dialog-panel p-4 text-xs text-text-muted">No installed or portfolio-requested plugins.</div>
+                            <div className="nemoto-dialog-panel p-4 text-xs text-text-muted">No installed or portfolio-requested plugins.</div>
                         ) : (
                             <div className="space-y-2">
                                 {snapshot.packages.map(item => (
-                                    <article key={item.pluginId} className="axiom-dialog-panel p-3">
+                                    <article key={item.pluginId} className="nemoto-dialog-panel p-3">
                                         <div className="flex flex-wrap items-start justify-between gap-2">
                                             <div className="min-w-0">
                                                 <div className="truncate font-mono text-xs font-semibold text-text-main">{item.pluginId}</div>
@@ -329,7 +329,7 @@ export default function DeveloperDiagnosticsPanel({
                             <span className="text-[10px] text-text-faint">{retainedSummary}</span>
                         </div>
                         {visibleEntries.length === 0 ? (
-                            <div className="axiom-dialog-panel p-4 text-xs text-text-muted">No diagnostics captured in this session.</div>
+                            <div className="nemoto-dialog-panel p-4 text-xs text-text-muted">No diagnostics captured in this session.</div>
                         ) : (
                             <ol className="space-y-2">
                                 {visibleEntries.map(entry => (

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { AXIOM_PLUGIN_API_VERSION } from '../plugins/activation';
+import { NEMOTO_PLUGIN_API_VERSION } from '../plugins/activation';
 import { PluginCollectionItemSchema } from '../plugins/collectionStorage';
 import { PluginViewContributionSchema } from '../plugins/contributionSchemas';
 import {
@@ -22,7 +22,7 @@ import {
     MAX_PLUGIN_RUNTIME_RESPONSE_BYTES,
     MAX_PLUGIN_RUNTIME_TIMEOUT_MS,
 } from '../plugins/pluginLimits';
-import type { AxiomPluginApi } from '../plugins/publicApi';
+import type { NemotoPluginApi } from '../plugins/publicApi';
 import { parsePluginProposal } from '../plugins/proposals';
 import {
     PLUGIN_RUNTIME_METHODS,
@@ -55,7 +55,7 @@ export interface PluginRuntimeTransportEndpoint {
 
 export interface PluginRuntimeBrokerOptions {
     readonly sessionId: string;
-    readonly api: AxiomPluginApi;
+    readonly api: NemotoPluginApi;
     readonly transport: PluginRuntimeTransportEndpoint;
     /** Rechecks activation, identity, compatibility, and compute.isolated authority. */
     readonly isSessionAuthorized: () => boolean;
@@ -215,7 +215,7 @@ const parsePayload = (method: PluginRuntimeMethod, payload: unknown): unknown =>
 };
 
 const invokeMethod = async (
-    api: AxiomPluginApi,
+    api: NemotoPluginApi,
     method: PluginRuntimeMethod,
     payload: unknown,
 ): Promise<unknown> => {
@@ -509,7 +509,7 @@ export function createPluginRuntimeBroker(options: PluginRuntimeBrokerOptions): 
             schemaVersion: 1,
             kind: 'ready',
             sessionId,
-            apiVersion: AXIOM_PLUGIN_API_VERSION,
+            apiVersion: NEMOTO_PLUGIN_API_VERSION,
             identity: cloneJson(options.api.identity),
             methods: [...PLUGIN_RUNTIME_METHODS],
             limits: {

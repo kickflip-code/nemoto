@@ -1,5 +1,5 @@
 import type { Portfolio } from '../types';
-import { AXIOM_PLUGIN_API_VERSION } from './activation';
+import { NEMOTO_PLUGIN_API_VERSION } from './activation';
 import { CURRENT_PLUGIN_CONTRIBUTION_SCHEMA_VERSION } from './contributionSchemas';
 import { createPluginEntitySnapshot } from './entityReadModel';
 import {
@@ -47,7 +47,7 @@ export const createPluginHostDescriptor = (
     return deepFreeze(PluginHostDescriptorSchema.parse({
         schema: 'axiom.plugin-host-descriptor',
         schemaVersion: 1,
-        hostApiVersion: AXIOM_PLUGIN_API_VERSION,
+        hostApiVersion: NEMOTO_PLUGIN_API_VERSION,
         contracts: {
             entityReference: [1],
             entityRead: [1],

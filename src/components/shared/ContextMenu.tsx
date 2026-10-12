@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { LucideIcon } from 'lucide-react';
-import { AxiomMenu, AxiomMenuDivider, AxiomMenuItem } from '../ui';
-import { AxiomDialogContext } from '../ui/AxiomDialog';
+import { NemotoMenu, NemotoMenuDivider, NemotoMenuItem } from '../ui';
+import { NemotoDialogContext } from '../ui/NemotoDialog';
 
 export interface ContextMenuItem {
     label?: string;
@@ -24,9 +24,9 @@ interface ContextMenuProps {
 
 export default function ContextMenu({ items, x, y, onClose }: ContextMenuProps) {
     const menuRef = useRef<HTMLDivElement>(null);
-    const dialogDepth = useContext(AxiomDialogContext);
+    const dialogDepth = useContext(NemotoDialogContext);
 
-    // Escape is handled by AxiomMenu, without reaching a containing dialog.
+    // Escape is handled by NemotoMenu, without reaching a containing dialog.
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -46,23 +46,23 @@ export default function ContextMenu({ items, x, y, onClose }: ContextMenuProps) 
     const adjustedY = Math.max(8, Math.min(y, window.innerHeight - (items.length * 36 + 20)));
 
     return createPortal(
-        <AxiomMenu
+        <NemotoMenu
             ref={menuRef}
             aria-label="Context actions"
-            className="fixed min-w-[200px] max-h-[calc(100vh-16px)] overflow-y-auto axiom-motion-popover"
+            className="fixed min-w-[200px] max-h-[calc(100vh-16px)] overflow-y-auto nemoto-motion-popover"
             onClose={onClose}
             style={{ top: adjustedY, left: adjustedX, zIndex: dialogDepth ? 10200 + 200 * (dialogDepth - 1) : 9999 }}
             onContextMenu={(e) => e.preventDefault()}
         >
             {items.map((item, index) => {
                 if (item.separator) {
-                    return <AxiomMenuDivider key={index} />;
+                    return <NemotoMenuDivider key={index} />;
                 }
 
                 const Icon = item.icon;
 
                 return (
-                    <AxiomMenuItem
+                    <NemotoMenuItem
                         key={index}
                         onClick={() => {
                             if (item.action && !item.disabled) {
@@ -76,10 +76,10 @@ export default function ContextMenu({ items, x, y, onClose }: ContextMenuProps) 
                         {Icon && <Icon size={14} />}
                         <span className="flex-1">{item.label}</span>
                         {item.shortcut && <span className="text-xs text-text-faint">{item.shortcut}</span>}
-                    </AxiomMenuItem>
+                    </NemotoMenuItem>
                 );
             })}
-        </AxiomMenu>,
+        </NemotoMenu>,
         document.body
     );
 }

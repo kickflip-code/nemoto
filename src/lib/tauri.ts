@@ -1,5 +1,5 @@
 import { invoke } from '@tauri-apps/api/core';
-import type { AppConfig, AxiomProject, Asset, Portfolio } from '../types';
+import type { AppConfig, NemotoProject, Asset, Portfolio } from '../types';
 import type { InstalledPluginDocument } from '../plugins/installedPackages';
 
 // --- CONFIG ---
@@ -48,15 +48,15 @@ export async function deleteInstalledTheme(themeId: string): Promise<void> {
 
 // --- LEGACY FILE COMMANDS (backwards compatibility) ---
 
-export async function loadProject(path: string): Promise<AxiomProject> {
-    return await invoke<AxiomProject>('load_project', { path });
+export async function loadProject(path: string): Promise<NemotoProject> {
+    return await invoke<NemotoProject>('load_project', { path });
 }
 
-export async function saveProject(path: string, project: AxiomProject): Promise<void> {
+export async function saveProject(path: string, project: NemotoProject): Promise<void> {
     return await invoke('save_project', { path, project });
 }
 
-export async function writeAxiomFileAtomic(
+export async function writeNemotoFileAtomic(
     path: string,
     content: string,
     createBackup: boolean = true,

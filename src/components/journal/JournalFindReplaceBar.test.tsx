@@ -37,8 +37,8 @@ describe('JournalFindReplaceBar', () => {
         const query = screen.getByRole('textbox', { name: 'Find in note' });
 
         expect(query).toHaveFocus();
-        expect(query).toHaveClass('axiom-journal-find-input');
-        expect(screen.getByRole('textbox', { name: 'Replace with' })).toHaveClass('axiom-journal-replace-input');
+        expect(query).toHaveClass('nemoto-journal-find-input');
+        expect(screen.getByRole('textbox', { name: 'Replace with' })).toHaveClass('nemoto-journal-replace-input');
         expect(screen.getByText('2/3')).toBeInTheDocument();
         fireEvent.change(query, { target: { value: 'risk' } });
         fireEvent.change(screen.getByRole('textbox', { name: 'Replace with' }), { target: { value: 'control' } });

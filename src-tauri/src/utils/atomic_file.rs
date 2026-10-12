@@ -9,7 +9,7 @@ pub fn backup_path(path: &Path) -> PathBuf {
     let file_name = path
         .file_name()
         .map(|name| name.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "axiom-data".to_string());
+        .unwrap_or_else(|| "nemoto-data".to_string());
     path.with_file_name(format!("{file_name}.bak"))
 }
 
@@ -17,7 +17,7 @@ fn sibling_work_path(path: &Path, label: &str) -> PathBuf {
     let file_name = path
         .file_name()
         .map(|name| name.to_string_lossy().into_owned())
-        .unwrap_or_else(|| "axiom-data".to_string());
+        .unwrap_or_else(|| "nemoto-data".to_string());
     let nonce = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()

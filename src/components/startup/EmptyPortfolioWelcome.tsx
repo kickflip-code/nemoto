@@ -2,7 +2,7 @@ import { BookOpen, Boxes, FileUp, Keyboard, Route } from 'lucide-react';
 import { useShallow } from 'zustand/react/shallow';
 import { useUIStore } from '../../stores/useUIStore';
 import { NemotoIcon } from '../shared/NemotoIcon';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 
 const CONCEPTS = [
     {
@@ -43,14 +43,14 @@ export default function EmptyPortfolioWelcome() {
                         Build a shared picture of how work, people, systems, and knowledge fit together. Start a process from scratch or bring in an existing Nemoto or Visio file.
                     </p>
                     <div className="mt-6 flex flex-wrap justify-center gap-3">
-                        <AxiomButton onClick={openProcessCreation} variant="primary">
+                        <NemotoButton onClick={openProcessCreation} variant="primary">
                             <Route aria-hidden="true" size={16} />
                             Create your first process
-                        </AxiomButton>
-                        <AxiomButton onClick={openImportDialog}>
+                        </NemotoButton>
+                        <NemotoButton onClick={openImportDialog}>
                             <FileUp aria-hidden="true" size={16} />
                             Import existing work
-                        </AxiomButton>
+                        </NemotoButton>
                     </div>
                     <p className="mt-4 text-xs text-text-faint">
                         Your portfolio is stored locally. Nemoto saves changes automatically, and manual backups are available in Settings.
@@ -59,7 +59,7 @@ export default function EmptyPortfolioWelcome() {
 
                 <div className="mt-10 grid gap-3 md:grid-cols-3">
                     {CONCEPTS.map(({ icon: Icon, title, description }) => (
-                        <article key={title} className="axiom-panel-card p-4">
+                        <article key={title} className="nemoto-panel-card p-4">
                             <Icon aria-hidden="true" className="text-accent-primary" size={19} />
                             <h2 className="mt-3 text-sm font-bold text-text-main">{title}</h2>
                             <p className="mt-1 text-xs leading-relaxed text-text-muted">{description}</p>

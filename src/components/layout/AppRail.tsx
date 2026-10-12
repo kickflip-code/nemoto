@@ -44,13 +44,13 @@ export default function AppRail({ preview = false, runtime }: AppRailProps) {
     const pluginViews = rawPluginViews.filter(view => !suppressedViewIds.has(view.id));
 
     return (
-        <nav className={`axiom-app-rail ${preview ? 'axiom-app-rail-preview' : ''} w-12 flex flex-col items-center py-3 gap-3 z-40 shrink-0`}>
+        <nav className={`nemoto-app-rail ${preview ? 'nemoto-app-rail-preview' : ''} w-12 flex flex-col items-center py-3 gap-3 z-40 shrink-0`}>
             <RailButton
                 icon={displayedLeftPanelOpen ? <PanelLeftClose size={16} /> : <PanelLeft size={16} />}
                 onClick={preview ? undefined : toggleLeftPanel}
                 title="Toggle Left Panel"
             />
-            <div className="axiom-rail-divider h-[1px] w-6 my-1" />
+            <div className="nemoto-rail-divider h-[1px] w-6 my-1" />
             <RailButton
                 icon={<LayoutGrid size={16} />}
                 active={displayedActiveView === 'designer'}
@@ -84,7 +84,7 @@ export default function AppRail({ preview = false, runtime }: AppRailProps) {
                 onClick={preview ? undefined : toggleJournalPanel}
                 title="Toggle Journal Panel"
             />
-            <div className="axiom-rail-divider h-[1px] w-6 my-1" />
+            <div className="nemoto-rail-divider h-[1px] w-6 my-1" />
             <RailButton
                 icon={<Server size={16} />}
                 title="Portfolio"
@@ -92,7 +92,7 @@ export default function AppRail({ preview = false, runtime }: AppRailProps) {
             />
 
             <div className="mt-auto flex flex-col items-center gap-3">
-                <div className="axiom-rail-divider h-[1px] w-6 my-1" />
+                <div className="nemoto-rail-divider h-[1px] w-6 my-1" />
                 <RailButton
                     icon={displayedInspectorOpen ? <PanelRightClose size={16} /> : <PanelRight size={16} />}
                     onClick={preview ? undefined : () => {
@@ -155,7 +155,7 @@ function RailButton({
             aria-label={ariaLabel || title}
             onClick={onClick}
             title={title}
-            className={`axiom-rail-button ${active ? 'axiom-rail-button-active' : ''}`}
+            className={`nemoto-rail-button ${active ? 'nemoto-rail-button-active' : ''}`}
         >
             {icon}
         </button>

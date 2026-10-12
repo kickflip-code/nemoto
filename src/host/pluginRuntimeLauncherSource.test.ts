@@ -27,7 +27,7 @@ describe('isolated plugin launcher source', () => {
         expect(PLUGIN_RUNTIME_LAUNCHER_CSP).toContain("object-src 'none'");
         expect(launcherScript).toContain("event.source !== parent");
         expect(launcherScript).toContain('accepted = true');
-        expect(launcherScript).toContain('await import(__axiomModuleUrl)');
+        expect(launcherScript).toContain('await import(__nemotoModuleUrl)');
         expect(launcherScript).toContain("'fetch', 'XMLHttpRequest', 'WebSocket'");
         expect(launcherScript).toContain("'Worker', 'SharedWorker', 'BroadcastChannel'");
         expect(launcherScript).toContain("typeof globalThis.__TAURI_INTERNALS__ !== 'undefined'");

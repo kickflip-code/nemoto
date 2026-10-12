@@ -25,7 +25,7 @@ import { APP_VERSION } from '../lib/appVersion';
 
 const decodeEmbeddedPayload = (html: string): any => {
     const embeddedData = html.match(
-        /<script id="axiom-data" type="application\/json">([^<]+)<\/script>/,
+        /<script id="nemoto-data" type="application\/json">([^<]+)<\/script>/,
     )?.[1];
     if (!embeddedData) throw new Error('Embedded Axiom payload not found');
 
@@ -67,7 +67,7 @@ describe('standalone HTML export', () => {
 
         expect(html).toContain('<div id="root"></div>');
         expect(html).toContain('<script type="module" crossorigin>');
-        expect(html).not.toContain('<!--AXIOM_DATA-->');
+        expect(html).not.toContain('<!--NEMOTO_DATA-->');
         expect(html).not.toMatch(/<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=|\/@vite\/|html-proxy/i);
 
         const payload = decodeEmbeddedPayload(html);

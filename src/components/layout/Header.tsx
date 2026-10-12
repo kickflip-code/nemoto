@@ -4,7 +4,7 @@ import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import { useState } from 'react';
 import { ThemeBrandMark } from '../shared/ThemeBrandMark';
 import type { ThemeBrandPresentation } from '../../theme/themePresentation';
-import { AxiomButton, AxiomMenu, AxiomMenuDivider, AxiomMenuItem } from '../ui';
+import { NemotoButton, NemotoMenu, NemotoMenuDivider, NemotoMenuItem } from '../ui';
 import { useProposalReviewStore } from '../../stores/useProposalReviewStore';
 
 interface HeaderProps {
@@ -65,7 +65,7 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
     };
 
     return (
-        <header className={`axiom-app-header h-12 bg-app-header border-b border-app-border flex items-center justify-between px-4 z-50 shrink-0 select-none ${preview ? 'pointer-events-none' : ''}`}>
+        <header className={`nemoto-app-header h-12 bg-app-header border-b border-app-border flex items-center justify-between px-4 z-50 shrink-0 select-none ${preview ? 'pointer-events-none' : ''}`}>
             <div className={`flex items-center gap-3 ${preview ? 'min-w-0' : 'w-[300px]'}`}>
                 <div className="flex items-center gap-3 pointer-events-none">
                     <ThemeBrandMark
@@ -82,7 +82,7 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
 
                 <div className="flex items-center gap-1">
                     <div className="relative">
-                        <AxiomButton
+                        <NemotoButton
                             aria-expanded={fileMenuOpen}
                             aria-haspopup="menu"
                             onClick={() => setFileMenuOpen((open) => !open)}
@@ -93,7 +93,7 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
                             <FileText size={17} />
                             <span className={preview ? 'hidden' : 'hidden xl:inline text-xs font-medium'}>File</span>
                             <ChevronDown size={13} className={fileMenuOpen ? 'rotate-180 transition-transform' : 'transition-transform'} />
-                        </AxiomButton>
+                        </NemotoButton>
 
                         {fileMenuOpen && (
                             <>
@@ -102,30 +102,30 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
                                     className="fixed inset-0 z-40 bg-transparent cursor-default"
                                     onClick={() => setFileMenuOpen(false)}
                                 />
-                                <AxiomMenu
+                                <NemotoMenu
                                     aria-label="File actions"
                                     className="absolute left-0 top-10 z-50 w-56"
                                     onClose={() => setFileMenuOpen(false)}
                                     surface="file"
                                 >
-                                    <AxiomMenuItem
+                                    <NemotoMenuItem
                                         aria-keyshortcuts="Control+N Meta+N"
                                         onClick={handleNewProcess}
                                     >
                                         <FilePlus2 size={15} />
                                         <span>New process...</span>
                                         <kbd className="ml-auto text-[10px] text-text-faint">Ctrl+N</kbd>
-                                    </AxiomMenuItem>
-                                    <AxiomMenuItem
+                                    </NemotoMenuItem>
+                                    <NemotoMenuItem
                                         aria-keyshortcuts="Control+Shift+N Meta+Shift+N"
                                         onClick={handleNewFolder}
                                     >
                                         <FolderPlus size={15} />
                                         <span>New folder...</span>
                                         <kbd className="ml-auto text-[10px] text-text-faint">Ctrl+Shift+N</kbd>
-                                    </AxiomMenuItem>
-                                    <AxiomMenuDivider />
-                                    <AxiomMenuItem
+                                    </NemotoMenuItem>
+                                    <NemotoMenuDivider />
+                                    <NemotoMenuItem
                                         aria-keyshortcuts="Control+S Meta+S"
                                         disabled={isSaving}
                                         onClick={handleMenuSave}
@@ -133,30 +133,30 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
                                         {isSaving ? <Loader2 size={15} className="animate-spin" /> : <Save size={15} />}
                                         <span>{isSaving ? 'Saving...' : 'Save'}</span>
                                         <kbd className="ml-auto text-[10px] text-text-faint">Ctrl+S</kbd>
-                                    </AxiomMenuItem>
-                                    <AxiomMenuDivider />
-                                    <AxiomMenuItem
+                                    </NemotoMenuItem>
+                                    <NemotoMenuDivider />
+                                    <NemotoMenuItem
                                         onClick={handleOpenImport}
                                     >
                                         <Upload size={15} />
                                         <span>Import...</span>
-                                    </AxiomMenuItem>
-                                    <AxiomMenuItem
+                                    </NemotoMenuItem>
+                                    <NemotoMenuItem
                                         onClick={handleOpenExport}
                                     >
                                         <Download size={15} />
                                         <span>Export...</span>
-                                    </AxiomMenuItem>
-                                </AxiomMenu>
+                                    </NemotoMenuItem>
+                                </NemotoMenu>
                             </>
                         )}
                     </div>
 
-                    <AxiomButton
+                    <NemotoButton
                         aria-label={saveError ? `Save failed: ${saveError}` : isDirty ? "Save changes (Unsaved)" : "Save project"}
                         icon
                         variant="ghost"
-                        className={isDirty ? 'axiom-icon-button-warning' : undefined}
+                        className={isDirty ? 'nemoto-icon-button-warning' : undefined}
                         onClick={handleSave}
                         disabled={isSaving}
                         title={saveError ? `Save failed: ${saveError}` : isDirty ? "Save changes (Unsaved)" : "Save project"}
@@ -166,7 +166,7 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
                         ) : (
                             <Save size={18} />
                         )}
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
             </div>
 
@@ -176,7 +176,7 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
                     aria-keyshortcuts="Control+K Meta+K"
                     aria-label="Search processes, resources, and notes"
                     onClick={openOmnibox}
-                    className="axiom-field relative group flex w-full cursor-pointer items-center py-1.5 pl-9 pr-10 text-left text-xs text-text-faint"
+                    className="nemoto-field relative group flex w-full cursor-pointer items-center py-1.5 pl-9 pr-10 text-left text-xs text-text-faint"
                 >
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted group-hover:text-accent-primary transition-colors" />
                     <span className="flex w-full items-center justify-between">
@@ -191,20 +191,20 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
 
             <div className={`${preview ? 'w-8' : 'w-[300px]'} flex shrink-0 justify-end gap-1`}>
                 {!preview && (
-                    <AxiomButton
+                    <NemotoButton
                         aria-label="Open Portfolio Chat"
                         aria-pressed={portfolioChatOpen}
-                        className="axiom-portfolio-chat-trigger h-8 gap-2 px-2.5 text-xs"
+                        className="nemoto-portfolio-chat-trigger h-8 gap-2 px-2.5 text-xs"
                         onClick={portfolioChatOpen ? closePortfolioChat : openPortfolioChat}
                         title="Ask your local AI about the current process or selection"
                         variant={portfolioChatOpen ? 'primary' : 'ghost'}
                     >
                         <MessagesSquare size={16} />
                         <span className="hidden xl:inline">Chat</span>
-                    </AxiomButton>
+                    </NemotoButton>
                 )}
                 {!preview && proposalCount > 0 && (
-                    <AxiomButton
+                    <NemotoButton
                         aria-label={`Open proposal review${pendingProposalCount > 0 ? `, ${pendingProposalCount} pending` : ''}`}
                         className="relative h-8 gap-2 px-2.5 text-xs"
                         onClick={() => openProposalReview()}
@@ -218,7 +218,7 @@ export default function Header({ preview = false, brandPresentation }: HeaderPro
                                 {pendingProposalCount > 99 ? '99+' : pendingProposalCount}
                             </span>
                         )}
-                    </AxiomButton>
+                    </NemotoButton>
                 )}
             </div>
         </header>

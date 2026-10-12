@@ -6,11 +6,11 @@ import {
     SemanticVersionSchema,
 } from './identifiers';
 
-export const AXIOM_PLUGIN_SCHEMA = 'axiom.plugin';
+export const NEMOTO_PLUGIN_SCHEMA = 'axiom.plugin';
 export const CURRENT_PLUGIN_MANIFEST_SCHEMA_VERSION = 1;
-export const AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA = 'axiom.plugin-wasm-runtime';
+export const NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA = 'axiom.plugin-wasm-runtime';
 export const CURRENT_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION = 1;
-export const AXIOM_PLUGIN_WASM_ABI = 'axiom-wasm-v1';
+export const NEMOTO_PLUGIN_WASM_ABI = 'axiom-wasm-v1';
 
 const CompatibilityRangeSchema = z.string()
     .trim()
@@ -34,9 +34,9 @@ const PackagePathSchema = z.string().trim().min(1).max(240).superRefine((path, c
 });
 
 export const PluginWasmRuntimeSchema = z.object({
-    schema: z.literal(AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA),
+    schema: z.literal(NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA),
     schemaVersion: z.literal(CURRENT_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION),
-    abi: z.literal(AXIOM_PLUGIN_WASM_ABI),
+    abi: z.literal(NEMOTO_PLUGIN_WASM_ABI),
     module: PackagePathSchema.superRefine((path, context) => {
         if (!path.startsWith('runtime/') || !path.endsWith('.wasm')) {
             context.addIssue({
@@ -119,7 +119,7 @@ export const PluginContributionsSchema = z.object({
 });
 
 export const PluginManifestSchema = z.object({
-    schema: z.literal(AXIOM_PLUGIN_SCHEMA),
+    schema: z.literal(NEMOTO_PLUGIN_SCHEMA),
     schemaVersion: z.literal(CURRENT_PLUGIN_MANIFEST_SCHEMA_VERSION),
     id: PluginIdSchema,
     version: SemanticVersionSchema,

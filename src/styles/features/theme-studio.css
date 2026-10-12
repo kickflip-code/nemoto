@@ -90,21 +90,21 @@
   container-type: inline-size;
 }
 
-.theme-studio-app-scene .axiom-app-rail-preview {
+.theme-studio-app-scene .nemoto-app-rail-preview {
   gap: 6px;
   padding-block: 8px;
 }
 
-.theme-studio-app-scene .axiom-app-rail-preview .axiom-rail-button {
+.theme-studio-app-scene .nemoto-app-rail-preview .nemoto-rail-button {
   width: var(--theme-rail-button-size, 2rem);
   height: var(--theme-rail-button-size, 2rem);
 }
 
-.theme-studio-app-scene .axiom-app-rail-preview .axiom-rail-divider {
+.theme-studio-app-scene .nemoto-app-rail-preview .nemoto-rail-divider {
   margin-block: 2px;
 }
 
-.theme-studio-app-scene .axiom-app-rail-preview > .mt-auto {
+.theme-studio-app-scene .nemoto-app-rail-preview > .mt-auto {
   gap: 6px;
 }
 
@@ -234,7 +234,7 @@
     width: clamp(190px, 24vw, 228px);
   }
 
-  .theme-studio-elements-panel > .axiom-panel-header > div {
+  .theme-studio-elements-panel > .nemoto-panel-header > div {
     justify-content: center;
     width: 100%;
   }
@@ -280,7 +280,7 @@
     flex: 0 1 auto;
   }
 
-  .theme-studio-toolbar-copy .axiom-dialog-icon {
+  .theme-studio-toolbar-copy .nemoto-dialog-icon {
     display: none;
   }
 

@@ -6,7 +6,7 @@ import { generateId } from '../../lib/id';
 import { useUIStore } from '../../stores/useUIStore';
 import { useCanvasStore } from '../../stores/useCanvasStore';
 import type { NodeType } from '../../types';
-import { AxiomDock, AxiomDockButton, AxiomDockDivider } from '../ui';
+import { NemotoDock, NemotoDockButton, NemotoDockDivider } from '../ui';
 
 type DockNodeTool = {
     type: NodeType;
@@ -51,7 +51,7 @@ export default function FloatingDock({ preview = false }: FloatingDockProps) {
 
     return (
         <div className={`absolute left-1/2 -translate-x-1/2 max-w-[calc(100%-1rem)] overflow-x-auto z-30 floating-dock ${preview ? 'floating-dock-preview bottom-3' : 'bottom-6'}`}>
-            <AxiomDock aria-label="Canvas creation tools" className="flex w-max items-center p-1.5 gap-1 backdrop-blur-sm">
+            <NemotoDock aria-label="Canvas creation tools" className="flex w-max items-center p-1.5 gap-1 backdrop-blur-sm">
 
                 {/* Primary Tools */}
                 <ToolButton
@@ -74,18 +74,18 @@ export default function FloatingDock({ preview = false }: FloatingDockProps) {
                 ))}
                 <DockDivider />
                 <DivisionControls preview={preview} />
-            </AxiomDock>
+            </NemotoDock>
         </div>
     );
 }
 
 function DockDivider() {
-    return <AxiomDockDivider className="w-[1px] h-6 mx-1" />;
+    return <NemotoDockDivider className="w-[1px] h-6 mx-1" />;
 }
 
 function ToolButton({ active, onClick, title }: { active: boolean; onClick: () => void; title: string }) {
     return (
-        <AxiomDockButton
+        <NemotoDockButton
             onClick={onClick}
             label={title}
             title={`${title} — drag to select, Ctrl/Cmd-click to add, Space-drag to pan`}
@@ -93,19 +93,19 @@ function ToolButton({ active, onClick, title }: { active: boolean; onClick: () =
             className="dock-select-button"
         >
             <MousePointer2 size={20} strokeWidth={2} className={active ? 'fill-current' : ''} />
-        </AxiomDockButton>
+        </NemotoDockButton>
     )
 }
 
 function NodeButton({ onClick, tool }: { onClick: () => void; tool: DockNodeTool }) {
     return (
-        <AxiomDockButton
+        <NemotoDockButton
             onClick={onClick}
             label={`Add ${tool.title}`}
             className="dock-node-button"
         >
             <MiniNodeIcon tool={tool} />
-        </AxiomDockButton>
+        </NemotoDockButton>
     )
 }
 

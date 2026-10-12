@@ -63,21 +63,21 @@ import { CanvasThemePreview } from '../canvas/CanvasThemePreview';
 import ConfirmationModal from '../shared/ConfirmationModal';
 import { ApplicationThemePreview, DialogThemePreview, JournalThemePreview } from './theme-studio/ThemePreviewScenes';
 import {
-  AxiomButton,
-  AxiomChoiceCard,
-  AxiomDialog,
-  AxiomDialogBody,
-  AxiomDialogFooter,
-  AxiomDialogHeader,
-  AxiomInput,
-  AxiomMenu,
-  AxiomMenuItem,
-  AxiomPanel,
-  AxiomPanelHeader,
-  AxiomPanelRowButton,
-  AxiomRange,
-  AxiomSelect,
-  AxiomTextarea,
+  NemotoButton,
+  NemotoChoiceCard,
+  NemotoDialog,
+  NemotoDialogBody,
+  NemotoDialogFooter,
+  NemotoDialogHeader,
+  NemotoInput,
+  NemotoMenu,
+  NemotoMenuItem,
+  NemotoPanel,
+  NemotoPanelHeader,
+  NemotoPanelRowButton,
+  NemotoRange,
+  NemotoSelect,
+  NemotoTextarea,
 } from '../ui';
 
 type PreviewScene = 'app' | 'journal' | 'canvas' | 'dialogs';
@@ -989,7 +989,7 @@ export const ThemeBuilder: React.FC = () => {
     const tokenType = getTokenType(control.token);
     const label = getTokenLabel(control);
     const resetButton = isOverridden ? (
-      <AxiomButton
+      <NemotoButton
         icon
         size="sm"
         variant="ghost"
@@ -998,7 +998,7 @@ export const ThemeBuilder: React.FC = () => {
         onClick={() => handleResetToken(control.token)}
       >
         <RotateCcw size={12} />
-      </AxiomButton>
+      </NemotoButton>
     ) : null;
 
     if (tokenType === 'length') {
@@ -1012,7 +1012,7 @@ export const ThemeBuilder: React.FC = () => {
             </div>
             <div className="flex items-center gap-1">
               {resetButton}
-              <AxiomInput
+              <NemotoInput
                 aria-label={`${label} value`}
                 value={value}
                 onChange={(event) => handleTokenChange(control.token, event.target.value)}
@@ -1021,7 +1021,7 @@ export const ThemeBuilder: React.FC = () => {
               />
             </div>
           </div>
-          <AxiomRange
+          <NemotoRange
             aria-label={`${label} slider`}
             min={0}
             max={max}
@@ -1054,7 +1054,7 @@ export const ThemeBuilder: React.FC = () => {
             </label>
           </div>
         </div>
-        <AxiomInput
+        <NemotoInput
           aria-label={`${label} value`}
           value={value}
           onChange={(event) => handleTokenChange(control.token, event.target.value)}
@@ -1088,7 +1088,7 @@ export const ThemeBuilder: React.FC = () => {
           </label>
           <label className="block space-y-1.5">
             <span className="text-[10px] font-bold uppercase tracking-wider text-text-faint">Display Name</span>
-            <AxiomInput
+            <NemotoInput
               controlSize="sm"
               value={brand.displayName || ''}
               maxLength={128}
@@ -1120,16 +1120,16 @@ export const ThemeBuilder: React.FC = () => {
           )}
           <input ref={logoInputRef} className="hidden" type="file" accept="image/png,image/webp,.png,.webp" onChange={handleLogoFile} />
           <div className="grid grid-cols-2 gap-2">
-            <AxiomButton size="sm" onClick={() => logoInputRef.current?.click()}>
+            <NemotoButton size="sm" onClick={() => logoInputRef.current?.click()}>
               <Upload size={13} /> {draftPresentation.logoDataUrl ? 'Replace' : 'Choose Logo'}
-            </AxiomButton>
-            <AxiomButton
+            </NemotoButton>
+            <NemotoButton
               size="sm"
               disabled={!brand.logoAssetId}
               onClick={() => setBrand(current => ({ ...current, logoAssetId: undefined }))}
             >
               <X size={13} /> Clear Reference
-            </AxiomButton>
+            </NemotoButton>
           </div>
         </section>
 
@@ -1140,7 +1140,7 @@ export const ThemeBuilder: React.FC = () => {
           </div>
           <label className="block space-y-1.5">
             <span className="text-[10px] font-bold uppercase tracking-wider text-text-faint">Family Label</span>
-            <AxiomInput
+            <NemotoInput
               controlSize="sm"
               value={typography.fontFamily || ''}
               maxLength={256}
@@ -1157,10 +1157,10 @@ export const ThemeBuilder: React.FC = () => {
           )}
           <input ref={fontInputRef} className="hidden" type="file" accept="font/woff2,.woff2" onChange={handleFontFile} />
           <div className="grid grid-cols-2 gap-2">
-            <AxiomButton size="sm" onClick={() => fontInputRef.current?.click()}>
+            <NemotoButton size="sm" onClick={() => fontInputRef.current?.click()}>
               <Upload size={13} /> {regularFontAsset ? 'Replace' : 'Choose WOFF2'}
-            </AxiomButton>
-            <AxiomButton
+            </NemotoButton>
+            <NemotoButton
               size="sm"
               disabled={!typography.regularAssetId && !typography.mediumAssetId && !typography.boldAssetId}
               onClick={() => setTypography(current => ({
@@ -1171,7 +1171,7 @@ export const ThemeBuilder: React.FC = () => {
               }))}
             >
               <X size={13} /> Clear References
-            </AxiomButton>
+            </NemotoButton>
           </div>
         </section>
       </div>
@@ -1258,7 +1258,7 @@ export const ThemeBuilder: React.FC = () => {
               {definition.label}
             </label>
             <p className="text-[10px] leading-relaxed text-text-faint">{definition.description}</p>
-            <AxiomSelect
+            <NemotoSelect
               id={`theme-recipe-${definition.key}`}
               controlSize="sm"
               className="w-full"
@@ -1270,7 +1270,7 @@ export const ThemeBuilder: React.FC = () => {
             >
               <option value="">Baseline default</option>
               {definition.options.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
-            </AxiomSelect>
+            </NemotoSelect>
           </section>
         ))}
         <p className="text-[10px] leading-relaxed text-text-faint">Unknown recipe fields remain in JSON but are inert until Core supports them.</p>
@@ -1307,9 +1307,9 @@ export const ThemeBuilder: React.FC = () => {
 
   return (
     <div className="theme-studio-shell h-full w-full bg-app-bg text-text-main flex flex-col overflow-hidden select-none">
-      <AxiomPanelHeader className="theme-studio-toolbar border-b flex items-center justify-between gap-4 px-4 shrink-0">
+      <NemotoPanelHeader className="theme-studio-toolbar border-b flex items-center justify-between gap-4 px-4 shrink-0">
         <div className="theme-studio-toolbar-copy flex items-center gap-3 min-w-0">
-          <div className="axiom-dialog-icon axiom-dialog-icon-primary p-2">
+          <div className="nemoto-dialog-icon nemoto-dialog-icon-primary p-2">
             <Palette size={18} />
           </div>
           <div className="min-w-0">
@@ -1337,7 +1337,7 @@ export const ThemeBuilder: React.FC = () => {
 
         <div className="theme-studio-toolbar-actions flex items-center justify-end gap-2 min-w-0">
           <div className="theme-studio-theme-picker relative">
-            <AxiomButton
+            <NemotoButton
               aria-label="Theme to preview or edit"
               aria-expanded={themeMenuOpen}
               aria-haspopup="menu"
@@ -1348,13 +1348,13 @@ export const ThemeBuilder: React.FC = () => {
             >
               <span className="truncate">{themeSelectionLabel}</span>
               <ChevronDown aria-hidden="true" className="shrink-0 text-text-faint" size={14} />
-            </AxiomButton>
+            </NemotoButton>
             {themeMenuOpen && (
               <>
                 <div className="fixed inset-0 z-40" onClick={() => setThemeMenuOpen(false)} />
-                <AxiomMenu
+                <NemotoMenu
                   aria-label="Themes to preview or edit"
-                  className="theme-studio-theme-menu axiom-scroll-menu absolute left-0 right-0 top-full z-50 mt-1"
+                  className="theme-studio-theme-menu nemoto-scroll-menu absolute left-0 right-0 top-full z-50 mt-1"
                   onClose={() => setThemeMenuOpen(false)}
                   surface="file"
                 >
@@ -1364,7 +1364,7 @@ export const ThemeBuilder: React.FC = () => {
                   {THEME_PRESET_OPTIONS.map(preset => {
                     const value = `baseline:${preset.id}`;
                     return (
-                      <AxiomMenuItem
+                      <NemotoMenuItem
                         aria-checked={themeSelectionValue === value}
                         autoFocus={themeSelectionValue === value}
                         key={preset.id}
@@ -1378,14 +1378,14 @@ export const ThemeBuilder: React.FC = () => {
                           {preset.label} baseline{preset.id === activeBaselinePresetId && !activeThemeId ? ' Â· Active app' : ''}
                         </span>
                         {themeSelectionValue === value && <Check aria-hidden="true" size={13} />}
-                      </AxiomMenuItem>
+                      </NemotoMenuItem>
                     );
                   })}
                   <div className="px-3 pb-1 pt-2 text-[9px] font-bold uppercase tracking-[0.14em] text-text-faint" role="presentation">
                     Installed themes
                   </div>
                   {customThemes.map(themeOption => (
-                    <AxiomMenuItem
+                    <NemotoMenuItem
                       aria-checked={themeSelectionValue === themeOption.id}
                       autoFocus={themeSelectionValue === themeOption.id}
                       key={themeOption.id}
@@ -1399,26 +1399,26 @@ export const ThemeBuilder: React.FC = () => {
                         {themeOption.label}{themeOption.id === activeThemeId ? ' â€¢ Active' : ''}
                       </span>
                       {themeSelectionValue === themeOption.id && <Check aria-hidden="true" size={13} />}
-                    </AxiomMenuItem>
+                    </NemotoMenuItem>
                   ))}
-                </AxiomMenu>
+                </NemotoMenu>
               </>
             )}
           </div>
-          <AxiomButton size="sm" onClick={() => requestNavigation({ kind: 'create' })} disabled={isWorking}>
+          <NemotoButton size="sm" onClick={() => requestNavigation({ kind: 'create' })} disabled={isWorking}>
             <Plus size={14} />
             New
-          </AxiomButton>
-          <AxiomButton size="sm" onClick={() => requestNavigation({ kind: 'import' })} disabled={isWorking}>
+          </NemotoButton>
+          <NemotoButton size="sm" onClick={() => requestNavigation({ kind: 'import' })} disabled={isWorking}>
             <Upload size={14} />
             Import
-          </AxiomButton>
+          </NemotoButton>
           <input ref={fileInputRef} type="file" accept=".json,.axiom-theme.json" onChange={handleImportFile} className="hidden" />
-          <AxiomButton icon size="sm" onClick={() => requestNavigation({ kind: 'file-import' })} aria-label="Choose theme file" title="Choose theme file" disabled={isWorking}>
+          <NemotoButton icon size="sm" onClick={() => requestNavigation({ kind: 'file-import' })} aria-label="Choose theme file" title="Choose theme file" disabled={isWorking}>
             <FileJson size={14} />
-          </AxiomButton>
+          </NemotoButton>
         </div>
-      </AxiomPanelHeader>
+      </NemotoPanelHeader>
 
       <div
         className="theme-studio-layout min-h-0 flex-1"
@@ -1427,13 +1427,13 @@ export const ThemeBuilder: React.FC = () => {
         data-testid="theme-studio-layout"
       >
         {elementsPanelOpen && (
-        <AxiomPanel as="aside" className="theme-studio-elements-panel axiom-side-panel border-r flex flex-col min-h-0 overflow-hidden" data-testid="theme-studio-elements-panel">
-          <AxiomPanelHeader className="border-b p-3">
+        <NemotoPanel as="aside" className="theme-studio-elements-panel nemoto-side-panel border-r flex flex-col min-h-0 overflow-hidden" data-testid="theme-studio-elements-panel">
+          <NemotoPanelHeader className="border-b p-3">
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-text-faint">
               <Layers size={14} />
               <span className="theme-studio-elements-header-label">Elements</span>
             </div>
-          </AxiomPanelHeader>
+          </NemotoPanelHeader>
           <nav aria-label="Theme elements" className="theme-studio-elements-body flex-1 overflow-y-auto custom-scrollbar p-3 space-y-5">
             {ELEMENT_GROUPS.map(group => (
               <section key={group.id} className="space-y-1">
@@ -1443,7 +1443,7 @@ export const ThemeBuilder: React.FC = () => {
                   const isSelected = selectedElementId === element.id;
 
                   return (
-                    <AxiomPanelRowButton
+                    <NemotoPanelRowButton
                       key={element.id}
                       selected={isSelected}
                       onClick={() => selectElement(element.id)}
@@ -1457,23 +1457,23 @@ export const ThemeBuilder: React.FC = () => {
                         <span className="block text-xs font-bold text-text-main">{element.label}</span>
                         <span className="theme-studio-element-description block text-[10px] text-text-faint">{element.description}</span>
                       </span>
-                    </AxiomPanelRowButton>
+                    </NemotoPanelRowButton>
                   );
                 })}
               </section>
             ))}
           </nav>
-        </AxiomPanel>
+        </NemotoPanel>
         )}
 
         <main className="theme-studio-preview-pane min-w-0 min-h-0 flex flex-col bg-app-bg">
-          <AxiomPanelHeader className="theme-studio-preview-header border-b p-3 flex items-center justify-between gap-3">
+          <NemotoPanelHeader className="theme-studio-preview-header border-b p-3 flex items-center justify-between gap-3">
             <div>
               <div className="text-xs font-bold text-text-main">Live Preview</div>
               <div className="text-[10px] text-text-faint">Select an element on the left, or click it in the preview.</div>
             </div>
             <div className="flex items-center gap-1" role="group" aria-label="Studio panels">
-              <AxiomButton
+              <NemotoButton
                 icon
                 size="sm"
                 variant={elementsPanelOpen ? 'default' : 'ghost'}
@@ -1483,8 +1483,8 @@ export const ThemeBuilder: React.FC = () => {
                 onClick={() => setElementsPanelOpen(open => !open)}
               >
                 <PanelLeft size={14} />
-              </AxiomButton>
-              <AxiomButton
+              </NemotoButton>
+              <NemotoButton
                 icon
                 size="sm"
                 variant={inspectorPanelOpen ? 'default' : 'ghost'}
@@ -1494,9 +1494,9 @@ export const ThemeBuilder: React.FC = () => {
                 onClick={() => setInspectorPanelOpen(open => !open)}
               >
                 <SlidersHorizontal size={14} />
-              </AxiomButton>
+              </NemotoButton>
             </div>
-          </AxiomPanelHeader>
+          </NemotoPanelHeader>
 
           <div className="theme-studio-preview-canvas flex-1 min-h-0 p-5">
             <div className="theme-studio-preview-frame h-full min-w-0 overflow-hidden rounded-lg border border-app-border bg-app-surface shadow-sm" data-testid="theme-studio-preview-frame">
@@ -1515,8 +1515,8 @@ export const ThemeBuilder: React.FC = () => {
         </main>
 
         {inspectorPanelOpen && (
-        <AxiomPanel as="aside" className="theme-studio-inspector-panel axiom-inspector-panel border-l flex flex-col min-h-0 overflow-hidden" data-testid="theme-studio-inspector-panel">
-          <AxiomPanelHeader className="border-b p-4">
+        <NemotoPanel as="aside" className="theme-studio-inspector-panel nemoto-inspector-panel border-l flex flex-col min-h-0 overflow-hidden" data-testid="theme-studio-inspector-panel">
+          <NemotoPanelHeader className="border-b p-4">
             <div className="flex items-center gap-2">
               <SlidersHorizontal size={15} className="text-accent-primary" />
               <h2 className="text-sm font-bold text-text-main truncate">{selectedElement.label}</h2>
@@ -1535,13 +1535,13 @@ export const ThemeBuilder: React.FC = () => {
                 </span>
               )}
             </div>
-          </AxiomPanelHeader>
+          </NemotoPanelHeader>
 
           {selectedThemeId ? (
             <>
               <div className="border-b border-app-border p-4 space-y-3">
                 <label htmlFor="theme-studio-name" className="block text-[10px] font-bold uppercase tracking-wider text-text-faint">Theme Name</label>
-                <AxiomInput
+                <NemotoInput
                   id="theme-studio-name"
                   controlSize="sm"
                   value={themeName}
@@ -1552,7 +1552,7 @@ export const ThemeBuilder: React.FC = () => {
                 />
                 <div className="grid grid-cols-3 gap-2" role="group" aria-label="Reset public theme tokens to baseline">
                   {THEME_PRESET_OPTIONS.map(preset => (
-                    <AxiomButton
+                    <NemotoButton
                       size="sm"
                       key={preset.id}
                       onClick={() => handleResetToPreset(preset.id)}
@@ -1566,7 +1566,7 @@ export const ThemeBuilder: React.FC = () => {
                         style={{ background: preset.tokens['--color-app-bg'] }}
                       />
                       {preset.label}
-                    </AxiomButton>
+                    </NemotoButton>
                   ))}
                 </div>
               </div>
@@ -1587,7 +1587,7 @@ export const ThemeBuilder: React.FC = () => {
                 ))}
               </div>
 
-              <AxiomDialogFooter className="border-t p-3 space-y-2">
+              <NemotoDialogFooter className="border-t p-3 space-y-2">
                 <div className="text-[10px] leading-relaxed text-text-faint" aria-live="polite">
                   {operation === 'save'
                     ? 'Saving the current draftâ€¦'
@@ -1600,11 +1600,11 @@ export const ThemeBuilder: React.FC = () => {
                           : 'Save writes the draft. Apply saves and activates it.'}
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <AxiomButton size="sm" onClick={handleSaveTheme} disabled={isWorking || !hasUnsavedChanges}>
+                  <NemotoButton size="sm" onClick={handleSaveTheme} disabled={isWorking || !hasUnsavedChanges}>
                     <Save size={14} />
                     {operation === 'save' ? 'Savingâ€¦' : 'Save'}
-                  </AxiomButton>
-                  <AxiomButton
+                  </NemotoButton>
+                  <NemotoButton
                     size="sm"
                     onClick={handleApplyTheme}
                     variant={activeThemeId === selectedThemeId ? 'default' : 'primary'}
@@ -1618,27 +1618,27 @@ export const ThemeBuilder: React.FC = () => {
                         : activeThemeId === selectedThemeId
                           ? 'Apply changes'
                           : 'Apply'}
-                  </AxiomButton>
+                  </NemotoButton>
                 </div>
                 <div className="grid grid-cols-4 gap-2">
-                  <AxiomButton icon size="sm" onClick={handleDuplicateTheme} aria-label="Duplicate theme" title="Duplicate theme" disabled={isWorking}>
+                  <NemotoButton icon size="sm" onClick={handleDuplicateTheme} aria-label="Duplicate theme" title="Duplicate theme" disabled={isWorking}>
                     <Copy size={14} />
-                  </AxiomButton>
-                  <AxiomButton icon size="sm" onClick={handleExportJSON} aria-label="Download theme file" title="Download theme file" disabled={isWorking}>
+                  </NemotoButton>
+                  <NemotoButton icon size="sm" onClick={handleExportJSON} aria-label="Download theme file" title="Download theme file" disabled={isWorking}>
                     <Download size={14} />
-                  </AxiomButton>
-                  <AxiomButton icon size="sm" onClick={handleCopyJSON} aria-label="Copy theme JSON" title="Copy theme JSON" disabled={isWorking}>
+                  </NemotoButton>
+                  <NemotoButton icon size="sm" onClick={handleCopyJSON} aria-label="Copy theme JSON" title="Copy theme JSON" disabled={isWorking}>
                     <FileJson size={14} />
-                  </AxiomButton>
-                  <AxiomButton icon size="sm" variant="danger" onClick={() => setDeleteConfirmOpen(true)} aria-label="Delete theme" title="Delete theme" disabled={isWorking}>
+                  </NemotoButton>
+                  <NemotoButton icon size="sm" variant="danger" onClick={() => setDeleteConfirmOpen(true)} aria-label="Delete theme" title="Delete theme" disabled={isWorking}>
                     <Trash2 size={14} />
-                  </AxiomButton>
+                  </NemotoButton>
                 </div>
-              </AxiomDialogFooter>
+              </NemotoDialogFooter>
             </>
           ) : (
             <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
-              <div className="axiom-dialog-icon axiom-dialog-icon-primary p-4 mb-4">
+              <div className="nemoto-dialog-icon nemoto-dialog-icon-primary p-4 mb-4">
                 <Palette size={32} />
               </div>
               <h3 className="text-sm font-bold text-text-main">Create a custom theme</h3>
@@ -1646,41 +1646,41 @@ export const ThemeBuilder: React.FC = () => {
                 Built-in baselines are preview-only. Create or import a theme to edit tokens and share the file.
               </p>
               <div className="mt-5 flex gap-2">
-                <AxiomButton variant="primary" onClick={() => requestNavigation({ kind: 'create' })} className="text-sm" disabled={isWorking}>
+                <NemotoButton variant="primary" onClick={() => requestNavigation({ kind: 'create' })} className="text-sm" disabled={isWorking}>
                   <Plus size={14} />
                   Create
-                </AxiomButton>
-                <AxiomButton onClick={() => requestNavigation({ kind: 'import' })} className="text-sm" disabled={isWorking}>
+                </NemotoButton>
+                <NemotoButton onClick={() => requestNavigation({ kind: 'import' })} className="text-sm" disabled={isWorking}>
                   <Upload size={14} />
                   Import
-                </AxiomButton>
+                </NemotoButton>
               </div>
             </div>
           )}
-        </AxiomPanel>
+        </NemotoPanel>
         )}
       </div>
 
       {showCreateModal && (
-        <AxiomDialog
+        <NemotoDialog
           aria-labelledby="theme-create-title"
           onClose={() => setShowCreateModal(false)}
           panelClassName="w-full max-w-md overflow-hidden"
           rootClassName="z-[10050]"
         >
-            <AxiomDialogHeader className="border-b p-5 flex items-center justify-between">
+            <NemotoDialogHeader className="border-b p-5 flex items-center justify-between">
               <h3 id="theme-create-title" className="text-sm font-black uppercase tracking-wider flex items-center gap-2">
                 <Palette size={16} className="text-accent-primary" />
                 Create Theme
               </h3>
-              <AxiomButton icon size="sm" variant="ghost" aria-label="Close create theme dialog" onClick={() => setShowCreateModal(false)} disabled={isWorking}>
+              <NemotoButton icon size="sm" variant="ghost" aria-label="Close create theme dialog" onClick={() => setShowCreateModal(false)} disabled={isWorking}>
                 <X size={16} />
-              </AxiomButton>
-            </AxiomDialogHeader>
-            <form onSubmit={handleCreateTheme} className="axiom-dialog-body p-5 space-y-5">
+              </NemotoButton>
+            </NemotoDialogHeader>
+            <form onSubmit={handleCreateTheme} className="nemoto-dialog-body p-5 space-y-5">
               <div className="space-y-2">
                 <label htmlFor="theme-create-name" className="text-xs font-bold uppercase text-text-faint">Theme Name</label>
-                <AxiomInput
+                <NemotoInput
                   id="theme-create-name"
                   type="text"
                   required
@@ -1697,7 +1697,7 @@ export const ThemeBuilder: React.FC = () => {
                 <label className="text-xs font-bold uppercase text-text-faint">Start From Baseline</label>
                 <div className="grid grid-cols-3 gap-2" role="group" aria-label="Theme baseline">
                   {THEME_PRESET_OPTIONS.map(preset => (
-                    <AxiomChoiceCard
+                    <NemotoChoiceCard
                       key={preset.id}
                       selected={newBasePreset === preset.id}
                       onClick={() => setNewBasePreset(preset.id)}
@@ -1710,58 +1710,58 @@ export const ThemeBuilder: React.FC = () => {
                         style={{ background: preset.tokens['--color-app-bg'] }}
                       />
                       {preset.label}
-                    </AxiomChoiceCard>
+                    </NemotoChoiceCard>
                   ))}
                 </div>
               </div>
 
-              <AxiomDialogFooter className="-mx-5 -mb-5 mt-5 border-t p-4 flex justify-end gap-2">
-                <AxiomButton onClick={() => setShowCreateModal(false)} className="text-sm" disabled={isWorking}>
+              <NemotoDialogFooter className="-mx-5 -mb-5 mt-5 border-t p-4 flex justify-end gap-2">
+                <NemotoButton onClick={() => setShowCreateModal(false)} className="text-sm" disabled={isWorking}>
                   Cancel
-                </AxiomButton>
-                <AxiomButton type="submit" variant="primary" className="text-sm" disabled={isWorking || !newThemeName.trim()}>
+                </NemotoButton>
+                <NemotoButton type="submit" variant="primary" className="text-sm" disabled={isWorking || !newThemeName.trim()}>
                   {operation === 'create' ? 'Creatingâ€¦' : 'Create'}
                   <ArrowRight size={14} />
-                </AxiomButton>
-              </AxiomDialogFooter>
+                </NemotoButton>
+              </NemotoDialogFooter>
             </form>
-        </AxiomDialog>
+        </NemotoDialog>
       )}
 
       {showImportModal && (
-        <AxiomDialog
+        <NemotoDialog
           aria-labelledby="theme-import-title"
           onClose={() => { setShowImportModal(false); setImportError(null); }}
           panelClassName="w-full max-w-lg overflow-hidden"
           rootClassName="z-[10050]"
         >
-            <AxiomDialogHeader className="border-b p-5 flex items-center justify-between">
+            <NemotoDialogHeader className="border-b p-5 flex items-center justify-between">
               <h3 id="theme-import-title" className="text-sm font-black uppercase tracking-wider flex items-center gap-2">
                 <Upload size={16} className="text-accent-primary" />
                 Import Theme File
               </h3>
-              <AxiomButton icon size="sm" variant="ghost" aria-label="Close import theme dialog" onClick={() => { setShowImportModal(false); setImportError(null); }} disabled={isWorking}>
+              <NemotoButton icon size="sm" variant="ghost" aria-label="Close import theme dialog" onClick={() => { setShowImportModal(false); setImportError(null); }} disabled={isWorking}>
                 <X size={16} />
-              </AxiomButton>
-            </AxiomDialogHeader>
-            <AxiomDialogBody className="p-5 space-y-4">
+              </NemotoButton>
+            </NemotoDialogHeader>
+            <NemotoDialogBody className="p-5 space-y-4">
               <p className="text-xs text-text-muted">
                 Paste exported Nemoto theme JSON, or choose a theme file from this device.
               </p>
-              <AxiomButton
+              <NemotoButton
                 onClick={() => fileInputRef.current?.click()}
                 className="text-sm"
                 disabled={isWorking}
               >
                 <FileJson size={14} />
                 Choose theme file
-              </AxiomButton>
+              </NemotoButton>
               {importError && (
                 <div role="alert" className="rounded border border-accent-danger/50 bg-accent-danger/10 px-3 py-2 text-xs text-accent-danger">
                   {importError}
                 </div>
               )}
-              <AxiomTextarea
+              <NemotoTextarea
                 aria-label="Theme JSON"
                 value={jsonText}
                 onChange={(event) => { setJsonText(event.target.value); setImportError(null); }}
@@ -1770,17 +1770,17 @@ export const ThemeBuilder: React.FC = () => {
                 disabled={isWorking}
                 placeholder={`{\n  "schema": "axiom.theme",\n  "label": "My Brand Theme",\n  "tokens": {\n    "--color-app-bg": "#0f172a"\n  }\n}`}
               />
-              <AxiomDialogFooter className="-mx-5 -mb-5 mt-5 border-t p-4 flex justify-end gap-2">
-                <AxiomButton onClick={() => { setShowImportModal(false); setImportError(null); }} className="text-sm" disabled={isWorking}>
+              <NemotoDialogFooter className="-mx-5 -mb-5 mt-5 border-t p-4 flex justify-end gap-2">
+                <NemotoButton onClick={() => { setShowImportModal(false); setImportError(null); }} className="text-sm" disabled={isWorking}>
                   Cancel
-                </AxiomButton>
-                <AxiomButton variant="primary" onClick={handleImportText} className="text-sm" disabled={isWorking || !jsonText.trim()}>
+                </NemotoButton>
+                <NemotoButton variant="primary" onClick={handleImportText} className="text-sm" disabled={isWorking || !jsonText.trim()}>
                   <Check size={14} />
                   {operation === 'import' ? 'Importingâ€¦' : 'Import'}
-                </AxiomButton>
-              </AxiomDialogFooter>
-            </AxiomDialogBody>
-        </AxiomDialog>
+                </NemotoButton>
+              </NemotoDialogFooter>
+            </NemotoDialogBody>
+        </NemotoDialog>
       )}
 
       <ConfirmationModal

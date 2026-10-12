@@ -1,6 +1,6 @@
 import launcherScript from './pluginRuntimeLauncherFrame.js?raw';
 
-export const PLUGIN_RUNTIME_LAUNCHER_SCRIPT_SHA256 = 'sha256-EGcrgalSy7HZo6evq2amnK5MR/q5pXSzOMfJplJz5Hg=';
+export const PLUGIN_RUNTIME_LAUNCHER_SCRIPT_SHA256 = 'sha256-3Lk7hrUDdFUpZ3G1huSO2t6ahDeLHB28iCU7YoYmOPs=';
 
 export const PLUGIN_RUNTIME_LAUNCHER_CSP = [
     "default-src 'none'",

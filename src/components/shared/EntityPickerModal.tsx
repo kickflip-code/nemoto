@@ -5,7 +5,7 @@ import { usePortfolioStore } from '../../stores/usePortfolioStore';
 
 import type { EntityReference } from '../../types/journal';
 import { listEntityCandidates } from '../../lib/entityResolver';
-import { AxiomButton, AxiomDialog, AxiomInput } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoInput } from '../ui';
 
 interface EntityPickerModalProps {
     onClose: () => void;
@@ -37,32 +37,32 @@ export default function EntityPickerModal({ onClose, onSelect, allowedTypes }: E
     };
 
     return createPortal(
-        <AxiomDialog
+        <NemotoDialog
             aria-labelledby="entity-picker-title"
             onClose={onClose}
             rootClassName="z-[10120]"
             panelClassName="w-[500px] max-h-[600px] flex flex-col overflow-hidden"
         >
                 {/* Header */}
-                <div className="axiom-dialog-header px-4 py-3 border-b">
+                <div className="nemoto-dialog-header px-4 py-3 border-b">
                     <h3 id="entity-picker-title" className="text-sm font-bold text-text-main mb-3">Add Linked Context</h3>
                     <div className="relative">
                         <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-faint" />
-                        <AxiomInput
+                        <NemotoInput
                             type="search"
                             aria-label="Search entities"
                             placeholder="Search entities..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             controlSize="sm"
-                            className="axiom-field-leading-icon w-full pr-3 text-sm"
+                            className="nemoto-field-leading-icon w-full pr-3 text-sm"
                             autoFocus
                         />
                     </div>
                 </div>
 
                 {/* Results */}
-                <div className="axiom-dialog-body flex-1 overflow-y-auto custom-scrollbar p-2">
+                <div className="nemoto-dialog-body flex-1 overflow-y-auto custom-scrollbar p-2">
                     {filteredEntities.length === 0 ? (
                         <div className="text-center py-8 text-text-faint text-xs">
                             No entities found
@@ -73,7 +73,7 @@ export default function EntityPickerModal({ onClose, onSelect, allowedTypes }: E
                                 <button
                                     key={entity.id}
                                     onClick={() => handleSelect(entity)}
-                                    className="axiom-dialog-row w-full flex items-center gap-3 px-3 py-2 text-left"
+                                    className="nemoto-dialog-row w-full flex items-center gap-3 px-3 py-2 text-left"
                                 >
                                     <div className="flex-1 min-w-0">
                                         <div className="text-sm font-medium text-text-main truncate">
@@ -81,7 +81,7 @@ export default function EntityPickerModal({ onClose, onSelect, allowedTypes }: E
                                         </div>
                                         <div className="text-xs text-text-faint">{entity.subtitle}</div>
                                     </div>
-                                    <div className="axiom-dialog-badge text-[10px] uppercase px-2 py-0.5">
+                                    <div className="nemoto-dialog-badge text-[10px] uppercase px-2 py-0.5">
                                         {entity.type}
                                     </div>
                                 </button>
@@ -91,15 +91,15 @@ export default function EntityPickerModal({ onClose, onSelect, allowedTypes }: E
                 </div>
 
                 {/* Footer */}
-                <div className="axiom-dialog-footer px-4 py-3 border-t flex justify-end gap-2">
-                    <AxiomButton
+                <div className="nemoto-dialog-footer px-4 py-3 border-t flex justify-end gap-2">
+                    <NemotoButton
                         onClick={onClose}
                         size="sm"
                     >
                         Cancel
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
-        </AxiomDialog>,
+        </NemotoDialog>,
         document.body,
     );
 }

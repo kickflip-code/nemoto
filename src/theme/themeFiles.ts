@@ -40,7 +40,7 @@ const ALLOWED_ASSET_MEDIA_TYPES = new Set(['image/png', 'image/webp', 'font/woff
 const THEME_TOKEN_NAME_PATTERN = /^--[a-z0-9-]+$/;
 const EXTENSION_NAMESPACE_PATTERN = /^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/;
 
-export interface AxiomThemeFile extends Record<string, unknown> {
+export interface NemotoThemeFile extends Record<string, unknown> {
   schema: typeof THEME_FILE_SCHEMA;
   version: typeof THEME_FILE_VERSION;
   id: string;
@@ -222,7 +222,7 @@ const validateStructuredFields = (value: Record<string, unknown>): void => {
   }
 };
 
-const validateV2ThemeFile = (value: Record<string, unknown>): AxiomThemeFile => {
+const validateV2ThemeFile = (value: Record<string, unknown>): NemotoThemeFile => {
   if (value.schema !== THEME_FILE_SCHEMA) {
     throw new Error(`Unsupported theme schema: ${String(value.schema)}.`);
   }
@@ -277,10 +277,10 @@ const validateV2ThemeFile = (value: Record<string, unknown>): AxiomThemeFile => 
     ...(description ? { description } : {}),
     basePresetId: value.basePresetId,
     tokens,
-  } as AxiomThemeFile;
+  } as NemotoThemeFile;
 };
 
-const migrateV1ThemeFile = (value: Record<string, unknown>): AxiomThemeFile => {
+const migrateV1ThemeFile = (value: Record<string, unknown>): NemotoThemeFile => {
   if (value.schema !== undefined && value.schema !== THEME_FILE_SCHEMA) {
     throw new Error(`Unsupported theme schema: ${String(value.schema)}.`);
   }
@@ -329,7 +329,7 @@ const migrateV1ThemeFile = (value: Record<string, unknown>): AxiomThemeFile => {
   return validateV2ThemeFile(migrated);
 };
 
-export const parseThemeDocument = (value: unknown): AxiomThemeFile => {
+export const parseThemeDocument = (value: unknown): NemotoThemeFile => {
   if (!isPlainObject(value)) throw new Error('Theme file must be a JSON object.');
   if (value.version === THEME_FILE_VERSION) return validateV2ThemeFile(value);
   if (value.version === undefined || value.version === LEGACY_THEME_FILE_VERSION) {
@@ -354,7 +354,7 @@ export const getThemeConfigTokens = (
   return normalizeThemeTokens(theme.tokens || theme.colors, fallbackTokens);
 };
 
-export const themeFileToConfig = (document: AxiomThemeFile): ThemeConfig => {
+export const themeFileToConfig = (document: NemotoThemeFile): ThemeConfig => {
   const fallback = document.basePresetId ? getPresetTokens(document.basePresetId) : {};
   const tokens = normalizeThemeTokens(document.tokens, fallback);
   return {
@@ -374,7 +374,7 @@ export const themeFileToConfig = (document: AxiomThemeFile): ThemeConfig => {
 
 export const parseThemeFile = (value: unknown): ThemeConfig => themeFileToConfig(parseThemeDocument(value));
 
-export const toThemeFile = (theme: ThemeConfig): AxiomThemeFile => {
+export const toThemeFile = (theme: ThemeConfig): NemotoThemeFile => {
   const source = isPlainObject(theme.sourceDocument)
     ? cloneJsonObject(theme.sourceDocument)
     : {};
@@ -434,5 +434,5 @@ export const createImportedThemeConfig = (value: unknown): ThemeConfig => parseT
 
 export const getThemeFileName = (label: string): string => {
   const safeLabel = label.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
-  return `${safeLabel || 'axiom_theme'}.${THEME_FILE_EXTENSION}`;
+  return `${safeLabel || 'nemoto_theme'}.${THEME_FILE_EXTENSION}`;
 };

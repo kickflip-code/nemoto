@@ -3,50 +3,50 @@
    selected recipe can intentionally replace presentation without raw CSS. */
 
 [data-theme-surface-style] :is(
-  .axiom-panel,
-  .axiom-side-panel,
-  .axiom-inspector-panel,
-  .axiom-journal-context-panel
+  .nemoto-panel,
+  .nemoto-side-panel,
+  .nemoto-inspector-panel,
+  .nemoto-journal-context-panel
 ) {
   background: var(--theme-panel-background, var(--color-app-sidebar)) !important;
   backdrop-filter: var(--theme-surface-backdrop-filter, none);
   -webkit-backdrop-filter: var(--theme-surface-backdrop-filter, none);
 }
 
-[data-theme-surface-style] .axiom-panel-header {
+[data-theme-surface-style] .nemoto-panel-header {
   background: var(--theme-panel-header-background, var(--color-app-header)) !important;
 }
 
-[data-theme-surface-style] .axiom-panel-body {
+[data-theme-surface-style] .nemoto-panel-body {
   background: var(--theme-panel-body-background, var(--color-app-sidebar)) !important;
 }
 
-[data-theme-surface-style] .axiom-panel-section {
+[data-theme-surface-style] .nemoto-panel-section {
   background: var(--theme-panel-section-background, var(--color-app-surface)) !important;
 }
 
-[data-theme-surface-style] :is(.axiom-modal-panel, .axiom-dialog-panel) {
+[data-theme-surface-style] :is(.nemoto-modal-panel, .nemoto-dialog-panel) {
   background: var(--theme-dialog-background, var(--color-app-surface)) !important;
   backdrop-filter: var(--theme-surface-backdrop-filter, none);
   -webkit-backdrop-filter: var(--theme-surface-backdrop-filter, none);
 }
 
 [data-theme-surface-style] :is(
-  .axiom-modal-sidebar,
-  .axiom-dialog-header,
-  .axiom-dialog-footer
+  .nemoto-modal-sidebar,
+  .nemoto-dialog-header,
+  .nemoto-dialog-footer
 ) {
   background: var(--theme-dialog-header-background, var(--color-app-header)) !important;
 }
 
-[data-theme-surface-style] :is(.axiom-modal-content, .axiom-dialog-body) {
+[data-theme-surface-style] :is(.nemoto-modal-content, .nemoto-dialog-body) {
   background: var(--theme-dialog-body-background, var(--color-app-bg)) !important;
 }
 
 [data-theme-surface-style] :is(
-  .axiom-popover,
-  .axiom-file-menu,
-  .axiom-context-menu
+  .nemoto-popover,
+  .nemoto-file-menu,
+  .nemoto-context-menu
 ) {
   background: var(--theme-menu-background, var(--color-menu-bg)) !important;
   backdrop-filter: var(--theme-surface-backdrop-filter, none);
@@ -65,7 +65,7 @@
   .react-flow__node .shape-diamond-container,
   .react-flow__node .shape-post-it,
   .react-flow__node .shape-arrow,
-  .axiom-node
+  .nemoto-node
 ) {
   border-width: var(--theme-node-border-width, var(--app-node-border-width)) !important;
   border-style: solid !important;

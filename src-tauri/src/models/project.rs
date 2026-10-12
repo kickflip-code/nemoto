@@ -284,7 +284,7 @@ pub struct Incident {
 // ============ ROOT PROJECT ============
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct AxiomProject {
+pub struct NemotoProject {
     pub meta: ProjectMeta,
     #[serde(default)]
     pub assets: Vec<Asset>,

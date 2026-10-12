@@ -1,7 +1,7 @@
 import { Check, ExternalLink, Unlink, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { AxiomInput, AxiomPopover, AxiomToolbarButton } from '../ui';
+import { NemotoInput, NemotoPopover, NemotoToolbarButton } from '../ui';
 
 interface JournalLinkPopoverProps {
     x: number;
@@ -37,14 +37,14 @@ export default function JournalLinkPopover({
     const top = Math.max(12, Math.min(y + 10, window.innerHeight - 90));
 
     return createPortal(
-        <AxiomPopover
+        <NemotoPopover
             aria-label="Edit link"
             className="fixed z-[130] w-[360px] max-w-[calc(100vw-24px)] p-2 flex items-center gap-1.5"
             style={{ left, top }}
             onMouseDown={event => event.stopPropagation()}
             onClick={event => event.stopPropagation()}
         >
-            <AxiomInput
+            <NemotoInput
                 autoFocus
                 value={value}
                 onChange={event => setValue(event.target.value)}
@@ -58,19 +58,19 @@ export default function JournalLinkPopover({
                 controlSize="sm"
                 className="h-8 min-w-0 flex-1 px-2.5 text-xs"
             />
-            <AxiomToolbarButton surface="journal" label="Apply link" onClick={() => onApply(value)} className="text-accent-primary">
+            <NemotoToolbarButton surface="journal" label="Apply link" onClick={() => onApply(value)} className="text-accent-primary">
                 <Check size={14} />
-            </AxiomToolbarButton>
-            <AxiomToolbarButton surface="journal" label="Open link" onClick={() => onOpen(value)}>
+            </NemotoToolbarButton>
+            <NemotoToolbarButton surface="journal" label="Open link" onClick={() => onOpen(value)}>
                 <ExternalLink size={14} />
-            </AxiomToolbarButton>
-            <AxiomToolbarButton surface="journal" danger label="Remove link" onClick={onRemove}>
+            </NemotoToolbarButton>
+            <NemotoToolbarButton surface="journal" danger label="Remove link" onClick={onRemove}>
                 <Unlink size={14} />
-            </AxiomToolbarButton>
-            <AxiomToolbarButton surface="journal" label="Close" onClick={onClose}>
+            </NemotoToolbarButton>
+            <NemotoToolbarButton surface="journal" label="Close" onClick={onClose}>
                 <X size={14} />
-            </AxiomToolbarButton>
-        </AxiomPopover>,
+            </NemotoToolbarButton>
+        </NemotoPopover>,
         document.body,
     );
 }

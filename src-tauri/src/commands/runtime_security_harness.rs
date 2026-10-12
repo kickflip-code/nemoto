@@ -16,14 +16,14 @@ use crate::{
         ExecutableActivationSnapshot, ExecutableInstallApproval, ExecutablePackageAdapter,
         ExecutablePackageError, ExecutablePackageErrorCode, ExecutablePackageInspection,
         ExecutablePackageRecoveryAction, ExecutablePortfolioRequirement,
-        ExecutableUiReductionRequest, AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA,
-        AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
-        AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA, AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
+        ExecutableUiReductionRequest, NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA,
+        NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
+        NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA, NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
         EXECUTABLE_PLUGIN_EXECUTION_ENABLED, ISOLATED_COMPUTE_RISK_ACKNOWLEDGEMENT,
         MAIN_PORTFOLIO_AUTHORITY_SCOPE_ID,
     },
     plugin_wasm_admission::NativeWasmAdmission,
-    plugin_wasm_lifecycle::{AxiomWasmLifecycle, WasmLifecycleError},
+    plugin_wasm_lifecycle::{NemotoWasmLifecycle, WasmLifecycleError},
     plugin_wasm_session::{WasmPluginIdentity, WasmSessionErrorCode, ISOLATED_COMPUTE_CAPABILITY},
 };
 
@@ -232,8 +232,8 @@ fn package(plugin_id: &str, version: &str, module: Vec<u8>) -> Vec<u8> {
 
 fn approval(inspection: &ExecutablePackageInspection) -> ExecutableInstallApproval {
     ExecutableInstallApproval {
-        schema: AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA.to_owned(),
-        schema_version: AXIOM_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
+        schema: NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA.to_owned(),
+        schema_version: NEMOTO_EXECUTABLE_INSTALL_APPROVAL_SCHEMA_VERSION,
         archive_sha256: inspection.archive_sha256.clone(),
         identity: inspection.identity.clone(),
         granted_capabilities: vec![ISOLATED_COMPUTE_CAPABILITY.to_owned()],
@@ -254,8 +254,8 @@ fn full_approval(inspection: &ExecutablePackageInspection) -> ExecutableInstallA
 
 fn activation(plugin_id: &str, version: &str, active: bool) -> ExecutableActivationSnapshot {
     ExecutableActivationSnapshot {
-        schema: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA.to_owned(),
-        schema_version: AXIOM_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
+        schema: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA.to_owned(),
+        schema_version: NEMOTO_EXECUTABLE_ACTIVATION_SNAPSHOT_SCHEMA_VERSION,
         requirements: vec![ExecutablePortfolioRequirement {
             plugin_id: plugin_id.to_owned(),
             version: format!("={version}"),
@@ -460,7 +460,7 @@ fn recovery_check() -> Result<PackagedRuntimeSecurityCheck, PackagedRuntimeSecur
 
     let result = (|| {
         let lifecycle = Arc::new(
-            AxiomWasmLifecycle::native(runtime_root.clone())
+            NemotoWasmLifecycle::native(runtime_root.clone())
                 .map_err(|error| lifecycle_error("recovery-lifecycle", error))?,
         );
         let interrupted = ExecutablePackageAdapter::with_lifecycle_for_interrupted_commit_harness(
@@ -861,7 +861,7 @@ pub fn run_packaged_executable_security_harness(
     )?;
 
     let outcome = std::thread::Builder::new()
-        .name("axiom-runtime-security-harness".to_owned())
+        .name("nemoto-runtime-security-harness".to_owned())
         .stack_size(16 * 1024 * 1024)
         .spawn(|| {
             record_p10_progress("native-start");

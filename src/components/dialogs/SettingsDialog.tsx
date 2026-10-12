@@ -32,7 +32,7 @@ import {
     type ThemeRestoreChoice,
     type ThemeRestorePlan,
 } from '../../theme/themeBackup';
-import { AxiomButton, AxiomDialog, AxiomInput, AxiomMenu, AxiomMenuItem, AxiomSelect } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoInput, NemotoMenu, NemotoMenuItem, NemotoSelect } from '../ui';
 import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import { APP_VERSION } from '../../lib/appVersion';
 import { CURRENT_PORTFOLIO_SCHEMA_VERSION } from '../../lib/import/migrate';
@@ -342,7 +342,7 @@ export default function SettingsDialog() {
     };
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-labelledby="settings-dialog-title"
             onClose={() => { if (!isRestoring) closeSettings(); }}
             closeOnBackdrop={!isRestoring}
@@ -350,9 +350,9 @@ export default function SettingsDialog() {
         >
 
                 {/* Header */}
-                <div className="axiom-dialog-header flex items-center justify-between px-6 py-4 border-b">
+                <div className="nemoto-dialog-header flex items-center justify-between px-6 py-4 border-b">
                     <h2 id="settings-dialog-title" className="text-lg font-bold text-text-main">Settings</h2>
-                    <AxiomButton
+                    <NemotoButton
                         aria-label="Close settings"
                         disabled={isRestoring}
                         icon
@@ -361,14 +361,14 @@ export default function SettingsDialog() {
                         className="text-text-muted hover:text-text-main"
                     >
                         <X size={20} />
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
 
                 {/* Section navigation and content */}
-                <div className="axiom-settings-layout min-h-0 flex flex-1">
+                <div className="nemoto-settings-layout min-h-0 flex flex-1">
                     <nav
                         aria-label="Settings sections"
-                        className="axiom-settings-nav w-48 shrink-0 border-r border-app-border p-3"
+                        className="nemoto-settings-nav w-48 shrink-0 border-r border-app-border p-3"
                     >
                         <div className="px-2 pb-2 text-[9px] font-bold uppercase tracking-[0.14em] text-text-faint">
                             Settings
@@ -382,14 +382,14 @@ export default function SettingsDialog() {
                                         key={section.id}
                                         aria-label={`${section.label}: ${section.detail}`}
                                         aria-current={active ? 'page' : undefined}
-                                        className={`axiom-settings-nav-item ${active ? 'axiom-settings-nav-item-active' : ''}`}
+                                        className={`nemoto-settings-nav-item ${active ? 'nemoto-settings-nav-item-active' : ''}`}
                                         type="button"
                                         onClick={() => selectSection(section.id)}
                                     >
-                                        <Icon size={16} className="axiom-settings-nav-icon shrink-0" />
+                                        <Icon size={16} className="nemoto-settings-nav-icon shrink-0" />
                                         <span className="min-w-0 text-left">
                                             <span className="block text-xs font-semibold">{section.label}</span>
-                                            <span className="axiom-settings-nav-detail mt-0.5 block text-[9px] text-text-faint">{section.detail}</span>
+                                            <span className="nemoto-settings-nav-detail mt-0.5 block text-[9px] text-text-faint">{section.detail}</span>
                                         </span>
                                     </button>
                                 );
@@ -397,7 +397,7 @@ export default function SettingsDialog() {
                         </div>
                     </nav>
 
-                    <main className="axiom-dialog-body min-w-0 flex-1 overflow-y-auto p-6 app-scroll">
+                    <main className="nemoto-dialog-body min-w-0 flex-1 overflow-y-auto p-6 app-scroll">
 
                     {activeSection === 'appearance' && (
                     <section aria-labelledby="settings-appearance-title" className="space-y-5">
@@ -408,7 +408,7 @@ export default function SettingsDialog() {
 
                         {/* Unified custom dropdown */}
                         <div className="relative">
-                            <AxiomButton
+                            <NemotoButton
                                 onClick={() => setDropdownOpen(!dropdownOpen)}
                                 aria-expanded={dropdownOpen}
                                 aria-haspopup="menu"
@@ -422,19 +422,19 @@ export default function SettingsDialog() {
                                     <span className="font-semibold">{activeThemeDetails?.label}</span>
                                 </div>
                                 <ChevronDown size={16} className="text-text-faint" />
-                            </AxiomButton>
+                            </NemotoButton>
 
                             {dropdownOpen && (
                                 <>
                                     <div className="fixed inset-0 z-10" onClick={() => setDropdownOpen(false)} />
-                                    <AxiomMenu
+                                    <NemotoMenu
                                         aria-label="Available themes"
-                                        className="settings-theme-menu axiom-scroll-menu absolute top-full left-0 right-0 mt-1 z-20 py-1"
+                                        className="settings-theme-menu nemoto-scroll-menu absolute top-full left-0 right-0 mt-1 z-20 py-1"
                                         onClose={() => setDropdownOpen(false)}
                                         surface="file"
                                     >
                                         {allThemes.map(t => (
-                                            <AxiomMenuItem
+                                            <NemotoMenuItem
                                                 aria-checked={currentActiveId === t.id}
                                                 key={t.id}
                                                  onClick={() => {
@@ -444,7 +444,7 @@ export default function SettingsDialog() {
                                                  role="menuitemradio"
                                                  autoFocus={currentActiveId === t.id}
                                                 className={`w-full px-4 py-2.5 text-sm text-left flex items-center justify-between ${
-                                                    currentActiveId === t.id ? 'axiom-dialog-row-selected font-bold text-text-main' : ''
+                                                    currentActiveId === t.id ? 'nemoto-dialog-row-selected font-bold text-text-main' : ''
                                                 }`}
                                             >
                                                 <div className="flex items-center gap-2.5">
@@ -457,28 +457,28 @@ export default function SettingsDialog() {
                                                 {currentActiveId === t.id && (
                                                     <Check size={14} className="text-accent-primary" />
                                                 )}
-                                            </AxiomMenuItem>
+                                            </NemotoMenuItem>
                                         ))}
-                                    </AxiomMenu>
+                                    </NemotoMenu>
                                 </>
                             )}
                         </div>
 
                         {/* Theme Studio Button */}
-                        <div className="axiom-dialog-row p-4 flex items-center justify-between">
+                        <div className="nemoto-dialog-row p-4 flex items-center justify-between">
                             <div>
                                 <h4 className="text-sm font-bold text-text-main">Theme Studio</h4>
                                 <p className="text-xs text-text-muted mt-1 leading-relaxed">
                                     Create and share custom white-labeled color palettes.
                                 </p>
                             </div>
-                            <AxiomButton
+                            <NemotoButton
                                 onClick={handleOpenThemeStudio}
                                 className="text-xs"
                             >
                                 <Palette size={14} className="text-accent-primary" />
                                 <span>Open Theme Studio</span>
-                            </AxiomButton>
+                            </NemotoButton>
                         </div>
                     </section>
                     )}
@@ -489,7 +489,7 @@ export default function SettingsDialog() {
                             <h3 id="settings-local-ai-title" className="text-base font-bold text-text-main">Local AI</h3>
                             <p className="mt-1 text-xs text-text-muted">Connect a local, read-only model for Portfolio Chat.</p>
                         </div>
-                        <div className="axiom-dialog-row p-4">
+                        <div className="nemoto-dialog-row p-4">
                             <div className="flex items-start gap-3">
                                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10 text-accent-primary">
                                     <Bot size={17} />
@@ -504,7 +504,7 @@ export default function SettingsDialog() {
                             <div className="mt-4 grid gap-3">
                                 <label className="grid gap-1.5 text-xs text-text-muted">
                                     Local endpoint
-                                    <AxiomInput
+                                    <NemotoInput
                                         aria-label="Local AI endpoint"
                                         value={localAiEndpoint}
                                         onChange={(event) => {
@@ -519,7 +519,7 @@ export default function SettingsDialog() {
                                     </span>
                                 </label>
                                 <div className="flex flex-wrap items-center gap-2">
-                                    <AxiomButton
+                                    <NemotoButton
                                         size="sm"
                                         onClick={() => setLocalAiDiscoveryRun(run => run + 1)}
                                         disabled={!localAiEndpoint.trim() || localAiConnectionStatus === 'checking'}
@@ -529,7 +529,7 @@ export default function SettingsDialog() {
                                             ? <Loader2 size={13} className="animate-spin" />
                                             : <RefreshCw size={13} />}
                                         <span>{localAiConnectionStatus === 'checking' ? 'Checking...' : 'Test & find models'}</span>
-                                    </AxiomButton>
+                                    </NemotoButton>
                                     <span className="text-[10px] text-text-faint">Nemoto checks the provider's local model list.</span>
                                 </div>
 
@@ -554,7 +554,7 @@ export default function SettingsDialog() {
                                 {localAiModels.some(model => model.kind === 'chat') && !manualModelEntry ? (
                                     <div className="grid gap-1.5 text-xs text-text-muted">
                                         <label htmlFor="local-ai-model-select">Model</label>
-                                        <AxiomSelect
+                                        <NemotoSelect
                                             id="local-ai-model-select"
                                             aria-label="Local AI model"
                                             value={localAiModel}
@@ -567,7 +567,7 @@ export default function SettingsDialog() {
                                             {localAiModels.filter(model => model.kind === 'chat').map(model => (
                                                 <option key={model.id} value={model.id}>{model.id}</option>
                                             ))}
-                                        </AxiomSelect>
+                                        </NemotoSelect>
                                         <button
                                             type="button"
                                             className="w-fit text-[10px] text-accent-primary hover:underline"
@@ -579,7 +579,7 @@ export default function SettingsDialog() {
                                 ) : (
                                     <div className="grid gap-1.5 text-xs text-text-muted">
                                         <label htmlFor="local-ai-model-input">Model name</label>
-                                        <AxiomInput
+                                        <NemotoInput
                                             id="local-ai-model-input"
                                             aria-label="Local AI model name"
                                             value={localAiModel}
@@ -613,7 +613,7 @@ export default function SettingsDialog() {
                             <p className="mt-1 text-xs text-text-muted">Manage scheduled snapshots, retention, Portfolio recovery, and explicit active-theme transfer.</p>
                         </div>
 
-                        <div className="axiom-dialog-panel grid grid-cols-2 gap-4 p-3">
+                        <div className="nemoto-dialog-panel grid grid-cols-2 gap-4 p-3">
                             <div>
                                 <div className="text-[10px] uppercase tracking-wider text-text-faint">Nemoto version</div>
                                 <div className="mt-1 text-sm text-text-main">{APP_VERSION}</div>
@@ -634,32 +634,32 @@ export default function SettingsDialog() {
                                 <div className="flex-1 bg-app-input border border-app-border rounded-lg px-3 py-2 text-sm text-text-main font-mono truncate shadow-sm">
                                     {backupPath || "Default (Documents/NemotoBackups)"}
                                 </div>
-                                <AxiomButton
+                                <NemotoButton
                                     aria-label="Choose backup directory"
                                     icon
                                     onClick={handleSelectFolder}
                                     title="Choose Directory"
                                 >
                                     <FolderOpen size={16} />
-                                </AxiomButton>
+                                </NemotoButton>
                             </div>
                         </div>
 
                         {/* Auto-Backup Interval */}
                         <div className="space-y-2">
                             <label htmlFor="auto-backup-interval" className="text-sm text-text-muted">Auto-Backup Interval</label>
-                            <AxiomSelect
+                            <NemotoSelect
                                 id="auto-backup-interval"
                                 value={autoBackupInterval}
                                 onChange={(e) => setAutoBackupInterval(Number(e.target.value))}
-                                className="axiom-field w-full px-3 py-2 text-sm"
+                                className="nemoto-field w-full px-3 py-2 text-sm"
                             >
                                 <option value={0}>Disabled</option>
                                 <option value={15}>Every 15 minutes</option>
                                 <option value={30}>Every 30 minutes</option>
                                 <option value={60}>Every hour</option>
                                 <option value={240}>Every 4 hours</option>
-                            </AxiomSelect>
+                            </NemotoSelect>
                             {lastBackupTime && (
                                 <p className="text-[10px] text-text-faint">
                                     Last local backup: {new Date(lastBackupTime).toLocaleString()}
@@ -668,7 +668,7 @@ export default function SettingsDialog() {
                         </div>
 
                         {autoBackupStatus && (
-                            <div role="status" aria-live="polite" className="axiom-dialog-panel space-y-1 p-3 text-xs">
+                            <div role="status" aria-live="polite" className="nemoto-dialog-panel space-y-1 p-3 text-xs">
                                 <p className={`font-semibold ${autoBackupStatus.kind === 'saved' ? 'text-text-main' : 'text-accent-warning'}`}>
                                     {autoBackupStatus.kind === 'saved' ? 'Latest scheduled backup saved'
                                         : autoBackupStatus.kind === 'backup-failed' ? 'Scheduled backup failed'
@@ -696,18 +696,18 @@ export default function SettingsDialog() {
                                 <label htmlFor="auto-backup-retention" className="text-sm text-text-muted">Retained Auto-Backups</label>
                                 <span className="text-[10px] text-text-faint italic">Oldest automatic snapshots are removed first</span>
                             </div>
-                            <AxiomSelect
+                            <NemotoSelect
                                 id="auto-backup-retention"
                                 value={autoBackupRetention}
                                 onChange={(e) => setAutoBackupRetention(Number(e.target.value))}
-                                className="axiom-field w-full px-3 py-2 text-sm"
+                                className="nemoto-field w-full px-3 py-2 text-sm"
                             >
                                 <option value={10}>Keep latest 10 backups</option>
                                 <option value={25}>Keep latest 25 backups (recommended)</option>
                                 <option value={50}>Keep latest 50 backups</option>
                                 <option value={100}>Keep latest 100 backups</option>
                                 <option value={0}>Unlimited</option>
-                            </AxiomSelect>
+                            </NemotoSelect>
                             <p className="text-[10px] text-text-faint leading-relaxed">
                                 Only files created by scheduled backup are cleaned up. Manual portfolio exports are never removed.
                             </p>
@@ -720,14 +720,14 @@ export default function SettingsDialog() {
                                     The Portfolio is validated first. Included active-theme snapshots are installed or activated only after an explicit review.
                                 </p>
                             </div>
-                            <AxiomButton
+                            <NemotoButton
                                 onClick={handleSelectRestore}
                                 disabled={isRestoring}
                                 className="text-xs shrink-0"
                             >
                                 <RotateCcw size={14} />
                                 Restore...
-                            </AxiomButton>
+                            </NemotoButton>
                         </div>
                     </section>
                     )}
@@ -755,14 +755,14 @@ export default function SettingsDialog() {
                 </div>
 
                 {/* Footer */}
-                <div className="axiom-dialog-footer px-6 py-4 border-t flex justify-end">
-                    <AxiomButton
+                <div className="nemoto-dialog-footer px-6 py-4 border-t flex justify-end">
+                    <NemotoButton
                         onClick={closeSettings}
                         className="text-sm font-medium"
                         disabled={isRestoring}
                     >
                         Done
-                    </AxiomButton>
+                    </NemotoButton>
                 </div>
 
             <PromptModal
@@ -795,6 +795,6 @@ export default function SettingsDialog() {
                 confirmLabel="Enable Developer Mode"
                 variant="warning"
             />
-        </AxiomDialog>
+        </NemotoDialog>
     );
 }

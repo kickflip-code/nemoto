@@ -203,8 +203,8 @@
 
 /* Buttons, fields, panels and dialogs */
 /* Explicit control primitives */
-.axiom-button,
-.axiom-icon-button {
+.nemoto-button,
+.nemoto-icon-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -224,99 +224,99 @@
     transform var(--motion-duration-instant) var(--motion-ease-standard);
 }
 
-.axiom-button {
+.nemoto-button {
   min-height: var(--theme-control-size-base, 2rem);
   padding: 0 var(--theme-control-padding-base, 0.75rem);
   gap: 0.375rem;
 }
 
-.axiom-button-sm {
+.nemoto-button-sm {
   min-height: var(--theme-control-size-sm, 1.625rem);
   padding: 0 var(--theme-control-padding-sm, 0.625rem);
   font-size: 0.6875rem;
 }
 
-.axiom-icon-button {
+.nemoto-icon-button {
   width: var(--theme-icon-size-base, 2rem);
   height: var(--theme-icon-size-base, 2rem);
   padding: 0;
 }
 
-.axiom-icon-button-sm {
+.nemoto-icon-button-sm {
   width: var(--theme-icon-size-sm, 1.5rem);
   height: var(--theme-icon-size-sm, 1.5rem);
 }
 
-.axiom-button:not(:disabled):not([aria-disabled='true']):hover,
-.axiom-icon-button:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-button:not(:disabled):not([aria-disabled='true']):hover,
+.nemoto-icon-button:not(:disabled):not([aria-disabled='true']):hover {
   background: var(--color-control-hover, var(--color-app-hover));
   color: var(--color-control-text, var(--color-text-main));
 }
 
-.axiom-button:not(:disabled):not([aria-disabled='true']):active,
-.axiom-icon-button:not(:disabled):not([aria-disabled='true']):active,
-.axiom-button[aria-pressed='true'],
-.axiom-icon-button[aria-pressed='true'] {
+.nemoto-button:not(:disabled):not([aria-disabled='true']):active,
+.nemoto-icon-button:not(:disabled):not([aria-disabled='true']):active,
+.nemoto-button[aria-pressed='true'],
+.nemoto-icon-button[aria-pressed='true'] {
   background: var(--color-control-active, var(--color-app-active));
   box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
   transform: var(--control-active-transform, none);
 }
 
-.axiom-button.axiom-button-primary {
+.nemoto-button.nemoto-button-primary {
   background: var(--color-control-primary-bg, var(--color-accent-primary));
   color: var(--color-control-primary-text, var(--color-accent-primary-text));
   border-color: var(--color-control-primary-bg, var(--color-accent-primary));
 }
 
-.axiom-button.axiom-button-primary:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-button.nemoto-button-primary:not(:disabled):not([aria-disabled='true']):hover {
   background: color-mix(in srgb, var(--color-control-primary-bg, var(--color-accent-primary)) 88%, var(--color-control-hover, var(--color-app-hover)));
   color: var(--color-control-primary-text, var(--color-accent-primary-text));
 }
 
-.axiom-button-danger {
+.nemoto-button-danger {
   background: var(--color-accent-danger-dim, color-mix(in srgb, var(--color-accent-danger) 12%, transparent));
   color: var(--color-accent-danger);
   border-color: color-mix(in srgb, var(--color-accent-danger) 45%, transparent);
 }
 
-.axiom-button-danger:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-button-danger:not(:disabled):not([aria-disabled='true']):hover {
   background: color-mix(in srgb, var(--color-accent-danger) 18%, transparent);
   color: var(--color-accent-danger);
 }
 
-.axiom-button-warning,
-.axiom-icon-button-warning {
+.nemoto-button-warning,
+.nemoto-icon-button-warning {
   color: var(--color-accent-warning);
 }
 
-.axiom-button-warning:not(:disabled):not([aria-disabled='true']):hover,
-.axiom-icon-button-warning:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-button-warning:not(:disabled):not([aria-disabled='true']):hover,
+.nemoto-icon-button-warning:not(:disabled):not([aria-disabled='true']):hover {
   color: var(--color-accent-warning);
 }
 
-.axiom-button-ghost,
-.axiom-icon-button-ghost {
+.nemoto-button-ghost,
+.nemoto-icon-button-ghost {
   background: transparent;
   border-color: transparent;
   box-shadow: none;
 }
 
-.axiom-button-ghost:not(:disabled):not([aria-disabled='true']):hover,
-.axiom-icon-button-ghost:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-button-ghost:not(:disabled):not([aria-disabled='true']):hover,
+.nemoto-icon-button-ghost:not(:disabled):not([aria-disabled='true']):hover {
   background: var(--color-control-hover, var(--color-app-hover));
 }
 
-.axiom-button:disabled,
-.axiom-icon-button:disabled,
-.axiom-button[aria-disabled='true'],
-.axiom-icon-button[aria-disabled='true'] {
+.nemoto-button:disabled,
+.nemoto-icon-button:disabled,
+.nemoto-button[aria-disabled='true'],
+.nemoto-icon-button[aria-disabled='true'] {
   box-shadow: none;
   cursor: not-allowed;
   opacity: 0.5;
   transform: none;
 }
 
-.axiom-field {
+.nemoto-field {
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-field-border, var(--color-app-border));
   border-radius: var(--control-radius, var(--app-radius-sm));
   background: var(--color-field-bg, var(--color-app-input));
@@ -328,28 +328,28 @@
     background-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-field:focus {
+.nemoto-field:focus {
   border-color: var(--color-accent-primary);
   box-shadow: var(--field-focus-shadow, 0 0 0 1px var(--color-accent-primary));
   outline: none;
 }
 
-.axiom-range {
+.nemoto-range {
   accent-color: var(--color-accent-primary);
 }
 
-.axiom-range:focus-visible {
+.nemoto-range:focus-visible {
   outline: 2px solid var(--color-accent-primary);
   outline-offset: 3px;
 }
 
-.axiom-range:disabled,
-.axiom-range[aria-disabled='true'] {
+.nemoto-range:disabled,
+.nemoto-range[aria-disabled='true'] {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.axiom-field:focus-visible {
+.nemoto-field:focus-visible {
   outline: 2px solid var(--color-accent-primary);
   outline-offset: 2px;
 }
@@ -374,65 +374,65 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
 }
 
 
-.axiom-field-sm {
+.nemoto-field-sm {
   padding: var(--theme-field-padding-sm, 0.375rem 0.5rem);
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.axiom-field-xs {
+.nemoto-field-xs {
   padding: var(--theme-field-padding-xs, 0.25rem 0.5rem);
   font-size: 0.625rem;
   line-height: 0.875rem;
 }
 
 /* Reserve space for an absolutely positioned icon at inline start. */
-.axiom-field-leading-icon {
+.nemoto-field-leading-icon {
   padding-left: 2.25rem;
 }
 
 /* Reserve space for an absolutely positioned clear or reveal action. */
-.axiom-field-trailing-action {
+.nemoto-field-trailing-action {
   padding-right: 2.25rem;
 }
 
-.axiom-field-textarea {
+.nemoto-field-textarea {
   min-height: 5rem;
   resize: none;
 }
 
-.axiom-panel,
-.axiom-side-panel,
-.axiom-inspector-panel,
-.axiom-journal-context-panel {
+.nemoto-panel,
+.nemoto-side-panel,
+.nemoto-inspector-panel,
+.nemoto-journal-context-panel {
   background: var(--color-app-sidebar);
   border-color: var(--color-app-border);
   color: var(--color-text-main);
 }
 
-.axiom-panel-header {
+.nemoto-panel-header {
   background: color-mix(in srgb, var(--color-app-header) 70%, transparent);
   border-color: var(--color-app-border);
 }
 
-.axiom-panel-header.cursor-pointer:hover {
+.nemoto-panel-header.cursor-pointer:hover {
   background: var(--color-control-hover, var(--color-app-hover));
 }
 
-.axiom-panel-body {
+.nemoto-panel-body {
   background: color-mix(in srgb, var(--color-app-sidebar) 92%, var(--color-app-bg));
 }
 
-.axiom-panel-section {
+.nemoto-panel-section {
   background: color-mix(in srgb, var(--color-app-surface) 42%, transparent);
   border-color: var(--color-app-border);
 }
 
-.axiom-panel-divider {
+.nemoto-panel-divider {
   background: color-mix(in srgb, var(--color-app-border) 70%, transparent);
 }
 
-.axiom-panel-resizer {
+.nemoto-panel-resizer {
   background: transparent;
   transition:
     background-color var(--motion-duration-fast) var(--motion-ease-standard),
@@ -440,11 +440,11 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     height var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-panel-resizer:hover {
+.nemoto-panel-resizer:hover {
   background: color-mix(in srgb, var(--color-accent-primary) 35%, transparent);
 }
 
-.axiom-panel-icon-button {
+.nemoto-panel-icon-button {
   width: 1.5rem;
   height: 1.5rem;
   padding: 0;
@@ -464,43 +464,43 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     transform var(--motion-duration-instant) var(--motion-ease-standard);
 }
 
-.axiom-panel-icon-button:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-panel-icon-button:not(:disabled):not([aria-disabled='true']):hover {
   background: var(--color-control-hover, var(--color-app-hover));
   color: var(--color-text-main);
 }
 
-.axiom-panel-icon-button:not(:disabled):not([aria-disabled='true']):active {
+.nemoto-panel-icon-button:not(:disabled):not([aria-disabled='true']):active {
   box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
   transform: var(--control-active-transform, none);
 }
 
-.axiom-panel-icon-button-danger {
+.nemoto-panel-icon-button-danger {
   color: var(--color-accent-danger);
 }
 
-.axiom-panel-icon-button-danger:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-panel-icon-button-danger:not(:disabled):not([aria-disabled='true']):hover {
   background: color-mix(in srgb, var(--color-accent-danger) 12%, transparent);
   color: var(--color-accent-danger);
 }
 
-.axiom-panel-icon-button:disabled,
-.axiom-panel-icon-button[aria-disabled='true'] {
+.nemoto-panel-icon-button:disabled,
+.nemoto-panel-icon-button[aria-disabled='true'] {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.axiom-panel-card {
+.nemoto-panel-card {
   background: var(--color-field-bg, var(--color-app-bg));
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-field-border, var(--color-app-border));
   border-radius: var(--control-radius, var(--app-radius-sm));
   color: var(--color-text-main);
 }
 
-.axiom-panel-card-danger {
+.nemoto-panel-card-danger {
   border-color: color-mix(in srgb, var(--color-accent-danger) 35%, transparent);
 }
 
-.axiom-panel-row {
+.nemoto-panel-row {
   min-height: var(--theme-list-row-height, 2rem);
   border-radius: var(--control-radius, var(--app-radius-sm));
   color: var(--color-text-muted);
@@ -511,44 +511,44 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-panel-row-compact,
-.axiom-resource-row {
+.nemoto-panel-row-compact,
+.nemoto-resource-row {
   min-height: var(--theme-resource-row-height, calc(var(--theme-list-row-height, 2rem) * 0.75));
 }
 
-.axiom-panel-row:hover {
+.nemoto-panel-row:hover {
   background: var(--color-control-hover, var(--color-app-hover));
   color: var(--color-text-main);
 }
 
-.axiom-panel-row-active {
+.nemoto-panel-row-active {
   background: color-mix(in srgb, var(--color-accent-primary) 10%, transparent);
   color: var(--color-accent-primary);
 }
 
-.axiom-panel-row-selected {
+.nemoto-panel-row-selected {
   background: var(--color-app-active);
   color: var(--color-text-main);
 }
 
-.axiom-panel-row-selected .axiom-row-title {
+.nemoto-panel-row-selected .nemoto-row-title {
   color: var(--color-text-main);
 }
 
-.axiom-panel-row-border {
+.nemoto-panel-row-border {
   border-top: var(--control-border-width, var(--app-border-width)) solid color-mix(in srgb, var(--color-app-border) 30%, transparent);
 }
 
-.axiom-panel-row-handle {
+.nemoto-panel-row-handle {
   color: var(--color-text-faint);
 }
 
-.axiom-panel-bulk-bar {
+.nemoto-panel-bulk-bar {
   background: color-mix(in srgb, var(--color-app-surface) 92%, transparent);
   border-color: var(--color-app-border);
 }
 
-.axiom-drag-proxy {
+.nemoto-drag-proxy {
   background: color-mix(in srgb, var(--color-app-surface) 92%, transparent);
   border: var(--control-border-width, var(--app-border-width)) solid color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
   border-radius: var(--control-radius, var(--app-radius-sm));
@@ -556,7 +556,7 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   color: var(--color-text-main);
 }
 
-.axiom-modal-panel {
+.nemoto-modal-panel {
   background: var(--color-app-surface);
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
   border-radius: var(--dialog-radius, var(--app-radius-md));
@@ -564,21 +564,21 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   color: var(--color-text-main);
 }
 
-.axiom-modal-sidebar {
+.nemoto-modal-sidebar {
   background: var(--color-app-header);
   border-color: var(--color-app-border);
 }
 
-.axiom-modal-content {
+.nemoto-modal-content {
   background: var(--color-app-bg);
 }
 
-.axiom-dialog-backdrop {
+.nemoto-dialog-backdrop {
   background: color-mix(in srgb, var(--color-app-bg) 28%, rgba(0, 0, 0, 0.68));
   backdrop-filter: blur(8px);
 }
 
-.axiom-dialog-panel {
+.nemoto-dialog-panel {
   background: var(--color-app-surface);
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
   border-radius: var(--dialog-radius, var(--app-radius-md));
@@ -586,52 +586,52 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   color: var(--color-text-main);
 }
 
-.axiom-dialog-header,
-.axiom-dialog-footer {
+.nemoto-dialog-header,
+.nemoto-dialog-footer {
   background: color-mix(in srgb, var(--color-app-header) 78%, transparent);
   border-color: var(--color-app-border);
 }
 
-.axiom-dialog-body {
+.nemoto-dialog-body {
   background: var(--color-app-bg);
 }
 
 /* Brutalist dialogs keep the application visible beneath a crisp, unblurred scrim. */
-[data-theme='hard'] .axiom-dialog-backdrop {
+[data-theme='hard'] .nemoto-dialog-backdrop {
   background: rgba(21, 21, 21, 0.20) !important;
   backdrop-filter: none !important;
 }
 
-[data-theme='hard'] .axiom-dialog-panel {
+[data-theme='hard'] .nemoto-dialog-panel {
   border-width: 3px;
   box-shadow: 8px 8px 0 #151515;
 }
 
-[data-theme='hard'] .axiom-dialog-header,
-[data-theme='hard'] .axiom-dialog-footer {
+[data-theme='hard'] .nemoto-dialog-header,
+[data-theme='hard'] .nemoto-dialog-footer {
   background: var(--color-app-header);
 }
 
-.axiom-dialog-icon {
+.nemoto-dialog-icon {
   border-radius: var(--app-radius-md);
 }
 
-.axiom-dialog-icon-primary {
+.nemoto-dialog-icon-primary {
   background: color-mix(in srgb, var(--color-accent-primary) 14%, transparent);
   color: var(--color-accent-primary);
 }
 
-.axiom-dialog-icon-warning {
+.nemoto-dialog-icon-warning {
   background: color-mix(in srgb, var(--color-accent-warning) 16%, transparent);
   color: var(--color-accent-warning);
 }
 
-.axiom-dialog-icon-danger {
+.nemoto-dialog-icon-danger {
   background: color-mix(in srgb, var(--color-accent-danger) 16%, transparent);
   color: var(--color-accent-danger);
 }
 
-.axiom-dialog-row {
+.nemoto-dialog-row {
   min-height: var(--theme-dialog-row-height, 2.5rem);
   border: var(--control-border-width, var(--app-border-width)) solid transparent;
   border-radius: var(--control-radius, var(--app-radius-sm));
@@ -644,70 +644,70 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-dialog-row:hover {
+.nemoto-dialog-row:hover {
   background: var(--color-control-hover, var(--color-app-hover));
   border-color: var(--color-app-border);
   color: var(--color-text-main);
 }
 
-.axiom-dialog-row-selected {
+.nemoto-dialog-row-selected {
   background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-app-surface));
   border-color: color-mix(in srgb, var(--color-accent-primary) 45%, transparent);
   color: var(--color-text-main);
 }
 
-.axiom-dialog-row[aria-selected='true'] {
+.nemoto-dialog-row[aria-selected='true'] {
   background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-app-surface));
   border-color: color-mix(in srgb, var(--color-accent-primary) 45%, transparent);
   color: var(--color-text-main);
 }
 
-.axiom-dialog-row[aria-pressed='true'] {
+.nemoto-dialog-row[aria-pressed='true'] {
   background: color-mix(in srgb, var(--color-accent-primary) 10%, var(--color-app-surface));
   border-color: color-mix(in srgb, var(--color-accent-primary) 45%, transparent);
   color: var(--color-text-main);
 }
 
-.axiom-dialog-row-danger {
+.nemoto-dialog-row-danger {
   color: var(--color-accent-danger);
 }
 
-.axiom-dialog-row-danger:hover {
+.nemoto-dialog-row-danger:hover {
   background: color-mix(in srgb, var(--color-accent-danger) 10%, transparent);
   border-color: color-mix(in srgb, var(--color-accent-danger) 30%, transparent);
 }
 
-.axiom-dialog-row-icon {
+.nemoto-dialog-row-icon {
   background: var(--color-app-bg);
   color: var(--color-text-muted);
   border-radius: var(--control-radius, var(--app-radius-sm));
 }
 
-.axiom-dialog-row:hover .axiom-dialog-row-icon,
-.axiom-dialog-row-selected .axiom-dialog-row-icon {
+.nemoto-dialog-row:hover .nemoto-dialog-row-icon,
+.nemoto-dialog-row-selected .nemoto-dialog-row-icon {
   background: var(--color-app-surface);
   color: var(--color-text-main);
 }
 
-.axiom-dialog-row-selected .axiom-dialog-row-icon {
+.nemoto-dialog-row-selected .nemoto-dialog-row-icon {
   background: var(--color-control-primary-bg, var(--color-accent-primary));
   color: var(--color-control-primary-text, var(--color-accent-primary-text));
 }
 
-.axiom-dialog-badge {
+.nemoto-dialog-badge {
   background: var(--color-app-bg);
   border-radius: var(--control-radius, var(--app-radius-sm));
   color: var(--color-text-faint);
 }
 
 /* Selection, toolbar and popover controls */
-.axiom-icon-grid {
+.nemoto-icon-grid {
   background: var(--color-app-surface);
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
   border-radius: var(--app-radius-md);
 }
 
-.axiom-icon-tile {
+.nemoto-icon-tile {
   border-radius: var(--control-radius, var(--app-radius-sm));
   background: transparent;
   color: var(--color-text-muted);
@@ -719,27 +719,27 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     transform var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-icon-tile:hover {
+.nemoto-icon-tile:hover {
   background: var(--color-control-hover, var(--color-app-hover));
   color: var(--color-text-main);
 }
 
-.axiom-icon-tile-active {
+.nemoto-icon-tile-active {
   background: var(--color-control-primary-bg, var(--color-accent-primary));
   color: var(--color-control-primary-text, var(--color-accent-primary-text));
   box-shadow: var(--control-shadow, var(--app-shadow-sm));
 }
 
-.axiom-canvas-toolbar {
+.nemoto-canvas-toolbar {
   background: color-mix(in srgb, var(--color-app-surface) 72%, transparent);
   border-color: var(--color-app-border);
 }
 
-.axiom-canvas-toolbar-group {
+.nemoto-canvas-toolbar-group {
   border-color: color-mix(in srgb, var(--color-app-border) 70%, transparent);
 }
 
-.axiom-toolbar-button {
+.nemoto-toolbar-button {
   width: 1.5rem;
   height: 1.5rem;
   padding: 0;
@@ -758,45 +758,45 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-toolbar-button:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-toolbar-button:not(:disabled):not([aria-disabled='true']):hover {
   background: var(--color-control-hover, var(--color-app-hover));
   color: var(--color-text-main);
 }
 
-.axiom-toolbar-button.axiom-toolbar-button-labelled {
+.nemoto-toolbar-button.nemoto-toolbar-button-labelled {
   width: auto;
   min-width: 1.5rem;
   padding-inline: 0.5rem;
   white-space: nowrap;
 }
 
-.axiom-toolbar-button:not(:disabled):not([aria-disabled='true']):active {
+.nemoto-toolbar-button:not(:disabled):not([aria-disabled='true']):active {
   box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
 }
 
-.axiom-toolbar-button[aria-pressed='true'] {
+.nemoto-toolbar-button[aria-pressed='true'] {
   background: var(--color-control-active, var(--color-app-active));
   color: var(--color-accent-primary);
   box-shadow: var(--control-active-shadow, var(--app-shadow-inset));
 }
 
-.axiom-toolbar-button-danger {
+.nemoto-toolbar-button-danger {
   color: var(--color-accent-danger);
 }
 
-.axiom-toolbar-button-danger:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-toolbar-button-danger:not(:disabled):not([aria-disabled='true']):hover {
   background: color-mix(in srgb, var(--color-accent-danger) 12%, transparent);
   color: var(--color-accent-danger);
 }
 
-.axiom-toolbar-button:disabled,
-.axiom-toolbar-button[aria-disabled='true'] {
+.nemoto-toolbar-button:disabled,
+.nemoto-toolbar-button[aria-disabled='true'] {
   box-shadow: none;
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.axiom-segmented {
+.nemoto-segmented {
   display: inline-flex;
   padding: 0.125rem;
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
@@ -804,7 +804,7 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   background: color-mix(in srgb, var(--color-app-surface) 72%, var(--color-app-bg));
 }
 
-.axiom-segmented-option {
+.nemoto-segmented-option {
   min-height: 1.375rem;
   padding: 0 0.625rem;
   border: 0;
@@ -823,30 +823,30 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     box-shadow var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-segmented-option:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-segmented-option:not(:disabled):not([aria-disabled='true']):hover {
   color: var(--color-text-main);
 }
 
-.axiom-segmented-option-active {
+.nemoto-segmented-option-active {
   background: var(--color-control-primary-bg, var(--color-accent-primary));
   color: var(--color-control-primary-text, var(--color-accent-primary-text));
   box-shadow: var(--control-shadow, var(--app-shadow-sm));
 }
 
-.axiom-segmented-option[aria-pressed='true'] {
+.nemoto-segmented-option[aria-pressed='true'] {
   background: var(--color-control-primary-bg, var(--color-accent-primary));
   color: var(--color-control-primary-text, var(--color-accent-primary-text));
   box-shadow: var(--control-shadow, var(--app-shadow-sm));
 }
 
-.axiom-segmented-option:disabled,
-.axiom-segmented-option[aria-disabled='true'] {
+.nemoto-segmented-option:disabled,
+.nemoto-segmented-option[aria-disabled='true'] {
   box-shadow: none;
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.axiom-toggle {
+.nemoto-toggle {
   width: 2rem;
   height: 1rem;
   position: relative;
@@ -857,18 +857,18 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   cursor: pointer;
 }
 
-.axiom-toggle-active {
+.nemoto-toggle-active {
   background: var(--color-control-primary-bg, var(--color-accent-primary));
 }
 
-.axiom-toggle:disabled,
-.axiom-toggle[aria-disabled='true'] {
+.nemoto-toggle:disabled,
+.nemoto-toggle[aria-disabled='true'] {
   box-shadow: none;
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.axiom-toggle-knob {
+.nemoto-toggle-knob {
   position: absolute;
   top: 0.125rem;
   left: 0.125rem;
@@ -880,11 +880,11 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   transition: left var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-toggle-active .axiom-toggle-knob {
+.nemoto-toggle-active .nemoto-toggle-knob {
   left: 1.125rem;
 }
 
-.axiom-toggle-card {
+.nemoto-toggle-card {
   display: flex;
   width: 100%;
   align-items: center;
@@ -903,25 +903,25 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-toggle-card:hover {
+.nemoto-toggle-card:hover {
   background: var(--color-control-hover, var(--color-app-hover));
   color: var(--color-text-main);
 }
 
-.axiom-toggle-card-active,
-.axiom-toggle-card[aria-pressed='true'] {
+.nemoto-toggle-card-active,
+.nemoto-toggle-card[aria-pressed='true'] {
   border-color: var(--color-app-border);
   background: var(--color-app-surface);
   color: var(--color-text-main);
 }
 
-.axiom-toggle-card:disabled,
-.axiom-toggle-card[aria-disabled='true'] {
+.nemoto-toggle-card:disabled,
+.nemoto-toggle-card[aria-disabled='true'] {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.axiom-color-swatch {
+.nemoto-color-swatch {
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-app-border);
   box-shadow: none;
   transition:
@@ -930,15 +930,15 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-color-swatch:hover {
+.nemoto-color-swatch:hover {
   transform: scale(1.08);
 }
 
-.axiom-color-swatch-active {
+.nemoto-color-swatch-active {
   box-shadow: 0 0 0 2px var(--color-app-surface), 0 0 0 4px var(--color-text-main);
 }
 
-.axiom-popover {
+.nemoto-popover {
   background: var(--color-menu-bg, var(--color-app-surface));
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-menu-border, var(--color-app-border));
   border-radius: var(--control-radius, var(--app-radius-sm));
@@ -946,8 +946,8 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
 }
 
 /* Menus */
-.axiom-file-menu,
-.axiom-context-menu {
+.nemoto-file-menu,
+.nemoto-context-menu {
   background: var(--color-menu-bg, var(--color-app-sidebar)) !important;
   border: var(--control-border-width, var(--app-border-width)) solid var(--color-menu-border, var(--color-app-border)) !important;
   border-radius: var(--control-radius, var(--app-radius-sm)) !important;
@@ -957,8 +957,8 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   padding: 0.25rem !important;
 }
 
-.axiom-scroll-menu {
-  max-height: var(--axiom-scroll-menu-max-height, min(20rem, calc(100vh - 6rem)));
+.nemoto-scroll-menu {
+  max-height: var(--nemoto-scroll-menu-max-height, min(20rem, calc(100vh - 6rem)));
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -968,24 +968,24 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
 }
 
 .settings-theme-menu {
-  --axiom-scroll-menu-max-height: min(15rem, calc(100vh - 12rem));
+  --nemoto-scroll-menu-max-height: min(15rem, calc(100vh - 12rem));
 }
 
-.axiom-scroll-menu::-webkit-scrollbar {
+.nemoto-scroll-menu::-webkit-scrollbar {
   width: 8px;
 }
 
-.axiom-scroll-menu::-webkit-scrollbar-track {
+.nemoto-scroll-menu::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.axiom-scroll-menu::-webkit-scrollbar-thumb {
+.nemoto-scroll-menu::-webkit-scrollbar-thumb {
   border: 2px solid var(--color-menu-bg, var(--color-app-sidebar));
   border-radius: 999px;
   background: color-mix(in srgb, var(--color-text-main) 42%, transparent);
 }
 
-.axiom-scroll-menu::-webkit-scrollbar-thumb:hover {
+.nemoto-scroll-menu::-webkit-scrollbar-thumb:hover {
   background: color-mix(in srgb, var(--color-text-main) 62%, transparent);
 }
 
@@ -993,7 +993,7 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
   border: 1px solid color-mix(in srgb, var(--color-text-main) 46%, var(--color-app-bg)) !important;
 }
 
-.axiom-menu-item {
+.nemoto-menu-item {
   width: 100%;
   min-height: var(--theme-menu-item-height, 2rem);
   display: flex;
@@ -1017,46 +1017,46 @@ input[type='date']::-webkit-calendar-picker-indicator:hover {
     color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.axiom-menu-item:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-menu-item:not(:disabled):not([aria-disabled='true']):hover {
   background: var(--color-menu-hover, var(--color-app-hover)) !important;
   color: var(--color-text-main) !important;
   box-shadow: var(--menu-hover-shadow, none) !important;
 }
 
-.axiom-menu-item svg {
+.nemoto-menu-item svg {
   color: currentColor;
   flex-shrink: 0;
 }
 
-.axiom-menu-item-danger {
+.nemoto-menu-item-danger {
   color: var(--color-accent-danger) !important;
 }
 
-.axiom-menu-item-danger:not(:disabled):not([aria-disabled='true']):hover {
+.nemoto-menu-item-danger:not(:disabled):not([aria-disabled='true']):hover {
   background: color-mix(in srgb, var(--color-accent-danger) 12%, transparent) !important;
   color: var(--color-accent-danger) !important;
 }
 
-.axiom-menu-item[aria-selected='true'],
-.axiom-menu-item[aria-checked='true'] {
+.nemoto-menu-item[aria-selected='true'],
+.nemoto-menu-item[aria-checked='true'] {
   background: var(--color-menu-hover, var(--color-app-hover)) !important;
   color: var(--color-text-main) !important;
 }
 
-.axiom-menu-item-compact {
+.nemoto-menu-item-compact {
   min-height: 1.625rem;
   padding: 0 0.625rem !important;
   font-size: 0.75rem;
 }
 
-.axiom-menu-divider {
+.nemoto-menu-divider {
   height: 1px !important;
   margin: 0.25rem 0.5rem !important;
   background: color-mix(in srgb, var(--color-menu-separator, var(--color-app-border)) 65%, transparent) !important;
 }
 
 /* Text actions retain native keyboard semantics and the shared focus outline. */
-.axiom-text-button {
+.nemoto-text-button {
   background: transparent;
   border: 0;
   padding: 0;

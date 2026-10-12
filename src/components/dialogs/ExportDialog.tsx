@@ -7,7 +7,7 @@ import { HtmlExportService } from '../../export/HtmlExportService';
 import { formatError } from '../../lib/errorUtils';
 import { toast } from 'sonner';
 import { useMemo, useState } from 'react';
-import { AxiomDialog } from '../ui';
+import { NemotoDialog } from '../ui';
 import { exportProcessWithFeedback } from '../shared/exportProcessWithFeedback';
 
 export default function ExportDialog() {
@@ -71,14 +71,14 @@ export default function ExportDialog() {
     };
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-labelledby="export-dialog-title"
             onClose={closeExportDialog}
             panelClassName="w-full max-w-[500px] overflow-hidden flex flex-col"
         >
 
                 {/* Header */}
-                <div className="axiom-dialog-header flex items-center justify-between px-6 py-4 border-b">
+                <div className="nemoto-dialog-header flex items-center justify-between px-6 py-4 border-b">
                     <h2 id="export-dialog-title" className="text-lg font-bold text-text-main flex items-center gap-2">
                         <Download size={18} className="text-accent-primary" />
                         Export
@@ -86,14 +86,14 @@ export default function ExportDialog() {
                     <button
                         aria-label="Close export dialog"
                         onClick={closeExportDialog}
-                        className="axiom-icon-button axiom-icon-button-sm axiom-icon-button-ghost"
+                        className="nemoto-icon-button nemoto-icon-button-sm nemoto-icon-button-ghost"
                     >
                         <X size={20} />
                     </button>
                 </div>
 
                 {/* Content */}
-                <div className="axiom-dialog-body p-6 space-y-6">
+                <div className="nemoto-dialog-body p-6 space-y-6">
                     <p className="text-sm text-text-muted leading-relaxed">
                         Choose the export format. Full portfolios use <span className="text-accent-primary font-mono text-xs">.nemoto</span>, process fragments use <span className="text-accent-primary font-mono text-xs">.nemoto-process</span>, and HTML viewers are standalone offline files.
                     </p>
@@ -104,7 +104,7 @@ export default function ExportDialog() {
                         {/* FULL BACKUP */}
                         <button
                             onClick={handleExportFull}
-                            className="axiom-dialog-row group p-4 flex items-start gap-4 text-left"
+                            className="nemoto-dialog-row group p-4 flex items-start gap-4 text-left"
                         >
                             <div className="w-10 h-10 rounded-lg bg-accent-primary/10 flex items-center justify-center text-accent-primary shrink-0 group-hover:scale-110 transition-transform">
                                 <Shield size={20} />
@@ -120,7 +120,7 @@ export default function ExportDialog() {
                             onClick={handleExportPartial}
                             disabled={!activeProcessId}
                             className={`
-                                axiom-dialog-row group p-4 flex items-start gap-4 text-left
+                                nemoto-dialog-row group p-4 flex items-start gap-4 text-left
                                 ${activeProcessId
                                     ? ''
                                     : 'opacity-50 grayscale cursor-not-allowed'}
@@ -144,7 +144,7 @@ export default function ExportDialog() {
                             onClick={handleExportHtml}
                             disabled={!activeProcessId}
                             className={`
-                                axiom-dialog-row group p-4 flex items-start gap-4 text-left
+                                nemoto-dialog-row group p-4 flex items-start gap-4 text-left
                                 ${activeProcessId
                                     ? ''
                                     : 'opacity-50 grayscale cursor-not-allowed'}
@@ -200,14 +200,14 @@ export default function ExportDialog() {
                 </div>
 
                 {/* Footer */}
-                <div className="axiom-dialog-footer px-6 py-4 border-t flex justify-end">
+                <div className="nemoto-dialog-footer px-6 py-4 border-t flex justify-end">
                     <button
                         onClick={closeExportDialog}
-                        className="axiom-button text-sm"
+                        className="nemoto-button text-sm"
                     >
                         Cancel
                     </button>
                 </div>
-        </AxiomDialog>
+        </NemotoDialog>
     );
 }

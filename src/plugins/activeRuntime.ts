@@ -3,7 +3,7 @@ import { createDeclarativePluginRuntime } from './declarativeRuntime';
 import type { InstalledPluginDocument } from './installedPackages';
 import type { PortfolioPluginRequirement } from './portfolioData';
 import { satisfiesVersionRange } from './versionRange';
-import { AXIOM_PLUGIN_API_VERSION } from './activation';
+import { NEMOTO_PLUGIN_API_VERSION } from './activation';
 import { PluginViewContributionSchema } from './contributionSchemas';
 import { requiredCapabilitiesForPluginUi } from './pluginUiProtocol';
 
@@ -19,7 +19,7 @@ export function resolveActiveComposedViewAuthority(
     installed: readonly InstalledPluginDocument[],
     requirements: readonly PortfolioPluginRequirement[],
     viewId: string,
-    hostApiVersion = AXIOM_PLUGIN_API_VERSION,
+    hostApiVersion = NEMOTO_PLUGIN_API_VERSION,
 ): ActiveComposedViewAuthority | null {
     const matches = installed.flatMap(document => {
         const reference = document.manifest.contributes.views?.find(candidate => candidate.id === viewId);

@@ -21,7 +21,7 @@ export const PostItNode = memo(({ id, data, selected }: NodeProps) => {
     return (
         <div
             className={clsx(
-                "group relative w-48 min-h-[64px] p-3 axiom-transition-canvas shape-post-it",
+                "group relative w-48 min-h-[64px] p-3 nemoto-transition-canvas shape-post-it",
                 "bg-app-surface border backdrop-blur-md shadow-soft-down",
                 selected && "ring-2 ring-offset-2 ring-offset-app-bg z-50 shadow-lg"
             )}

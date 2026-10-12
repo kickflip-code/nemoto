@@ -36,20 +36,20 @@ export default function JournalEntryPicker({ onClose, onSelect }: JournalEntryPi
     }, [allEntries, search]);
 
     return createPortal(
-        <div className="fixed inset-0 z-[10100] flex items-center justify-center axiom-motion-overlay">
-            <div className="axiom-dialog-backdrop absolute inset-0" onClick={onClose} />
-            <div className="axiom-dialog-panel relative w-[500px] flex flex-col max-h-[600px] overflow-hidden axiom-motion-dialog">
+        <div className="fixed inset-0 z-[10100] flex items-center justify-center nemoto-motion-overlay">
+            <div className="nemoto-dialog-backdrop absolute inset-0" onClick={onClose} />
+            <div className="nemoto-dialog-panel relative w-[500px] flex flex-col max-h-[600px] overflow-hidden nemoto-motion-dialog">
 
                 {/* Header */}
-                <div className="axiom-dialog-header h-12 border-b flex items-center justify-between px-4">
+                <div className="nemoto-dialog-header h-12 border-b flex items-center justify-between px-4">
                     <span className="font-bold text-sm text-text-main">Link Existing Note</span>
-                    <button onClick={onClose} className="axiom-icon-button axiom-icon-button-sm axiom-icon-button-ghost">
+                    <button onClick={onClose} className="nemoto-icon-button nemoto-icon-button-sm nemoto-icon-button-ghost">
                         <X size={16} />
                     </button>
                 </div>
 
                 {/* Search */}
-                <div className="axiom-dialog-header p-4 border-b">
+                <div className="nemoto-dialog-header p-4 border-b">
                     <div className="relative">
                         <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                         <input
@@ -58,13 +58,13 @@ export default function JournalEntryPicker({ onClose, onSelect }: JournalEntryPi
                             placeholder="Search notes..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="axiom-field axiom-field-sm w-full pl-9 pr-3 text-sm"
+                            className="nemoto-field nemoto-field-sm w-full pl-9 pr-3 text-sm"
                         />
                     </div>
                 </div>
 
                 {/* List */}
-                <div className="axiom-dialog-body flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
+                <div className="nemoto-dialog-body flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
                     {filteredEntries.map(entry => (
                         <div
                             key={entry.id}
@@ -72,9 +72,9 @@ export default function JournalEntryPicker({ onClose, onSelect }: JournalEntryPi
                                 onSelect(entry.id);
                                 onClose();
                             }}
-                            className="axiom-dialog-row flex items-center gap-3 p-3 cursor-pointer group"
+                            className="nemoto-dialog-row flex items-center gap-3 p-3 cursor-pointer group"
                         >
-                            <div className="axiom-dialog-row-icon w-8 h-8 flex items-center justify-center">
+                            <div className="nemoto-dialog-row-icon w-8 h-8 flex items-center justify-center">
                                 <Book size={16} />
                             </div>
                             <div className="flex-1">

@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { AxiomDock, AxiomDockButton, AxiomDockDivider } from './AxiomDock';
+import { NemotoDock, NemotoDockButton, NemotoDockDivider } from './NemotoDock';
 
-describe('AxiomDock', () => {
+describe('NemotoDock', () => {
     it('provides a toolbar contract for canvas creation tools', () => {
         render(
-            <AxiomDock aria-label="Canvas tools">
-                <AxiomDockButton active label="Select">S</AxiomDockButton>
-                <AxiomDockDivider />
-                <AxiomDockButton label="Add action">A</AxiomDockButton>
-            </AxiomDock>,
+            <NemotoDock aria-label="Canvas tools">
+                <NemotoDockButton active label="Select">S</NemotoDockButton>
+                <NemotoDockDivider />
+                <NemotoDockButton label="Add action">A</NemotoDockButton>
+            </NemotoDock>,
         );
 
         expect(screen.getByRole('toolbar', { name: 'Canvas tools' })).toHaveClass('floating-dock-shell');

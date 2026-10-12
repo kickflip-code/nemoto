@@ -59,8 +59,8 @@ const viewerTemplateAssets = assetNames
         contents: readFileSync(resolve(assetsDirectory, name)),
     }))
     .filter(asset => (
-        asset.contents.includes(Buffer.from('<script id="axiom-data"'))
-        && asset.contents.includes(Buffer.from('<!--AXIOM_DATA-->'))
+        asset.contents.includes(Buffer.from('<script id="nemoto-data"'))
+        && asset.contents.includes(Buffer.from('<!--NEMOTO_DATA-->'))
     ));
 
 if (viewerTemplateAssets.length !== 1) {
@@ -93,7 +93,7 @@ const javascriptWithEmbeddedViewer = assetNames
     .filter(name => {
         const contents = readFileSync(resolve(assetsDirectory, name));
         return contents.includes(Buffer.from('<!DOCTYPE html>'))
-            && contents.includes(Buffer.from('axiom-data'));
+            && contents.includes(Buffer.from('nemoto-data'));
     });
 
 if (javascriptWithEmbeddedViewer.length > 0) {

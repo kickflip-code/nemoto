@@ -1,5 +1,5 @@
 use crate::error::AppError;
-use crate::models::project::AxiomProject;
+use crate::models::project::NemotoProject;
 use crate::utils::atomic_file::atomic_write_json;
 use crate::utils::paths::validate_path;
 use std::fs;
@@ -7,7 +7,7 @@ use std::path::Path;
 use tauri::command;
 
 #[command]
-pub fn save_project(path: String, project: AxiomProject) -> Result<(), AppError> {
+pub fn save_project(path: String, project: NemotoProject) -> Result<(), AppError> {
     validate_path(&path, &["nemoto", "nemoto-process", "ax", "axiom"])
         .map_err(AppError::Validation)?;
 
@@ -32,12 +32,12 @@ pub fn write_axiom_file_atomic(
 }
 
 #[command]
-pub fn load_project(path: String) -> Result<AxiomProject, AppError> {
+pub fn load_project(path: String) -> Result<NemotoProject, AppError> {
     validate_path(&path, &["nemoto", "nemoto-process", "ax", "axiom"])
         .map_err(AppError::Validation)?;
 
     let content = fs::read_to_string(&path)?;
-    let project: AxiomProject = serde_json::from_str(&content)?;
+    let project: NemotoProject = serde_json::from_str(&content)?;
     Ok(project)
 }
 

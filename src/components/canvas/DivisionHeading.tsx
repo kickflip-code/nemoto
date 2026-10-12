@@ -18,7 +18,7 @@ export function DivisionHeading({ label, kind, style, className, onSelect, onRen
         setEditing(false);
     };
     return editing ? <input autoFocus aria-label={`Name of ${kind}`} value={draft}
-        style={style} className={`${className} axiom-division-name`}
+        style={style} className={`${className} nemoto-division-name`}
         onFocus={e => e.target.select()} onClick={e => e.stopPropagation()}
         onChange={e => setDraft(e.target.value)} onBlur={finish}
         onKeyDown={e => {
@@ -31,6 +31,6 @@ export function DivisionHeading({ label, kind, style, className, onSelect, onRen
         onClick={e => { e.stopPropagation(); onSelect(); }}
         onDoubleClick={e => { e.stopPropagation(); start(); }}
         onKeyDown={e => { if (e.key === 'F2' || e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); start(); } }}>
-        <span className="axiom-division-accent" aria-hidden="true" /><span className="axiom-division-label">{label}</span>
+        <span className="nemoto-division-accent" aria-hidden="true" /><span className="nemoto-division-label">{label}</span>
     </button>;
 }

@@ -3,8 +3,8 @@ import type { InstalledPluginDocument } from './installedPackages';
 import type { PortfolioPluginRequirement } from './portfolioData';
 import { satisfiesVersionRange } from './versionRange';
 
-export const AXIOM_PLUGIN_DIAGNOSTIC_SCHEMA = 'axiom.plugin-diagnostic';
-export const AXIOM_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA = 'axiom.plugin-diagnostic-bundle';
+export const NEMOTO_PLUGIN_DIAGNOSTIC_SCHEMA = 'axiom.plugin-diagnostic';
+export const NEMOTO_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA = 'axiom.plugin-diagnostic-bundle';
 export const CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION = 1;
 export const DEFAULT_PLUGIN_DIAGNOSTIC_MAX_ENTRIES = 500;
 export const MAX_PLUGIN_DIAGNOSTIC_MAX_ENTRIES = 1_000;
@@ -76,7 +76,7 @@ const DiagnosticContextPrimitiveSchema = z.union([
 ]);
 
 export const PluginDiagnosticEntrySchema = z.object({
-    schema: z.literal(AXIOM_PLUGIN_DIAGNOSTIC_SCHEMA),
+    schema: z.literal(NEMOTO_PLUGIN_DIAGNOSTIC_SCHEMA),
     schemaVersion: z.literal(CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION),
     sequence: z.number().int().positive(),
     timestamp: z.string().datetime(),
@@ -107,7 +107,7 @@ export type PluginDiagnosticSeverity = z.infer<typeof PluginDiagnosticSeveritySc
 export type PluginDiagnosticInput = z.input<typeof PluginDiagnosticInputSchema>;
 
 export interface PluginDiagnosticEntry {
-    readonly schema: typeof AXIOM_PLUGIN_DIAGNOSTIC_SCHEMA;
+    readonly schema: typeof NEMOTO_PLUGIN_DIAGNOSTIC_SCHEMA;
     readonly schemaVersion: typeof CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION;
     readonly sequence: number;
     readonly timestamp: string;
@@ -239,7 +239,7 @@ export class PluginDiagnosticBroker {
 
         const context = redactPluginDiagnosticContext(parsed.context);
         const entry = deepFreeze(PluginDiagnosticEntrySchema.parse({
-            schema: AXIOM_PLUGIN_DIAGNOSTIC_SCHEMA,
+            schema: NEMOTO_PLUGIN_DIAGNOSTIC_SCHEMA,
             schemaVersion: CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION,
             sequence: ++this.#sequence,
             timestamp: this.#clock().toISOString(),
@@ -383,7 +383,7 @@ export interface PluginDeveloperDiagnosticSnapshot {
 }
 
 export interface SanitizedPluginDiagnosticBundle {
-    readonly schema: typeof AXIOM_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA;
+    readonly schema: typeof NEMOTO_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA;
     readonly schemaVersion: typeof CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION;
     readonly generatedAt: string;
     readonly redaction: {
@@ -418,7 +418,7 @@ export function createSanitizedPluginDiagnosticBundle(
     });
 
     return deepFreeze({
-        schema: AXIOM_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA,
+        schema: NEMOTO_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA,
         schemaVersion: CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION,
         generatedAt,
         redaction: {

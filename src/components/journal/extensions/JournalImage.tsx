@@ -65,7 +65,7 @@ function JournalImageNodeView({ node, updateAttributes, selected }: NodeViewProp
     return (
         <NodeViewWrapper
             as="figure"
-            className={`axiom-journal-image axiom-journal-image-align-${alignment} relative my-5 max-w-full ${selected ? 'is-selected' : ''}`}
+            className={`nemoto-journal-image nemoto-journal-image-align-${alignment} relative my-5 max-w-full ${selected ? 'is-selected' : ''}`}
             style={{ width }}
             data-type="journal-image"
             data-align={alignment}

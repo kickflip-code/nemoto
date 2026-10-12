@@ -1,4 +1,4 @@
-import type { AxiomPluginApi, PluginApiIdentity } from '../plugins/publicApi';
+import type { NemotoPluginApi, PluginApiIdentity } from '../plugins/publicApi';
 import {
     PluginApiPermissionError,
     PluginApiRevisionConflictError,
@@ -52,7 +52,7 @@ export interface PluginUiEffectDependencies {
     readonly getActiveIdentity: (pluginId: string) => PluginApiIdentity | null;
     readonly hasCapability: (pluginId: string, capability: PluginCapability) => boolean;
     readonly getPortfolioRevision: () => number;
-    readonly connectPublicApi: (pluginId: string) => AxiomPluginApi;
+    readonly connectPublicApi: (pluginId: string) => NemotoPluginApi;
     readonly readCollectionPage: (input: {
         readonly pluginId: string;
         readonly collectionId: string;
