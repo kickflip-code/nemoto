@@ -179,7 +179,7 @@ export default function TipTapEditor({ content, entryId, onUpdate }: TipTapEdito
     const openFindReplace = useCallback(() => {
         setFindOpen(true);
         window.requestAnimationFrame(() => {
-            const input = document.querySelector<HTMLInputElement>('.axiom-journal-findbar input[aria-label="Find in note"]');
+            const input = document.querySelector<HTMLInputElement>('.nemoto-journal-findbar input[aria-label="Find in note"]');
             input?.focus();
             input?.select();
         });
@@ -420,7 +420,7 @@ export default function TipTapEditor({ content, entryId, onUpdate }: TipTapEdito
     // Handle typed mentions and regular links from the editor surface.
     const handleEditorClick = useCallback((e: MouseEvent) => {
         const target = e.target as HTMLElement;
-        if (!target.closest('.axiom-journal-tiptap .ProseMirror')) return;
+        if (!target.closest('.nemoto-journal-tiptap .ProseMirror')) return;
 
         const mention = target.closest('.mention') as HTMLElement;
 
@@ -479,7 +479,7 @@ export default function TipTapEditor({ content, entryId, onUpdate }: TipTapEdito
             if (!modifier) return;
 
             const inEditor = editor.isFocused
-                || !!(event.target as HTMLElement | null)?.closest?.('.axiom-journal-findbar');
+                || !!(event.target as HTMLElement | null)?.closest?.('.nemoto-journal-findbar');
             if (!inEditor) return;
 
             if (event.key.toLowerCase() === 'f') {
@@ -503,7 +503,7 @@ export default function TipTapEditor({ content, entryId, onUpdate }: TipTapEdito
     }
 
     return (
-        <div className="axiom-journal-tiptap flex-1 flex flex-col overflow-hidden">
+        <div className="nemoto-journal-tiptap flex-1 flex flex-col overflow-hidden">
             <input
                 ref={localImageInputRef}
                 type="file"

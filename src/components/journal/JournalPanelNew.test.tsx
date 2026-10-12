@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { useSettingsStore } from '../../stores/useSettingsStore';
 import { useUIStore } from '../../stores/useUIStore';
 import JournalPanelNew from './JournalPanelNew';
-import { AxiomDialog } from '../ui/AxiomDialog';
+import { NemotoDialog } from '../ui/NemotoDialog';
 
 describe('JournalPanelNew workspace behavior', () => {
     beforeEach(() => {
@@ -42,9 +42,9 @@ describe('JournalPanelNew workspace behavior', () => {
         useUIStore.setState({ journalPanelExpanded: true });
         render(<div style={{ transform: 'translateZ(0)' }}>
             <JournalPanelNew dock="left" sideDockAvailable />
-            <AxiomDialog aria-labelledby="divider-dialog-title" onClose={() => {}}>
+            <NemotoDialog aria-labelledby="divider-dialog-title" onClose={() => {}}>
                 <h2 id="divider-dialog-title">Dialog over Journal divider</h2>
-            </AxiomDialog>
+            </NemotoDialog>
         </div>);
 
         const divider = screen.getByRole('separator', { name: 'Resize journal panel' });

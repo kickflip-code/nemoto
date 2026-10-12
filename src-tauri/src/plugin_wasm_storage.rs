@@ -19,15 +19,15 @@ use crate::{
     commands::plugins::is_valid_plugin_id,
     plugin_compute_policy::ISOLATED_COMPUTE_POLICY_V1,
     plugin_wasm_admission::{validate_admission_receipt, WasmAdmissionReceipt},
-    plugin_wasm_host::AXIOM_WASM_ABI_NAME,
+    plugin_wasm_host::NEMOTO_WASM_ABI_NAME,
     plugin_wasm_session::{validate_wasm_plugin_identity, WasmPluginIdentity},
     utils::atomic_file::{atomic_write_verified, backup_path},
 };
 
-pub const AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA: &str = "axiom.plugin-wasm-runtime";
-pub const AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_WASM_STORAGE_POINTER_SCHEMA: &str = "axiom.wasm-storage-pointer";
-pub const AXIOM_WASM_STORAGE_POINTER_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA: &str = "axiom.plugin-wasm-runtime";
+pub const NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_WASM_STORAGE_POINTER_SCHEMA: &str = "axiom.wasm-storage-pointer";
+pub const NEMOTO_WASM_STORAGE_POINTER_SCHEMA_VERSION: u32 = 1;
 
 const CURRENT_POINTER_FILE: &str = "current.json";
 const GENERATIONS_DIRECTORY: &str = "generations";
@@ -118,9 +118,9 @@ pub fn validate_plugin_wasm_entrypoint(
         && segments
             .iter()
             .all(|segment| !segment.is_empty() && *segment != "." && *segment != "..");
-    if entrypoint.schema != AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA
-        || entrypoint.schema_version != AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION
-        || entrypoint.abi != AXIOM_WASM_ABI_NAME
+    if entrypoint.schema != NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA
+        || entrypoint.schema_version != NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION
+        || entrypoint.abi != NEMOTO_WASM_ABI_NAME
         || !safe_path
     {
         return Err(WasmStorageError::new(
@@ -189,8 +189,8 @@ pub fn store_wasm_bundle(
     }
 
     let pointer = StoragePointer {
-        schema: AXIOM_WASM_STORAGE_POINTER_SCHEMA.to_owned(),
-        schema_version: AXIOM_WASM_STORAGE_POINTER_SCHEMA_VERSION,
+        schema: NEMOTO_WASM_STORAGE_POINTER_SCHEMA.to_owned(),
+        schema_version: NEMOTO_WASM_STORAGE_POINTER_SCHEMA_VERSION,
         generation_id,
         identity: expected_identity.clone(),
         module_sha256: receipt.module_sha256.clone(),
@@ -372,8 +372,8 @@ fn read_unbound_pointer(path: &Path) -> Result<StoragePointer, WasmStorageError>
     let bytes = read_bounded(path, MAX_POINTER_BYTES)?;
     let pointer: StoragePointer = serde_json::from_slice(&bytes).map_err(|_| invalid_bundle())?;
     validate_plugin_wasm_entrypoint(&pointer.entrypoint)?;
-    if pointer.schema != AXIOM_WASM_STORAGE_POINTER_SCHEMA
-        || pointer.schema_version != AXIOM_WASM_STORAGE_POINTER_SCHEMA_VERSION
+    if pointer.schema != NEMOTO_WASM_STORAGE_POINTER_SCHEMA
+        || pointer.schema_version != NEMOTO_WASM_STORAGE_POINTER_SCHEMA_VERSION
         || !is_generation_id(&pointer.generation_id)
         || !is_sha256(&pointer.module_sha256)
     {
@@ -564,11 +564,11 @@ mod tests {
     use super::*;
     use crate::{
         plugin_wasm_admission::{
-            module_sha256, AXIOM_WASM_ADMISSION_SCHEMA, AXIOM_WASM_ADMISSION_SCHEMA_VERSION,
+            module_sha256, NEMOTO_WASM_ADMISSION_SCHEMA, NEMOTO_WASM_ADMISSION_SCHEMA_VERSION,
             WASM_COMPILER_CPU_TIME_LIMIT_MS, WASM_COMPILER_MEMORY_LIMIT_BYTES,
             WASM_COMPILER_WALL_DEADLINE_MS,
         },
-        plugin_wasm_host::{AXIOM_WASM_ABI_VERSION, WASMTIME_ENGINE_VERSION},
+        plugin_wasm_host::{NEMOTO_WASM_ABI_VERSION, WASMTIME_ENGINE_VERSION},
     };
 
     fn identity(version: &str) -> WasmPluginIdentity {
@@ -581,23 +581,23 @@ mod tests {
 
     fn entrypoint() -> PluginWasmEntrypoint {
         PluginWasmEntrypoint {
-            schema: AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA.to_owned(),
-            schema_version: AXIOM_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION,
-            abi: AXIOM_WASM_ABI_NAME.to_owned(),
+            schema: NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA.to_owned(),
+            schema_version: NEMOTO_PLUGIN_WASM_RUNTIME_SCHEMA_VERSION,
+            abi: NEMOTO_WASM_ABI_NAME.to_owned(),
             module: "runtime/plugin.wasm".to_owned(),
         }
     }
 
     fn receipt(identity: &WasmPluginIdentity, module_bytes: &[u8]) -> WasmAdmissionReceipt {
         WasmAdmissionReceipt {
-            schema: AXIOM_WASM_ADMISSION_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_ADMISSION_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_ADMISSION_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_ADMISSION_SCHEMA_VERSION,
             identity: identity.clone(),
             module_sha256: module_sha256(module_bytes),
             module_bytes: module_bytes.len() as u64,
             compiled_artifact_bytes: 4096,
-            abi_name: AXIOM_WASM_ABI_NAME.to_owned(),
-            abi_version: AXIOM_WASM_ABI_VERSION,
+            abi_name: NEMOTO_WASM_ABI_NAME.to_owned(),
+            abi_version: NEMOTO_WASM_ABI_VERSION,
             compute_policy_version: ISOLATED_COMPUTE_POLICY_V1.policy_version,
             engine: "wasmtime".to_owned(),
             engine_version: WASMTIME_ENGINE_VERSION.to_owned(),

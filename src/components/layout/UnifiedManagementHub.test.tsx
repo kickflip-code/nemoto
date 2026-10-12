@@ -101,8 +101,8 @@ describe('Manage portfolio', () => {
         expect(screen.getByRole('button', { name: 'Content' })).toHaveAttribute('aria-pressed', 'true');
         expect(screen.getByRole('button', { name: 'Resources' })).toHaveAttribute('aria-pressed', 'true');
         expect(screen.getByRole('searchbox', { name: 'Search resources' })).toHaveClass(
-            'axiom-field-leading-icon',
-            'axiom-field-trailing-action',
+            'nemoto-field-leading-icon',
+            'nemoto-field-trailing-action',
         );
         expect(screen.getByRole('button', { name: 'Unlinked · 1' })).toHaveAttribute('aria-pressed', 'true');
         expect(screen.getByText('Unused handbook')).toBeInTheDocument();

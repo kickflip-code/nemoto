@@ -14,7 +14,7 @@ import {
     createSharedProcessProjection,
     type SharedProcessExportSummary,
 } from '../export/shareablePortfolio';
-import { savePortfolio as saveMainPortfolio, writeAxiomFileAtomic } from '../lib/tauri';
+import { savePortfolio as saveMainPortfolio, writeNemotoFileAtomic } from '../lib/tauri';
 import { createAppearanceBackup } from '../theme/themeBackup';
 
 
@@ -53,7 +53,7 @@ export class BackupService {
             });
 
             if (path) {
-                await writeAxiomFileAtomic(path, json, true);
+                await writeNemotoFileAtomic(path, json, true);
                 // Update last backup time
                 useSettingsStore.getState().setLastBackupTime(new Date().toISOString());
                 return true;
@@ -181,7 +181,7 @@ export class BackupService {
             });
 
             if (path) {
-                await writeAxiomFileAtomic(path, json, true);
+                await writeNemotoFileAtomic(path, json, true);
                 return true;
             }
             return false;

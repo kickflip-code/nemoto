@@ -5,7 +5,7 @@ import { useReactFlow, useStore } from 'reactflow';
 import BreadcrumbNav from './BreadcrumbNav';
 import { useSettingsStore } from '../../stores/useSettingsStore';
 import { useCanvasStore } from '../../stores/useCanvasStore';
-import { AxiomToolbar, AxiomToolbarButton, AxiomToolbarGroup } from '../ui';
+import { NemotoToolbar, NemotoToolbarButton, NemotoToolbarGroup } from '../ui';
 import { getMotionDurationMs, motionDurationMs } from '../../lib/motion';
 const ReadMapDialog = lazy(() => import('../canvas/ReadMapDialog'));
 
@@ -21,7 +21,7 @@ export default function CanvasToolbar() {
 
     return (
         <>
-        <AxiomToolbar aria-label="Canvas view controls" className="min-h-10 border-b flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-3 py-1 shrink-0 z-20 backdrop-blur-sm">
+        <NemotoToolbar aria-label="Canvas view controls" className="min-h-10 border-b flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-3 py-1 shrink-0 z-20 backdrop-blur-sm">
 
             {/* Left: Drill-down Breadcrumbs */}
             <div className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap text-xs">
@@ -32,7 +32,7 @@ export default function CanvasToolbar() {
 
             {/* Right: View Controls */}
             <div className="flex shrink-0 items-center gap-2">
-                <AxiomToolbarGroup aria-label="Zoom controls" className="flex items-center gap-1 border-r pr-2">
+                <NemotoToolbarGroup aria-label="Zoom controls" className="flex items-center gap-1 border-r pr-2">
                     <ViewButton
                         onClick={() => zoomOut({ duration: getMotionDurationMs(motionDurationMs.base) })}
                         label="Zoom out"
@@ -47,8 +47,8 @@ export default function CanvasToolbar() {
                         <Plus size={14} />
                     </ViewButton>
                 <FitViewButton />
-                </AxiomToolbarGroup>
-                <AxiomToolbarGroup aria-label="Canvas display" className="flex items-center">
+                </NemotoToolbarGroup>
+                <NemotoToolbarGroup aria-label="Canvas display" className="flex items-center">
                     <ViewButton label="Read map" onClick={() => setReading(true)}
 >
                         <List size={14} />
@@ -63,9 +63,9 @@ export default function CanvasToolbar() {
                         onClick={() => setGridVisible(!gridVisible)}>
                         <Grid size={14} />
                     </ViewButton>
-                </AxiomToolbarGroup>
+                </NemotoToolbarGroup>
             </div>
-        </AxiomToolbar>
+        </NemotoToolbar>
         {reading && <Suspense fallback={<span role="status" className="sr-only">Opening Read map…</span>}><ReadMapDialog onClose={() => setReading(false)} /></Suspense>}
         </>
     );
@@ -85,6 +85,6 @@ function FitViewButton() {
     );
 }
 
-function ViewButton(props: React.ComponentProps<typeof AxiomToolbarButton>) {
-    return <CanvasControlHint text={props.title || props.label} placement="bottom"><AxiomToolbarButton {...props} /></CanvasControlHint>;
+function ViewButton(props: React.ComponentProps<typeof NemotoToolbarButton>) {
+    return <CanvasControlHint text={props.title || props.label} placement="bottom"><NemotoToolbarButton {...props} /></CanvasControlHint>;
 }

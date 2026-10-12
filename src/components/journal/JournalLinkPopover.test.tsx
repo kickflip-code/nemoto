@@ -27,7 +27,7 @@ describe('JournalLinkPopover', () => {
 
     it('edits and applies a link with Enter', () => {
         renderPopover();
-        expect(screen.getByRole('dialog', { name: 'Edit link' })).toHaveClass('axiom-popover');
+        expect(screen.getByRole('dialog', { name: 'Edit link' })).toHaveClass('nemoto-popover');
         const input = screen.getByRole('textbox', { name: 'Link URL' });
 
         expect(input).toHaveValue('https://example.com');

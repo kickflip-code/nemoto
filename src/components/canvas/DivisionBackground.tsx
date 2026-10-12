@@ -33,18 +33,18 @@ export function DivisionBackground({ graph: sourceGraph, onSelect, onAdd, onRena
                         width: column ? size : undefined, maxWidth: column ? undefined : Math.max(120, (columns[0]?.width ?? 320) - 24),
                         height: column ? 48 : 26, '--division-accent': getPaletteColor(lane.color),
                     } as CSSProperties;
-                    const className = `axiom-division-heading ${column ? 'axiom-division-column bg-app-surface shadow-soft-down' : 'axiom-division-row'}${onSelect ? ' nodrag nopan pointer-events-auto' : ''}`;
-                    const label = <><span className="axiom-division-accent" aria-hidden="true" /><span className="axiom-division-label">{lane.label}</span></>;
+                    const className = `nemoto-division-heading ${column ? 'nemoto-division-column bg-app-surface shadow-soft-down' : 'nemoto-division-row'}${onSelect ? ' nodrag nopan pointer-events-auto' : ''}`;
+                    const label = <><span className="nemoto-division-accent" aria-hidden="true" /><span className="nemoto-division-label">{lane.label}</span></>;
                     return <div key={lane.id}>
-                        {!column && index % 2 === 0 && <div className="axiom-division-band" style={{ top: start, width: contentWidth, height: size }} />}
-                        <div className={`axiom-division-line ${column ? 'is-column' : 'is-row'}`} style={{ left: column ? offset : 0, top: column ? 0 : offset,
+                        {!column && index % 2 === 0 && <div className="nemoto-division-band" style={{ top: start, width: contentWidth, height: size }} />}
+                        <div className={`nemoto-division-line ${column ? 'is-column' : 'is-row'}`} style={{ left: column ? offset : 0, top: column ? 0 : offset,
                             width: column ? 1 : contentWidth, height: column ? Math.max(1000, bounds.height, ...graph.nodes.map(node => node.position.y + (node.height ?? 96) + 32)) : 1 }} />
                         {onSelect ? <DivisionHeading label={lane.label} kind={column ? 'column' : 'row'} style={style} className={className}
                             onSelect={() => onSelect(lane.id)} onRename={onRename ? name => onRename(lane.id, name) : undefined} />
                             : <div style={style} className={className}>{label}</div>}
                         {onResize && <div role="separator" tabIndex={0} aria-label={`Resize ${column ? 'width' : 'height'}: ${lane.label}`}
                             aria-orientation={column ? 'vertical' : 'horizontal'} aria-valuemin={32} aria-valuemax={Math.max(10000, Math.round(size))} aria-valuenow={Math.round(size)} aria-valuetext={`${Math.round(size)} pixels`}
-                            className={`axiom-division-resizer nodrag nopan pointer-events-auto ${column ? 'is-column' : 'is-row'}`}
+                            className={`nemoto-division-resizer nodrag nopan pointer-events-auto ${column ? 'is-column' : 'is-row'}`}
                             style={column ? { left: offset - 4, top: -48, width: 8, height: Math.max(48, bounds.height) }
                                 : { left: 0, top: offset - 4, width: contentWidth, height: 8 }}
                             title={`Drag to resize ${column ? 'width' : 'height'}. Arrow keys resize by 16 px.`}
@@ -75,7 +75,7 @@ export function DivisionBackground({ graph: sourceGraph, onSelect, onAdd, onRena
                     </div>;
                 });
                 return <div key={axis}>{headings}{onAdd && headings.length > 0 && <button type="button"
-                    className="axiom-division-add nodrag nopan pointer-events-auto" aria-label={`Add ${column ? 'column' : 'row'}`}
+                    className="nemoto-division-add nodrag nopan pointer-events-auto" aria-label={`Add ${column ? 'column' : 'row'}`}
                     title={`Add ${column ? 'column' : 'row'}`} style={{ left: column ? offset + 4 : 8, top: column ? -48 : offset + 6 }}
                     onClick={event => { event.stopPropagation(); onAdd(axis); }}><Plus size={15} /></button>}</div>;
             })}

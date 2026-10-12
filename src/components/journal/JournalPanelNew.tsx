@@ -13,12 +13,12 @@ import EntityPickerModal from '../shared/EntityPickerModal';
 import ConfirmationModal from '../shared/ConfirmationModal';
 import JournalSharingControl from './JournalSharingControl';
 import {
-    AxiomButton,
-    AxiomInput,
-    AxiomMenu,
-    AxiomMenuDivider,
-    AxiomMenuItem,
-    AxiomPanelIconButton,
+    NemotoButton,
+    NemotoInput,
+    NemotoMenu,
+    NemotoMenuDivider,
+    NemotoMenuItem,
+    NemotoPanelIconButton,
 } from '../ui';
 
 const TipTapEditor = lazy(() => import('./TipTapEditor'));
@@ -339,7 +339,7 @@ const InlineInput = ({ value, onCommit, onCancel }: { value: string, onCommit: (
     }, []);
 
     return (
-        <AxiomInput
+        <NemotoInput
             ref={inputRef}
             type="text"
             controlSize="xs"
@@ -406,10 +406,10 @@ const JournalTreeItem = memo(({
     const isDraggable = !(item.id === 'quick-notes' || (isNotebook && item.title === 'Quick Notes'));
 
     return (
-        <div className="select-none axiom-journal-tree-item">
+        <div className="select-none nemoto-journal-tree-item">
             {/* Item Row — drag source + drop target */}
             <div
-                className={`axiom-journal-tree-row axiom-journal-tree-row-${item.type} flex min-w-0 items-center gap-2 px-2 py-1.5 rounded-sm cursor-pointer axiom-transition-interactive border border-transparent group relative ${isHighlighted
+                className={`nemoto-journal-tree-row nemoto-journal-tree-row-${item.type} flex min-w-0 items-center gap-2 px-2 py-1.5 rounded-sm cursor-pointer nemoto-transition-interactive border border-transparent group relative ${isHighlighted
                     ? 'is-selected bg-accent-primary/20 text-accent-primary border-accent-primary/20'
                     : 'hover:bg-app-hover text-text-muted hover:text-text-main'
                     }`}
@@ -439,15 +439,15 @@ const JournalTreeItem = memo(({
             >
                 {/* Expand Toggle Arrow */}
                 <div
-                    className={`transition-transform axiom-transition-fast ${expanded ? 'rotate-90' : ''} ${(!isFolder && notebookEntries.length === 0) ? 'opacity-0 pointer-events-none' : ''}`}
+                    className={`transition-transform nemoto-transition-fast ${expanded ? 'rotate-90' : ''} ${(!isFolder && notebookEntries.length === 0) ? 'opacity-0 pointer-events-none' : ''}`}
                     onClick={(e) => { e.stopPropagation(); toggleExpanded(item.id); }}
                 >
                     <ChevronRight size={10} className="text-text-faint hover:text-text-main" />
                 </div>
 
                 {isFolder
-                    ? <FolderInput size={12} className="axiom-journal-tree-icon text-accent-warning pointer-events-none shrink-0" />
-                    : <Book size={12} className={`axiom-journal-tree-icon pointer-events-none shrink-0 ${isHighlighted ? 'text-accent-primary' : 'text-text-faint'}`} />
+                    ? <FolderInput size={12} className="nemoto-journal-tree-icon text-accent-warning pointer-events-none shrink-0" />
+                    : <Book size={12} className={`nemoto-journal-tree-icon pointer-events-none shrink-0 ${isHighlighted ? 'text-accent-primary' : 'text-text-faint'}`} />
                 }
 
                 {editingItemId === item.id ? (
@@ -460,11 +460,11 @@ const JournalTreeItem = memo(({
                         onCancel={() => setEditingItemId(null)}
                     />
                 ) : (
-                    <span className="axiom-journal-tree-label min-w-0 flex-1 truncate font-medium" title={item.title}>{item.title}</span>
+                    <span className="nemoto-journal-tree-label min-w-0 flex-1 truncate font-medium" title={item.title}>{item.title}</span>
                 )}
 
                 {isNotebook && (
-                    <span className="axiom-journal-count text-text-faint font-mono bg-app-active/50 px-1 rounded-sm shrink-0">
+                    <span className="nemoto-journal-count text-text-faint font-mono bg-app-active/50 px-1 rounded-sm shrink-0">
                         {notebookEntries.length}
                     </span>
                 )}
@@ -528,7 +528,7 @@ const JournalTreeItem = memo(({
                                 <div
                                     key={entry.id}
                                     style={{ paddingLeft: `${((level + 1) * 12) + 8 + 18}px` }}
-                                    className={`axiom-journal-entry-row group flex min-w-0 items-center gap-2 px-2 py-1 rounded-sm cursor-pointer transition-colors relative ${selectedEntryId === entry.id
+                                    className={`nemoto-journal-entry-row group flex min-w-0 items-center gap-2 px-2 py-1 rounded-sm cursor-pointer transition-colors relative ${selectedEntryId === entry.id
                                         ? 'is-selected bg-accent-primary text-white font-medium'
                                         : 'hover:bg-app-hover text-text-muted hover:text-text-main'
                                         }`}
@@ -552,7 +552,7 @@ const JournalTreeItem = memo(({
                                         onContextMenu(e, 'entry', entry.id);
                                     }}
                                 >
-                                    <FileText size={11} className="axiom-journal-entry-icon opacity-70 shrink-0" />
+                                    <FileText size={11} className="nemoto-journal-entry-icon opacity-70 shrink-0" />
                                     {editingItemId === entry.id ? (
                                         <InlineInput
                                             value={entry.title || 'Untitled'}
@@ -672,7 +672,7 @@ const NotebookExplorer = memo(({
 
     if (searchActive && entries.length === 0) {
         return (
-            <div className="axiom-journal-search-empty px-5 py-10 text-center">
+            <div className="nemoto-journal-search-empty px-5 py-10 text-center">
                 <Search size={18} className="mx-auto mb-3 text-text-faint" />
                 <p className="text-xs font-medium text-text-muted">No matching notes</p>
                 <p className="mt-1 text-[10px] text-text-faint">Try another title or phrase.</p>
@@ -761,47 +761,47 @@ const ContextMenu = ({ x, y, type, onRename, onDelete, onExpandAll, onCollapseAl
     }, [onClose]);
 
     return createPortal(
-        <AxiomMenu
+        <NemotoMenu
             aria-label="Journal item actions"
-            className="fixed z-[9999] min-w-[160px] axiom-motion-popover"
+            className="fixed z-[9999] min-w-[160px] nemoto-motion-popover"
             onClose={onClose}
             style={{ left: x, top: y }}
             onClick={e => e.stopPropagation()}
         >
-            <AxiomMenuItem
+            <NemotoMenuItem
                 compact
                 onClick={onRename}
             >
                 <Edit2 size={12} /> Rename
-            </AxiomMenuItem>
+            </NemotoMenuItem>
 
             {(type === 'folder' || type === 'notebook') && (
                 <>
-                    <AxiomMenuItem
+                    <NemotoMenuItem
                         compact
                         onClick={onExpandAll}
                     >
                         <Maximize2 size={12} /> Expand All
-                    </AxiomMenuItem>
-                    <AxiomMenuItem
+                    </NemotoMenuItem>
+                    <NemotoMenuItem
                         compact
                         onClick={onCollapseAll}
                     >
                         <Minimize2 size={12} /> Collapse All
-                    </AxiomMenuItem>
+                    </NemotoMenuItem>
                 </>
             )}
 
-            <AxiomMenuDivider />
-            <AxiomMenuItem
+            <NemotoMenuDivider />
+            <NemotoMenuItem
                 compact
                 danger
                 onClick={() => { onDelete(); onClose(); }}
             >
                 <Trash2 size={12} />
                 Delete
-            </AxiomMenuItem>
-        </AxiomMenu>,
+            </NemotoMenuItem>
+        </NemotoMenu>,
         document.body
     );
 };
@@ -1122,18 +1122,18 @@ export default function JournalPanelNew({
                 }}
         >
             {dock === 'left' && !journalPanelExpanded && !journalPanelMaximized ? (
-                <AxiomButton
+                <NemotoButton
                     size="sm"
                     variant="ghost"
                     onClick={toggleJournalPanel}
                     aria-expanded="false"
-                    className="axiom-journal-side-rail flex h-full w-full flex-col items-center justify-start gap-3 rounded-none px-0 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-text-main"
+                    className="nemoto-journal-side-rail flex h-full w-full flex-col items-center justify-start gap-3 rounded-none px-0 py-4 text-[10px] font-bold uppercase tracking-[0.16em] text-text-main"
                     title="Open Journal"
                 >
                     <span className="h-1.5 w-1.5 rounded-full bg-accent-primary" />
                     <Book size={15} className="text-accent-primary" />
-                    <span className="axiom-journal-side-rail-label">Journal</span>
-                </AxiomButton>
+                    <span className="nemoto-journal-side-rail-label">Journal</span>
+                </NemotoButton>
             ) : (
                 <>
             {/* Panel Resize Handle */}
@@ -1156,14 +1156,14 @@ export default function JournalPanelNew({
             )}
 
             {/* Header */}
-            <div className="axiom-journal-topbar h-12 shrink-0 flex items-center justify-between gap-3 px-5 border-b border-app-border bg-app-surface">
+            <div className="nemoto-journal-topbar h-12 shrink-0 flex items-center justify-between gap-3 px-5 border-b border-app-border bg-app-surface">
                 <div className="flex min-w-0 items-center gap-4">
-                    <AxiomButton
+                    <NemotoButton
                         size="sm"
                         variant="ghost"
                         onClick={toggleJournalPanel}
                         aria-expanded={journalPanelExpanded}
-                        className="axiom-journal-title-button flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-text-main hover:text-accent-primary axiom-transition-interactive group"
+                        className="nemoto-journal-title-button flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-text-main hover:text-accent-primary nemoto-transition-interactive group"
                     >
                         <span className="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
                         Journal
@@ -1173,7 +1173,7 @@ export default function JournalPanelNew({
                                 : <ChevronDown size={14} className="ml-1 text-text-faint group-hover:text-accent-primary" />
                             : <ChevronUp size={14} className="text-text-faint group-hover:text-accent-primary ml-1" />
                         }
-                    </AxiomButton>
+                    </NemotoButton>
                     {!journalPanelExpanded && selectedEntry && <div className="h-4 w-px bg-app-border mx-2" />}
                     {!journalPanelExpanded && selectedEntry && (
                         <span className="text-[11px] text-text-muted font-medium truncate max-w-[200px]">
@@ -1181,14 +1181,14 @@ export default function JournalPanelNew({
                         </span>
                     )}
                     {journalPanelExpanded && selectedNotebook && (
-                        <span className="axiom-journal-location text-[11px] text-text-faint truncate max-w-[280px]">
+                        <span className="nemoto-journal-location text-[11px] text-text-faint truncate max-w-[280px]">
                             {selectedNotebook.title}
                             {selectedEntry && <span className="text-text-muted"> / {selectedEntry.title || 'Untitled Note'}</span>}
                         </span>
                     )}
                 </div>
                 <div className="flex shrink-0 items-center gap-1">
-                    <AxiomPanelIconButton
+                    <NemotoPanelIconButton
                         aria-label={targetDock === 'left' ? 'Dock journal on left' : 'Dock journal at bottom'}
                         size="sm"
                         disabled={sideDockSwitchDisabled}
@@ -1198,20 +1198,20 @@ export default function JournalPanelNew({
                             : targetDock === 'left'
                                 ? 'Dock Journal on Left'
                                 : 'Dock Journal at Bottom'}
-                        className="axiom-journal-dock-button"
+                        className="nemoto-journal-dock-button"
                     >
                         {targetDock === 'left' ? <PanelLeft size={15} /> : <PanelBottom size={15} />}
-                    </AxiomPanelIconButton>
-                    <AxiomPanelIconButton
+                    </NemotoPanelIconButton>
+                    <NemotoPanelIconButton
                         aria-label={journalPanelMaximized ? 'Restore journal size' : 'Maximize journal'}
                         aria-pressed={journalPanelMaximized}
                         size="sm"
                         onClick={toggleJournalPanelMaximized}
                         title={journalPanelMaximized ? 'Restore journal size (Esc)' : 'Maximize journal'}
-                        className="axiom-journal-maximize-button"
+                        className="nemoto-journal-maximize-button"
                     >
                         {journalPanelMaximized ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
-                    </AxiomPanelIconButton>
+                    </NemotoPanelIconButton>
                 </div>
             </div>
 
@@ -1221,7 +1221,7 @@ export default function JournalPanelNew({
                     {/* Left Panel — Sidebar */}
                     <div
                         ref={sidebarRef}
-                        className="axiom-journal-sidebar shrink-0 border-r border-app-border bg-app-bg/30 overflow-y-auto overflow-x-hidden custom-scrollbar relative group/sidebar"
+                        className="nemoto-journal-sidebar shrink-0 border-r border-app-border bg-app-bg/30 overflow-y-auto overflow-x-hidden custom-scrollbar relative group/sidebar"
                         style={{
                             width: `${sidebarWidth}px`,
                             minWidth: dock === 'left' ? '240px' : '280px',
@@ -1229,55 +1229,55 @@ export default function JournalPanelNew({
                             transition: isResizingSidebar ? 'none' : undefined,
                         }}
                     >
-                        <div className="axiom-journal-sidebar-actions border-b border-app-border/40">
+                        <div className="nemoto-journal-sidebar-actions border-b border-app-border/40">
                             <div className="flex items-center justify-between gap-2">
                                 <div className="flex min-w-0 items-center gap-2">
-                                    <span className="axiom-journal-library-heading font-bold uppercase text-text-muted">Library</span>
-                                    <span className="axiom-journal-library-total text-text-faint" aria-live="polite">
+                                    <span className="nemoto-journal-library-heading font-bold uppercase text-text-muted">Library</span>
+                                    <span className="nemoto-journal-library-total text-text-faint" aria-live="polite">
                                         {searchQuery.trim()
                                             ? `${visibleEntries.length} ${visibleEntries.length === 1 ? 'result' : 'results'}`
                                             : `${entries.length} ${entries.length === 1 ? 'note' : 'notes'}`}
                                     </span>
                                 </div>
-                                <AxiomPanelIconButton
+                                <NemotoPanelIconButton
                                     aria-label="Collapse all library sections"
                                     size="sm"
                                     onClick={handleCollapseAll}
                                     title="Collapse All"
                                 >
                                     <ChevronsUp size={13} />
-                                </AxiomPanelIconButton>
+                                </NemotoPanelIconButton>
                             </div>
-                            <div className="axiom-journal-sidebar-primary-actions flex items-center gap-1.5">
-                                <AxiomButton
+                            <div className="nemoto-journal-sidebar-primary-actions flex items-center gap-1.5">
+                                <NemotoButton
                                     size="sm"
                                     onClick={handleCreateEntry}
-                                    className="axiom-journal-new-note flex shrink-0 items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-wider"
+                                    className="nemoto-journal-new-note flex shrink-0 items-center justify-center gap-1.5 text-[10px] font-bold uppercase tracking-wider"
                                 >
                                     <Plus size={13} /> New Note
-                                </AxiomButton>
-                                <AxiomPanelIconButton
+                                </NemotoButton>
+                                <NemotoPanelIconButton
                                     aria-label="New notebook"
                                     size="sm"
                                     onClick={handleCreateNotebook}
                                     title="New Notebook"
-                                    className="axiom-journal-create-icon"
+                                    className="nemoto-journal-create-icon"
                                 >
                                     <BookPlus size={16} />
-                                </AxiomPanelIconButton>
-                                <AxiomPanelIconButton
+                                </NemotoPanelIconButton>
+                                <NemotoPanelIconButton
                                     aria-label="New folder"
                                     size="sm"
                                     onClick={handleCreateFolder}
                                     title="New Folder"
-                                    className="axiom-journal-create-icon"
+                                    className="nemoto-journal-create-icon"
                                 >
                                     <FolderPlus size={16} />
-                                </AxiomPanelIconButton>
+                                </NemotoPanelIconButton>
                             </div>
-                            <div className="axiom-journal-search relative">
+                            <div className="nemoto-journal-search relative">
                                 <Search size={13} className="pointer-events-none absolute left-2.5 top-1/2 z-10 -translate-y-1/2 text-text-faint" />
-                                <AxiomInput
+                                <NemotoInput
                                     type="search"
                                     controlSize="sm"
                                     value={searchQuery}
@@ -1287,7 +1287,7 @@ export default function JournalPanelNew({
                                     className="w-full text-xs"
                                 />
                                 {searchQuery && (
-                                    <AxiomPanelIconButton
+                                    <NemotoPanelIconButton
                                         aria-label="Clear journal search"
                                         size="sm"
                                         onClick={() => setSearchQuery('')}
@@ -1295,7 +1295,7 @@ export default function JournalPanelNew({
                                         className="absolute right-1 top-1/2 -translate-y-1/2"
                                     >
                                         <X size={12} />
-                                    </AxiomPanelIconButton>
+                                    </NemotoPanelIconButton>
                                 )}
                             </div>
                         </div>
@@ -1329,13 +1329,13 @@ export default function JournalPanelNew({
                             role="separator"
                             aria-orientation="vertical"
                             aria-label="Resize journal library"
-                            className={`axiom-journal-sidebar-resizer absolute top-0 right-0 bottom-0 w-2 cursor-col-resize transition-colors z-10 ${isResizingSidebar ? 'is-resizing bg-accent-primary/50' : ''}`}
+                            className={`nemoto-journal-sidebar-resizer absolute top-0 right-0 bottom-0 w-2 cursor-col-resize transition-colors z-10 ${isResizingSidebar ? 'is-resizing bg-accent-primary/50' : ''}`}
                             onMouseDown={(e) => { e.preventDefault(); setIsResizingSidebar(true); }}
                         />
                     </div>
 
                     {/* Center Panel — Editor */}
-                    <div className="axiom-journal-editor-shell flex-1 flex flex-col bg-app-surface overflow-hidden">
+                    <div className="nemoto-journal-editor-shell flex-1 flex flex-col bg-app-surface overflow-hidden">
                         {!selectedEntry ? (
                             <div className="flex-1 flex items-center justify-center text-text-faint select-none">
                                 <div className="text-center">
@@ -1345,17 +1345,17 @@ export default function JournalPanelNew({
                             </div>
                         ) : (
                             <>
-                                <div className="axiom-journal-document-meta px-6 py-5 border-b border-app-border/30 shrink-0 bg-app-bg/10">
-                                    <div className="axiom-journal-document-meta-inner space-y-3">
+                                <div className="nemoto-journal-document-meta px-6 py-5 border-b border-app-border/30 shrink-0 bg-app-bg/10">
+                                    <div className="nemoto-journal-document-meta-inner space-y-3">
                                         <input
                                             type="text"
                                             value={selectedEntry.title}
                                             onChange={(e) => updateEntry(selectedEntry.id, { title: e.target.value })}
                                             placeholder="Entry Title..."
                                             aria-label="Journal entry title"
-                                            className="axiom-journal-entry-title w-full text-2xl font-bold tracking-tight bg-transparent border-none outline-none text-text-main placeholder-text-faint/50 focus:placeholder-text-main/10 transition-colors axiom-transition-fast"
+                                            className="nemoto-journal-entry-title w-full text-2xl font-bold tracking-tight bg-transparent border-none outline-none text-text-main placeholder-text-faint/50 focus:placeholder-text-main/10 transition-colors nemoto-transition-fast"
                                         />
-                                         <div className="axiom-journal-meta-row flex items-center gap-3 relative">
+                                         <div className="nemoto-journal-meta-row flex items-center gap-3 relative">
                                              <TagSelector selectedTagIds={selectedEntry.tags || []} onChange={(tags) => updateEntry(selectedEntry.id, { tags })} />
                                              <div className="h-4 w-px bg-app-border/70" />
                                              <JournalSharingControl
@@ -1366,7 +1366,7 @@ export default function JournalPanelNew({
                                              />
                                              <div className="h-4 w-px bg-app-border/70" />
                                              <span
-                                                className={`axiom-journal-save-state text-[10px] ${saveStateClass} font-mono uppercase tracking-widest`}
+                                                className={`nemoto-journal-save-state text-[10px] ${saveStateClass} font-mono uppercase tracking-widest`}
                                                 title={saveError || undefined}
                                                 aria-live="polite"
                                             >
@@ -1389,55 +1389,55 @@ export default function JournalPanelNew({
                     {/* Right Panel — Context */}
                     <aside
                         aria-label="Linked context"
-                        className={`axiom-journal-context-panel shrink-0 border-l border-app-border bg-app-bg/30 ${contextPanelCollapsed
+                        className={`nemoto-journal-context-panel shrink-0 border-l border-app-border bg-app-bg/30 ${contextPanelCollapsed
                             ? 'is-collapsed w-11 overflow-hidden'
                             : `${dock === 'left' ? 'w-[240px]' : 'w-[280px]'} overflow-y-auto custom-scrollbar`
                             }`}
                     >
                         {contextPanelCollapsed ? (
                             <div className="flex h-full flex-col items-center gap-3 py-3">
-                                <AxiomPanelIconButton
+                                <NemotoPanelIconButton
                                     aria-label="Expand linked context"
                                     aria-expanded="false"
                                     size="sm"
                                     onClick={() => setContextPanelCollapsed(false)}
                                     title="Expand Linked Context"
-                                    className="axiom-journal-context-toggle"
+                                    className="nemoto-journal-context-toggle"
                                 >
                                     <ChevronLeft size={15} />
-                                </AxiomPanelIconButton>
-                                <span className="axiom-journal-context-collapsed-label text-[9px] font-bold uppercase tracking-wider text-text-faint">
+                                </NemotoPanelIconButton>
+                                <span className="nemoto-journal-context-collapsed-label text-[9px] font-bold uppercase tracking-wider text-text-faint">
                                     Context
                                 </span>
                                 {!!selectedEntry?.linkedContext?.length && (
-                                    <span className="axiom-journal-context-count text-[9px] text-text-faint">
+                                    <span className="nemoto-journal-context-count text-[9px] text-text-faint">
                                         {selectedEntry.linkedContext.length}
                                     </span>
                                 )}
                             </div>
                         ) : (
                             <div className="flex min-h-full flex-col">
-                                <div className="axiom-journal-context-header flex items-center justify-between gap-2 p-4 pb-3">
+                                <div className="nemoto-journal-context-header flex items-center justify-between gap-2 p-4 pb-3">
                                     <div className="flex min-w-0 items-center gap-2">
                                         <span className="truncate text-[10px] font-bold uppercase text-text-faint tracking-wider">Linked Context</span>
                                         <span className="text-[10px] text-text-faint">({(selectedEntry?.linkedContext || []).length})</span>
                                     </div>
                                     <div className="flex shrink-0 items-center gap-1">
                                         {selectedEntry && (
-                                            <AxiomButton size="sm" variant="ghost" onClick={() => setEntityPickerOpen(true)} className="px-2 py-1 text-accent-primary text-[10px] flex items-center gap-1">
+                                            <NemotoButton size="sm" variant="ghost" onClick={() => setEntityPickerOpen(true)} className="px-2 py-1 text-accent-primary text-[10px] flex items-center gap-1">
                                                 <Plus size={10} /> Add
-                                            </AxiomButton>
+                                            </NemotoButton>
                                         )}
-                                        <AxiomPanelIconButton
+                                        <NemotoPanelIconButton
                                             aria-label="Collapse linked context"
                                             aria-expanded="true"
                                             size="sm"
                                             onClick={() => setContextPanelCollapsed(true)}
                                             title="Collapse Linked Context"
-                                            className="axiom-journal-context-toggle"
+                                            className="nemoto-journal-context-toggle"
                                         >
                                             <ChevronRight size={15} />
-                                        </AxiomPanelIconButton>
+                                        </NemotoPanelIconButton>
                                     </div>
                                 </div>
                                 {selectedEntry ? (

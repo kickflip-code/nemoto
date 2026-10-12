@@ -13,8 +13,8 @@ import type {
     RoleJourneyProjection,
 } from './readModel';
 import type { PluginSearchRequest, PluginSearchResult } from './searchReadModel';
-import { AXIOM_PLUGIN_API_VERSION } from './activation';
-import type { AxiomPluginApi } from './publicApi';
+import { NEMOTO_PLUGIN_API_VERSION } from './activation';
+import type { NemotoPluginApi } from './publicApi';
 import type {
     PluginStorageDocumentSnapshot,
     PluginStorageListPage,
@@ -116,7 +116,7 @@ export class PluginHostRevisionConflictError extends PluginApiRevisionConflictEr
 }
 
 export interface PluginHostServices {
-    readonly apiVersion: typeof AXIOM_PLUGIN_API_VERSION;
+    readonly apiVersion: typeof NEMOTO_PLUGIN_API_VERSION;
     readonly getSnapshot: () => PluginHostSnapshot;
     readonly subscribe: (listener: () => void) => () => void;
     readonly events: {
@@ -127,7 +127,7 @@ export interface PluginHostServices {
     };
     /** Host-only factory. Isolated runtimes receive only the returned bound API. */
     readonly publicApi: {
-        connect: (pluginId: string) => AxiomPluginApi;
+        connect: (pluginId: string) => NemotoPluginApi;
     };
     readonly plugins: {
         reviewVersionChange: (pluginId: string) => PluginVersionTransitionReview;

@@ -18,11 +18,11 @@ use uuid::Uuid;
 
 use crate::{
     plugin_compute_policy::ISOLATED_COMPUTE_POLICY_V1,
-    plugin_wasm_host::{AxiomWasmHost, WasmHostError, WasmHostErrorCode},
+    plugin_wasm_host::{NemotoWasmHost, WasmHostError, WasmHostErrorCode},
 };
 
-pub const AXIOM_WASM_INVOCATION_SCHEMA: &str = "axiom.wasm-invocation";
-pub const AXIOM_WASM_INVOCATION_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_WASM_INVOCATION_SCHEMA: &str = "axiom.wasm-invocation";
+pub const NEMOTO_WASM_INVOCATION_SCHEMA_VERSION: u32 = 1;
 pub const ISOLATED_COMPUTE_CAPABILITY: &str = "compute.isolated";
 pub const MAX_NATIVE_WASM_SESSIONS: usize = 64;
 pub const MAX_NATIVE_WASM_SESSION_MODULE_BYTES: usize = 64 * 1024 * 1024;
@@ -84,8 +84,8 @@ impl WasmSessionHandle {
         payload: Value,
     ) -> WasmInvocationRequest {
         WasmInvocationRequest {
-            schema: AXIOM_WASM_INVOCATION_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_INVOCATION_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_INVOCATION_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_INVOCATION_SCHEMA_VERSION,
             session_id: self.session_id.clone(),
             sequence,
             authority_scope_id: self.authority_scope_id.clone(),
@@ -216,15 +216,15 @@ struct Dispatch {
 /// portfolio activation, compatibility, and grant state. A generation is
 /// monotonic per `(authority_scope_id, plugin_id)` and must change whenever any
 /// of those inputs changes.
-pub struct AxiomWasmSessionManager {
-    host: AxiomWasmHost,
+pub struct NemotoWasmSessionManager {
+    host: NemotoWasmHost,
     state: Mutex<SessionState>,
 }
 
-impl AxiomWasmSessionManager {
+impl NemotoWasmSessionManager {
     pub fn new() -> Result<Self, WasmSessionError> {
         Ok(Self {
-            host: AxiomWasmHost::new().map_err(WasmSessionError::host)?,
+            host: NemotoWasmHost::new().map_err(WasmSessionError::host)?,
             state: Mutex::new(SessionState::default()),
         })
     }
@@ -578,8 +578,8 @@ impl AxiomWasmSessionManager {
 }
 
 fn session_matches_request(session: &SessionRecord, request: &WasmInvocationRequest) -> bool {
-    request.schema == AXIOM_WASM_INVOCATION_SCHEMA
-        && request.schema_version == AXIOM_WASM_INVOCATION_SCHEMA_VERSION
+    request.schema == NEMOTO_WASM_INVOCATION_SCHEMA
+        && request.schema_version == NEMOTO_WASM_INVOCATION_SCHEMA_VERSION
         && request.authority_scope_id == session.key.authority_scope_id
         && request.authority_generation == session.authority_generation
         && request.capability == ISOLATED_COMPUTE_CAPABILITY
@@ -674,8 +674,8 @@ pub(crate) fn validate_stable_contract_id(value: &str) -> Result<(), WasmSession
 }
 
 fn validate_invocation(request: &WasmInvocationRequest) -> Result<(), WasmSessionError> {
-    if request.schema != AXIOM_WASM_INVOCATION_SCHEMA
-        || request.schema_version != AXIOM_WASM_INVOCATION_SCHEMA_VERSION
+    if request.schema != NEMOTO_WASM_INVOCATION_SCHEMA
+        || request.schema_version != NEMOTO_WASM_INVOCATION_SCHEMA_VERSION
         || request.sequence == 0
         || request.authority_generation == 0
         || request.capability != ISOLATED_COMPUTE_CAPABILITY
@@ -779,8 +779,8 @@ mod tests {
         .into()
     }
 
-    fn authorized_manager() -> (AxiomWasmSessionManager, WasmSessionHandle) {
-        let manager = AxiomWasmSessionManager::new().unwrap();
+    fn authorized_manager() -> (NemotoWasmSessionManager, WasmSessionHandle) {
+        let manager = NemotoWasmSessionManager::new().unwrap();
         manager.synchronize_authority(authority(1)).unwrap();
         let handle = manager
             .open_session(SCOPE_ID, identity("1.2.3", 4), echo_module())
@@ -803,7 +803,7 @@ mod tests {
         assert_eq!(
             response.result,
             serde_json::json!({
-                "schema": AXIOM_WASM_INVOCATION_SCHEMA,
+                "schema": NEMOTO_WASM_INVOCATION_SCHEMA,
                 "schemaVersion": 1,
                 "sessionId": handle.session_id,
                 "authorityScopeId": SCOPE_ID,
@@ -829,7 +829,7 @@ mod tests {
             |snapshot: &mut WasmAuthoritySnapshot| snapshot.compatible = false,
             |snapshot: &mut WasmAuthoritySnapshot| snapshot.granted_capabilities.clear(),
         ] {
-            let manager = AxiomWasmSessionManager::new().unwrap();
+            let manager = NemotoWasmSessionManager::new().unwrap();
             let mut denied = authority(1);
             mutate(&mut denied);
             manager.synchronize_authority(denied).unwrap();
@@ -1020,7 +1020,7 @@ mod tests {
 
     #[test]
     fn host_failures_are_sanitized_and_burn_the_session() {
-        let manager = AxiomWasmSessionManager::new().unwrap();
+        let manager = NemotoWasmSessionManager::new().unwrap();
         manager.synchronize_authority(authority(1)).unwrap();
         let invalid_module: Arc<[u8]> = b"not-wasm".to_vec().into();
         let handle = manager
@@ -1057,7 +1057,7 @@ mod tests {
 
     #[test]
     fn bounds_open_session_count_and_retained_module_bytes() {
-        let manager = AxiomWasmSessionManager::new().unwrap();
+        let manager = NemotoWasmSessionManager::new().unwrap();
         manager.synchronize_authority(authority(1)).unwrap();
         let module = echo_module();
         for _ in 0..MAX_NATIVE_WASM_SESSIONS {
@@ -1073,7 +1073,7 @@ mod tests {
             WasmSessionErrorCode::SessionCapacityReached
         );
 
-        let byte_budget_manager = AxiomWasmSessionManager::new().unwrap();
+        let byte_budget_manager = NemotoWasmSessionManager::new().unwrap();
         byte_budget_manager
             .synchronize_authority(authority(1))
             .unwrap();
@@ -1108,7 +1108,7 @@ mod tests {
                 )
             })
             .into();
-        let manager = AxiomWasmSessionManager::new().unwrap();
+        let manager = NemotoWasmSessionManager::new().unwrap();
         let snapshot = WasmAuthoritySnapshot {
             authority_scope_id: "portfolio:conformance".to_owned(),
             authority_generation: 1,
@@ -1152,7 +1152,7 @@ mod tests {
                 "output": {
                     "message": "hello",
                     "count": 3,
-                    "sdk": crate::plugin_wasm_host::AXIOM_WASM_ABI_NAME,
+                    "sdk": crate::plugin_wasm_host::NEMOTO_WASM_ABI_NAME,
                 }
             })
         );

@@ -1,4 +1,4 @@
-import { AXIOM_PLUGIN_API_VERSION } from '../plugins/activation';
+import { NEMOTO_PLUGIN_API_VERSION } from '../plugins/activation';
 import type {
     PluginCollectionItem,
     ReadPluginCollectionResult,
@@ -14,7 +14,7 @@ import {
     PluginApiIdentityError,
     PluginApiPermissionError,
     PluginApiSessionError,
-    type AxiomPluginApi,
+    type NemotoPluginApi,
     type PluginApiIdentity,
     type PluginStorageWriteResult,
 } from '../plugins/publicApi';
@@ -149,7 +149,7 @@ const deepFreeze = <T>(value: T): T => {
 export function createPluginPublicApi(
     pluginId: string,
     dependencies: PluginPublicApiDependencies,
-): AxiomPluginApi {
+): NemotoPluginApi {
     const identity = dependencies.getActiveIdentity(pluginId);
     if (!identity) throw new PluginApiSessionError(pluginId);
     const frozenIdentity = Object.freeze({ ...identity });
@@ -169,7 +169,7 @@ export function createPluginPublicApi(
     };
 
     return Object.freeze({
-        apiVersion: AXIOM_PLUGIN_API_VERSION,
+        apiVersion: NEMOTO_PLUGIN_API_VERSION,
         identity: frozenIdentity,
         read: Object.freeze({
             search: (request: PluginSearchRequest) => {

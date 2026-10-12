@@ -3,7 +3,7 @@ import { ExternalLink, FileSearch } from 'lucide-react';
 import { toast } from 'sonner';
 import type { PluginSearchResultsView } from '../../plugins/contributionSchemas';
 import type { PluginSearchResult } from '../../plugins/searchReadModel';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 import {
     usePluginHostServices,
     usePluginHostSnapshot,
@@ -87,7 +87,7 @@ export default function SearchResultsView({ pluginId, view }: SearchResultsViewP
                         {search.results.map(result => (
                             <li
                                 key={`${result.reference.kind}:${result.reference.id}`}
-                                className="axiom-dialog-row flex items-center gap-3 p-3"
+                                className="nemoto-dialog-row flex items-center gap-3 p-3"
                             >
                                 <FileSearch size={16} className="shrink-0 text-accent-primary" aria-hidden="true" />
                                 <div className="min-w-0 flex-1">
@@ -97,13 +97,13 @@ export default function SearchResultsView({ pluginId, view }: SearchResultsViewP
                                     </div>
                                 </div>
                                 {view.openAction && canNavigate && (
-                                    <AxiomButton
+                                    <NemotoButton
                                         onClick={() => openResult(result)}
                                         aria-label={`${view.openAction === 'inspect' ? 'Inspect' : 'Reveal'} ${result.label}`}
                                     >
                                         <ExternalLink size={14} aria-hidden="true" />
                                         {view.openAction === 'inspect' ? 'Inspect' : 'Reveal'}
-                                    </AxiomButton>
+                                    </NemotoButton>
                                 )}
                             </li>
                         ))}

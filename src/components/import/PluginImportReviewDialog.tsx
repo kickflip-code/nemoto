@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { PreparedPluginImport } from '../../stores/actions/preparedPluginImport';
-import { AxiomButton, AxiomDialog, AxiomDialogFooter } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoDialogFooter } from '../ui';
 
 export default function PluginImportReviewDialog({ plan, onClose, onCommit }: {
     plan: PreparedPluginImport; onClose: () => void; onCommit: () => void;
@@ -10,7 +10,7 @@ export default function PluginImportReviewDialog({ plan, onClose, onCommit }: {
     const [acknowledged, setAcknowledged] = useState(false);
     const [page, setPage] = useState(0);
     const exclusions = plan.rows.filter(row => row.status === 'excluded').length;
-    return createPortal(<AxiomDialog onClose={onClose} aria-labelledby="plugin-import-title" isolateBackground panelClassName="w-full max-w-5xl">
+    return createPortal(<NemotoDialog onClose={onClose} aria-labelledby="plugin-import-title" isolateBackground panelClassName="w-full max-w-5xl">
         <div className="p-4 space-y-4">
             <h2 id="plugin-import-title">Review plugin import</h2>
             <p>{plan.sourceName}: copied records receive new IDs. No plugin code runs during this review.</p>
@@ -26,17 +26,17 @@ export default function PluginImportReviewDialog({ plan, onClose, onCommit }: {
                 </table>
             </div>
             {plan.rows.length > 50 && <div className="flex gap-2 items-center">
-                <AxiomButton disabled={page === 0} onClick={() => setPage(page - 1)}>Previous</AxiomButton>
+                <NemotoButton disabled={page === 0} onClick={() => setPage(page - 1)}>Previous</NemotoButton>
                 <span>Page {page + 1} of {Math.ceil(plan.rows.length / 50)} · {plan.rows.length} entries</span>
-                <AxiomButton disabled={(page + 1) * 50 >= plan.rows.length} onClick={() => setPage(page + 1)}>Next</AxiomButton>
+                <NemotoButton disabled={(page + 1) * 50 >= plan.rows.length} onClick={() => setPage(page + 1)}>Next</NemotoButton>
             </div>}
             {exclusions > 0 && <label className="flex gap-2"><input type="checkbox" checked={acknowledged}
                 onChange={event => setAcknowledged(event.target.checked)} />I understand that {exclusions} unsupported item(s) will not be imported. I will keep the source file.</label>}
             {error && <p role="alert">{error}</p>}
         </div>
-        <AxiomDialogFooter><AxiomButton onClick={onClose}>Cancel</AxiomButton>
-            <AxiomButton disabled={!!error || (exclusions > 0 && !acknowledged)} onClick={() => {
+        <NemotoDialogFooter><NemotoButton onClick={onClose}>Cancel</NemotoButton>
+            <NemotoButton disabled={!!error || (exclusions > 0 && !acknowledged)} onClick={() => {
                 try { onCommit(); } catch (cause) { setError(cause instanceof Error ? cause.message : 'Import failed; nothing was merged.'); }
-            }}>Import reviewed data</AxiomButton></AxiomDialogFooter>
-    </AxiomDialog>, document.body);
+            }}>Import reviewed data</NemotoButton></NemotoDialogFooter>
+    </NemotoDialog>, document.body);
 }

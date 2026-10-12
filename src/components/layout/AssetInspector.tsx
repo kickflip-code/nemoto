@@ -94,7 +94,7 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                             aria-label="Name"
                             onChange={(e) => setEditedName(e.target.value)}
                             onBlur={handleBlur}
-                            className="axiom-field axiom-field-sm w-full"
+                            className="nemoto-field nemoto-field-sm w-full"
                         />
                     </div>
                     <div>
@@ -107,7 +107,7 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                                 // Immediate save for dropdown
                                 updateAsset(asset.id, { type: e.target.value });
                             }}
-                            className="axiom-field axiom-field-sm w-full appearance-none cursor-pointer"
+                            className="nemoto-field nemoto-field-sm w-full appearance-none cursor-pointer"
                         >
                             <option value="">Select Category...</option>
                             {categoryOptions.map(opt => (
@@ -121,7 +121,7 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                 </div>
             </div>
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             {/* Custom Metadata */}
             <div>
@@ -130,7 +130,7 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                 <div className="space-y-2 mb-3">
                     {Object.entries(editedMetadata).map(([key, value]) => (
                         <div key={key} className="flex items-center gap-2 group">
-                            <div className="axiom-panel-card flex-1 min-w-0 px-2 py-1 text-xs flex justify-between">
+                            <div className="nemoto-panel-card flex-1 min-w-0 px-2 py-1 text-xs flex justify-between">
                                 <span className="text-text-faint font-mono mr-2">{key}</span>
                                 <span className="text-text-main">
                                     {typeof value === 'string' ? value : JSON.stringify(value)}
@@ -139,7 +139,7 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                             <button
                                 onClick={() => removeMetadataField(key)}
                                 aria-label={`Remove property ${key}`}
-                                className="axiom-panel-icon-button axiom-icon-button-sm axiom-panel-icon-button-danger opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
+                                className="nemoto-panel-icon-button nemoto-icon-button-sm nemoto-panel-icon-button-danger opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
                             >
                                 <X size={12} />
                             </button>
@@ -148,7 +148,7 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                 </div>
 
                 {/* Add New Prop */}
-                <div className="axiom-panel-card p-2.5 space-y-2.5">
+                <div className="nemoto-panel-card p-2.5 space-y-2.5">
                     <div>
                         <div className="text-[9px] font-bold uppercase tracking-wider text-text-muted">Add Property</div>
                     </div>
@@ -159,7 +159,7 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                             aria-label="Property key"
                             onChange={(e) => setNewMetaKey(e.target.value)}
                             placeholder="Key"
-                            className="axiom-field axiom-field-xs flex-1 min-w-0 placeholder:text-text-faint"
+                            className="nemoto-field nemoto-field-xs flex-1 min-w-0 placeholder:text-text-faint"
                         />
                         <input
                             type="text"
@@ -167,30 +167,30 @@ export default function AssetInspector({ id }: AssetInspectorProps) {
                             aria-label="Property value (optional)"
                             onChange={(e) => setNewMetaValue(e.target.value)}
                             placeholder="Value (optional)"
-                            className="axiom-field axiom-field-xs flex-1 min-w-0 placeholder:text-text-faint"
+                            className="nemoto-field nemoto-field-xs flex-1 min-w-0 placeholder:text-text-faint"
                         />
                     </div>
                     <button
                         onClick={addMetadataField}
                         disabled={!newMetaKey.trim()}
-                        className="axiom-button axiom-button-sm w-full disabled:opacity-70"
+                        className="nemoto-button nemoto-button-sm w-full disabled:opacity-70"
                     >
                         <Check size={10} /> Add Property
                     </button>
                 </div>
             </div>
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             <LinkedNotes entityId={id} entityType="asset" name={asset.name} />
 
-            <div className="axiom-panel-divider h-[1px]"></div>
+            <div className="nemoto-panel-divider h-[1px]"></div>
 
             {/* Actions */}
             <div>
                 <button
                     onClick={handleDelete}
-                    className="axiom-button axiom-button-sm axiom-button-danger w-full"
+                    className="nemoto-button nemoto-button-sm nemoto-button-danger w-full"
                 >
                     <Trash2 size={14} />
                     Delete Resource

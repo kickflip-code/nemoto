@@ -40,7 +40,7 @@ describe('TagSelector', () => {
         expect(picker).toHaveClass('fixed');
         expect(picker.parentElement).toBe(document.body);
         expect(screen.getByRole('textbox', { name: 'Search or create tag' }))
-            .toHaveClass('axiom-field-leading-icon');
+            .toHaveClass('nemoto-field-leading-icon');
         fireEvent.click(screen.getByRole('checkbox', { name: 'Risk' }));
         expect(onChange).toHaveBeenCalledWith(['tag-1']);
     });

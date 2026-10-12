@@ -1,7 +1,7 @@
 import { Columns3, Rows3 } from 'lucide-react';
 import { useCanvasStore } from '../../stores/useCanvasStore';
 import { divisionLanes, divisionSettings } from '../../lib/canvasDivision';
-import { AxiomDockButton } from '../ui';
+import { NemotoDockButton } from '../ui';
 import CanvasControlHint from './CanvasControlHint';
 
 export default function DivisionControls({ preview = false }: { preview?: boolean }) {
@@ -15,11 +15,11 @@ export default function DivisionControls({ preview = false }: { preview?: boolea
             const lanes = divisionLanes(graph, axis);
             const active = visible && lanes.length > 0;
             return <CanvasControlHint key={axis} text={`${active ? 'Hide' : 'Show'} ${label.toLowerCase()}`}>
-                <AxiomDockButton id={`add-division-${axis}`} label={label} active={active} onClick={() => {
+                <NemotoDockButton id={`add-division-${axis}`} label={label} active={active} onClick={() => {
                     if (preview) return;
                     if (!lanes.length) addSwimlane(`${column ? 'Column' : 'Row'} 1`, column ? 'gray' : 'blue', axis);
                     else setDivisionVisible(axis, !visible);
-                }}>{column ? <Columns3 size={19} /> : <Rows3 size={19} />}</AxiomDockButton>
+                }}>{column ? <Columns3 size={19} /> : <Rows3 size={19} />}</NemotoDockButton>
             </CanvasControlHint>;
         })}
     </div>;

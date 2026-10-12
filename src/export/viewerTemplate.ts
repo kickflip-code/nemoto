@@ -3,7 +3,7 @@ import viewerTemplateUrl from '../../dist-viewer/index.html?url';
 const REQUIRED_VIEWER_TEMPLATE_ANCHORS = [
     '<head>',
     '</head>',
-    '<!--AXIOM_DATA-->',
+    '<!--NEMOTO_DATA-->',
     'Nemoto Viewer',
 ] as const;
 

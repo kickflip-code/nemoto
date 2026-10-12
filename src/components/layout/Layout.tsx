@@ -119,7 +119,7 @@ export default function Layout({ children, pluginRuntime }: LayoutProps) {
                         {activeView === 'designer' && leftPanelOpen && (
                             <motion.div
                                 {...leftPanelMotion}
-                                className="axiom-motion-panel axiom-motion-panel-left flex-shrink-0 z-10 bg-app-sidebar overflow-hidden flex flex-col"
+                                className="nemoto-motion-panel nemoto-motion-panel-left flex-shrink-0 z-10 bg-app-sidebar overflow-hidden flex flex-col"
                             >
                                 <SidePanel />
                             </motion.div>
@@ -153,7 +153,7 @@ export default function Layout({ children, pluginRuntime }: LayoutProps) {
                             {rightSurfaceOpen && (
                                 <motion.div
                                     {...rightPanelMotion}
-                                    className="axiom-motion-panel axiom-motion-panel-right flex-shrink-0 z-20 overflow-hidden"
+                                    className="nemoto-motion-panel nemoto-motion-panel-right flex-shrink-0 z-20 overflow-hidden"
                                 >
                                     {portfolioChatOpen ? (
                                         <Suspense fallback={<div className="h-full w-[500px] border-l border-app-border bg-app-header" />}>

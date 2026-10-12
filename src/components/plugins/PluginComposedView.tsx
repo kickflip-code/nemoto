@@ -4,7 +4,7 @@ import { Search, Copy, Download, ExternalLink, Trash2, Plus, Link, Unlink } from
 import { createPortal } from 'react-dom';
 import { PluginUiTreeSchema, type PluginUiNode, type PluginUiPresentation } from '../../plugins/pluginUiContracts';
 import type { JsonValue } from '../../plugins/semanticData';
-import { AxiomButton, AxiomDialog, AxiomInput, AxiomSelect } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoInput, NemotoSelect } from '../ui';
 import PluginRichTextControl, { type PluginDraftFlusherRegistry } from './PluginRichTextControl';
 import '../../styles/features/plugin-composed-view.css';
 
@@ -62,7 +62,7 @@ function DraftTextInput({ node, emit, stage, className }: { node: NodeShape; emi
         if (pending.current.length > 32) pending.current.shift();
         emit(next);
     };
-    return <AxiomInput data-plugin-control-key={node.key}
+    return <NemotoInput data-plugin-control-key={node.key}
         aria-label={stringOf(node, 'label')}
         placeholder={node.placeholder as string | undefined}
         title={node.title as string | undefined}
@@ -156,7 +156,7 @@ function ComposedNode({ node, onAction, onDraftDispatch, onDraftChange, flushers
         }
         case 'button': {
             return (
-                <AxiomButton
+                <NemotoButton
                     data-plugin-control-key={node.key}
                     disabled={booleanOf(node, 'disabled')}
                     icon={presentation.control === 'icon'}
@@ -169,7 +169,7 @@ function ComposedNode({ node, onAction, onDraftDispatch, onDraftChange, flushers
                 >
                     {Icon && <Icon size={16} aria-hidden="true" />}
                     <span className={presentation.control === 'icon' ? 'sr-only' : undefined}>{stringOf(node, 'label')}</span>
-                </AxiomButton>
+                </NemotoButton>
             );
         }
         case 'text-input': {
@@ -185,7 +185,7 @@ function ComposedNode({ node, onAction, onDraftDispatch, onDraftChange, flushers
         case 'date-input': {
             return (
                 <FieldLabel label={stringOf(node, 'label')} hidden={presentation.label === 'hidden'}>
-                    <AxiomInput
+                    <NemotoInput
                         data-plugin-control-key={node.key}
                         disabled={booleanOf(node, 'disabled')}
                         required={booleanOf(node, 'required')}
@@ -212,7 +212,7 @@ function ComposedNode({ node, onAction, onDraftDispatch, onDraftChange, flushers
         }
         case 'select': {
             const select = (
-                <AxiomSelect
+                <NemotoSelect
                     aria-label={presentation.accessibleLabel ?? stringOf(node, 'label')}
                     data-plugin-control-key={node.key}
                     disabled={booleanOf(node, 'disabled')}
@@ -222,7 +222,7 @@ function ComposedNode({ node, onAction, onDraftDispatch, onDraftChange, flushers
                     {(node.options as Array<{ value: string; label: string }>).map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
-                </AxiomSelect>
+                </NemotoSelect>
             );
             return (
                 <FieldLabel label={stringOf(node, 'label')} hidden={presentation.label === 'hidden'}>
@@ -246,7 +246,7 @@ function ComposedNode({ node, onAction, onDraftDispatch, onDraftChange, flushers
                 actionId: stringOf(node, 'closeActionId'), value: null, draftRevision: null });
             return createPortal(
                 <>
-                <AxiomDialog
+                <NemotoDialog
                     aria-labelledby={titleId}
                     closeOnBackdrop={!booleanOf(node, 'dirty')}
                     onClose={() => booleanOf(node, 'dirty') ? setConfirmDiscard(true) : close()}
@@ -257,14 +257,14 @@ function ComposedNode({ node, onAction, onDraftDispatch, onDraftChange, flushers
                         {childrenOf(node)
                             .map(child => <ComposedNode key={child.key} node={child} onAction={onAction} onDraftDispatch={onDraftDispatch} onDraftChange={onDraftChange} flushers={flushers} />)}
                     </div>
-                </AxiomDialog>
-                {confirmDiscard && <AxiomDialog aria-labelledby="plugin-discard-title"
+                </NemotoDialog>
+                {confirmDiscard && <NemotoDialog aria-labelledby="plugin-discard-title"
                     closeOnBackdrop={false} onClose={() => setConfirmDiscard(false)}>
                     <h2 id="plugin-discard-title">Discard unsaved changes?</h2>
                     <p>The unsaved changes in this dialog will be lost.</p>
-                    <AxiomButton onClick={() => setConfirmDiscard(false)}>Keep editing</AxiomButton>
-                    <AxiomButton variant="danger" onClick={() => { setConfirmDiscard(false); close(); }}>Discard changes</AxiomButton>
-                </AxiomDialog>}
+                    <NemotoButton onClick={() => setConfirmDiscard(false)}>Keep editing</NemotoButton>
+                    <NemotoButton variant="danger" onClick={() => { setConfirmDiscard(false); close(); }}>Discard changes</NemotoButton>
+                </NemotoDialog>}
                 </>,
                 document.body,
             );

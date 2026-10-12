@@ -19,10 +19,10 @@ import { createPortfolioManagementSummary } from '../../lib/portfolioManagement'
 import { getResourceReferenceAssetId } from '../../lib/resourceReferences';
 import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import {
-    AxiomButton,
-    AxiomInput,
-    AxiomSegmented,
-    AxiomSegmentedOption,
+    NemotoButton,
+    NemotoInput,
+    NemotoSegmented,
+    NemotoSegmentedOption,
 } from '../ui';
 import ConfirmationModal from '../shared/ConfirmationModal';
 import PowerTable, { type Column } from '../shared/PowerTable';
@@ -395,22 +395,22 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
             isOpen={isOpen}
             onClose={onClose}
             actions={view === 'content' && selectedIds.size > 0 ? (
-                <AxiomButton size="sm" variant="danger" onClick={handleDelete}>
+                <NemotoButton size="sm" variant="danger" onClick={handleDelete}>
                     <Trash2 size={14} />
                     Delete {selectedIds.size}
-                </AxiomButton>
+                </NemotoButton>
             ) : undefined}
         >
             <div className="flex h-full min-h-0 flex-col bg-app-bg">
                 <div className="flex h-14 shrink-0 items-center border-b border-app-border bg-app-sidebar/35 px-6">
-                    <AxiomSegmented aria-label="Portfolio view">
-                        <AxiomSegmentedOption active={view === 'overview'} onClick={() => selectView('overview')}>
+                    <NemotoSegmented aria-label="Portfolio view">
+                        <NemotoSegmentedOption active={view === 'overview'} onClick={() => selectView('overview')}>
                             Overview
-                        </AxiomSegmentedOption>
-                        <AxiomSegmentedOption active={view === 'content'} onClick={() => selectView('content')}>
+                        </NemotoSegmentedOption>
+                        <NemotoSegmentedOption active={view === 'content'} onClick={() => selectView('content')}>
                             Content
-                        </AxiomSegmentedOption>
-                    </AxiomSegmented>
+                        </NemotoSegmentedOption>
+                    </NemotoSegmented>
                 </div>
 
                 {view === 'overview' ? (
@@ -440,7 +440,7 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                                             key={kind}
                                             type="button"
                                             onClick={() => openContent(kind)}
-                                            className="axiom-dialog-row group flex items-center gap-3 p-4 text-left"
+                                            className="nemoto-dialog-row group flex items-center gap-3 p-4 text-left"
                                         >
                                             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-app-border bg-app-bg text-text-muted group-hover:text-text-main">
                                                 <Icon size={17} />
@@ -537,17 +537,17 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                     <div className="flex min-h-0 flex-1 flex-col">
                         <div className="shrink-0 border-b border-app-border bg-app-sidebar/20 px-6 py-4">
                             <div className="flex flex-wrap items-center justify-between gap-4">
-                                <AxiomSegmented aria-label="Content type" className="max-w-full overflow-x-auto">
+                                <NemotoSegmented aria-label="Content type" className="max-w-full overflow-x-auto">
                                     {CONTENT_ORDER.map(kind => (
-                                        <AxiomSegmentedOption
+                                        <NemotoSegmentedOption
                                             key={kind}
                                             active={contentKind === kind}
                                             onClick={() => selectContentKind(kind)}
                                         >
                                             {CONTENT_META[kind].label}
-                                        </AxiomSegmentedOption>
+                                        </NemotoSegmentedOption>
                                     ))}
-                                </AxiomSegmented>
+                                </NemotoSegmented>
                                 <span className="text-xs text-text-faint">{activeConfig.data.length} of {totalCountForKind}</span>
                             </div>
 
@@ -562,7 +562,7 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                                 <div className="flex min-w-0 flex-1 items-center justify-end gap-2 sm:flex-none">
                                     <div className="relative w-full sm:w-72">
                                         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-faint" />
-                                        <AxiomInput
+                                        <NemotoInput
                                             type="search"
                                             aria-label={`Search ${activeMeta.label.toLocaleLowerCase()}`}
                                             controlSize="sm"
@@ -572,7 +572,7 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                                                 setSelectedIds(new Set());
                                             }}
                                             placeholder={`Search ${activeMeta.label.toLocaleLowerCase()}...`}
-                                            className="axiom-field-leading-icon axiom-field-trailing-action w-full"
+                                            className="nemoto-field-leading-icon nemoto-field-trailing-action w-full"
                                         />
                                         {searchQuery && (
                                             <button
@@ -589,7 +589,7 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                                         )}
                                     </div>
                                     {unlinkedCountForKind > 0 && (
-                                        <AxiomButton
+                                        <NemotoButton
                                             size="sm"
                                             aria-pressed={unlinkedOnly}
                                             onClick={() => {
@@ -599,7 +599,7 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                                         >
                                             <Link2Off size={14} />
                                             {unlinkedFilterLabel} · {unlinkedCountForKind}
-                                        </AxiomButton>
+                                        </NemotoButton>
                                     )}
                                 </div>
                             </div>
@@ -626,17 +626,17 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
             </div>
 
             {deleteReview && createPortal(
-                <div className="fixed inset-0 z-[10300] flex items-center justify-center p-4 axiom-motion-overlay">
-                    <div className="axiom-dialog-backdrop absolute inset-0" onClick={() => setDeleteReview(null)} />
-                    <div className="relative flex w-full max-w-lg flex-col overflow-hidden rounded-xl border border-app-border bg-app-sidebar shadow-2xl axiom-motion-dialog">
+                <div className="fixed inset-0 z-[10300] flex items-center justify-center p-4 nemoto-motion-overlay">
+                    <div className="nemoto-dialog-backdrop absolute inset-0" onClick={() => setDeleteReview(null)} />
+                    <div className="relative flex w-full max-w-lg flex-col overflow-hidden rounded-xl border border-app-border bg-app-sidebar shadow-2xl nemoto-motion-dialog">
                         <div className="flex items-center justify-between border-b border-app-border bg-app-header px-6 py-4">
                             <h3 className="flex items-center gap-2 font-semibold text-text-main">
                                 <AlertTriangle size={18} className="text-accent-danger" />
                                 Review process deletion
                             </h3>
-                            <AxiomButton icon size="sm" variant="ghost" aria-label="Close deletion review" onClick={() => setDeleteReview(null)}>
+                            <NemotoButton icon size="sm" variant="ghost" aria-label="Close deletion review" onClick={() => setDeleteReview(null)}>
                                 <X size={16} />
-                            </AxiomButton>
+                            </NemotoButton>
                         </div>
 
                         <div className="space-y-4 p-6">
@@ -655,9 +655,9 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                         </div>
 
                         <div className="flex flex-wrap justify-end gap-2 border-t border-app-border bg-app-header px-6 py-4">
-                            <AxiomButton size="sm" variant="ghost" onClick={() => setDeleteReview(null)}>Cancel</AxiomButton>
+                            <NemotoButton size="sm" variant="ghost" onClick={() => setDeleteReview(null)}>Cancel</NemotoButton>
                             {(deleteReview.orphanAssets.length > 0 || deleteReview.orphanJournals.length > 0) && (
-                                <AxiomButton
+                                <NemotoButton
                                     size="sm"
                                     onClick={() => {
                                         deleteProcess(deleteReview.processIds, false);
@@ -666,9 +666,9 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                                     }}
                                 >
                                     Processes only
-                                </AxiomButton>
+                                </NemotoButton>
                             )}
-                            <AxiomButton
+                            <NemotoButton
                                 size="sm"
                                 variant="danger"
                                 onClick={() => {
@@ -680,7 +680,7 @@ export default function UnifiedManagementHub({ isOpen, onClose }: UnifiedManagem
                                 {(deleteReview.orphanAssets.length > 0 || deleteReview.orphanJournals.length > 0)
                                     ? 'Delete with related content'
                                     : 'Delete processes'}
-                            </AxiomButton>
+                            </NemotoButton>
                         </div>
                     </div>
                 </div>,

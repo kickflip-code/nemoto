@@ -25,8 +25,8 @@ use wasmtime::{
 
 use crate::plugin_compute_policy::{IsolatedComputePolicy, ISOLATED_COMPUTE_POLICY_V1};
 
-pub const AXIOM_WASM_ABI_NAME: &str = "axiom-wasm-v1";
-pub const AXIOM_WASM_ABI_VERSION: i32 = 1;
+pub const NEMOTO_WASM_ABI_NAME: &str = "axiom-wasm-v1";
+pub const NEMOTO_WASM_ABI_VERSION: i32 = 1;
 pub const WASMTIME_ENGINE_VERSION: &str = "36.0.14";
 
 const MEMORY_EXPORT: &str = "memory";
@@ -86,14 +86,14 @@ struct StoreState {
 ///
 /// Calls are serialized because Wasmtime epoch interruption is engine-wide. This
 /// avoids one timed-out guest interrupting another guest that shares the engine.
-pub struct AxiomWasmHost {
+pub struct NemotoWasmHost {
     engine: Engine,
     policy: IsolatedComputePolicy,
     execution_lock: Mutex<()>,
     module_cache: Mutex<VecDeque<([u8; 32], Module)>>,
 }
 
-impl AxiomWasmHost {
+impl NemotoWasmHost {
     pub fn new() -> Result<Self, WasmHostError> {
         Self::with_policy(ISOLATED_COMPUTE_POLICY_V1)
     }
@@ -423,7 +423,7 @@ impl AxiomWasmHost {
             .get_typed_func::<(i32, i32), i64>(&mut *store, RUN_EXPORT)
             .map_err(|_| export_mismatch())?;
 
-        if version.call(&mut *store, ()).map_err(runtime_error)? != AXIOM_WASM_ABI_VERSION {
+        if version.call(&mut *store, ()).map_err(runtime_error)? != NEMOTO_WASM_ABI_VERSION {
             return Err(WasmHostError::new(
                 WasmHostErrorCode::AbiMismatch,
                 "The module reports an unsupported Axiom WebAssembly ABI.",
@@ -587,7 +587,7 @@ mod tests {
 
     #[test]
     fn executes_a_valid_json_transform_in_a_fresh_store() {
-        let host = AxiomWasmHost::new().unwrap();
+        let host = NemotoWasmHost::new().unwrap();
         let input = br#"{"operation":"echo","value":42}"#;
 
         assert_eq!(host.execute_json(&echo_module(), input).unwrap(), input);
@@ -622,7 +622,7 @@ mod tests {
         let module = wat::parse_str(source).unwrap();
 
         assert_eq!(
-            AxiomWasmHost::new()
+            NemotoWasmHost::new()
                 .unwrap()
                 .execute_json(&module, b"{}")
                 .unwrap_err()
@@ -649,7 +649,7 @@ mod tests {
             r#"(global (export "__heap_base") (mut i32) (i32.const 2048))
                 (func (export "axiom_run") (param i32 i32) (result i64) i64.const 0)"#,
         );
-        let host = AxiomWasmHost::new().unwrap();
+        let host = NemotoWasmHost::new().unwrap();
 
         assert_eq!(
             host.execute_json(&wrong_signature, b"{}").unwrap_err().code,
@@ -682,7 +682,7 @@ mod tests {
 
     #[test]
     fn rejects_invalid_and_oversized_inputs_before_execution() {
-        let host = AxiomWasmHost::new().unwrap();
+        let host = NemotoWasmHost::new().unwrap();
         let oversized_module = vec![0; ISOLATED_COMPUTE_POLICY_V1.max_module_bytes + 1];
         let oversized_input = vec![b' '; ISOLATED_COMPUTE_POLICY_V1.max_input_bytes + 1];
 
@@ -712,7 +712,7 @@ mod tests {
 
     #[test]
     fn reuses_and_bounds_the_host_owned_module_cache() {
-        let host = AxiomWasmHost::new().unwrap();
+        let host = NemotoWasmHost::new().unwrap();
         let base = echo_module();
 
         host.execute_json(&base, b"{}").unwrap();
@@ -754,7 +754,7 @@ mod tests {
                 (func (export "axiom_run") (param i32 i32) (result i64)
                     i64.const 2)"#,
         );
-        let host = AxiomWasmHost::new().unwrap();
+        let host = NemotoWasmHost::new().unwrap();
 
         assert_eq!(
             host.execute_json(&too_large, b"{}").unwrap_err().code,
@@ -779,7 +779,7 @@ mod tests {
         );
 
         assert_eq!(
-            AxiomWasmHost::new()
+            NemotoWasmHost::new()
                 .unwrap()
                 .execute_json(&infinite, b"{}")
                 .unwrap_err()
@@ -800,7 +800,7 @@ mod tests {
         let infinite_start = wat::parse_str(source).unwrap();
 
         assert_eq!(
-            AxiomWasmHost::new()
+            NemotoWasmHost::new()
                 .unwrap()
                 .execute_json(&infinite_start, b"{}")
                 .unwrap_err()
@@ -821,7 +821,7 @@ mod tests {
         deadline_policy.wall_time_per_entrypoint_ms = 20;
 
         assert_eq!(
-            AxiomWasmHost::with_policy(deadline_policy)
+            NemotoWasmHost::with_policy(deadline_policy)
                 .unwrap()
                 .execute_json(&infinite, b"{}")
                 .unwrap_err()
@@ -845,7 +845,7 @@ mod tests {
             r#"(func (export "axiom_run") (param i32 i32) (result i64)
                 i64.const -4294967295)"#,
         );
-        let host = AxiomWasmHost::new().unwrap();
+        let host = NemotoWasmHost::new().unwrap();
 
         assert_eq!(
             host.execute_json(&trap, b"{}").unwrap_err().code,
@@ -872,7 +872,7 @@ mod tests {
         );
 
         assert_eq!(
-            AxiomWasmHost::new()
+            NemotoWasmHost::new()
                 .unwrap()
                 .execute_json(&recursive, b"{}")
                 .unwrap_err()
@@ -889,7 +889,7 @@ mod tests {
         );
 
         assert_eq!(
-            AxiomWasmHost::new()
+            NemotoWasmHost::new()
                 .unwrap()
                 .execute_json(&invalid_output, b"{}")
                 .unwrap_err()
@@ -933,7 +933,7 @@ mod tests {
                 "parameters":{"message":"hello","count":3}
             }
         }"#;
-        let output = AxiomWasmHost::new()
+        let output = NemotoWasmHost::new()
             .unwrap()
             .execute_json(&module, input)
             .unwrap();
@@ -949,7 +949,7 @@ mod tests {
                 "output": {
                     "message": "hello",
                     "count": 3,
-                    "sdk": AXIOM_WASM_ABI_NAME,
+                    "sdk": NEMOTO_WASM_ABI_NAME,
                 }
             })
         );

@@ -6,7 +6,7 @@ import {
 } from './contributions';
 import { satisfiesVersionRange } from './versionRange';
 
-export const AXIOM_PLUGIN_API_VERSION = '1.8.0';
+export const NEMOTO_PLUGIN_API_VERSION = '1.8.0';
 
 export type PluginActivationDiagnosticCode =
     | 'duplicate-request'
@@ -59,7 +59,7 @@ const sortDiagnostics = (
 export function resolvePluginActivation(
     catalog: PluginCatalog,
     requestedPluginIds: readonly string[],
-    hostPluginApiVersion = AXIOM_PLUGIN_API_VERSION,
+    hostPluginApiVersion = NEMOTO_PLUGIN_API_VERSION,
 ): PluginActivationResult {
     const diagnostics: PluginActivationDiagnostic[] = [];
     const diagnosticKeys = new Set<string>();

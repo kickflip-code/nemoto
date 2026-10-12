@@ -83,7 +83,7 @@ describe('Header file menu', () => {
 
         const search = screen.getByRole('button', { name: 'Search processes, resources, and notes' });
         expect(search).toHaveAttribute('aria-keyshortcuts', 'Control+K Meta+K');
-        expect(search).toHaveClass('axiom-field');
+        expect(search).toHaveClass('nemoto-field');
         fireEvent.click(search);
         expect(useUIStore.getState().omniboxOpen).toBe(true);
     });

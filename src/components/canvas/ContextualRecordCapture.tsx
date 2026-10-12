@@ -6,7 +6,7 @@ import { coreEntityReference } from '../../plugins/universalReference';
 import { pluginHostServices, createHostPluginUiSession } from '../../host/pluginHostServices';
 import type { PluginUiSession } from '../../host/pluginUiSession';
 import { createContextualItem, resolveRecordContext } from '../../plugins/contextualRecordModel';
-import { AxiomButton, AxiomDialog, AxiomInput } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoInput } from '../ui';
 import { useActivePluginRuntime } from '../plugins/useActivePluginRuntime';
 const PluginViewHost = lazy(() => import('../plugins/PluginViewHost'));
 
@@ -26,7 +26,7 @@ function LegacyCaptureDialog({ capture }: { capture: LegacyCapture }) {
     const [title, setTitle] = useState('');
     const input = useRef<HTMLInputElement>(null);
     const close = () => useRecordCapture.setState({ capture: null });
-    return <AxiomDialog aria-labelledby="record-capture-title" initialFocusRef={input} onClose={close} panelClassName="w-full max-w-md p-5">
+    return <NemotoDialog aria-labelledby="record-capture-title" initialFocusRef={input} onClose={close} panelClassName="w-full max-w-md p-5">
         <h2 id="record-capture-title" className="mb-3 text-lg font-bold">{capture.view.contextual!.quickAddLabel}</h2>
         <form onSubmit={event => {
             event.preventDefault();
@@ -40,10 +40,10 @@ function LegacyCaptureDialog({ capture }: { capture: LegacyCapture }) {
                 toast.success('Task added'); close();
             } catch (error) { toast.error(error instanceof Error ? error.message : 'Could not add task.'); }
         }}>
-            <AxiomInput ref={input} aria-label="Task title" className="w-full" placeholder="What needs to be done?" value={title} maxLength={500} required onChange={event => setTitle(event.target.value)} />
-            <div className="mt-4 flex gap-2"><AxiomButton type="submit" disabled={!title.trim()}>Add</AxiomButton><AxiomButton type="button" onClick={close}>Cancel</AxiomButton></div>
+            <NemotoInput ref={input} aria-label="Task title" className="w-full" placeholder="What needs to be done?" value={title} maxLength={500} required onChange={event => setTitle(event.target.value)} />
+            <div className="mt-4 flex gap-2"><NemotoButton type="submit" disabled={!title.trim()}>Add</NemotoButton><NemotoButton type="button" onClick={close}>Cancel</NemotoButton></div>
         </form>
-    </AxiomDialog>;
+    </NemotoDialog>;
 }
 
 function hasDialogNode(node: unknown): boolean {

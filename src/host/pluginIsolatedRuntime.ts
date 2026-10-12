@@ -4,7 +4,7 @@ import {
     DEFAULT_PLUGIN_RUNTIME_HEARTBEAT_TIMEOUT_MS,
     DEFAULT_PLUGIN_RUNTIME_STARTUP_TIMEOUT_MS,
 } from '../plugins/pluginLimits';
-import type { AxiomPluginApi } from '../plugins/publicApi';
+import type { NemotoPluginApi } from '../plugins/publicApi';
 import {
     parsePluginRuntimeLaunchMessage,
     parsePluginRuntimeLauncherControlMessage,
@@ -54,7 +54,7 @@ export interface PluginIsolatedRuntimeOptions {
     readonly sessionId: string;
     /** Complete ESM source with one exported async `activate(runtime)` function. */
     readonly source: string;
-    readonly api: AxiomPluginApi;
+    readonly api: NemotoPluginApi;
     readonly isSessionAuthorized: () => boolean;
     readonly onFailure?: (error: PluginIsolatedRuntimeError) => void;
     readonly startupTimeoutMs?: number;

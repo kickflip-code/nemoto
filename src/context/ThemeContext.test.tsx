@@ -70,8 +70,8 @@ describe('ThemeProvider custom-theme hydration', () => {
       expect(view.container.querySelector('img')?.getAttribute('src')).toMatch(/^data:image\/png;base64,/);
       expect(document.documentElement.style.getPropertyValue('--theme-control-size-base')).toBe('2.25rem');
       expect(document.documentElement.style.getPropertyValue('--control-radius')).toBe('0.75rem');
-      expect(document.documentElement.style.getPropertyValue('--font-family-ui')).toContain('AxiomTheme-org-example-branded');
-      expect(document.documentElement.style.getPropertyValue('--font-family-node')).toContain('AxiomTheme-org-example-branded');
+      expect(document.documentElement.style.getPropertyValue('--font-family-ui')).toContain('NemotoTheme-org-example-branded');
+      expect(document.documentElement.style.getPropertyValue('--font-family-node')).toContain('NemotoTheme-org-example-branded');
       expect(document.documentElement.getAttribute('data-theme-surface-style')).toBe('translucent');
       expect(document.documentElement.getAttribute('data-theme-node-style')).toBe('graphic');
       expect(document.getElementById(THEME_PRESENTATION_STYLE_ID)?.textContent).toContain("format('woff2')");

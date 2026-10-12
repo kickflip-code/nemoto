@@ -146,7 +146,7 @@ export class HtmlExportService {
 
         const html = appendViewerThemeStyles(viewerTemplate as string, dynamicCss)
             .replace('<head>', `<head>\n    ${csp}`)
-            .replace('<!--AXIOM_DATA-->', base64)
+            .replace('<!--NEMOTO_DATA-->', base64)
             .replace('Nemoto Viewer', escapeHtmlText(viewerTitle));
 
         return html;
@@ -228,7 +228,7 @@ export class HtmlExportService {
 
             const portfolio = usePortfolioStore.getState().portfolio;
             const process = portfolio.processes.find(p => p.id === processId);
-            const rawTitle = process?.title || 'axiom_process';
+            const rawTitle = process?.title || 'nemoto_process';
             const safeTitle = rawTitle.replace(/[^a-z0-9åäö]/gi, '_').toLowerCase();
 
             const defaultFilename = `${safeTitle}_viewer.html`;

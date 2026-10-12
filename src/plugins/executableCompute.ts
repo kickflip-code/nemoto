@@ -17,12 +17,12 @@ import {
 import { JsonValueSchema, SourceCitationSchema, type JsonValue } from './semanticData';
 import { UniversalEntityReferenceSchema } from './universalReference';
 
-export const AXIOM_WASM_COMPUTE_REQUEST_SCHEMA = 'axiom.wasm-compute-request';
-export const AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION = 1;
-export const AXIOM_WASM_COMPUTE_RESULT_SCHEMA = 'axiom.wasm-compute-result';
-export const AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION = 1;
-export const AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA = 'axiom.wasm-proposal-draft';
-export const AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION = 1;
+export const NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA = 'axiom.wasm-compute-request';
+export const NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION = 1;
+export const NEMOTO_WASM_COMPUTE_RESULT_SCHEMA = 'axiom.wasm-compute-result';
+export const NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION = 1;
+export const NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA = 'axiom.wasm-proposal-draft';
+export const NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION = 1;
 export const MAX_WASM_COMPUTE_SNAPSHOTS = 32;
 export const MAX_WASM_COMPUTE_REQUEST_BYTES = 240 * 1024;
 
@@ -35,8 +35,8 @@ const referenceKey = (reference: z.infer<typeof UniversalEntityReferenceSchema>)
 );
 
 export const ExecutableComputeRequestSchema = z.object({
-    schema: z.literal(AXIOM_WASM_COMPUTE_REQUEST_SCHEMA),
-    schemaVersion: z.literal(AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION),
+    schema: z.literal(NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA),
+    schemaVersion: z.literal(NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION),
     requestId: StableContractIdSchema,
     baseRevision: StableContractIdSchema,
     portfolioRevision: z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),
@@ -85,8 +85,8 @@ const ImportDraftOriginSchema = z.object({
 }).strict();
 
 const proposalDraftShape = {
-    schema: z.literal(AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA),
-    schemaVersion: z.literal(AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION),
+    schema: z.literal(NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA),
+    schemaVersion: z.literal(NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION),
     id: StableContractIdSchema,
     title: z.string().trim().min(1).max(200),
     summary: z.string().trim().min(1).max(2_000),
@@ -125,8 +125,8 @@ export const ExecutableProposalDraftSchema = z.union([
 export type ExecutableProposalDraft = z.infer<typeof ExecutableProposalDraftSchema>;
 
 export const ExecutableComputeResultSchema = z.object({
-    schema: z.literal(AXIOM_WASM_COMPUTE_RESULT_SCHEMA),
-    schemaVersion: z.literal(AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION),
+    schema: z.literal(NEMOTO_WASM_COMPUTE_RESULT_SCHEMA),
+    schemaVersion: z.literal(NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION),
     requestId: StableContractIdSchema,
     baseRevision: StableContractIdSchema,
     output: JsonValueSchema,
@@ -159,8 +159,8 @@ export function createExecutableComputeRequest(
         throw new Error('Executable compute snapshots require portfolio.read-scoped.');
     }
     return ExecutableComputeRequestSchema.parse({
-        schema: AXIOM_WASM_COMPUTE_REQUEST_SCHEMA,
-        schemaVersion: AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
+        schema: NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA,
+        schemaVersion: NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
         requestId: input.requestId,
         baseRevision: input.baseRevision,
         portfolioRevision: input.portfolioRevision,

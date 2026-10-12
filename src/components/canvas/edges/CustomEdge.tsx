@@ -106,7 +106,7 @@ export default function CustomEdge(props: EdgeProps) {
         evt.stopPropagation();
         // Labels deliberately use nodrag, so pointer capture preserves their
         // focus. A non-editable label click still needs canvas keyboard ownership.
-        evt.currentTarget.closest<HTMLElement>('.axiom-process-canvas')?.focus({ preventScroll: true });
+        evt.currentTarget.closest<HTMLElement>('.nemoto-process-canvas')?.focus({ preventScroll: true });
         const { selectElements, selectedNodeIds, selectedEdgeIds } = useCanvasStore.getState();
         const isMulti = evt.ctrlKey || evt.metaKey;
 
@@ -140,7 +140,7 @@ export default function CustomEdge(props: EdgeProps) {
             {selected && !useCanvasStore.getState().previewGraph && visiblePoints && orthogonal &&
                 <EdgeSegmentControls id={props.id} points={visiblePoints} onPreview={setDragPoints} />}
             {selected && !useCanvasStore.getState().previewGraph && (!visiblePoints || !orthogonal) &&
-                <EdgeLabelRenderer><button type="button" className="nodrag nopan axiom-button"
+                <EdgeLabelRenderer><button type="button" className="nodrag nopan nemoto-button"
                     style={{position:'absolute',left:labelX,top:labelY+24,pointerEvents:'all'}}
                     onClick={event=>{
                         event.stopPropagation();

@@ -3,7 +3,7 @@ import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import { useProcessSessionStore } from '../../stores/useProcessSessionStore';
 import { resolveEntity } from '../../lib/entityResolver';
 import OwnerPickerModal from '../shared/OwnerPickerModal';
-import { AxiomInput, AxiomPanelDivider, AxiomSwitch, AxiomTextarea } from '../ui';
+import { NemotoInput, NemotoPanelDivider, NemotoSwitch, NemotoTextarea } from '../ui';
 
 export default function ProcessInspector() {
     const { portfolio, updateProcess } = usePortfolioStore();
@@ -28,7 +28,7 @@ export default function ProcessInspector() {
                 <div className="space-y-3">
                     <div className="space-y-1">
                         <span className="text-[10px] text-text-faint">Title</span>
-                        <AxiomInput
+                        <NemotoInput
                             type="text"
                             controlSize="sm"
                             className="w-full font-medium"
@@ -39,7 +39,7 @@ export default function ProcessInspector() {
                     </div>
                     <div className="space-y-1">
                         <span className="text-[10px] text-text-faint">Description</span>
-                        <AxiomTextarea
+                        <NemotoTextarea
                             controlSize="sm"
                             className="w-full"
                             value={process.description || ''}
@@ -51,7 +51,7 @@ export default function ProcessInspector() {
                 </div>
             </div>
 
-            <AxiomPanelDivider />
+            <NemotoPanelDivider />
 
             {/* Ownership Section */}
             <div>
@@ -61,7 +61,7 @@ export default function ProcessInspector() {
                         <span className="text-[10px] text-text-faint pb-2">Process Owner</span>
                         <button
                             onClick={() => setIsOwnerPickerOpen(true)}
-                            className="axiom-panel-card w-full flex items-center justify-between px-2 py-1.5 text-xs text-left hover:bg-app-hover transition-colors"
+                            className="nemoto-panel-card w-full flex items-center justify-between px-2 py-1.5 text-xs text-left hover:bg-app-hover transition-colors"
                         >
                             <span className="truncate">
                                 {process.ownerId
@@ -85,7 +85,7 @@ export default function ProcessInspector() {
 
                     <div className="flex items-center justify-between mt-4">
                         <span className="text-[10px] text-text-faint">Show Owner in Canvas</span>
-                        <AxiomSwitch
+                        <NemotoSwitch
                             checked={process.metaSettings?.showOwnerInCanvas ?? false}
                             label="Show owner in canvas"
                             onCheckedChange={(checked) => handleUpdate({
@@ -99,7 +99,7 @@ export default function ProcessInspector() {
 
                     <div className="flex items-center justify-between mt-3">
                         <span className="text-[10px] text-text-faint">Show Description in Canvas</span>
-                        <AxiomSwitch
+                        <NemotoSwitch
                             checked={process.metaSettings?.showDescriptionInCanvas ?? false}
                             label="Show description in canvas"
                             onCheckedChange={(checked) => handleUpdate({
@@ -117,7 +117,7 @@ export default function ProcessInspector() {
                 </div>
             </div>
 
-            <AxiomPanelDivider />
+            <NemotoPanelDivider />
 
             {/* Meta */}
             <div className="space-y-2">

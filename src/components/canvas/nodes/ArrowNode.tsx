@@ -21,7 +21,7 @@ export const ArrowNode = memo(({ data, selected }: NodeProps) => {
         <NodeTooltip content={data.description as string} delay={2500}>
             <div
                 className={clsx(
-                    "group relative w-16 h-16 flex items-center justify-center axiom-transition-canvas",
+                    "group relative w-16 h-16 flex items-center justify-center nemoto-transition-canvas",
                     selected && "z-50"
                 )}
                 style={{
@@ -33,7 +33,7 @@ export const ArrowNode = memo(({ data, selected }: NodeProps) => {
                 {/* The Arrow Container */}
                 <div
                     className={clsx(
-                        "w-12 h-12 flex items-center justify-center rounded-xl bg-app-surface border shape-arrow axiom-transition-canvas",
+                        "w-12 h-12 flex items-center justify-center rounded-xl bg-app-surface border shape-arrow nemoto-transition-canvas",
                         "hover:bg-app-hover shadow-soft-down pointer-events-auto"
                     )}
                     style={{
@@ -46,7 +46,7 @@ export const ArrowNode = memo(({ data, selected }: NodeProps) => {
                         size={32}
                         strokeWidth={2.5}
                         style={{ color: color }}
-                        className="transition-colors axiom-transition-fast"
+                        className="transition-colors nemoto-transition-fast"
                     />
                 </div>
 

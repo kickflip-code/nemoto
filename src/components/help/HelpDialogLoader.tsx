@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState, type ComponentType } from 'react';
 import { AlertTriangle, Loader2, X } from 'lucide-react';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogHeader,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogHeader,
 } from '../ui';
 
 interface LoadedHelpDialogProps {
@@ -54,7 +54,7 @@ export default function HelpDialogLoader({
     }
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="help-loader-description"
             aria-labelledby="help-loader-title"
             initialFocusRef={loadFailed ? closeButtonRef : undefined}
@@ -62,12 +62,12 @@ export default function HelpDialogLoader({
             panelClassName="w-full max-w-md overflow-hidden"
             rootClassName="z-[10150]"
         >
-            <AxiomDialogHeader className="flex items-center justify-between border-b px-5 py-4">
+            <NemotoDialogHeader className="flex items-center justify-between border-b px-5 py-4">
                 <h2 id="help-loader-title" className="flex items-center gap-2 text-sm font-bold text-text-main">
                     {loadFailed ? <AlertTriangle aria-hidden="true" className="text-accent-warning" size={17} /> : <Loader2 aria-hidden="true" className="animate-spin text-accent-primary" size={17} />}
                     {loadFailed ? 'Help could not be loaded' : 'Loading Help...'}
                 </h2>
-                <AxiomButton
+                <NemotoButton
                     ref={closeButtonRef}
                     aria-label="Close Help"
                     icon
@@ -77,9 +77,9 @@ export default function HelpDialogLoader({
                     variant="ghost"
                 >
                     <X size={16} />
-                </AxiomButton>
-            </AxiomDialogHeader>
-            <AxiomDialogBody className="p-5">
+                </NemotoButton>
+            </NemotoDialogHeader>
+            <NemotoDialogBody className="p-5">
                 <p id="help-loader-description" className="text-sm leading-6 text-text-muted" role={loadFailed ? 'alert' : 'status'}>
                     {loadFailed
                         ? 'The Help files are unavailable. The rest of Nemoto is unaffected; close this message and continue working, or try loading Help again.'
@@ -87,11 +87,11 @@ export default function HelpDialogLoader({
                 </p>
                 {loadFailed && (
                     <div className="mt-5 flex justify-end gap-2">
-                        <AxiomButton onClick={onClose} size="sm">Close</AxiomButton>
-                        <AxiomButton onClick={() => setAttempt(current => current + 1)} size="sm" variant="primary">Try again</AxiomButton>
+                        <NemotoButton onClick={onClose} size="sm">Close</NemotoButton>
+                        <NemotoButton onClick={() => setAttempt(current => current + 1)} size="sm" variant="primary">Try again</NemotoButton>
                     </div>
                 )}
-            </AxiomDialogBody>
-        </AxiomDialog>
+            </NemotoDialogBody>
+        </NemotoDialog>
     );
 }

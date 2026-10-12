@@ -1,7 +1,7 @@
 import { AlertTriangle, Loader2, RotateCcw } from 'lucide-react';
 import type { ThemeRestoreChoice, ThemeRestorePlan } from '../../theme/themeBackup';
 import { BUILT_IN_THEME_PRESETS } from '../../theme/presets';
-import { AxiomButton, AxiomDialog, AxiomSelect } from '../ui';
+import { NemotoButton, NemotoDialog, NemotoSelect } from '../ui';
 
 export interface PortfolioRestoreDetails {
   name: string;
@@ -87,11 +87,11 @@ const ThemeRestoreSection = ({
       <label htmlFor="restore-theme-choice" className="block text-[10px] font-bold uppercase tracking-wider text-text-faint">
         Theme handling
       </label>
-      <AxiomSelect
+      <NemotoSelect
         id="restore-theme-choice"
         value={choice}
         onChange={event => onChange(event.target.value as ThemeRestoreChoice)}
-        className="axiom-field w-full px-3 py-2 text-xs"
+        className="nemoto-field w-full px-3 py-2 text-xs"
       >
         {plan.kind === 'built-in' && (
           <option value="apply">Activate {label}</option>
@@ -109,7 +109,7 @@ const ThemeRestoreSection = ({
           </>
         )}
         <option value="skip">Keep current appearance</option>
-      </AxiomSelect>
+      </NemotoSelect>
       {plan.kind === 'custom-conflict' && choice === 'replace-installed' && (
         <p className="text-[10px] leading-relaxed text-accent-warning">
           The local theme file will be replaced. Nemoto retains its previous revision as a recovery copy.
@@ -129,15 +129,15 @@ export default function PortfolioRestoreDialog({
   if (!restore) return null;
 
   return (
-    <AxiomDialog
+    <NemotoDialog
       aria-describedby="portfolio-restore-description"
       aria-labelledby="portfolio-restore-title"
       onClose={() => { if (!isRestoring) onClose(); }}
       closeOnBackdrop={!isRestoring}
       panelClassName="w-full max-w-lg overflow-hidden"
     >
-      <div className="axiom-dialog-header flex items-center gap-3 border-b px-5 py-4">
-        <div className="axiom-dialog-icon axiom-dialog-icon-warning p-2">
+      <div className="nemoto-dialog-header flex items-center gap-3 border-b px-5 py-4">
+        <div className="nemoto-dialog-icon nemoto-dialog-icon-warning p-2">
           <RotateCcw size={18} aria-hidden="true" />
         </div>
         <div>
@@ -149,7 +149,7 @@ export default function PortfolioRestoreDialog({
       </div>
 
       <div className="space-y-4 p-5">
-        <div className="axiom-dialog-panel grid grid-cols-2 gap-3 p-3 text-left text-xs">
+        <div className="nemoto-dialog-panel grid grid-cols-2 gap-3 p-3 text-left text-xs">
           <div>
             <div className="text-[10px] uppercase tracking-wider text-text-faint">Archive</div>
             <div className="mt-1 truncate text-text-main" title={restore.name}>{restore.name}</div>
@@ -185,13 +185,13 @@ export default function PortfolioRestoreDialog({
         </p>
       </div>
 
-      <div className="axiom-dialog-footer flex justify-end gap-3 border-t px-5 py-4">
-        <AxiomButton onClick={onClose} disabled={isRestoring}>Cancel</AxiomButton>
-        <AxiomButton variant="warning" onClick={onConfirm} disabled={isRestoring}>
+      <div className="nemoto-dialog-footer flex justify-end gap-3 border-t px-5 py-4">
+        <NemotoButton onClick={onClose} disabled={isRestoring}>Cancel</NemotoButton>
+        <NemotoButton variant="warning" onClick={onConfirm} disabled={isRestoring}>
           {isRestoring ? <Loader2 className="animate-spin" size={14} /> : <RotateCcw size={14} />}
           {isRestoring ? 'Restoring…' : 'Restore'}
-        </AxiomButton>
+        </NemotoButton>
       </div>
-    </AxiomDialog>
+    </NemotoDialog>
   );
 }

@@ -96,7 +96,7 @@ fn validator_path(arguments: impl Iterator<Item = OsString>) -> Result<PathBuf, 
     };
     if argument == "--help" || argument == "-h" {
         println!(
-            "Usage: axiom-plugin-validator <path-to-plugin.axiom-plugin>\n\
+            "Usage: nemoto-plugin-validator <path-to-plugin.axiom-plugin>\n\
              Validates the executable package and runs native Wasm admission without installing it."
         );
         return Err(ExitCode::SUCCESS);

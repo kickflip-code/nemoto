@@ -1,11 +1,11 @@
 import { forwardRef, type ButtonHTMLAttributes, type HTMLAttributes } from 'react';
 import clsx from 'clsx';
 
-export interface AxiomDockProps extends HTMLAttributes<HTMLDivElement> {
+export interface NemotoDockProps extends HTMLAttributes<HTMLDivElement> {
     'aria-label': string;
 }
 
-export const AxiomDock = forwardRef<HTMLDivElement, AxiomDockProps>(function AxiomDock(
+export const NemotoDock = forwardRef<HTMLDivElement, NemotoDockProps>(function NemotoDock(
     { className, ...props },
     ref,
 ) {
@@ -19,13 +19,13 @@ export const AxiomDock = forwardRef<HTMLDivElement, AxiomDockProps>(function Axi
     );
 });
 
-export interface AxiomDockButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface NemotoDockButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     active?: boolean;
     label: string;
 }
 
-export const AxiomDockButton = forwardRef<HTMLButtonElement, AxiomDockButtonProps>(
-    function AxiomDockButton({ active, className, label, title = label, type = 'button', ...props }, ref) {
+export const NemotoDockButton = forwardRef<HTMLButtonElement, NemotoDockButtonProps>(
+    function NemotoDockButton({ active, className, label, title = label, type = 'button', ...props }, ref) {
         return (
             <button
                 ref={ref}
@@ -40,7 +40,7 @@ export const AxiomDockButton = forwardRef<HTMLButtonElement, AxiomDockButtonProp
     },
 );
 
-export function AxiomDockDivider({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+export function NemotoDockDivider({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     return (
         <div
             role="separator"

@@ -126,7 +126,7 @@ describe('DependencyView', () => {
         const controls = screen.getByRole('complementary', { name: 'Dependency controls' });
         expect(controls.parentElement).toHaveClass('absolute', 'inset-0');
         expect(controls.querySelector('.app-scroll')).toHaveClass('overflow-y-auto');
-        expect(screen.getByRole('searchbox', { name: 'Search for a focal point' })).toHaveClass('axiom-field-leading-icon');
+        expect(screen.getByRole('searchbox', { name: 'Search for a focal point' })).toHaveClass('nemoto-field-leading-icon');
 
         await waitFor(() => {
             expect(screen.getByTestId('dependency-graph')).toHaveAttribute('data-node-count', '3');

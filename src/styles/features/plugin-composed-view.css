@@ -251,7 +251,7 @@
 .plugin-presentation > .plugin-composed-field { position: relative; }
 .plugin-field-icon { position: absolute; left: .65rem; bottom: .5rem; pointer-events: none; }
 .plugin-presentation[data-ui-icon] > .plugin-composed-field > input { padding-left: 2rem; }
-.plugin-presentation[data-ui-editorheight] .axiom-record-editor {
+.plugin-presentation[data-ui-editorheight] .nemoto-record-editor {
   border: max(1px, var(--app-border-width)) solid var(--color-control-border, var(--color-app-border));
   border-radius: var(--app-radius-sm);
   overflow: hidden;
@@ -285,7 +285,7 @@
 
 .plugin-composed-field > input,
 .plugin-composed-field > select,
-.plugin-composed-field .axiom-record-editor { font-weight: 400; color: var(--color-text-main); }
+.plugin-composed-field .nemoto-record-editor { font-weight: 400; color: var(--color-text-main); }
 .plugin-presentation[data-ui-control='matrix'] > button,
 .plugin-presentation[data-ui-surface='badge'] > .plugin-composed-text {
   color: color-mix(in srgb, var(--color-text-main) 80%, var(--plugin-tone, var(--color-text-main))) !important;

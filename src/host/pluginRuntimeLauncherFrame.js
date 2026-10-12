@@ -54,21 +54,21 @@
 
     const createWrapperSource = (moduleUrl, secret) => `
 'use strict';
-const __axiomStatusSecret = ${JSON.stringify(secret)};
-const __axiomModuleUrl = ${JSON.stringify(moduleUrl)};
-const __axiomPostMessage = self.postMessage.bind(self);
-const __axiomAddEventListener = self.addEventListener.bind(self);
-let __axiomBootstrapped = false;
+const __nemotoStatusSecret = ${JSON.stringify(secret)};
+const __nemotoModuleUrl = ${JSON.stringify(moduleUrl)};
+const __nemotoPostMessage = self.postMessage.bind(self);
+const __nemotoAddEventListener = self.addEventListener.bind(self);
+let __nemotoBootstrapped = false;
 
-const __axiomStatus = (kind, details = {}) => __axiomPostMessage({
+const __nemotoStatus = (kind, details = {}) => __nemotoPostMessage({
     schema: 'axiom.plugin-runtime-worker-status',
     schemaVersion: 1,
-    secret: __axiomStatusSecret,
+    secret: __nemotoStatusSecret,
     kind,
     ...details,
 });
 
-const __axiomDenyAmbientApis = () => {
+const __nemotoDenyAmbientApis = () => {
     const denied = [
         'fetch', 'XMLHttpRequest', 'WebSocket', 'EventSource', 'WebTransport',
         'Worker', 'SharedWorker', 'BroadcastChannel', 'importScripts',
@@ -88,29 +88,29 @@ const __axiomDenyAmbientApis = () => {
     return true;
 };
 
-__axiomAddEventListener('message', async event => {
+__nemotoAddEventListener('message', async event => {
     const message = event.data;
     if (message && message.schema === 'axiom.plugin-runtime-worker-control'
         && message.schemaVersion === 1 && message.kind === 'ping'
         && Number.isSafeInteger(message.sequence) && message.sequence >= 0) {
-        __axiomStatus('pong', { sequence: message.sequence });
+        __nemotoStatus('pong', { sequence: message.sequence });
         return;
     }
-    if (__axiomBootstrapped || !message
+    if (__nemotoBootstrapped || !message
         || message.schema !== 'axiom.plugin-runtime-worker-bootstrap'
         || message.schemaVersion !== 1 || message.kind !== 'bootstrap'
         || !isPortableRuntimeId(message.sessionId) || event.ports.length !== 1) return;
 
-    __axiomBootstrapped = true;
+    __nemotoBootstrapped = true;
     const runtimePort = event.ports[0];
-    if (!__axiomDenyAmbientApis()) {
+    if (!__nemotoDenyAmbientApis()) {
         runtimePort.close();
-        __axiomStatus('failed', { code: 'WORKER_BOOTSTRAP_FAILED' });
+        __nemotoStatus('failed', { code: 'WORKER_BOOTSTRAP_FAILED' });
         return;
     }
 
     try {
-        const pluginModule = await import(__axiomModuleUrl);
+        const pluginModule = await import(__nemotoModuleUrl);
         if (!pluginModule || typeof pluginModule.activate !== 'function') {
             throw new Error('missing activate export');
         }
@@ -121,10 +121,10 @@ __axiomAddEventListener('message', async event => {
             port: runtimePort,
         });
         await pluginModule.activate(runtime);
-        __axiomStatus('ready');
+        __nemotoStatus('ready');
     } catch {
         runtimePort.close();
-        __axiomStatus('failed', { code: 'WORKER_RUNTIME_FAILED' });
+        __nemotoStatus('failed', { code: 'WORKER_RUNTIME_FAILED' });
     }
 });
 

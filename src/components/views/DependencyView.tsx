@@ -51,18 +51,18 @@ import { navigateToEntityReference } from '../../lib/entityNavigation';
 import { getPaletteColor } from '../../constants/palette';
 import ContextMenu, { ContextMenuItem } from '../shared/ContextMenu';
 import {
-    AxiomButton,
-    AxiomInput,
-    AxiomPanel,
-    AxiomPanelBody,
-    AxiomPanelHeader,
-    AxiomPanelIconButton,
-    AxiomPanelRowButton,
-    AxiomRange,
-    AxiomSegmented,
-    AxiomSegmentedOption,
-    AxiomSelect,
-    AxiomToggleCard,
+    NemotoButton,
+    NemotoInput,
+    NemotoPanel,
+    NemotoPanelBody,
+    NemotoPanelHeader,
+    NemotoPanelIconButton,
+    NemotoPanelRowButton,
+    NemotoRange,
+    NemotoSegmented,
+    NemotoSegmentedOption,
+    NemotoSelect,
+    NemotoToggleCard,
 } from '../ui';
 import { GravityNode } from './GravityNode';
 
@@ -206,7 +206,7 @@ function RelationToggle({
 }) {
     const color = getDependencyEdgeStroke(filter.sampleType);
     return (
-        <AxiomToggleCard
+        <NemotoToggleCard
             aria-label={`${filter.label} ${count}`}
             active={enabled}
             onClick={onToggle}
@@ -222,7 +222,7 @@ function RelationToggle({
                 {filter.label}
             </span>
             <span className="font-mono text-[10px] text-text-muted">{count}</span>
-        </AxiomToggleCard>
+        </NemotoToggleCard>
     );
 }
 
@@ -239,7 +239,7 @@ function LayerToggle({
 }) {
     const color = entityColor({ id: type, label: type, type });
     return (
-        <AxiomToggleCard
+        <NemotoToggleCard
             active={enabled}
             onClick={onToggle}
         >
@@ -251,7 +251,7 @@ function LayerToggle({
                 {LAYER_LABELS[type]}
             </span>
             <span className="font-mono text-[10px] text-text-muted">{count}</span>
-        </AxiomToggleCard>
+        </NemotoToggleCard>
     );
 }
 
@@ -720,27 +720,27 @@ function DependencyViewInner() {
 
     return (
         <div className="absolute inset-0 flex min-h-0 w-full overflow-hidden bg-app-bg text-text-main">
-            <AxiomPanel as="aside" className="z-20 flex h-full min-h-0 w-[340px] shrink-0 flex-col border-r border-app-border bg-app-sidebar" aria-label="Dependency controls">
-                <AxiomPanelHeader className="shrink-0 border-b border-app-border px-5 py-4">
+            <NemotoPanel as="aside" className="z-20 flex h-full min-h-0 w-[340px] shrink-0 flex-col border-r border-app-border bg-app-sidebar" aria-label="Dependency controls">
+                <NemotoPanelHeader className="shrink-0 border-b border-app-border px-5 py-4">
                     <div className="flex items-center justify-between gap-3">
                         <div>
                             <h1 className="text-sm font-bold uppercase tracking-[0.16em] text-text-main">Dependency Map</h1>
                             <p className="mt-1 text-[11px] text-text-muted">{queryLabel}</p>
                         </div>
                         {query.kind !== 'overview' && (
-                            <AxiomPanelIconButton
+                            <NemotoPanelIconButton
                                 onClick={clearScopes}
                                 aria-label="Clear all dependency scopes"
                                 size="sm"
                                 title="Back to portfolio overview"
                             >
                                 <X size={15} />
-                            </AxiomPanelIconButton>
+                            </NemotoPanelIconButton>
                         )}
                     </div>
-                </AxiomPanelHeader>
+                </NemotoPanelHeader>
 
-                <AxiomPanelBody className="app-scroll min-h-0 flex-1 space-y-6 overflow-y-auto p-4">
+                <NemotoPanelBody className="app-scroll min-h-0 flex-1 space-y-6 overflow-y-auto p-4">
                     {(query.kind === 'overview' || query.kind === 'process') && (
                         <section className="rounded-lg border border-app-border bg-app-surface p-3 text-[11px] leading-relaxed text-text-muted">
                             <div className="mb-1 flex items-center gap-2 font-semibold text-text-main">
@@ -752,7 +752,7 @@ function DependencyViewInner() {
                                     : 'Process-specific resources are placed to the left, processes in the middle and shared resources to the right. Choose a focal point to inspect steps, notes and detailed relationships.'}
                             </p>
                             {query.kind === 'overview' && viewGraph.unlinkedResourceCount > 0 && (
-                                <AxiomButton
+                                <NemotoButton
                                     size="sm"
                                     variant="ghost"
                                     onClick={() => setIncludeUnlinkedResources(current => !current)}
@@ -761,7 +761,7 @@ function DependencyViewInner() {
                                     {includeUnlinkedResources
                                         ? `Hide ${viewGraph.unlinkedResourceCount} unlinked ${viewGraph.unlinkedResourceCount === 1 ? 'resource' : 'resources'}`
                                         : `Show ${viewGraph.unlinkedResourceCount} unlinked ${viewGraph.unlinkedResourceCount === 1 ? 'resource' : 'resources'}`}
-                                </AxiomButton>
+                                </NemotoButton>
                             )}
                         </section>
                     )}
@@ -771,7 +771,7 @@ function DependencyViewInner() {
                         <div className="space-y-2">
                             <div className="relative">
                                 <label htmlFor="dependency-folder" className="sr-only">Focus by process folder</label>
-                                <AxiomSelect
+                                <NemotoSelect
                                     id="dependency-folder"
                                     controlSize="sm"
                                     value={gravityWellFolderId || ''}
@@ -782,13 +782,13 @@ function DependencyViewInner() {
                                     {(portfolio.processFolders || []).map(folder => (
                                         <option key={folder.id} value={folder.id}>{folder.title}</option>
                                     ))}
-                                </AxiomSelect>
+                                </NemotoSelect>
                                 <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-text-faint" />
                             </div>
 
                             <div className="relative">
                                 <label htmlFor="dependency-process" className="sr-only">Add a process to scope</label>
-                                <AxiomSelect
+                                <NemotoSelect
                                     id="dependency-process"
                                     controlSize="sm"
                                     value=""
@@ -800,7 +800,7 @@ function DependencyViewInner() {
                                     {portfolio.processes
                                         .filter(process => !gravityWellProcessIds.includes(process.id))
                                         .map(process => <option key={process.id} value={process.id}>{process.title}</option>)}
-                                </AxiomSelect>
+                                </NemotoSelect>
                                 <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-text-faint" />
                             </div>
 
@@ -809,7 +809,7 @@ function DependencyViewInner() {
                                     {gravityWellProcessIds.map(processId => {
                                         const process = portfolio.processes.find(candidate => candidate.id === processId);
                                         return (
-                                            <AxiomButton
+                                            <NemotoButton
                                                 size="sm"
                                                 key={processId}
                                                 onClick={() => chooseProcess(processId)}
@@ -818,7 +818,7 @@ function DependencyViewInner() {
                                             >
                                                 <span className="truncate">{process?.title || 'Missing process'}</span>
                                                 <X size={10} />
-                                            </AxiomButton>
+                                            </NemotoButton>
                                         );
                                     })}
                                 </div>
@@ -871,22 +871,22 @@ function DependencyViewInner() {
                         {query.kind === 'focus' && gravityWellFocalPoint && (
                             <div className="mt-3">
                                 <div className="mb-1.5 text-[10px] font-medium text-text-faint">Direction around focus</div>
-                                <AxiomSegmented className="flex w-full" aria-label="Relationship direction">
+                                <NemotoSegmented className="flex w-full" aria-label="Relationship direction">
                                     {([
                                         ['both', 'All'],
                                         ['incoming', 'Into'],
                                         ['outgoing', 'Out of'],
                                     ] as Array<[RelationDirection, string]>).map(([direction, label]) => (
-                                        <AxiomSegmentedOption
+                                        <NemotoSegmentedOption
                                             key={direction}
                                             active={relationDirection === direction}
                                             onClick={() => setRelationDirection(direction)}
                                             className="flex-1"
                                         >
                                             {label}
-                                        </AxiomSegmentedOption>
+                                        </NemotoSegmentedOption>
                                     ))}
-                                </AxiomSegmented>
+                                </NemotoSegmented>
                             </div>
                         )}
                     </section>
@@ -894,7 +894,7 @@ function DependencyViewInner() {
                     <section aria-labelledby="dependency-tag-heading">
                         <h2 id="dependency-tag-heading" className="mb-2 text-[10px] font-bold uppercase tracking-[0.12em] text-text-muted">Journal insight</h2>
                         <label htmlFor="dependency-tag" className="sr-only">Filter by journal tag</label>
-                        <AxiomSelect
+                        <NemotoSelect
                             id="dependency-tag"
                             controlSize="sm"
                             value={selectedTagId || ''}
@@ -905,7 +905,7 @@ function DependencyViewInner() {
                             {(portfolio.journal?.tags || [])
                                 .filter(tag => !tag.archived)
                                 .map(tag => <option key={tag.id} value={tag.id}>{tag.label}</option>)}
-                        </AxiomSelect>
+                        </NemotoSelect>
                         {!selectedTagId && (
                             <p className="mt-2 text-[10px] leading-relaxed text-text-faint">Choose a tag to see which entities its notes reference most often.</p>
                         )}
@@ -929,7 +929,7 @@ function DependencyViewInner() {
                                     </p>
                                 )}
                                 {viewGraph.tagInsight.taggedEntryCount > 0 && (
-                                    <AxiomButton
+                                    <NemotoButton
                                         size="sm"
                                         variant="ghost"
                                         aria-pressed={includeTaggedEntries}
@@ -939,7 +939,7 @@ function DependencyViewInner() {
                                         {includeTaggedEntries
                                             ? 'Return to insight summary'
                                             : `Show ${viewGraph.tagInsight.taggedEntryCount} individual ${viewGraph.tagInsight.taggedEntryCount === 1 ? 'note' : 'notes'}`}
-                                    </AxiomButton>
+                                    </NemotoButton>
                                 )}
                             </div>
                         )}
@@ -949,7 +949,7 @@ function DependencyViewInner() {
                         <div className="mb-2 flex items-center justify-between gap-2">
                             <h2 id="dependency-focus-heading" className="text-[10px] font-bold uppercase tracking-[0.12em] text-text-muted">Focal point</h2>
                             {gravityWellFocalPoint && (
-                                <AxiomButton
+                                <NemotoButton
                                     size="sm"
                                     variant="ghost"
                                     onClick={() => {
@@ -959,7 +959,7 @@ function DependencyViewInner() {
                                     className="px-0 text-[10px] text-text-muted hover:text-text-main"
                                 >
                                     Clear focus
-                                </AxiomButton>
+                                </NemotoButton>
                             )}
                         </div>
 
@@ -973,14 +973,14 @@ function DependencyViewInner() {
                         <div className="relative">
                             <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" />
                             <label htmlFor="dependency-search" className="sr-only">Search for a focal point</label>
-                            <AxiomInput
+                            <NemotoInput
                                 id="dependency-search"
                                 controlSize="sm"
                                 type="search"
                                 placeholder="Search entities…"
                                 value={search}
                                 onChange={event => setSearch(event.target.value)}
-                                className="axiom-field-leading-icon w-full py-2 pr-3 text-xs placeholder:text-text-faint"
+                                className="nemoto-field-leading-icon w-full py-2 pr-3 text-xs placeholder:text-text-faint"
                                 autoComplete="off"
                             />
                         </div>
@@ -988,14 +988,14 @@ function DependencyViewInner() {
                         {search && (
                             <div className="mt-1 max-h-56 overflow-y-auto rounded-lg border border-app-border bg-app-surface p-1 app-scroll" aria-label="Focal point search results">
                                 {searchResults.length > 0 ? searchResults.map(entity => (
-                                    <AxiomPanelRowButton
+                                    <NemotoPanelRowButton
                                         key={entity.id}
                                         onClick={() => chooseFocalPoint(entity)}
                                         className="flex w-full items-center justify-between gap-3 px-2.5 py-2 text-left"
                                     >
                                         <span className="min-w-0 flex-1 truncate text-xs font-medium text-text-main">{entity.label}</span>
                                         <span className="shrink-0 text-[10px] uppercase text-text-faint">{entitySubtitle(entity)}</span>
-                                    </AxiomPanelRowButton>
+                                    </NemotoPanelRowButton>
                                 )) : (
                                     <div className="px-2.5 py-3 text-center text-[11px] text-text-faint">No matching entities</div>
                                 )}
@@ -1008,7 +1008,7 @@ function DependencyViewInner() {
                                     <label htmlFor="dependency-depth" className="font-medium text-text-muted">Reach</label>
                                     <span className="font-mono text-accent-primary">{depth} {depth === 1 ? 'step' : 'steps'}</span>
                                 </div>
-                                <AxiomRange
+                                <NemotoRange
                                     id="dependency-depth"
                                     min={1}
                                     max={3}
@@ -1045,23 +1045,23 @@ function DependencyViewInner() {
                         <section className="border-t border-app-border pt-5" aria-labelledby="dependency-details-heading">
                             <div className="mb-2 flex items-center justify-between gap-2">
                                 <h2 id="dependency-details-heading" className="text-[10px] font-bold uppercase tracking-[0.12em] text-text-muted">Selected entity</h2>
-                                <AxiomPanelIconButton size="sm" onClick={() => setSelectedNodeId(null)} className="text-text-faint" aria-label="Close entity details">
+                                <NemotoPanelIconButton size="sm" onClick={() => setSelectedNodeId(null)} className="text-text-faint" aria-label="Close entity details">
                                     <X size={13} />
-                                </AxiomPanelIconButton>
+                                </NemotoPanelIconButton>
                             </div>
 
                             <div className="rounded-lg border border-app-border bg-app-surface p-3">
                                 <div className="text-xs font-semibold leading-snug text-text-main">{selectedEntity.label}</div>
                                 <div className="mt-1 text-[10px] uppercase tracking-[0.08em]" style={{ color: entityColor(selectedEntity) }}>{entitySubtitle(selectedEntity)}</div>
                                 {selectedEntity.type !== 'tag' && (
-                                    <AxiomButton
+                                    <NemotoButton
                                         size="sm"
                                         variant="ghost"
                                         onClick={() => openEntity(selectedEntity)}
                                         className="mt-3 flex items-center gap-1.5 text-[11px] font-medium text-accent-primary hover:text-text-main"
                                     >
                                         <ExternalLink size={12} /> Open source
-                                    </AxiomButton>
+                                    </NemotoButton>
                                 )}
                             </div>
 
@@ -1070,7 +1070,7 @@ function DependencyViewInner() {
                                 <div className="space-y-1">
                                     {selectedRelations.slice(0, 60).map(({ relation, other, perspective }) => (
                                         <div key={relation.id} className="flex items-center gap-1 rounded-md border border-app-border bg-app-surface p-1">
-                                            <AxiomPanelRowButton
+                                            <NemotoPanelRowButton
                                                 onClick={() => setSelectedNodeId(other.id)}
                                                 className="min-w-0 flex-1 px-2 py-1.5 text-left"
                                             >
@@ -1081,9 +1081,9 @@ function DependencyViewInner() {
                                                         : ''}
                                                 </div>
                                                 <div className="truncate text-[11px] text-text-main">{other.label}</div>
-                                            </AxiomPanelRowButton>
+                                            </NemotoPanelRowButton>
                                             {other.type !== 'tag' && (
-                                                <AxiomButton
+                                                <NemotoButton
                                                     icon
                                                     size="sm"
                                                     variant="ghost"
@@ -1092,7 +1092,7 @@ function DependencyViewInner() {
                                                     aria-label={`Open ${other.label}`}
                                                 >
                                                     <ExternalLink size={12} />
-                                                </AxiomButton>
+                                                </NemotoButton>
                                             )}
                                         </div>
                                     ))}
@@ -1106,10 +1106,10 @@ function DependencyViewInner() {
                             </div>
                         </section>
                     )}
-                </AxiomPanelBody>
+                </NemotoPanelBody>
 
                 <footer className="shrink-0 border-t border-app-border p-3">
-                    <AxiomButton
+                    <NemotoButton
                         size="sm"
                         onClick={() => {
                             setNodes(baseNodes);
@@ -1121,9 +1121,9 @@ function DependencyViewInner() {
                         className="w-full justify-center py-2 text-xs"
                     >
                         <RefreshCw size={13} /> Reset layout and fit
-                    </AxiomButton>
+                    </NemotoButton>
                 </footer>
-            </AxiomPanel>
+            </NemotoPanel>
 
             <main className="relative min-h-0 min-w-0 flex-1 overflow-hidden bg-app-bg">
                 <ReactFlow
@@ -1170,7 +1170,7 @@ function DependencyViewInner() {
                         )}
                         {viewGraph.danglingReferenceCount > 0 && (
                             <div className="mt-2 max-w-xs rounded-lg border border-accent-warning/40 bg-app-surface/95 shadow-lg backdrop-blur-sm">
-                                <AxiomPanelRowButton
+                                <NemotoPanelRowButton
                                     aria-expanded={showDataIssues}
                                     onClick={() => setShowDataIssues(current => !current)}
                                     className="flex w-full items-center gap-2 px-3 py-2 text-left text-[11px] font-medium text-text-main"
@@ -1178,7 +1178,7 @@ function DependencyViewInner() {
                                     <AlertTriangle size={14} className="shrink-0 text-accent-warning" />
                                     <span className="flex-1">Portfolio issues · {viewGraph.danglingReferenceCount}</span>
                                     <ChevronDown size={13} className={`text-text-faint transition-transform ${showDataIssues ? 'rotate-180' : ''}`} />
-                                </AxiomPanelRowButton>
+                                </NemotoPanelRowButton>
                                 {showDataIssues && (
                                     <div className="border-t border-app-border px-3 py-2.5 text-[10px] leading-relaxed text-text-muted">
                                         <p>These portfolio-wide references point to entities that no longer exist and are excluded from the map.</p>

@@ -39,7 +39,7 @@ export default function EdgeSegmentControls({ id, points, onPreview }: Props) {
     return <EdgeLabelRenderer>{editable.slice(1,-2).map((a, offset) => {
         const index=offset+1, b=editable[index+1];
         if ((a.x!==b.x && a.y!==b.y) || Math.hypot(a.x-b.x,a.y-b.y)<16) return null;
-        return <button key={index} type="button" className="nodrag nopan axiom-edge-segment-handle"
+        return <button key={index} type="button" className="nodrag nopan nemoto-edge-segment-handle"
             aria-label={`Move connection segment ${index}`} title="Drag segment · Arrow keys move 8 px · Escape cancels"
             style={{ position:'absolute', left:(a.x+b.x)/2, top:(a.y+b.y)/2, transform:'translate(-50%, -50%)',
                 width:14, height:14, borderRadius:4, border:'2px solid var(--color-accent-primary)',

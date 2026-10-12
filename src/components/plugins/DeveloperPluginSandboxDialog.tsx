@@ -2,12 +2,12 @@ import { lazy, Suspense, useState, useSyncExternalStore } from 'react';
 import { AlertTriangle, Boxes, FlaskConical, PackageCheck, RotateCcw, X } from 'lucide-react';
 import type { PluginDeveloperSandboxSession } from '../../host/pluginDeveloperSandbox';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogFooter,
-    AxiomDialogHeader,
-    AxiomSelect,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogFooter,
+    NemotoDialogHeader,
+    NemotoSelect,
 } from '../ui';
 import { PluginHostServicesProvider } from './PluginHostServicesContext';
 const PluginViewHost = lazy(() => import('./PluginViewHost'));
@@ -39,7 +39,7 @@ export default function DeveloperPluginSandboxDialog({
     };
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="developer-sandbox-description"
             aria-labelledby="developer-sandbox-title"
             closeOnBackdrop={false}
@@ -47,7 +47,7 @@ export default function DeveloperPluginSandboxDialog({
             panelClassName="flex h-[90vh] w-[94vw] max-w-[1500px] flex-col overflow-hidden border-2 border-accent-warning/60 shadow-2xl shadow-black/40"
             rootClassName="z-[10140]"
         >
-            <AxiomDialogHeader className="flex shrink-0 items-start justify-between gap-4 border-b border-accent-warning/40 bg-accent-warning/10 px-5 py-4">
+            <NemotoDialogHeader className="flex shrink-0 items-start justify-between gap-4 border-b border-accent-warning/40 bg-accent-warning/10 px-5 py-4">
                 <div className="flex min-w-0 items-start gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-accent-warning/50 bg-accent-warning/15 text-accent-warning">
                         <FlaskConical size={20} />
@@ -60,10 +60,10 @@ export default function DeveloperPluginSandboxDialog({
                         </p>
                     </div>
                 </div>
-                <AxiomButton aria-label="Discard and close sandbox" icon onClick={requestDiscard} size="sm" variant="ghost">
+                <NemotoButton aria-label="Discard and close sandbox" icon onClick={requestDiscard} size="sm" variant="ghost">
                     <X size={16} />
-                </AxiomButton>
-            </AxiomDialogHeader>
+                </NemotoButton>
+            </NemotoDialogHeader>
 
             <div className="grid shrink-0 grid-cols-2 gap-px border-b border-app-border bg-app-border sm:grid-cols-5">
                 <SandboxMetric label="Source revision" value={summary.sourceRevision} />
@@ -76,7 +76,7 @@ export default function DeveloperPluginSandboxDialog({
             <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-app-border bg-app-sidebar px-5 py-3">
                 <label className="flex min-w-0 items-center gap-3 text-xs text-text-muted">
                     <span className="shrink-0 font-semibold text-text-main">Plugin view</span>
-                    <AxiomSelect
+                    <NemotoSelect
                         aria-label="Sandbox plugin view"
                         className="min-w-56"
                         disabled={session.runtime.navigationViews.length === 0}
@@ -87,14 +87,14 @@ export default function DeveloperPluginSandboxDialog({
                         {session.runtime.navigationViews.map(view => (
                             <option key={view.id} value={view.id}>{view.navigation.label}</option>
                         ))}
-                    </AxiomSelect>
+                    </NemotoSelect>
                 </label>
                 <div className="flex items-center gap-2 rounded border border-accent-warning/30 bg-accent-warning/5 px-3 py-1.5 text-[10px] font-semibold text-accent-warning">
                     <AlertTriangle size={13} /> No Core-store or autosave path
                 </div>
             </div>
 
-            <AxiomDialogBody className="min-h-0 flex-1 overflow-hidden bg-app-bg p-0">
+            <NemotoDialogBody className="min-h-0 flex-1 overflow-hidden bg-app-bg p-0">
                 <PluginHostServicesProvider services={session.services}>
                     {activeView ? (
                         <Suspense fallback={<p role="status">Loading plugin view...</p>}>
@@ -112,9 +112,9 @@ export default function DeveloperPluginSandboxDialog({
                         </div>
                     )}
                 </PluginHostServicesProvider>
-            </AxiomDialogBody>
+            </NemotoDialogBody>
 
-            <AxiomDialogFooter className={`flex min-h-16 shrink-0 flex-wrap items-center justify-between gap-3 border-t px-5 py-3 ${confirmDiscard
+            <NemotoDialogFooter className={`flex min-h-16 shrink-0 flex-wrap items-center justify-between gap-3 border-t px-5 py-3 ${confirmDiscard
                 ? 'border-accent-warning/40 bg-accent-warning/10'
                 : ''}`}
             >
@@ -125,10 +125,10 @@ export default function DeveloperPluginSandboxDialog({
                             Discard {summary.changeCount} isolated {summary.changeCount === 1 ? 'change' : 'changes'}?
                         </div>
                         <div className="flex items-center gap-2">
-                            <AxiomButton onClick={() => setConfirmDiscard(false)}>Keep sandbox open</AxiomButton>
-                            <AxiomButton onClick={onDiscard} variant="warning">
+                            <NemotoButton onClick={() => setConfirmDiscard(false)}>Keep sandbox open</NemotoButton>
+                            <NemotoButton onClick={onDiscard} variant="warning">
                                 <RotateCcw size={15} /> Discard changes
-                            </AxiomButton>
+                            </NemotoButton>
                         </div>
                     </>
                 ) : (
@@ -136,13 +136,13 @@ export default function DeveloperPluginSandboxDialog({
                         <p className="text-[10px] leading-relaxed text-text-faint">
                             Closing destroys the clone. There is intentionally no Save or Apply action.
                         </p>
-                        <AxiomButton onClick={requestDiscard} variant={summary.changeCount > 0 ? 'warning' : 'default'}>
+                        <NemotoButton onClick={requestDiscard} variant={summary.changeCount > 0 ? 'warning' : 'default'}>
                             <RotateCcw size={15} /> {summary.changeCount > 0 ? 'Discard & close' : 'Close sandbox'}
-                        </AxiomButton>
+                        </NemotoButton>
                     </>
                 )}
-            </AxiomDialogFooter>
-        </AxiomDialog>
+            </NemotoDialogFooter>
+        </NemotoDialog>
     );
 }
 

@@ -48,7 +48,7 @@ describe('Inspector multi-selection state', () => {
         expect(screen.getByRole('button', { name: next })).toBeDisabled();
         expect(screen.getByRole('button', { name: previous })).toBeEnabled();
         const remove = screen.getByRole('button', { name: `Delete ${axis}` });
-        expect(remove).toHaveClass('axiom-button-danger');
+        expect(remove).toHaveClass('nemoto-button-danger');
         expect(remove.querySelector('svg')).not.toBeNull();
         fireEvent.click(remove);
         expect(useCanvasStore.getState().graph.swimlanes).toHaveLength(1);

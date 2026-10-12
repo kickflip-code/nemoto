@@ -5,11 +5,11 @@ import remarkGfm from 'remark-gfm';
 import helpSource from '../../../_docs/help/in-app-help.md?raw';
 import { APP_VERSION } from '../../lib/appVersion';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogFooter,
-    AxiomDialogHeader,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogFooter,
+    NemotoDialogHeader,
 } from '../ui';
 
 interface HelpDialogProps {
@@ -89,7 +89,7 @@ export default function HelpDialog({ onClose }: HelpDialogProps) {
     };
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="help-dialog-description"
             aria-labelledby="help-dialog-title"
             initialFocusRef={closeButtonRef}
@@ -97,7 +97,7 @@ export default function HelpDialog({ onClose }: HelpDialogProps) {
             panelClassName="flex h-[min(780px,calc(100vh-2rem))] w-full max-w-[1040px] flex-col overflow-hidden"
             rootClassName="z-[10150]"
         >
-            <AxiomDialogHeader className="flex items-center justify-between gap-4 border-b px-5 py-4">
+            <NemotoDialogHeader className="flex items-center justify-between gap-4 border-b px-5 py-4">
                 <div className="flex min-w-0 items-center gap-3">
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-accent-primary/30 bg-accent-primary/10 text-accent-primary">
                         <CircleHelp aria-hidden="true" size={19} />
@@ -109,7 +109,7 @@ export default function HelpDialog({ onClose }: HelpDialogProps) {
                         </p>
                     </div>
                 </div>
-                <AxiomButton
+                <NemotoButton
                     ref={closeButtonRef}
                     aria-label="Close Help"
                     icon
@@ -119,8 +119,8 @@ export default function HelpDialog({ onClose }: HelpDialogProps) {
                     variant="ghost"
                 >
                     <X size={16} />
-                </AxiomButton>
-            </AxiomDialogHeader>
+                </NemotoButton>
+            </NemotoDialogHeader>
 
             <div className="grid min-h-0 flex-1 grid-cols-[220px_minmax(0,1fr)]">
                 <nav aria-label="Help topics" className="min-h-0 overflow-y-auto border-r border-app-border bg-app-sidebar p-3">
@@ -139,19 +139,19 @@ export default function HelpDialog({ onClose }: HelpDialogProps) {
                     </div>
                 </nav>
 
-                <AxiomDialogBody ref={contentRef} className="min-h-0 overflow-y-auto px-7 py-6">
+                <NemotoDialogBody ref={contentRef} className="min-h-0 overflow-y-auto px-7 py-6">
                     <article className="mx-auto max-w-3xl space-y-4 pb-10">
                         <ReactMarkdown components={markdownComponents} remarkPlugins={[remarkGfm]}>
                             {renderedHelp}
                         </ReactMarkdown>
                     </article>
-                </AxiomDialogBody>
+                </NemotoDialogBody>
             </div>
 
-            <AxiomDialogFooter className="flex items-center justify-between border-t px-5 py-3 text-[10px] text-text-faint">
+            <NemotoDialogFooter className="flex items-center justify-between border-t px-5 py-3 text-[10px] text-text-faint">
                 <span>Included with Nemoto</span>
                 <span>F1 opens or closes Help</span>
-            </AxiomDialogFooter>
-        </AxiomDialog>
+            </NemotoDialogFooter>
+        </NemotoDialog>
     );
 }

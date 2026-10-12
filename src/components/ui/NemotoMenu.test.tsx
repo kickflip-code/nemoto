@@ -1,23 +1,23 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { StrictMode, useState } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { AxiomMenu, AxiomMenuDivider, AxiomMenuItem } from './AxiomMenu';
-import { AxiomDialog } from './AxiomDialog';
+import { NemotoMenu, NemotoMenuDivider, NemotoMenuItem } from './NemotoMenu';
+import { NemotoDialog } from './NemotoDialog';
 import userEvent from '@testing-library/user-event';
 
-describe('AxiomMenu', () => {
+describe('NemotoMenu', () => {
     it('keeps the selected theme as the initial item through StrictMode effect replay', () => {
-        render(<StrictMode><AxiomMenu>
-            <AxiomMenuItem role="menuitemradio" aria-checked={false}>Void</AxiomMenuItem>
-            <AxiomMenuItem role="menuitemradio" aria-checked autoFocus>Polar</AxiomMenuItem>
-        </AxiomMenu></StrictMode>);
+        render(<StrictMode><NemotoMenu>
+            <NemotoMenuItem role="menuitemradio" aria-checked={false}>Void</NemotoMenuItem>
+            <NemotoMenuItem role="menuitemradio" aria-checked autoFocus>Polar</NemotoMenuItem>
+        </NemotoMenu></StrictMode>);
         expect(screen.getByRole('menuitemradio', { name: 'Polar', checked: true })).toHaveFocus();
     });
     it('closes when Tab leaves the menu without pulling focus back', async () => {
         const user = userEvent.setup();
         function Harness() {
             const [open, setOpen] = useState(true);
-            return <><button>Trigger</button>{open && <AxiomMenu onClose={() => setOpen(false)}><AxiomMenuItem>Last</AxiomMenuItem></AxiomMenu>}<button>Next control</button></>;
+            return <><button>Trigger</button>{open && <NemotoMenu onClose={() => setOpen(false)}><NemotoMenuItem>Last</NemotoMenuItem></NemotoMenu>}<button>Next control</button></>;
         }
         render(<StrictMode><Harness /></StrictMode>);
         await user.tab();
@@ -25,10 +25,10 @@ describe('AxiomMenu', () => {
         expect(screen.getByRole('button', { name: 'Next control' })).toHaveFocus();
     });
     it('focuses the first enabled action and respects an explicit initial choice', () => {
-        const { unmount } = render(<AxiomMenu><AxiomMenuItem disabled>Unavailable</AxiomMenuItem><AxiomMenuItem>Available</AxiomMenuItem></AxiomMenu>);
+        const { unmount } = render(<NemotoMenu><NemotoMenuItem disabled>Unavailable</NemotoMenuItem><NemotoMenuItem>Available</NemotoMenuItem></NemotoMenu>);
         expect(screen.getByRole('menuitem', { name: 'Available' })).toHaveFocus();
         unmount();
-        render(<AxiomMenu><AxiomMenuItem>First</AxiomMenuItem><AxiomMenuItem autoFocus>Current choice</AxiomMenuItem></AxiomMenu>);
+        render(<NemotoMenu><NemotoMenuItem>First</NemotoMenuItem><NemotoMenuItem autoFocus>Current choice</NemotoMenuItem></NemotoMenu>);
         expect(screen.getByRole('menuitem', { name: 'Current choice' })).toHaveFocus();
     });
 
@@ -37,11 +37,11 @@ describe('AxiomMenu', () => {
         const closeDialog = vi.fn();
         function Harness() {
             const [open, setOpen] = useState(false);
-            return <AxiomDialog aria-labelledby="menu-dialog-title" onClose={closeDialog}>
+            return <NemotoDialog aria-labelledby="menu-dialog-title" onClose={closeDialog}>
                 <h2 id="menu-dialog-title">Settings</h2>
                 <button onClick={() => setOpen(true)}>Choose theme</button>
-                {open && <AxiomMenu onClose={() => setOpen(false)}><AxiomMenuItem>Void</AxiomMenuItem></AxiomMenu>}
-            </AxiomDialog>;
+                {open && <NemotoMenu onClose={() => setOpen(false)}><NemotoMenuItem>Void</NemotoMenuItem></NemotoMenu>}
+            </NemotoDialog>;
         }
         render(<Harness />);
         await user.tab();
@@ -60,8 +60,8 @@ describe('AxiomMenu', () => {
         function Harness() {
             const [page, setPage] = useState('menu');
             return <><button>Trigger</button>{page === 'menu'
-                ? <AxiomMenu><AxiomMenuItem onClick={() => setPage('dialog')}>Import</AxiomMenuItem></AxiomMenu>
-                : <AxiomDialog aria-labelledby="import-title" onClose={() => {}}><h2 id="import-title">Import</h2><button>Browse</button></AxiomDialog>}</>;
+                ? <NemotoMenu><NemotoMenuItem onClick={() => setPage('dialog')}>Import</NemotoMenuItem></NemotoMenu>
+                : <NemotoDialog aria-labelledby="import-title" onClose={() => {}}><h2 id="import-title">Import</h2><button>Browse</button></NemotoDialog>}</>;
         }
         render(<Harness />);
         await user.keyboard('{Enter}');
@@ -69,29 +69,29 @@ describe('AxiomMenu', () => {
     });
     it('provides menu semantics and shared item variants', () => {
         render(
-            <AxiomMenu aria-label="Actions">
-                <AxiomMenuItem>Open</AxiomMenuItem>
-                <AxiomMenuDivider />
-                <AxiomMenuItem compact danger>Delete</AxiomMenuItem>
-            </AxiomMenu>,
+            <NemotoMenu aria-label="Actions">
+                <NemotoMenuItem>Open</NemotoMenuItem>
+                <NemotoMenuDivider />
+                <NemotoMenuItem compact danger>Delete</NemotoMenuItem>
+            </NemotoMenu>,
         );
 
-        expect(screen.getByRole('menu', { name: 'Actions' })).toHaveClass('axiom-context-menu');
+        expect(screen.getByRole('menu', { name: 'Actions' })).toHaveClass('nemoto-context-menu');
         expect(screen.getByRole('menuitem', { name: 'Open' })).toHaveAttribute('type', 'button');
         expect(screen.getByRole('menuitem', { name: 'Delete' })).toHaveClass(
-            'axiom-menu-item-compact',
-            'axiom-menu-item-danger',
+            'nemoto-menu-item-compact',
+            'nemoto-menu-item-danger',
         );
-        expect(screen.getByRole('separator')).toHaveClass('axiom-menu-divider');
+        expect(screen.getByRole('separator')).toHaveClass('nemoto-menu-divider');
     });
 
     it('navigates enabled items with arrow, Home and End keys', () => {
         render(
-            <AxiomMenu aria-label="Actions">
-                <AxiomMenuItem>First</AxiomMenuItem>
-                <AxiomMenuItem disabled>Disabled</AxiomMenuItem>
-                <AxiomMenuItem>Last</AxiomMenuItem>
-            </AxiomMenu>,
+            <NemotoMenu aria-label="Actions">
+                <NemotoMenuItem>First</NemotoMenuItem>
+                <NemotoMenuItem disabled>Disabled</NemotoMenuItem>
+                <NemotoMenuItem>Last</NemotoMenuItem>
+            </NemotoMenu>,
         );
 
         const menu = screen.getByRole('menu', { name: 'Actions' });
@@ -115,9 +115,9 @@ describe('AxiomMenu', () => {
     it('closes with Escape', () => {
         const onClose = vi.fn();
         render(
-            <AxiomMenu aria-label="Actions" onClose={onClose}>
-                <AxiomMenuItem>Open</AxiomMenuItem>
-            </AxiomMenu>,
+            <NemotoMenu aria-label="Actions" onClose={onClose}>
+                <NemotoMenuItem>Open</NemotoMenuItem>
+            </NemotoMenu>,
         );
 
         fireEvent.keyDown(screen.getByRole('menu'), { key: 'Escape' });
@@ -132,9 +132,9 @@ describe('AxiomMenu', () => {
                 <>
                     <button type="button" onClick={() => setOpen(true)}>Open menu</button>
                     {open && (
-                        <AxiomMenu aria-label="Actions" onClose={() => setOpen(false)}>
-                            <AxiomMenuItem>Open</AxiomMenuItem>
-                        </AxiomMenu>
+                        <NemotoMenu aria-label="Actions" onClose={() => setOpen(false)}>
+                            <NemotoMenuItem>Open</NemotoMenuItem>
+                        </NemotoMenu>
                     )}
                 </>
             );

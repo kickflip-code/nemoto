@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { AxiomButton } from '../../components/ui';
+import { NemotoButton } from '../../components/ui';
 import {
     EVENT_BEHAVIOR_LABELS,
     EVENT_KIND_LABELS,
@@ -41,7 +41,7 @@ export const ViewerSidebar = ({ selectedElement, assets, categories, journalEntr
             <div className="sidebar-section">
                 <div className="flex items-center justify-between gap-2">
                     <h2 className="section-title">Details</h2>
-                    {onClose && <AxiomButton aria-label="Close details" icon size="sm" variant="ghost" onClick={onClose}><X size={16} /></AxiomButton>}
+                    {onClose && <NemotoButton aria-label="Close details" icon size="sm" variant="ghost" onClick={onClose}><X size={16} /></NemotoButton>}
                 </div>
                 <div className="info-card">
                     <div className="label">Name</div>

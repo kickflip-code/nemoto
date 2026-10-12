@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import {
-    AxiomAiBroker,
+    NemotoAiBroker,
     AiBrokerError,
     resolveAiProfileDescriptor,
     type AiBrokerRunResult,
@@ -28,16 +28,16 @@ import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import { useProposalReviewStore } from '../../stores/useProposalReviewStore';
 import { useSettingsStore } from '../../stores/useSettingsStore';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogFooter,
-    AxiomDialogHeader,
-    AxiomSelect,
-    AxiomTextarea,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogFooter,
+    NemotoDialogHeader,
+    NemotoSelect,
+    NemotoTextarea,
 } from '../ui';
 
-const broker = new AxiomAiBroker();
+const broker = new NemotoAiBroker();
 
 interface LocalAiDialogProps {
     roleId: string;
@@ -143,14 +143,14 @@ export default function LocalAiDialog({
     const selectedProfile = profiles.find(profile => profile.profile.id === profileId);
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="local-ai-description"
             aria-labelledby="local-ai-title"
             closeOnBackdrop={!running}
             onClose={close}
             panelClassName="flex h-[78vh] w-[88vw] max-w-4xl flex-col overflow-hidden"
         >
-            <AxiomDialogHeader className="flex h-16 shrink-0 items-center justify-between border-b px-5">
+            <NemotoDialogHeader className="flex h-16 shrink-0 items-center justify-between border-b px-5">
                 <div className="flex min-w-0 items-center gap-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10 text-accent-primary">
                         <Bot size={19} />
@@ -162,15 +162,15 @@ export default function LocalAiDialog({
                         </p>
                     </div>
                 </div>
-                <AxiomButton aria-label="Close local AI adviser" icon variant="ghost" onClick={close}>
+                <NemotoButton aria-label="Close local AI adviser" icon variant="ghost" onClick={close}>
                     <X size={18} />
-                </AxiomButton>
-            </AxiomDialogHeader>
+                </NemotoButton>
+            </NemotoDialogHeader>
 
-            <AxiomDialogBody className="grid min-h-0 flex-1 grid-cols-[260px_minmax(0,1fr)] overflow-hidden p-0">
+            <NemotoDialogBody className="grid min-h-0 flex-1 grid-cols-[260px_minmax(0,1fr)] overflow-hidden p-0">
                 <aside className="min-h-0 overflow-y-auto border-r border-app-border bg-app-sidebar p-4">
                     <div className="text-[10px] font-bold uppercase tracking-wider text-text-faint">Adviser profile</div>
-                    <AxiomSelect
+                    <NemotoSelect
                         aria-label="AI adviser profile"
                         className="mt-2 w-full"
                         value={profileId}
@@ -183,7 +183,7 @@ export default function LocalAiDialog({
                         {profiles.map(profile => (
                             <option key={profile.profile.id} value={profile.profile.id}>{profile.profile.name}</option>
                         ))}
-                    </AxiomSelect>
+                    </NemotoSelect>
 
                     {selectedProfile && (
                         <div className="mt-4 rounded-lg border border-app-border bg-app-bg p-3">
@@ -218,7 +218,7 @@ export default function LocalAiDialog({
                         <label className="text-[10px] font-bold uppercase tracking-wider text-text-faint" htmlFor="local-ai-question">
                             Your question
                         </label>
-                        <AxiomTextarea
+                        <NemotoTextarea
                             id="local-ai-question"
                             className="mt-2 min-h-24 w-full resize-none"
                             maxLength={4000}
@@ -228,14 +228,14 @@ export default function LocalAiDialog({
                         />
                         <div className="mt-2 flex items-center justify-between gap-3">
                             <span className="text-[10px] text-text-faint">{prompt.length}/4000 characters</span>
-                            <AxiomButton
+                            <NemotoButton
                                 variant="primary"
                                 disabled={!configured || !prompt.trim() || running}
                                 onClick={() => { void run(); }}
                             >
                                 {running ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                                 {running ? 'Thinking locally...' : 'Ask adviser'}
-                            </AxiomButton>
+                            </NemotoButton>
                         </div>
                     </div>
 
@@ -312,21 +312,21 @@ export default function LocalAiDialog({
                         )}
                     </div>
                 </section>
-            </AxiomDialogBody>
+            </NemotoDialogBody>
 
-            <AxiomDialogFooter className="flex min-h-16 shrink-0 items-center justify-between border-t px-5 py-3">
+            <NemotoDialogFooter className="flex min-h-16 shrink-0 items-center justify-between border-t px-5 py-3">
                 <div className="flex items-center gap-1.5 text-[10px] text-text-faint">
                     <ShieldCheck size={12} className="text-accent-success" /> Conversations are session-only; only accepted proposals become portfolio data.
                 </div>
                 <div className="flex items-center gap-2">
-                    <AxiomButton onClick={close}>Close</AxiomButton>
+                    <NemotoButton onClick={close}>Close</NemotoButton>
                     {result?.proposal && (
-                        <AxiomButton variant="primary" onClick={sendToReview}>
+                        <NemotoButton variant="primary" onClick={sendToReview}>
                             <ShieldCheck size={15} /> {queuedProposalId ? 'Open review' : 'Send to review'}
-                        </AxiomButton>
+                        </NemotoButton>
                     )}
                 </div>
-            </AxiomDialogFooter>
-        </AxiomDialog>
+            </NemotoDialogFooter>
+        </NemotoDialog>
     );
 }

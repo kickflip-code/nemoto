@@ -111,7 +111,7 @@ export const createCustomViewerThemeCss = (themeId: string, tokens: ThemeTokenMa
 };
 
 export const appendViewerThemeStyles = (viewerTemplate: string, dynamicCss: string): string => {
-    const style = `    <style id="axiom-dynamic-themes">\n${dynamicCss}\n    </style>\n`;
+    const style = `    <style id="nemoto-dynamic-themes">\n${dynamicCss}\n    </style>\n`;
     const headCloseIndex = viewerTemplate.lastIndexOf('</head>');
 
     if (headCloseIndex === -1) return `${style}${viewerTemplate}`;

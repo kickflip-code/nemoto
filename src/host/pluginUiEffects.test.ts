@@ -13,7 +13,7 @@ import { PluginViewContributionSchema } from '../plugins/contributionSchemas';
 import { InstalledPluginDocumentSchema } from '../plugins/installedPackages';
 import type { PluginCapability } from '../plugins/manifest';
 import { parsePluginManifest } from '../plugins/manifest';
-import { PluginApiPermissionError, type AxiomPluginApi } from '../plugins/publicApi';
+import { PluginApiPermissionError, type NemotoPluginApi } from '../plugins/publicApi';
 import type { JsonValue } from '../plugins/semanticData';
 import {
     createPluginUiEffectBroker,
@@ -325,7 +325,7 @@ describe('composed UI effect broker', () => {
             getPortfolioRevision: () => revision,
             connectPublicApi: () => ({
                 storage: { portfolio: { transact } },
-            }) as unknown as AxiomPluginApi,
+            }) as unknown as NemotoPluginApi,
         });
         const receipts = await broker.apply(authority, [{
             id: 'document:write',
@@ -484,7 +484,7 @@ describe('composed UI effect broker', () => {
         }));
         const broker = createPluginUiEffectBroker({
             ...harness.dependencies,
-            connectPublicApi: () => ({ workspace: { open } }) as unknown as AxiomPluginApi,
+            connectPublicApi: () => ({ workspace: { open } }) as unknown as NemotoPluginApi,
         });
         const reference = {
             schema: 'axiom.entity-reference' as const, schemaVersion: 1 as const,

@@ -1,29 +1,29 @@
 /* Resource category manager: calm navigation surfaces with category color kept as a compact signal. */
 
-.axiom-category-sidebar {
+.nemoto-category-sidebar {
   background: color-mix(in srgb, var(--color-app-sidebar) 86%, var(--color-app-surface));
 }
 
-.axiom-category-sidebar-header {
+.nemoto-category-sidebar-header {
   background: color-mix(in srgb, var(--color-app-sidebar) 76%, var(--color-app-surface));
 }
 
-.axiom-category-sidebar-header #category-manager-title {
+.nemoto-category-sidebar-header #category-manager-title {
   color: var(--color-text-main);
 }
 
-.axiom-category-row {
+.nemoto-category-row {
   border: 1px solid transparent;
   color: var(--color-text-main);
 }
 
-.axiom-category-row.axiom-panel-row-active {
+.nemoto-category-row.nemoto-panel-row-active {
   border-color: var(--color-app-border);
   background: var(--color-app-active);
   color: var(--color-text-main);
 }
 
-.axiom-category-icon-chip {
+.nemoto-category-icon-chip {
   display: inline-flex;
   width: 1.35rem;
   height: 1.35rem;
@@ -36,24 +36,24 @@
   color: var(--category-color);
 }
 
-[data-theme='hard'] .axiom-category-sidebar {
+[data-theme='hard'] .nemoto-category-sidebar {
   background: #fff0b8;
   border-right: 3px solid #151515 !important;
 }
 
-[data-theme='hard'] .axiom-category-sidebar-header {
+[data-theme='hard'] .nemoto-category-sidebar-header {
   background: var(--palette-amber, #ffd166);
   border-bottom: 3px solid #151515 !important;
 }
 
-[data-theme='hard'] .axiom-category-create {
+[data-theme='hard'] .nemoto-category-create {
   border: 2px solid #151515;
   background: #fffdf7;
   color: #151515;
   box-shadow: 2px 2px 0 #151515;
 }
 
-[data-theme='hard'] .axiom-category-row {
+[data-theme='hard'] .nemoto-category-row {
   border: 2px solid #151515 !important;
   border-radius: 0 !important;
   background: #fffdf7 !important;
@@ -61,19 +61,19 @@
   font-weight: 700;
 }
 
-[data-theme='hard'] .axiom-category-row:hover {
+[data-theme='hard'] .nemoto-category-row:hover {
   background: #e7ecff !important;
   box-shadow: 2px 2px 0 #151515;
   transform: translate(-1px, -1px);
 }
 
-[data-theme='hard'] .axiom-category-row.axiom-panel-row-active {
+[data-theme='hard'] .nemoto-category-row.nemoto-panel-row-active {
   background: var(--palette-amber, #ffd166) !important;
   box-shadow: 3px 3px 0 #151515;
   transform: translate(-1px, -1px);
 }
 
-[data-theme='hard'] .axiom-category-icon-chip {
+[data-theme='hard'] .nemoto-category-icon-chip {
   border: 2px solid #151515;
   border-radius: 0;
   background: var(--category-color);

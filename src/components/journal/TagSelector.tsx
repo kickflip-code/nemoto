@@ -6,12 +6,12 @@ import { X, Plus, Hash, Check, Trash2 } from 'lucide-react';
 import { PALETTE, getPaletteColor } from '../../constants/palette';
 import ConfirmationModal from '../shared/ConfirmationModal';
 import {
-    AxiomButton,
-    AxiomColorSwatch,
-    AxiomInput,
-    AxiomMenuItem,
-    AxiomPanelIconButton,
-    AxiomPopover,
+    NemotoButton,
+    NemotoColorSwatch,
+    NemotoInput,
+    NemotoMenuItem,
+    NemotoPanelIconButton,
+    NemotoPopover,
 } from '../ui';
 
 interface TagSelectorProps {
@@ -152,11 +152,11 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
 
     return (
         <div className="relative" ref={containerRef}>
-            <div className="axiom-journal-tags flex flex-wrap gap-1.5 items-center">
+            <div className="nemoto-journal-tags flex flex-wrap gap-1.5 items-center">
                 {activeTags.map(tag => (
                     <div
                         key={tag.id}
-                        className="axiom-journal-tag flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
+                        className="nemoto-journal-tag flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider"
                         style={{
                             backgroundColor: getPaletteColor(tag.color),
                             color: getTagTextColor(tag.color)
@@ -166,7 +166,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                         <button
                             type="button"
                             onClick={() => toggleTag(tag.id)}
-                            className="axiom-tag-close hover:opacity-70 transition-opacity"
+                            className="nemoto-tag-close hover:opacity-70 transition-opacity"
                             aria-label={`Remove ${tag.label}`}
                         >
                             <X size={10} />
@@ -174,7 +174,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                     </div>
                 ))}
 
-                <AxiomButton
+                <NemotoButton
                     ref={triggerRef}
                     size="sm"
                     variant="ghost"
@@ -182,19 +182,19 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                     aria-expanded={isOpen}
                     aria-haspopup="dialog"
                     aria-controls="journal-tag-selector"
-                    className="axiom-journal-add-tag flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-text-muted hover:text-text-main hover:bg-app-hover transition-colors border border-dashed border-app-border"
+                    className="nemoto-journal-add-tag flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-text-muted hover:text-text-main hover:bg-app-hover transition-colors border border-dashed border-app-border"
                 >
                     <Plus size={10} /> Tag
-                </AxiomButton>
+                </NemotoButton>
             </div>
 
             {/* Dropdown */}
             {isOpen && createPortal(
-                <AxiomPopover
+                <NemotoPopover
                     ref={popoverRef}
                     id="journal-tag-selector"
                     aria-label="Choose journal tags"
-                    className="fixed z-[130] w-[220px] flex flex-col p-2 gap-2 axiom-motion-popover"
+                    className="fixed z-[130] w-[220px] flex flex-col p-2 gap-2 nemoto-motion-popover"
                     style={{
                         left: popoverPosition?.left ?? 0,
                         top: popoverPosition?.top ?? 0,
@@ -205,7 +205,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                     {/* Search */}
                     <div className="relative">
                         <Hash size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
-                        <AxiomInput
+                        <NemotoInput
                             autoFocus
                             type="text"
                             placeholder="Search or create..."
@@ -216,7 +216,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                             }}
                             controlSize="sm"
                             aria-label="Search or create tag"
-                            className="axiom-field-leading-icon w-full text-xs"
+                            className="nemoto-field-leading-icon w-full text-xs"
                         />
                     </div>
 
@@ -227,7 +227,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                                 key={tag.id}
                                 className="flex items-center gap-1 group/tag"
                             >
-                                <AxiomMenuItem
+                                <NemotoMenuItem
                                     compact
                                     role="checkbox"
                                     aria-checked={selectedTagIds.includes(tag.id)}
@@ -240,8 +240,8 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                                     />
                                     <span className="truncate">{tag.label}</span>
                                     {selectedTagIds.includes(tag.id) && <Check size={12} className="text-accent-primary" />}
-                                </AxiomMenuItem>
-                                <AxiomPanelIconButton
+                                </NemotoMenuItem>
+                                <NemotoPanelIconButton
                                     aria-label={`Remove ${tag.label} from list`}
                                     danger
                                     size="sm"
@@ -254,7 +254,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                                     className="opacity-0 group-hover/tag:opacity-100 focus:opacity-100"
                                 >
                                     <Trash2 size={12} />
-                                </AxiomPanelIconButton>
+                                </NemotoPanelIconButton>
                             </div>
                         ))}
 
@@ -265,7 +265,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                                 {/* Color Picker */}
                                 <div className="flex flex-wrap gap-1.5 mb-2">
                                     {PALETTE.map(c => (
-                                        <AxiomColorSwatch
+                                        <NemotoColorSwatch
                                             key={c.id}
                                             aria-label={c.label}
                                             selected={newTagColor === c.id}
@@ -277,14 +277,14 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                                     ))}
                                 </div>
 
-                                <AxiomButton
+                                <NemotoButton
                                     size="sm"
                                     variant="primary"
                                     onClick={handleCreateTag}
                                     className="w-full text-[10px]"
                                 >
                                     Create Tag
-                                </AxiomButton>
+                                </NemotoButton>
                             </div>
                         )}
                     </div>
@@ -292,7 +292,7 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                     {/* Purge Option */}
                     {availableTags.some(t => t.archived) && (
                         <div className="mt-2 pt-2 border-t border-app-border">
-                            <AxiomMenuItem
+                            <NemotoMenuItem
                                 compact
                                 danger
                                 onClick={() => {
@@ -307,10 +307,10 @@ export default function TagSelector({ selectedTagIds = [], onChange }: TagSelect
                             >
                                 <Trash2 size={10} />
                                 Purge {availableTags.filter(t => t.archived).length} archived tags
-                            </AxiomMenuItem>
+                            </NemotoMenuItem>
                         </div>
                     )}
-                </AxiomPopover>,
+                </NemotoPopover>,
                 document.body,
             )}
 

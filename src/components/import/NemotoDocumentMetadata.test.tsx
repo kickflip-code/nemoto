@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import AxiomDocumentMetadata from './AxiomDocumentMetadata';
+import NemotoDocumentMetadata from './NemotoDocumentMetadata';
 
-describe('AxiomDocumentMetadata', () => {
+describe('NemotoDocumentMetadata', () => {
     it('shows current process-fragment metadata', () => {
         render(
-            <AxiomDocumentMetadata
+            <NemotoDocumentMetadata
                 kind="process-fragment"
                 sourceSchemaVersion={1}
                 targetSchemaVersion={1}
@@ -22,7 +22,7 @@ describe('AxiomDocumentMetadata', () => {
 
     it('labels legacy data and explains automatic migration', () => {
         render(
-            <AxiomDocumentMetadata
+            <NemotoDocumentMetadata
                 kind="portfolio"
                 sourceSchemaVersion={0}
                 targetSchemaVersion={1}

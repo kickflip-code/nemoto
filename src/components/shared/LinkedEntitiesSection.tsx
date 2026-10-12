@@ -18,7 +18,7 @@ export default function LinkedEntitiesSection({ linkedContext, onUnlink }: Linke
 
     if (linkedContext.length === 0) {
         return (
-            <div className="axiom-linked-empty text-[10px] text-text-faint italic p-2 border border-dashed border-app-border rounded text-center">
+            <div className="nemoto-linked-empty text-[10px] text-text-faint italic p-2 border border-dashed border-app-border rounded text-center">
                 No linked entities. Link assets, nodes, or processes to this note.
             </div>
         );
@@ -35,9 +35,9 @@ export default function LinkedEntitiesSection({ linkedContext, onUnlink }: Linke
                     return (
                         <div
                             key={`${entityRef.id}-${index}`}
-                            className="axiom-linked-entity-card bg-app-bg border border-accent-danger/30 rounded p-2 flex items-start gap-2.5"
+                            className="nemoto-linked-entity-card bg-app-bg border border-accent-danger/30 rounded p-2 flex items-start gap-2.5"
                         >
-                            <div className="axiom-linked-entity-icon mt-0.5 w-6 h-6 rounded bg-accent-danger/10 flex items-center justify-center border border-accent-danger/20">
+                            <div className="nemoto-linked-entity-icon mt-0.5 w-6 h-6 rounded bg-accent-danger/10 flex items-center justify-center border border-accent-danger/20">
                                 <Server size={14} className="text-accent-danger" />
                             </div>
                             <div className="flex-1 min-w-0">
@@ -69,11 +69,11 @@ export default function LinkedEntitiesSection({ linkedContext, onUnlink }: Linke
                 return (
                     <div
                         key={`${entityRef.id}-${index}`}
-                        className="axiom-linked-entity-card bg-app-bg border border-app-border rounded p-2 flex items-start gap-2.5 group hover:border-accent-primary/50 transition-colors"
+                        className="nemoto-linked-entity-card bg-app-bg border border-app-border rounded p-2 flex items-start gap-2.5 group hover:border-accent-primary/50 transition-colors"
                     >
                         {/* ... content ... */}
                         <div
-                            className="axiom-linked-entity-icon mt-0.5 w-6 h-6 rounded flex items-center justify-center border"
+                            className="nemoto-linked-entity-icon mt-0.5 w-6 h-6 rounded flex items-center justify-center border"
                             style={{
                                 backgroundColor: `${colorHex}15`,
                                 borderColor: `${colorHex}30`
@@ -82,7 +82,7 @@ export default function LinkedEntitiesSection({ linkedContext, onUnlink }: Linke
                             <IconComponent size={14} style={{ color: colorHex }} />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <div className="axiom-linked-entity-title text-xs font-medium text-text-main">{resolved.displayName}</div>
+                            <div className="nemoto-linked-entity-title text-xs font-medium text-text-main">{resolved.displayName}</div>
                             {resolved.subtitle && (
                                 <div className="text-[10px] text-text-muted mt-0.5">{resolved.subtitle}</div>
                             )}

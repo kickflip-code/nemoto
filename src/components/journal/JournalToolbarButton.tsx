@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { AxiomToolbarButton } from '../ui';
+import { NemotoToolbarButton } from '../ui';
 
 interface JournalToolbarButtonProps {
     active?: boolean;
@@ -11,7 +11,7 @@ interface JournalToolbarButtonProps {
 
 export function JournalToolbarButton({ active, children, onClick, title, disabled = false }: JournalToolbarButtonProps) {
     return (
-        <AxiomToolbarButton
+        <NemotoToolbarButton
             active={active}
             surface="journal"
             label={title}
@@ -19,6 +19,6 @@ export function JournalToolbarButton({ active, children, onClick, title, disable
             disabled={disabled}
         >
             {children}
-        </AxiomToolbarButton>
+        </NemotoToolbarButton>
     );
 }

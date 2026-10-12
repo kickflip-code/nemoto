@@ -220,7 +220,7 @@ describe('Settings dialog sections', () => {
 
         const menu = screen.getByRole('menu', { name: 'Available themes' });
         const activeItem = screen.getByRole('menuitemradio', { name: 'Theme 11 (Custom)' });
-        expect(menu).toHaveClass('axiom-scroll-menu');
+        expect(menu).toHaveClass('nemoto-scroll-menu');
         expect(activeItem).toHaveFocus();
         expect(menu.querySelectorAll('.theme-color-swatch')).toHaveLength(30);
     });

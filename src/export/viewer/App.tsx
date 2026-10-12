@@ -31,12 +31,12 @@ import {
 import { toViewerEdge } from './viewerGraph';
 import { createViewerProcessFragmentEnvelope } from './viewerDownload';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogHeader,
-    AxiomSegmented,
-    AxiomSegmentedOption,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogHeader,
+    NemotoSegmented,
+    NemotoSegmentedOption,
 } from '../../components/ui';
 
 const edgeTypes = { custom: ViewerCustomEdge };
@@ -48,7 +48,7 @@ interface BreadcrumbEntry {
     graph: any;
 }
 
-function AxiomViewer() {
+function NemotoViewer() {
     const [data, setData] = useState<any>(null);
     const [viewMode, setViewMode] = useState<'flow' | 'gravity'>('flow');
     const [selectedElement, setSelectedElement] = useState<any | null>(null);
@@ -63,7 +63,7 @@ function AxiomViewer() {
     // 1. Data Inflation (Base64 -> Gzip -> JSON)
     useEffect(() => {
         try {
-            const dataElement = document.getElementById('axiom-data');
+            const dataElement = document.getElementById('nemoto-data');
             if (!dataElement) throw new Error('Data element not found');
 
             const base64 = dataElement.textContent || '';
@@ -283,18 +283,18 @@ function AxiomViewer() {
     }, []);
 
     // Download .nemoto-process process fragment from embedded data
-    const downloadAxiomFile = useCallback(() => {
+    const downloadNemotoFile = useCallback(() => {
         if (!data?.data) return;
 
-        const axiomPayload = createViewerProcessFragmentEnvelope(data);
+        const nemotoPayload = createViewerProcessFragmentEnvelope(data);
 
-        const json = JSON.stringify(axiomPayload, null, 2);
+        const json = JSON.stringify(nemotoPayload, null, 2);
         const blob = new Blob([json], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
 
         const a = document.createElement('a');
         a.href = url;
-        const safeTitle = (breadcrumbStack[0]?.label || 'axiom_export')
+        const safeTitle = (breadcrumbStack[0]?.label || 'nemoto_export')
             .replace(/[^a-z0-9åäö]/gi, '_').toLowerCase();
         a.download = `${safeTitle}.nemoto-process`;
         document.body.appendChild(a);
@@ -331,8 +331,8 @@ function AxiomViewer() {
                 <h1 className="text-lg font-bold tracking-tight text-text-main">{rootTitle}</h1>
 
                 {dependencyViewEnabled && (
-                    <AxiomSegmented aria-label="Viewer mode">
-                        <AxiomSegmentedOption
+                    <NemotoSegmented aria-label="Viewer mode">
+                        <NemotoSegmentedOption
                             active={viewMode === 'flow'}
                             onClick={() => {
                                 setViewMode('flow');
@@ -340,8 +340,8 @@ function AxiomViewer() {
                             }}
                         >
                             Process Map
-                        </AxiomSegmentedOption>
-                        <AxiomSegmentedOption
+                        </NemotoSegmentedOption>
+                        <NemotoSegmentedOption
                             active={viewMode === 'gravity'}
                             onClick={() => {
                                 setViewMode('gravity');
@@ -349,12 +349,12 @@ function AxiomViewer() {
                             }}
                         >
                             Dependency Map
-                        </AxiomSegmentedOption>
-                    </AxiomSegmented>
+                        </NemotoSegmentedOption>
+                    </NemotoSegmented>
                 )}
 
                 <div className="flex items-center gap-3">
-                    <AxiomButton
+                    <NemotoButton
                         aria-label="How to use this viewer"
                         icon
                         size="sm"
@@ -363,16 +363,16 @@ function AxiomViewer() {
                         title="How to use this viewer"
                     >
                         <HelpCircle size={16} />
-                    </AxiomButton>
-                    <AxiomButton
+                    </NemotoButton>
+                    <NemotoButton
                         size="sm"
                         variant="ghost"
-                        onClick={downloadAxiomFile}
+                        onClick={downloadNemotoFile}
                         className="text-[10px] uppercase tracking-wider"
                         title="Download as .nemoto-process process fragment for import into Nemoto"
                     >
                         <Download size={14} aria-hidden="true" /> Download .nemoto-process
-                    </AxiomButton>
+                    </NemotoButton>
                     <span className="text-xs text-text-muted">
                         Exported {new Date(data.exportedAt).toLocaleDateString()}
                     </span>
@@ -385,14 +385,14 @@ function AxiomViewer() {
                     {breadcrumbStack.map((entry, index) => (
                         <span key={entry.id} className="flex items-center gap-2 text-xs whitespace-nowrap">
                             {index > 0 && <ChevronRight size={14} className="text-text-faint" aria-hidden="true" />}
-                            <AxiomButton
+                            <NemotoButton
                                 size="sm"
                                 variant="ghost"
                                 className={index === breadcrumbStack.length - 1 ? 'min-h-0 px-1 py-0 text-accent-primary font-bold' : 'min-h-0 px-1 py-0 text-text-muted'}
                                 onClick={() => navigateToBreadcrumb(index)}
                             >
                                 {entry.label}
-                            </AxiomButton>
+                            </NemotoButton>
                         </span>
                     ))}
                 </div>
@@ -441,7 +441,7 @@ function AxiomViewer() {
                         )}
                         <div className="flex-1 relative">
                             <ReactFlow
-                            className="axiom-division-canvas"
+                            className="nemoto-division-canvas"
                             {...GRAPH_NAVIGATION}
                             nodes={nodes}
                             edges={edges}
@@ -496,12 +496,12 @@ function AxiomViewer() {
 
             {/* Asset Reader Modal */}
             {readingAsset && (
-                <AxiomDialog
+                <NemotoDialog
                     aria-labelledby="viewer-asset-title"
                     onClose={() => setReadingAsset(null)}
                     panelClassName="viewer-reader flex flex-col w-full max-w-lg max-h-[85vh] overflow-hidden"
                 >
-                        <AxiomDialogHeader className="shrink-0 px-6 py-5 flex items-center justify-between">
+                        <NemotoDialogHeader className="shrink-0 px-6 py-5 flex items-center justify-between">
                             <div>
                                 <h2 id="viewer-asset-title" className="text-xl font-bold text-text-main tracking-tight pb-1">{readingAsset.name || 'Unnamed Resource'}</h2>
                                 {(() => {
@@ -514,17 +514,17 @@ function AxiomViewer() {
                                     );
                                 })()}
                             </div>
-                            <AxiomButton
+                            <NemotoButton
                                 aria-label="Close resource"
                                 icon
                                 variant="ghost"
                                 onClick={() => setReadingAsset(null)}
                             >
                                 <XIcon size={16} />
-                            </AxiomButton>
-                        </AxiomDialogHeader>
+                            </NemotoButton>
+                        </NemotoDialogHeader>
 
-                        <AxiomDialogBody className="p-6 overflow-y-auto custom-scrollbar flex-1 min-h-0 bg-app-bg/50">
+                        <NemotoDialogBody className="p-6 overflow-y-auto custom-scrollbar flex-1 min-h-0 bg-app-bg/50">
                             {readingAsset.description && (
                                 <div className="mb-6">
                                     <h3 className="text-[10px] font-bold uppercase tracking-widest text-text-muted mb-2">Description</h3>
@@ -551,35 +551,35 @@ function AxiomViewer() {
                                     </div>
                                 )}
                             </div>
-                        </AxiomDialogBody>
-                </AxiomDialog>
+                        </NemotoDialogBody>
+                </NemotoDialog>
             )}
 
             {/* Centralized Journal Reader Modal */}
             {readingNote && (
-                <AxiomDialog
+                <NemotoDialog
                     aria-labelledby="viewer-note-title"
                     onClose={() => setReadingNote(null)}
                     panelClassName="viewer-reader flex flex-col w-full max-w-3xl max-h-[85vh] overflow-hidden"
                 >
-                        <AxiomDialogHeader className="shrink-0 px-8 py-6 flex items-start justify-between">
+                        <NemotoDialogHeader className="shrink-0 px-8 py-6 flex items-start justify-between">
                             <div>
                                 <h2 id="viewer-note-title" className="text-2xl font-bold text-text-main tracking-tight">{readingNote.title || 'Untitled Entry'}</h2>
                                 <div className="text-sm text-text-muted mt-2">
                                     {new Date(readingNote.createdAt).toLocaleDateString()} {new Date(readingNote.createdAt).toLocaleTimeString()}
                                 </div>
                             </div>
-                            <AxiomButton
+                            <NemotoButton
                                 aria-label="Close journal entry"
                                 icon
                                 variant="ghost"
                                 onClick={() => setReadingNote(null)}
                             >
                                 <XIcon size={16} />
-                            </AxiomButton>
-                        </AxiomDialogHeader>
+                            </NemotoButton>
+                        </NemotoDialogHeader>
 
-                        <AxiomDialogBody className="p-10 overflow-y-auto custom-scrollbar flex-1 min-h-0 bg-app-bg/50">
+                        <NemotoDialogBody className="p-10 overflow-y-auto custom-scrollbar flex-1 min-h-0 bg-app-bg/50">
                             <div
                                 className="prosemirror-content prose prose-invert max-w-none w-full text-[16px] leading-relaxed break-words
                                     prose-headings:text-text-main prose-headings:font-black prose-headings:tracking-tight
@@ -592,24 +592,24 @@ function AxiomViewer() {
                                     "
                                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(readingNote.content || '') }}
                             />
-                        </AxiomDialogBody>
-                </AxiomDialog>
+                        </NemotoDialogBody>
+                </NemotoDialog>
             )}
 
             {/* Help Modal */}
             {helpOpen && (
-                <AxiomDialog
+                <NemotoDialog
                     aria-labelledby="viewer-help-title"
                     onClose={() => setHelpOpen(false)}
                     panelClassName="viewer-reader flex flex-col w-full max-w-xl max-h-[85vh] overflow-hidden"
                 >
-                        <AxiomDialogHeader className="shrink-0 px-8 py-6 flex items-center justify-between">
+                        <NemotoDialogHeader className="shrink-0 px-8 py-6 flex items-center justify-between">
                             <h2 id="viewer-help-title" className="text-xl font-bold text-text-main tracking-tight">How to Use This Viewer</h2>
-                            <AxiomButton aria-label="Close help" icon variant="ghost" onClick={() => setHelpOpen(false)}>
+                            <NemotoButton aria-label="Close help" icon variant="ghost" onClick={() => setHelpOpen(false)}>
                                 <XIcon size={16} />
-                            </AxiomButton>
-                        </AxiomDialogHeader>
-                        <AxiomDialogBody className="flex-1 min-h-0 p-8 overflow-y-auto custom-scrollbar space-y-6 text-sm text-text-muted leading-relaxed">
+                            </NemotoButton>
+                        </NemotoDialogHeader>
+                        <NemotoDialogBody className="flex-1 min-h-0 p-8 overflow-y-auto custom-scrollbar space-y-6 text-sm text-text-muted leading-relaxed">
                             <section>
                                 <h3 className="text-xs font-bold uppercase tracking-widest text-accent-primary mb-2">Process Map</h3>
                                 <ul className="space-y-1.5 list-disc list-inside">
@@ -631,8 +631,8 @@ function AxiomViewer() {
                                 <h3 className="text-xs font-bold uppercase tracking-widest text-accent-primary mb-2">Download</h3>
                                 <p>The <strong className="text-text-main">Download .nemoto-process</strong> button exports the embedded process data as an <code className="text-accent-primary bg-app-hover px-1 rounded">.nemoto-process</code> file you can import into the full Nemoto application for editing.</p>
                             </section>
-                        </AxiomDialogBody>
-                </AxiomDialog>
+                        </NemotoDialogBody>
+                </NemotoDialog>
             )}
         </div>
     );
@@ -641,7 +641,7 @@ function AxiomViewer() {
 export default function App() {
     return (
         <ReactFlowProvider>
-            <AxiomViewer />
+            <NemotoViewer />
         </ReactFlowProvider>
     );
 }

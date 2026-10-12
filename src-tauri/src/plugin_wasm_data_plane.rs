@@ -15,16 +15,16 @@ use crate::{
     plugin_wasm_session::validate_stable_contract_id,
 };
 
-pub const AXIOM_WASM_COMPUTE_REQUEST_SCHEMA: &str = "axiom.wasm-compute-request";
-pub const AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_WASM_COMPUTE_RESULT_SCHEMA: &str = "axiom.wasm-compute-result";
-pub const AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA: &str = "axiom.wasm-proposal-draft";
-pub const AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA: &str = "axiom.plugin.entity-snapshot";
-pub const AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION: u32 = 1;
-pub const AXIOM_ENTITY_REFERENCE_SCHEMA: &str = "axiom.entity-reference";
-pub const AXIOM_ENTITY_REFERENCE_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA: &str = "axiom.wasm-compute-request";
+pub const NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_WASM_COMPUTE_RESULT_SCHEMA: &str = "axiom.wasm-compute-result";
+pub const NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA: &str = "axiom.wasm-proposal-draft";
+pub const NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA: &str = "axiom.plugin.entity-snapshot";
+pub const NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION: u32 = 1;
+pub const NEMOTO_ENTITY_REFERENCE_SCHEMA: &str = "axiom.entity-reference";
+pub const NEMOTO_ENTITY_REFERENCE_SCHEMA_VERSION: u32 = 1;
 pub const PORTFOLIO_READ_SCOPED_CAPABILITY: &str = "portfolio.read-scoped";
 pub const PROPOSAL_CREATE_CAPABILITY: &str = "proposal.create";
 pub const MAX_WASM_COMPUTE_REQUEST_BYTES: usize = 240 * 1024;
@@ -174,8 +174,8 @@ pub fn validate_compute_request(
     request: &WasmComputeRequest,
     grants: WasmDataPlaneGrants,
 ) -> Result<(), WasmDataPlaneError> {
-    if request.schema != AXIOM_WASM_COMPUTE_REQUEST_SCHEMA
-        || request.schema_version != AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION
+    if request.schema != NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA
+        || request.schema_version != NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION
         || request.portfolio_revision > MAX_SAFE_JSON_INTEGER
         || validate_stable_contract_id(&request.request_id).is_err()
         || validate_stable_contract_id(&request.base_revision).is_err()
@@ -213,8 +213,8 @@ pub fn validate_compute_result(
     grants: WasmDataPlaneGrants,
 ) -> Result<WasmComputeResult, WasmDataPlaneError> {
     let result: WasmComputeResult = serde_json::from_value(value).map_err(|_| invalid_result())?;
-    if result.schema != AXIOM_WASM_COMPUTE_RESULT_SCHEMA
-        || result.schema_version != AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION
+    if result.schema != NEMOTO_WASM_COMPUTE_RESULT_SCHEMA
+        || result.schema_version != NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION
         || validate_stable_contract_id(&result.request_id).is_err()
         || validate_stable_contract_id(&result.base_revision).is_err()
         || !validate_bounded_json(&result.output)
@@ -242,8 +242,8 @@ pub fn validate_compute_result(
 }
 
 fn validate_snapshot(snapshot: &WasmEntitySnapshot) -> bool {
-    snapshot.schema == AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA
-        && snapshot.schema_version == AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION
+    snapshot.schema == NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA
+        && snapshot.schema_version == NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION
         && snapshot.portfolio_revision <= MAX_SAFE_JSON_INTEGER
         && validate_entity_reference(&snapshot.reference)
         && bounded_trimmed(&snapshot.label, 500)
@@ -257,8 +257,8 @@ fn validate_snapshot(snapshot: &WasmEntitySnapshot) -> bool {
 }
 
 fn validate_entity_reference(reference: &WasmEntityReference) -> bool {
-    if reference.schema != AXIOM_ENTITY_REFERENCE_SCHEMA
-        || reference.schema_version != AXIOM_ENTITY_REFERENCE_SCHEMA_VERSION
+    if reference.schema != NEMOTO_ENTITY_REFERENCE_SCHEMA
+        || reference.schema_version != NEMOTO_ENTITY_REFERENCE_SCHEMA_VERSION
         || !validate_entity_kind(&reference.kind)
         || validate_stable_contract_id(&reference.id).is_err()
     {
@@ -346,8 +346,8 @@ fn validate_proposal_draft(
     draft: &WasmProposalDraft,
     request: &WasmComputeRequest,
 ) -> Result<(), WasmDataPlaneError> {
-    if draft.schema != AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA
-        || draft.schema_version != AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION
+    if draft.schema != NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA
+        || draft.schema_version != NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION
         || !(1..=3).contains(&draft.proposal_schema_version)
         || validate_stable_contract_id(&draft.id).is_err()
         || !bounded_trimmed(&draft.title, 200)
@@ -446,8 +446,8 @@ mod tests {
 
     fn reference(id: &str) -> WasmEntityReference {
         WasmEntityReference {
-            schema: AXIOM_ENTITY_REFERENCE_SCHEMA.to_owned(),
-            schema_version: AXIOM_ENTITY_REFERENCE_SCHEMA_VERSION,
+            schema: NEMOTO_ENTITY_REFERENCE_SCHEMA.to_owned(),
+            schema_version: NEMOTO_ENTITY_REFERENCE_SCHEMA_VERSION,
             kind: "core.asset-category".to_owned(),
             id: id.to_owned(),
             location: None,
@@ -456,14 +456,14 @@ mod tests {
 
     fn request() -> WasmComputeRequest {
         WasmComputeRequest {
-            schema: AXIOM_WASM_COMPUTE_REQUEST_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_COMPUTE_REQUEST_SCHEMA_VERSION,
             request_id: "compute:risk:1".to_owned(),
             base_revision: "portfolio-revision-aabbccdd".to_owned(),
             portfolio_revision: 7,
             snapshots: vec![WasmEntitySnapshot {
-                schema: AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA.to_owned(),
-                schema_version: AXIOM_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION,
+                schema: NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA.to_owned(),
+                schema_version: NEMOTO_PLUGIN_ENTITY_SNAPSHOT_SCHEMA_VERSION,
                 portfolio_revision: 7,
                 reference: reference("risk-register"),
                 label: "Risk register".to_owned(),
@@ -521,8 +521,8 @@ mod tests {
     fn binds_result_correlation_and_denies_ungranted_or_hidden_proposals() {
         let request = request();
         let base = serde_json::json!({
-            "schema": AXIOM_WASM_COMPUTE_RESULT_SCHEMA,
-            "schemaVersion": AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
+            "schema": NEMOTO_WASM_COMPUTE_RESULT_SCHEMA,
+            "schemaVersion": NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
             "requestId": request.request_id,
             "baseRevision": request.base_revision,
             "output": { "riskCount": 1 }
@@ -544,14 +544,14 @@ mod tests {
         );
 
         let with_proposal = serde_json::json!({
-            "schema": AXIOM_WASM_COMPUTE_RESULT_SCHEMA,
-            "schemaVersion": AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
+            "schema": NEMOTO_WASM_COMPUTE_RESULT_SCHEMA,
+            "schemaVersion": NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
             "requestId": request.request_id,
             "baseRevision": request.base_revision,
             "output": null,
             "proposalDraft": {
-                "schema": AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA,
-                "schemaVersion": AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION,
+                "schema": NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA,
+                "schemaVersion": NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION,
                 "proposalSchemaVersion": 1,
                 "id": "proposal:risk:1",
                 "origin": { "kind": "plugin" },
@@ -587,14 +587,14 @@ mod tests {
         .is_ok());
 
         let hidden = serde_json::json!({
-            "schema": AXIOM_WASM_COMPUTE_RESULT_SCHEMA,
-            "schemaVersion": AXIOM_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
+            "schema": NEMOTO_WASM_COMPUTE_RESULT_SCHEMA,
+            "schemaVersion": NEMOTO_WASM_COMPUTE_RESULT_SCHEMA_VERSION,
             "requestId": request.request_id,
             "baseRevision": request.base_revision,
             "output": null,
             "proposalDraft": {
-                "schema": AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA,
-                "schemaVersion": AXIOM_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION,
+                "schema": NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA,
+                "schemaVersion": NEMOTO_WASM_PROPOSAL_DRAFT_SCHEMA_VERSION,
                 "proposalSchemaVersion": 1,
                 "id": "proposal:hidden:1",
                 "origin": { "kind": "plugin" },

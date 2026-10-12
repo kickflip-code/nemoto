@@ -70,7 +70,7 @@ pub fn run_executable_plugin_proposal_command(
     let adapter = adapter.inner();
     thread::scope(|scope| {
         let worker = thread::Builder::new()
-            .name("axiom-executable-proposal".to_owned())
+            .name("nemoto-executable-proposal".to_owned())
             .stack_size(EXECUTABLE_COMPUTE_WORKER_STACK_BYTES)
             .spawn_scoped(scope, move || {
                 adapter.execute_proposal_command(&command_id, request)
@@ -86,7 +86,7 @@ pub fn run_executable_plugin_ui_reduction(
     adapter: State<'_, NativeExecutablePackageAdapter>,
 ) -> Result<ExecutableUiReductionOutcome, ExecutablePackageError> {
     let adapter = adapter.inner();
-    run_on_executable_worker("axiom-executable-ui", move || {
+    run_on_executable_worker("nemoto-executable-ui", move || {
         adapter.execute_ui_reduction(request)
     })
 }

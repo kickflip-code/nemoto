@@ -5,14 +5,14 @@ import {
 } from 'react';
 import clsx from 'clsx';
 
-export type AxiomToolbarSurface = 'canvas' | 'journal';
+export type NemotoToolbarSurface = 'canvas' | 'journal';
 
-export interface AxiomToolbarProps extends HTMLAttributes<HTMLDivElement> {
+export interface NemotoToolbarProps extends HTMLAttributes<HTMLDivElement> {
     'aria-label': string;
-    surface?: AxiomToolbarSurface;
+    surface?: NemotoToolbarSurface;
 }
 
-export const AxiomToolbar = forwardRef<HTMLDivElement, AxiomToolbarProps>(function AxiomToolbar(
+export const NemotoToolbar = forwardRef<HTMLDivElement, NemotoToolbarProps>(function NemotoToolbar(
     { className, surface = 'canvas', ...props },
     ref,
 ) {
@@ -21,7 +21,7 @@ export const AxiomToolbar = forwardRef<HTMLDivElement, AxiomToolbarProps>(functi
             ref={ref}
             role="toolbar"
             className={clsx(
-                surface === 'canvas' ? 'axiom-canvas-toolbar' : 'axiom-journal-toolbar',
+                surface === 'canvas' ? 'nemoto-canvas-toolbar' : 'nemoto-journal-toolbar',
                 className,
             )}
             {...props}
@@ -29,21 +29,21 @@ export const AxiomToolbar = forwardRef<HTMLDivElement, AxiomToolbarProps>(functi
     );
 });
 
-export interface AxiomToolbarGroupProps extends HTMLAttributes<HTMLDivElement> {
+export interface NemotoToolbarGroupProps extends HTMLAttributes<HTMLDivElement> {
     'aria-label'?: string;
-    surface?: AxiomToolbarSurface;
+    surface?: NemotoToolbarSurface;
 }
 
-export function AxiomToolbarGroup({
+export function NemotoToolbarGroup({
     className,
     surface = 'canvas',
     ...props
-}: AxiomToolbarGroupProps) {
+}: NemotoToolbarGroupProps) {
     return (
         <div
             role="group"
             className={clsx(
-                surface === 'canvas' ? 'axiom-canvas-toolbar-group' : 'axiom-journal-toolbar-group',
+                surface === 'canvas' ? 'nemoto-canvas-toolbar-group' : 'nemoto-journal-toolbar-group',
                 className,
             )}
             {...props}
@@ -51,15 +51,15 @@ export function AxiomToolbarGroup({
     );
 }
 
-export interface AxiomToolbarButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface NemotoToolbarButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     active?: boolean;
     danger?: boolean;
     label: string;
     surface?: 'standard' | 'journal';
 }
 
-export const AxiomToolbarButton = forwardRef<HTMLButtonElement, AxiomToolbarButtonProps>(
-    function AxiomToolbarButton({
+export const NemotoToolbarButton = forwardRef<HTMLButtonElement, NemotoToolbarButtonProps>(
+    function NemotoToolbarButton({
         active,
         className,
         danger = false,
@@ -78,9 +78,9 @@ export const AxiomToolbarButton = forwardRef<HTMLButtonElement, AxiomToolbarButt
                 title={title}
                 type={type}
                 className={clsx(
-                    surface === 'journal' ? 'axiom-journal-toolbar-button' : 'axiom-toolbar-button',
-                    danger && 'axiom-toolbar-button-danger',
-                    surface === 'journal' && 'p-1.5 rounded-sm axiom-transition-interactive',
+                    surface === 'journal' ? 'nemoto-journal-toolbar-button' : 'nemoto-toolbar-button',
+                    danger && 'nemoto-toolbar-button-danger',
+                    surface === 'journal' && 'p-1.5 rounded-sm nemoto-transition-interactive',
                     surface === 'journal' && active
                         ? 'bg-accent-primary/10 text-accent-primary shadow-[inset_0_0_8px_color-mix(in_srgb,var(--color-accent-warning)_10%,transparent)]'
                         : surface === 'journal' && 'text-text-faint hover:text-text-main hover:bg-app-hover',

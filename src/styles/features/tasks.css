@@ -1,62 +1,62 @@
-.axiom-tasks-page { max-width: 960px; margin: 0 auto; padding: 40px 28px 64px; }
-.axiom-tasks-header { margin-bottom: 28px; }
-.axiom-tasks-toolbar, .axiom-tasks-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.axiom-tasks-toolbar { justify-content: space-between; gap: 12px; }
-.axiom-tasks-segments { display: flex; padding: 3px; border: 1px solid var(--color-app-border); border-radius: 8px; background: var(--color-app-surface); }
-.axiom-tasks-segments .axiom-button { border: 0; box-shadow: none; background: transparent; }
-.axiom-tasks-segments .axiom-button[aria-pressed='true'] { background: color-mix(in srgb, var(--color-accent-primary) 16%, var(--color-app-surface)); color: var(--color-text-main); }
-.axiom-tasks-filters { display: grid; grid-template-columns: 1fr minmax(180px, 280px); gap: 12px; margin: 14px 0 26px; }
-.axiom-tasks-search { position: relative; min-width: 0; }
-.axiom-tasks-search > svg { position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none; }
-.axiom-tasks-search input { width: 100%; padding-left: 34px; }
-.axiom-tasks-filters select { width: 100%; min-width: 0; }
-.axiom-tasks-quick { margin-bottom: 30px; }
-.axiom-tasks h2 { font-size: 14px; font-weight: 600; }
-.axiom-tasks-quick h2 { margin-bottom: 9px; }
-.axiom-tasks-quick-form { display: grid; grid-template-columns: minmax(120px, 1fr) 175px auto; gap: 8px; margin-bottom: 9px; }
-.axiom-tasks-quick-form input { width: 100%; min-width: 0; }
-.axiom-tasks-context-chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; flex-wrap: wrap; border-radius: 5px; padding: 3px 6px; background: color-mix(in srgb, var(--color-accent-primary) 12%, transparent); font-size: 12px; overflow-wrap: anywhere; }
-.axiom-tasks-context-chip button { padding: 3px; border-radius: 3px; }
-.axiom-tasks-list-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 22px 0 10px; }
-.axiom-tasks-list-heading h2 span { margin-left: 8px; color: var(--color-text-muted); font-weight: 400; }
-.axiom-tasks-list-heading p { font-size: 11px; color: var(--color-text-muted); }
-.axiom-tasks-row { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid var(--color-app-border); border-radius: 10px; background: var(--color-app-surface); font-size: 13px; }
-.axiom-tasks-row:hover { border-color: color-mix(in srgb, var(--color-accent-primary) 40%, var(--color-app-border)); }
-.axiom-tasks-row button { overflow-wrap: anywhere; }
-.axiom-tasks-row { position: relative; }
-.axiom-tasks-open::after { content: ''; position: absolute; inset: 0; border-radius: 10px; }
-.axiom-tasks-open:focus-visible::after { outline: 2px solid var(--color-accent-primary); outline-offset: 2px; }
-.axiom-tasks-check, .axiom-tasks-navigate, .axiom-tasks-delete { position: relative; z-index: 1; }
-.axiom-tasks-check { appearance: none; flex-shrink: 0; width: 17px; height: 17px; border: 1px solid var(--color-app-border); border-radius: 50%; cursor: pointer; }
-.axiom-tasks-check:checked { background: var(--color-accent-primary); border-color: var(--color-accent-primary); box-shadow: inset 0 0 0 4px var(--color-app-surface); }
-.axiom-tasks-check:disabled { cursor: default; opacity: .5; }
-.axiom-tasks :focus-visible { outline: 2px solid var(--color-accent-primary); outline-offset: 3px; }
-.axiom-task-details .tiptap { min-height: 120px; }
-.axiom-task-details .axiom-record-editor { border: 1px solid color-mix(in srgb, var(--color-text-main) 20%, var(--color-app-surface)); background: var(--color-app-input, var(--color-app-surface)); }
-.axiom-task-details .axiom-record-editor:focus-within { outline: 2px solid var(--color-accent-primary); outline-offset: 2px; }
-.axiom-task-details h2 { color: var(--color-text-main); }
-.axiom-tasks .axiom-tasks-row { border-color: color-mix(in srgb, var(--color-text-main) 18%, var(--color-app-surface)); background: var(--color-app-input, var(--color-app-surface)); }
-.axiom-tasks .axiom-tasks-check { border-color: color-mix(in srgb, var(--color-text-main) 35%, var(--color-app-surface)); background: transparent; }
-.axiom-tasks .axiom-tasks-check:checked { background: var(--color-accent-primary); }
-.axiom-tasks .axiom-tasks-row > div > button,
-.axiom-tasks .axiom-tasks-row > div > div > button { box-shadow: none; background: transparent; border: 0; padding: 0; border-radius: 0; }
-.axiom-tasks h2 { color: var(--color-text-main); }
-.axiom-tasks .axiom-tasks-segments { border-color: color-mix(in srgb, var(--color-text-main) 15%, var(--color-app-surface)); }
+.nemoto-tasks-page { max-width: 960px; margin: 0 auto; padding: 40px 28px 64px; }
+.nemoto-tasks-header { margin-bottom: 28px; }
+.nemoto-tasks-toolbar, .nemoto-tasks-tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.nemoto-tasks-toolbar { justify-content: space-between; gap: 12px; }
+.nemoto-tasks-segments { display: flex; padding: 3px; border: 1px solid var(--color-app-border); border-radius: 8px; background: var(--color-app-surface); }
+.nemoto-tasks-segments .nemoto-button { border: 0; box-shadow: none; background: transparent; }
+.nemoto-tasks-segments .nemoto-button[aria-pressed='true'] { background: color-mix(in srgb, var(--color-accent-primary) 16%, var(--color-app-surface)); color: var(--color-text-main); }
+.nemoto-tasks-filters { display: grid; grid-template-columns: 1fr minmax(180px, 280px); gap: 12px; margin: 14px 0 26px; }
+.nemoto-tasks-search { position: relative; min-width: 0; }
+.nemoto-tasks-search > svg { position: absolute; top: 50%; left: 10px; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none; }
+.nemoto-tasks-search input { width: 100%; padding-left: 34px; }
+.nemoto-tasks-filters select { width: 100%; min-width: 0; }
+.nemoto-tasks-quick { margin-bottom: 30px; }
+.nemoto-tasks h2 { font-size: 14px; font-weight: 600; }
+.nemoto-tasks-quick h2 { margin-bottom: 9px; }
+.nemoto-tasks-quick-form { display: grid; grid-template-columns: minmax(120px, 1fr) 175px auto; gap: 8px; margin-bottom: 9px; }
+.nemoto-tasks-quick-form input { width: 100%; min-width: 0; }
+.nemoto-tasks-context-chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; flex-wrap: wrap; border-radius: 5px; padding: 3px 6px; background: color-mix(in srgb, var(--color-accent-primary) 12%, transparent); font-size: 12px; overflow-wrap: anywhere; }
+.nemoto-tasks-context-chip button { padding: 3px; border-radius: 3px; }
+.nemoto-tasks-list-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 22px 0 10px; }
+.nemoto-tasks-list-heading h2 span { margin-left: 8px; color: var(--color-text-muted); font-weight: 400; }
+.nemoto-tasks-list-heading p { font-size: 11px; color: var(--color-text-muted); }
+.nemoto-tasks-row { display: flex; align-items: center; gap: 12px; padding: 13px 14px; border: 1px solid var(--color-app-border); border-radius: 10px; background: var(--color-app-surface); font-size: 13px; }
+.nemoto-tasks-row:hover { border-color: color-mix(in srgb, var(--color-accent-primary) 40%, var(--color-app-border)); }
+.nemoto-tasks-row button { overflow-wrap: anywhere; }
+.nemoto-tasks-row { position: relative; }
+.nemoto-tasks-open::after { content: ''; position: absolute; inset: 0; border-radius: 10px; }
+.nemoto-tasks-open:focus-visible::after { outline: 2px solid var(--color-accent-primary); outline-offset: 2px; }
+.nemoto-tasks-check, .nemoto-tasks-navigate, .nemoto-tasks-delete { position: relative; z-index: 1; }
+.nemoto-tasks-check { appearance: none; flex-shrink: 0; width: 17px; height: 17px; border: 1px solid var(--color-app-border); border-radius: 50%; cursor: pointer; }
+.nemoto-tasks-check:checked { background: var(--color-accent-primary); border-color: var(--color-accent-primary); box-shadow: inset 0 0 0 4px var(--color-app-surface); }
+.nemoto-tasks-check:disabled { cursor: default; opacity: .5; }
+.nemoto-tasks :focus-visible { outline: 2px solid var(--color-accent-primary); outline-offset: 3px; }
+.nemoto-task-details .tiptap { min-height: 120px; }
+.nemoto-task-details .nemoto-record-editor { border: 1px solid color-mix(in srgb, var(--color-text-main) 20%, var(--color-app-surface)); background: var(--color-app-input, var(--color-app-surface)); }
+.nemoto-task-details .nemoto-record-editor:focus-within { outline: 2px solid var(--color-accent-primary); outline-offset: 2px; }
+.nemoto-task-details h2 { color: var(--color-text-main); }
+.nemoto-tasks .nemoto-tasks-row { border-color: color-mix(in srgb, var(--color-text-main) 18%, var(--color-app-surface)); background: var(--color-app-input, var(--color-app-surface)); }
+.nemoto-tasks .nemoto-tasks-check { border-color: color-mix(in srgb, var(--color-text-main) 35%, var(--color-app-surface)); background: transparent; }
+.nemoto-tasks .nemoto-tasks-check:checked { background: var(--color-accent-primary); }
+.nemoto-tasks .nemoto-tasks-row > div > button,
+.nemoto-tasks .nemoto-tasks-row > div > div > button { box-shadow: none; background: transparent; border: 0; padding: 0; border-radius: 0; }
+.nemoto-tasks h2 { color: var(--color-text-main); }
+.nemoto-tasks .nemoto-tasks-segments { border-color: color-mix(in srgb, var(--color-text-main) 15%, var(--color-app-surface)); }
 @media (max-width: 640px) {
-    .axiom-tasks-page { padding: 24px 14px 48px; }
-    .axiom-tasks-filters { grid-template-columns: 1fr; }
-    .axiom-tasks-quick-form { grid-template-columns: minmax(0, 1fr) auto; }
-    .axiom-tasks-quick-form > input:first-child { grid-column: 1 / -1; }
-    .axiom-tasks-row { gap: 8px; flex-wrap: wrap; }
-    .axiom-tasks-row > div { min-width: 65%; }
-    .axiom-tasks-row time { margin-left: 25px; }
+    .nemoto-tasks-page { padding: 24px 14px 48px; }
+    .nemoto-tasks-filters { grid-template-columns: 1fr; }
+    .nemoto-tasks-quick-form { grid-template-columns: minmax(0, 1fr) auto; }
+    .nemoto-tasks-quick-form > input:first-child { grid-column: 1 / -1; }
+    .nemoto-tasks-row { gap: 8px; flex-wrap: wrap; }
+    .nemoto-tasks-row > div { min-width: 65%; }
+    .nemoto-tasks-row time { margin-left: 25px; }
 }
 
-.axiom-tasks .axiom-tasks-quick-form input,
-.axiom-tasks-archive-dates .axiom-field,
-.axiom-task-details .axiom-field { padding-inline: 12px; width: 100%; }
-.axiom-tasks-archive-dates { margin-bottom: 8px; }
-.axiom-tasks-archive-dates input[type='date'] { min-width: 145px; }
-.axiom-record-toolbar { display: flex; align-items: center; gap: 4px; padding: 6px; border-bottom: 1px solid color-mix(in srgb, var(--color-text-main) 16%, transparent); }
-.axiom-record-toolbar .axiom-journal-toolbar-button { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; flex-shrink: 0; }
-.axiom-record-toolbar-divider { height: 18px; width: 1px; margin-inline: 4px; background: color-mix(in srgb, var(--color-text-main) 20%, transparent); }
+.nemoto-tasks .nemoto-tasks-quick-form input,
+.nemoto-tasks-archive-dates .nemoto-field,
+.nemoto-task-details .nemoto-field { padding-inline: 12px; width: 100%; }
+.nemoto-tasks-archive-dates { margin-bottom: 8px; }
+.nemoto-tasks-archive-dates input[type='date'] { min-width: 145px; }
+.nemoto-record-toolbar { display: flex; align-items: center; gap: 4px; padding: 6px; border-bottom: 1px solid color-mix(in srgb, var(--color-text-main) 16%, transparent); }
+.nemoto-record-toolbar .nemoto-journal-toolbar-button { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; flex-shrink: 0; }
+.nemoto-record-toolbar-divider { height: 18px; width: 1px; margin-inline: 4px; background: color-mix(in srgb, var(--color-text-main) 20%, transparent); }

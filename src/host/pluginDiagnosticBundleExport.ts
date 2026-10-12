@@ -1,5 +1,5 @@
 import {
-    AXIOM_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA,
+    NEMOTO_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA,
     CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION,
     type SanitizedPluginDiagnosticBundle,
 } from '../plugins/developerDiagnostics';
@@ -31,7 +31,7 @@ const PLUGIN_ALIAS_PATTERN = /^plugin-[1-9]\d*$/;
 const CONTRIBUTION_ALIAS_PATTERN = /^contribution-[1-9]\d*$/;
 
 const assertSupportRedactionProfile = (bundle: SanitizedPluginDiagnosticBundle): void => {
-    const hasExpectedEnvelope = bundle.schema === AXIOM_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA
+    const hasExpectedEnvelope = bundle.schema === NEMOTO_PLUGIN_DIAGNOSTIC_BUNDLE_SCHEMA
         && bundle.schemaVersion === CURRENT_PLUGIN_DIAGNOSTIC_SCHEMA_VERSION
         && bundle.redaction.profile === 'support-default'
         && bundle.redaction.identifiers === 'aliased'
@@ -49,7 +49,7 @@ const assertSupportRedactionProfile = (bundle: SanitizedPluginDiagnosticBundle):
 
 const createSuggestedFileName = (generatedAt: string): string => {
     const safeTimestamp = generatedAt.replace(/[^0-9A-Za-z-]/g, '-');
-    return `axiom-plugin-diagnostics-${safeTimestamp}.json`;
+    return `nemoto-plugin-diagnostics-${safeTimestamp}.json`;
 };
 
 export function preparePluginDiagnosticBundleExport(

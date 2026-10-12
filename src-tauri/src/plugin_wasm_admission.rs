@@ -20,16 +20,16 @@ use sha2::{Digest, Sha256};
 use crate::{
     plugin_compute_policy::ISOLATED_COMPUTE_POLICY_V1,
     plugin_wasm_host::{
-        AxiomWasmHost, WasmHostErrorCode, AXIOM_WASM_ABI_NAME, AXIOM_WASM_ABI_VERSION,
+        NemotoWasmHost, WasmHostErrorCode, NEMOTO_WASM_ABI_NAME, NEMOTO_WASM_ABI_VERSION,
         WASMTIME_ENGINE_VERSION,
     },
     plugin_wasm_session::{validate_wasm_plugin_identity, WasmPluginIdentity},
     utils::atomic_file::{atomic_write_verified, backup_path},
 };
 
-pub const AXIOM_WASM_ADMISSION_SCHEMA: &str = "axiom.wasm-admission";
-pub const AXIOM_WASM_ADMISSION_SCHEMA_VERSION: u32 = 1;
-pub const WASM_ADMISSION_HELPER_ARGUMENT: &str = "--axiom-internal-wasm-admission-v1";
+pub const NEMOTO_WASM_ADMISSION_SCHEMA: &str = "axiom.wasm-admission";
+pub const NEMOTO_WASM_ADMISSION_SCHEMA_VERSION: u32 = 1;
+pub const WASM_ADMISSION_HELPER_ARGUMENT: &str = "--nemoto-internal-wasm-admission-v1";
 pub const WASM_COMPILER_WALL_DEADLINE_MS: u64 = 15_000;
 pub const WASM_COMPILER_CPU_TIME_LIMIT_MS: u64 = 15_000;
 pub const WASM_COMPILER_MEMORY_LIMIT_BYTES: usize = 512 * 1024 * 1024;
@@ -175,14 +175,14 @@ impl NativeWasmAdmission {
         validate_helper_compilation(&compilation, module_bytes, &expected_hash)?;
 
         Ok(WasmAdmissionReceipt {
-            schema: AXIOM_WASM_ADMISSION_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_ADMISSION_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_ADMISSION_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_ADMISSION_SCHEMA_VERSION,
             identity: identity.clone(),
             module_sha256: expected_hash,
             module_bytes: module_bytes.len() as u64,
             compiled_artifact_bytes: compilation.compiled_artifact_bytes,
-            abi_name: AXIOM_WASM_ABI_NAME.to_owned(),
-            abi_version: AXIOM_WASM_ABI_VERSION,
+            abi_name: NEMOTO_WASM_ABI_NAME.to_owned(),
+            abi_version: NEMOTO_WASM_ABI_VERSION,
             compute_policy_version: ISOLATED_COMPUTE_POLICY_V1.policy_version,
             engine: ENGINE_NAME.to_owned(),
             engine_version: WASMTIME_ENGINE_VERSION.to_owned(),
@@ -315,8 +315,8 @@ fn validate_helper_compilation(
         || compilation.module_bytes != module_bytes.len() as u64
         || compilation.compiled_artifact_bytes == 0
         || compilation.compiled_artifact_bytes > MAX_WASM_COMPILED_ARTIFACT_BYTES as u64
-        || compilation.abi_name != AXIOM_WASM_ABI_NAME
-        || compilation.abi_version != AXIOM_WASM_ABI_VERSION
+        || compilation.abi_name != NEMOTO_WASM_ABI_NAME
+        || compilation.abi_version != NEMOTO_WASM_ABI_VERSION
         || compilation.compute_policy_version != ISOLATED_COMPUTE_POLICY_V1.policy_version
         || compilation.engine != ENGINE_NAME
         || compilation.engine_version != WASMTIME_ENGINE_VERSION
@@ -409,7 +409,7 @@ fn run_helper_compilation() -> HelperResponse {
         };
     }
 
-    let host = match AxiomWasmHost::new() {
+    let host = match NemotoWasmHost::new() {
         Ok(host) => host,
         Err(error) => {
             return HelperResponse::Rejected {
@@ -445,8 +445,8 @@ fn run_helper_compilation() -> HelperResponse {
             module_sha256: module_sha256(&module_bytes),
             module_bytes: module_bytes.len() as u64,
             compiled_artifact_bytes: compiled_artifact_bytes as u64,
-            abi_name: AXIOM_WASM_ABI_NAME.to_owned(),
-            abi_version: AXIOM_WASM_ABI_VERSION,
+            abi_name: NEMOTO_WASM_ABI_NAME.to_owned(),
+            abi_version: NEMOTO_WASM_ABI_VERSION,
             compute_policy_version: ISOLATED_COMPUTE_POLICY_V1.policy_version,
             engine: ENGINE_NAME.to_owned(),
             engine_version: WASMTIME_ENGINE_VERSION.to_owned(),
@@ -585,15 +585,15 @@ pub fn validate_admission_receipt(
     validate_wasm_plugin_identity(expected_identity).map_err(|_| cache_invalid())?;
     if module_bytes.is_empty()
         || module_bytes.len() > ISOLATED_COMPUTE_POLICY_V1.max_module_bytes
-        || receipt.schema != AXIOM_WASM_ADMISSION_SCHEMA
-        || receipt.schema_version != AXIOM_WASM_ADMISSION_SCHEMA_VERSION
+        || receipt.schema != NEMOTO_WASM_ADMISSION_SCHEMA
+        || receipt.schema_version != NEMOTO_WASM_ADMISSION_SCHEMA_VERSION
         || receipt.identity != *expected_identity
         || receipt.module_sha256 != module_sha256(module_bytes)
         || receipt.module_bytes != module_bytes.len() as u64
         || receipt.compiled_artifact_bytes == 0
         || receipt.compiled_artifact_bytes > MAX_WASM_COMPILED_ARTIFACT_BYTES as u64
-        || receipt.abi_name != AXIOM_WASM_ABI_NAME
-        || receipt.abi_version != AXIOM_WASM_ABI_VERSION
+        || receipt.abi_name != NEMOTO_WASM_ABI_NAME
+        || receipt.abi_version != NEMOTO_WASM_ABI_VERSION
         || receipt.compute_policy_version != ISOLATED_COMPUTE_POLICY_V1.policy_version
         || receipt.engine != ENGINE_NAME
         || receipt.engine_version != WASMTIME_ENGINE_VERSION
@@ -669,14 +669,14 @@ mod tests {
 
     fn receipt(module_bytes: &[u8]) -> WasmAdmissionReceipt {
         WasmAdmissionReceipt {
-            schema: AXIOM_WASM_ADMISSION_SCHEMA.to_owned(),
-            schema_version: AXIOM_WASM_ADMISSION_SCHEMA_VERSION,
+            schema: NEMOTO_WASM_ADMISSION_SCHEMA.to_owned(),
+            schema_version: NEMOTO_WASM_ADMISSION_SCHEMA_VERSION,
             identity: identity(),
             module_sha256: module_sha256(module_bytes),
             module_bytes: module_bytes.len() as u64,
             compiled_artifact_bytes: 4096,
-            abi_name: AXIOM_WASM_ABI_NAME.to_owned(),
-            abi_version: AXIOM_WASM_ABI_VERSION,
+            abi_name: NEMOTO_WASM_ABI_NAME.to_owned(),
+            abi_version: NEMOTO_WASM_ABI_VERSION,
             compute_policy_version: ISOLATED_COMPUTE_POLICY_V1.policy_version,
             engine: ENGINE_NAME.to_owned(),
             engine_version: WASMTIME_ENGINE_VERSION.to_owned(),
@@ -767,8 +767,8 @@ mod tests {
             module_sha256: "0".repeat(64),
             module_bytes: 4,
             compiled_artifact_bytes: 1,
-            abi_name: AXIOM_WASM_ABI_NAME.to_owned(),
-            abi_version: AXIOM_WASM_ABI_VERSION,
+            abi_name: NEMOTO_WASM_ABI_NAME.to_owned(),
+            abi_version: NEMOTO_WASM_ABI_VERSION,
             compute_policy_version: ISOLATED_COMPUTE_POLICY_V1.policy_version,
             engine: ENGINE_NAME.to_owned(),
             engine_version: WASMTIME_ENGINE_VERSION.to_owned(),

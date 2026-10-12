@@ -277,7 +277,7 @@ const parseResponse = (value: unknown): AiStructuredResponse => {
     return result.data;
 };
 
-export class AxiomAiBroker {
+export class NemotoAiBroker {
     readonly #clock: () => Date;
     readonly #runIdFactory: () => string;
     readonly #timeoutMilliseconds: number;

@@ -1,25 +1,25 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import {
-    AxiomChoiceCard,
-    AxiomColorSwatch,
-    AxiomIconTile,
-    AxiomSegmented,
-    AxiomSegmentedOption,
-    AxiomSwitch,
-    AxiomToggleCard,
-} from './AxiomSelectionControls';
+    NemotoChoiceCard,
+    NemotoColorSwatch,
+    NemotoIconTile,
+    NemotoSegmented,
+    NemotoSegmentedOption,
+    NemotoSwitch,
+    NemotoToggleCard,
+} from './NemotoSelectionControls';
 
 describe('Nemoto selection controls', () => {
     it('exposes the selected segmented option', () => {
         render(
-            <AxiomSegmented aria-label="Orientation">
-                <AxiomSegmentedOption active>Horizontal</AxiomSegmentedOption>
-                <AxiomSegmentedOption active={false}>Vertical</AxiomSegmentedOption>
-            </AxiomSegmented>,
+            <NemotoSegmented aria-label="Orientation">
+                <NemotoSegmentedOption active>Horizontal</NemotoSegmentedOption>
+                <NemotoSegmentedOption active={false}>Vertical</NemotoSegmentedOption>
+            </NemotoSegmented>,
         );
 
-        expect(screen.getByRole('group', { name: 'Orientation' })).toHaveClass('axiom-segmented');
+        expect(screen.getByRole('group', { name: 'Orientation' })).toHaveClass('nemoto-segmented');
         expect(screen.getByRole('button', { name: 'Horizontal' })).toHaveAttribute('aria-pressed', 'true');
         expect(screen.getByRole('button', { name: 'Vertical' })).toHaveAttribute('aria-pressed', 'false');
     });
@@ -27,7 +27,7 @@ describe('Nemoto selection controls', () => {
     it('represents and changes native switch state', () => {
         const onCheckedChange = vi.fn();
         render(
-            <AxiomSwitch
+            <NemotoSwitch
                 checked
                 label="Show owner in canvas"
                 onCheckedChange={onCheckedChange}
@@ -36,7 +36,7 @@ describe('Nemoto selection controls', () => {
 
         const control = screen.getByRole('switch', { name: 'Show owner in canvas' });
         expect(control).toHaveAttribute('aria-checked', 'true');
-        expect(control).toHaveClass('axiom-toggle-active');
+        expect(control).toHaveClass('nemoto-toggle-active');
 
         fireEvent.click(control);
         expect(onCheckedChange).toHaveBeenCalledWith(false);
@@ -45,7 +45,7 @@ describe('Nemoto selection controls', () => {
     it('does not change a disabled switch', () => {
         const onCheckedChange = vi.fn();
         render(
-            <AxiomSwitch
+            <NemotoSwitch
                 checked={false}
                 disabled
                 label="Flow animation"
@@ -60,16 +60,16 @@ describe('Nemoto selection controls', () => {
     it('exposes selection state for choice and toggle cards', () => {
         render(
             <>
-                <AxiomChoiceCard selected>Void</AxiomChoiceCard>
-                <AxiomToggleCard active={false}>Journal</AxiomToggleCard>
-                <AxiomColorSwatch aria-label="Amber" selected />
-                <AxiomIconTile aria-label="Server icon" selected={false} />
+                <NemotoChoiceCard selected>Void</NemotoChoiceCard>
+                <NemotoToggleCard active={false}>Journal</NemotoToggleCard>
+                <NemotoColorSwatch aria-label="Amber" selected />
+                <NemotoIconTile aria-label="Server icon" selected={false} />
             </>,
         );
 
         expect(screen.getByRole('button', { name: 'Void' })).toHaveAttribute('aria-pressed', 'true');
         expect(screen.getByRole('button', { name: 'Journal' })).toHaveAttribute('aria-pressed', 'false');
-        expect(screen.getByRole('button', { name: 'Amber' })).toHaveClass('axiom-color-swatch-active');
-        expect(screen.getByRole('button', { name: 'Server icon' })).not.toHaveClass('axiom-icon-tile-active');
+        expect(screen.getByRole('button', { name: 'Amber' })).toHaveClass('nemoto-color-swatch-active');
+        expect(screen.getByRole('button', { name: 'Server icon' })).not.toHaveClass('nemoto-icon-tile-active');
     });
 });

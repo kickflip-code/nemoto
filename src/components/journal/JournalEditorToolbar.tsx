@@ -24,7 +24,7 @@ import {
     Unlink,
 } from 'lucide-react';
 import { JournalToolbarButton as ToolbarButton } from './JournalToolbarButton';
-import { AxiomSelect, AxiomToolbar, AxiomToolbarGroup } from '../ui';
+import { NemotoSelect, NemotoToolbar, NemotoToolbarGroup } from '../ui';
 
 interface JournalEditorToolbarProps {
     editor: Editor;
@@ -81,13 +81,13 @@ export default function JournalEditorToolbar({
         : null;
 
     return (
-        <AxiomToolbar
+        <NemotoToolbar
             aria-label="Journal editor formatting"
             surface="journal"
             className="border-b border-app-border/30 bg-app-surface shadow-sm overflow-x-auto custom-scrollbar"
         >
-            <div className="axiom-journal-toolbar-inner flex items-center gap-2 px-6 py-1.5">
-                <AxiomToolbarGroup aria-label="History and formatting reset" surface="journal">
+            <div className="nemoto-journal-toolbar-inner flex items-center gap-2 px-6 py-1.5">
+                <NemotoToolbarGroup aria-label="History and formatting reset" surface="journal">
                     <ToolbarButton
                         onClick={() => editor.chain().focus().undo().run()}
                         disabled={isHtmlMode || !editor.can().chain().focus().undo().run()}
@@ -109,26 +109,26 @@ export default function JournalEditorToolbar({
                     >
                         <RemoveFormatting size={14} />
                     </ToolbarButton>
-                </AxiomToolbarGroup>
+                </NemotoToolbarGroup>
 
-                <AxiomToolbarGroup aria-label="Text block type" surface="journal">
-                    <AxiomSelect
+                <NemotoToolbarGroup aria-label="Text block type" surface="journal">
+                    <NemotoSelect
                         value={activeBlockType}
                         onChange={event => setBlockType(editor, event.target.value)}
                         disabled={isHtmlMode}
                         aria-label="Text block type"
                         title="Text block type"
-                        className="axiom-field h-7 min-w-[108px] px-2 text-[10px] font-bold uppercase tracking-wider disabled:opacity-40"
+                        className="nemoto-field h-7 min-w-[108px] px-2 text-[10px] font-bold uppercase tracking-wider disabled:opacity-40"
                     >
                         <option value="paragraph">Paragraph</option>
                         <option value="heading1">Heading 1</option>
                         <option value="heading2">Heading 2</option>
                         <option value="heading3">Heading 3</option>
                         <option value="codeBlock">Code block</option>
-                    </AxiomSelect>
-                </AxiomToolbarGroup>
+                    </NemotoSelect>
+                </NemotoToolbarGroup>
 
-                <AxiomToolbarGroup aria-label="Text emphasis" surface="journal">
+                <NemotoToolbarGroup aria-label="Text emphasis" surface="journal">
                     <ToolbarButton onClick={() => editor.chain().focus().toggleBold().run()} active={editor.isActive('bold')} title="Bold (Ctrl+B)">
                         <Bold size={14} />
                     </ToolbarButton>
@@ -141,9 +141,9 @@ export default function JournalEditorToolbar({
                     <ToolbarButton onClick={() => editor.chain().focus().toggleCode().run()} active={editor.isActive('code')} title="Inline Code">
                         <Code size={14} />
                     </ToolbarButton>
-                </AxiomToolbarGroup>
+                </NemotoToolbarGroup>
 
-                <AxiomToolbarGroup aria-label="Lists" surface="journal">
+                <NemotoToolbarGroup aria-label="Lists" surface="journal">
                     <ToolbarButton onClick={() => editor.chain().focus().toggleBulletList().run()} active={editor.isActive('bulletList')} title="Bullet List">
                         <List size={14} />
                     </ToolbarButton>
@@ -153,9 +153,9 @@ export default function JournalEditorToolbar({
                     <ToolbarButton onClick={() => editor.chain().focus().toggleTaskList().run()} active={editor.isActive('taskList')} title="Checklist">
                         <CheckSquare size={14} />
                     </ToolbarButton>
-                </AxiomToolbarGroup>
+                </NemotoToolbarGroup>
 
-                <AxiomToolbarGroup aria-label="Insert and block formatting" surface="journal">
+                <NemotoToolbarGroup aria-label="Insert and block formatting" surface="journal">
                     <ToolbarButton onClick={onSetLink} active={editor.isActive('link')} title="Link (Ctrl+K)">
                         <LinkIcon size={14} />
                     </ToolbarButton>
@@ -173,10 +173,10 @@ export default function JournalEditorToolbar({
                     <ToolbarButton onClick={() => editor.chain().focus().setHorizontalRule().run()} title="Horizontal Rule">
                         <Minus size={14} />
                     </ToolbarButton>
-                </AxiomToolbarGroup>
+                </NemotoToolbarGroup>
 
                 {imageAlignment && (
-                    <AxiomToolbarGroup aria-label="Image alignment" surface="journal">
+                    <NemotoToolbarGroup aria-label="Image alignment" surface="journal">
                         <ToolbarButton
                             onClick={() => editor.chain().focus().updateAttributes('image', { alignment: 'left' }).run()}
                             active={imageAlignment === 'left'}
@@ -198,22 +198,22 @@ export default function JournalEditorToolbar({
                         >
                             <AlignRight size={14} />
                         </ToolbarButton>
-                    </AxiomToolbarGroup>
+                    </NemotoToolbarGroup>
                 )}
 
-                <AxiomToolbarGroup aria-label="Tables" surface="journal">
+                <NemotoToolbarGroup aria-label="Tables" surface="journal">
                     <ToolbarButton onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()} title="Insert Table">
                         <TableIcon size={14} />
                     </ToolbarButton>
                     {editor.isActive('table') && (
                         <div className="flex items-center gap-1">
                             <TableProperties size={13} className="text-text-faint ml-1" />
-                            <AxiomSelect
+                            <NemotoSelect
                                 value=""
                                 onChange={event => runTableAction(editor, event.target.value)}
                                 aria-label="Table actions"
                                 title="Table actions"
-                                className="axiom-field h-7 min-w-[126px] px-2 text-[10px]"
+                                className="nemoto-field h-7 min-w-[126px] px-2 text-[10px]"
                             >
                                 <option value="" disabled>Table actions…</option>
                                 <option value="row-before">Add row above</option>
@@ -224,10 +224,10 @@ export default function JournalEditorToolbar({
                                 <option value="delete-column">Delete column</option>
                                 <option value="toggle-header">Toggle header row</option>
                                 <option value="delete-table">Delete table</option>
-                            </AxiomSelect>
+                            </NemotoSelect>
                         </div>
                     )}
-                </AxiomToolbarGroup>
+                </NemotoToolbarGroup>
 
                 <div className="ml-auto flex items-center gap-2">
                     <ToolbarButton onClick={onOpenFindReplace} active={findOpen} disabled={isHtmlMode} title="Find and replace (Ctrl+F)">
@@ -245,6 +245,6 @@ export default function JournalEditorToolbar({
                     </ToolbarButton>
                 </div>
             </div>
-        </AxiomToolbar>
+        </NemotoToolbar>
     );
 }

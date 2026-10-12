@@ -30,7 +30,7 @@ describe('OwnerPickerModal', () => {
     it('reserves space for the search icon and excludes non-owner resource categories', () => {
         render(<OwnerPickerModal onClose={vi.fn()} onSelect={vi.fn()} />);
 
-        expect(screen.getByRole('searchbox', { name: 'Search owners' })).toHaveClass('axiom-field-leading-icon');
+        expect(screen.getByRole('searchbox', { name: 'Search owners' })).toHaveClass('nemoto-field-leading-icon');
         expect(screen.getByText('Process Owner')).toBeInTheDocument();
         expect(screen.queryByText('Operating Manual')).not.toBeInTheDocument();
     });

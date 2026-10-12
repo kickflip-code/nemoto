@@ -202,9 +202,9 @@ function isStructuralShape(shape: RawShape): boolean {
 }
 
 /**
- * Maps a Visio Master/Shape name and text to an Axiom NodeType
+ * Maps a Visio Master/Shape name and text to an Nemoto NodeType
  */
-function mapVisioTypeToAxiomType(
+function mapVisioTypeToNemotoType(
     masterInfo: VisioMasterInfo | null,
     shapeNameU: string,
     shapeName: string,
@@ -267,7 +267,7 @@ function mapVisioTypeToAxiomType(
 }
 
 /**
- * Parses raw page XML and builds an Axiom CanvasGraph
+ * Parses raw page XML and builds an Nemoto CanvasGraph
  */
 function parsePageToGraph(
     doc: Document,
@@ -486,7 +486,7 @@ function parsePageToGraph(
     const consumedMarkerLabelShapes = new Set<string>();
     const unlabeledMarkers = extractedShapes.filter(shape => {
         if (shape.text || isStructuralShape(shape) || isConnectorShape(shape)) return false;
-        const type = mapVisioTypeToAxiomType(shape.masterInfo, shape.nameU, shape.name, shape.text);
+        const type = mapVisioTypeToNemotoType(shape.masterInfo, shape.nameU, shape.name, shape.text);
         return type === 'start' || type === 'end';
     });
     const markerLabelCandidates = extractedShapes.filter(shape => (
@@ -550,13 +550,13 @@ function parsePageToGraph(
 
     const hasSwimlanes = swimlaneCandidates.length > 0;
     const canvasMode: CanvasMode = hasSwimlanes ? 'swimlane' : 'blank';
-    const axiomSwimlanes: Swimlane[] = [];
+    const nemotoSwimlanes: Swimlane[] = [];
 
     if (hasSwimlanes) {
         const DEFAULT_LANE_HEIGHT = 300;
         swimlaneCandidates.forEach((lane, index) => {
             const calculatedHeight = Math.max(DEFAULT_LANE_HEIGHT, Math.round(lane.h * SCALE * 0.8));
-            axiomSwimlanes.push({
+            nemotoSwimlanes.push({
                 id: lane.id,
                 label: lane.label,
                 color: PALETTE_COLORS[index % PALETTE_COLORS.length] || 'blue',
@@ -684,13 +684,13 @@ function parsePageToGraph(
             return { x, y: Math.round((maxPinY - point.y) * SCALE + 100) };
         }
         const laneIdx = swimlaneCandidates.findIndex(lane => lane.id === laneCandidate.id);
-        const cumY = axiomSwimlanes.slice(0, laneIdx).reduce((sum, lane) => sum + lane.height, 0);
+        const cumY = nemotoSwimlanes.slice(0, laneIdx).reduce((sum, lane) => sum + lane.height, 0);
         const relY = Math.max(0, Math.min(1,
             (laneCandidate.visioTop - point.y) / (laneCandidate.visioHeight || 1),
         ));
         return {
             x,
-            y: Math.round(cumY + (relY * axiomSwimlanes[laneIdx].height)),
+            y: Math.round(cumY + (relY * nemotoSwimlanes[laneIdx].height)),
         };
     }
 
@@ -707,7 +707,7 @@ function parsePageToGraph(
     }
 
     // 6. Edge generation & Floating label extraction
-    const axiomEdges: CanvasEdge[] = [];
+    const nemotoEdges: CanvasEdge[] = [];
     const floatingLabelShapes = new Set<string>();
     const consumedLabelShapes = new Set<string>();
 
@@ -780,7 +780,7 @@ function parsePageToGraph(
                     .filter(point => !isConnectorEndpoint(point, lineShape))
                     .map(toCanvasRoutingPoint);
 
-                axiomEdges.push({
+                nemotoEdges.push({
                     id: `${nodePrefix}edge-${lineId}`,
                     sourceId: `${nodePrefix}${sourceNodeId}`,
                     targetId: `${nodePrefix}${targetNodeId}`,
@@ -795,8 +795,8 @@ function parsePageToGraph(
         }
     });
 
-    // 7. Generate Axiom Nodes
-    const axiomNodes: CanvasNode[] = [];
+    // 7. Generate Nemoto Nodes
+    const nemotoNodes: CanvasNode[] = [];
 
     validShapes.forEach(shape => {
         // Only remove labels that were actually consumed by a connector. An
@@ -805,7 +805,7 @@ function parsePageToGraph(
             return;
         }
 
-        const type = mapVisioTypeToAxiomType(
+        const type = mapVisioTypeToNemotoType(
             shape.masterInfo,
             shape.nameU,
             shape.name,
@@ -834,8 +834,8 @@ function parsePageToGraph(
             if (laneCandidate) {
                 assignedLaneId = laneCandidate.id;
                 const laneIdx = swimlaneCandidates.findIndex(l => l.id === laneCandidate.id);
-                const cumY = axiomSwimlanes.slice(0, laneIdx).reduce((sum, l) => sum + l.height, 0);
-                const laneHeight = axiomSwimlanes[laneIdx].height;
+                const cumY = nemotoSwimlanes.slice(0, laneIdx).reduce((sum, l) => sum + l.height, 0);
+                const laneHeight = nemotoSwimlanes[laneIdx].height;
 
                 // Relative position within Visio swimlane (0 at top, 1 at bottom)
                 const relY = Math.max(0.1, Math.min(0.9, (laneCandidate.visioTop - shape.y) / (laneCandidate.visioHeight || 1)));
@@ -857,7 +857,7 @@ function parsePageToGraph(
             else label = shape.name || 'Unnamed';
         }
 
-        axiomNodes.push({
+        nemotoNodes.push({
             id: `${nodePrefix}${shape.id}`,
             type,
             label,
@@ -870,22 +870,22 @@ function parsePageToGraph(
     });
 
     // Normalize coordinates in blank mode
-    if (!hasSwimlanes && axiomNodes.length > 0) {
+    if (!hasSwimlanes && nemotoNodes.length > 0) {
         let minX = Infinity;
         let minY = Infinity;
-        axiomNodes.forEach(n => {
+        nemotoNodes.forEach(n => {
             if (n.position.x < minX) minX = n.position.x;
             if (n.position.y < minY) minY = n.position.y;
         });
-        axiomNodes.forEach(n => {
+        nemotoNodes.forEach(n => {
             n.position.x = (n.position.x - minX) + 100;
             n.position.y = (n.position.y - minY) + 100;
         });
     }
 
     // 8. Assign Smart Handles to Edges based on relative node positions
-    const nodeById = new Map<string, CanvasNode>(axiomNodes.map(n => [n.id, n]));
-    axiomEdges.forEach(edge => {
+    const nodeById = new Map<string, CanvasNode>(nemotoNodes.map(n => [n.id, n]));
+    nemotoEdges.forEach(edge => {
         const src = nodeById.get(edge.sourceId);
         const tgt = nodeById.get(edge.targetId);
         if (src && tgt) {
@@ -897,9 +897,9 @@ function parsePageToGraph(
 
     return {
         graph: {
-            nodes: axiomNodes,
-            edges: axiomEdges,
-            swimlanes: axiomSwimlanes,
+            nodes: nemotoNodes,
+            edges: nemotoEdges,
+            swimlanes: nemotoSwimlanes,
             mode: canvasMode,
         },
         containerTitle: detectedContainerTitle,

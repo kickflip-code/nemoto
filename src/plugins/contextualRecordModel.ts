@@ -1,10 +1,10 @@
 import type { PluginCollectionListView } from './contributionSchemas';
 import type { PluginCollectionItem } from './collectionStorage';
 import { emptyRecordDescription, type RecordContext } from './contextualRecords';
-import type { AxiomPluginApi } from './publicApi';
+import type { NemotoPluginApi } from './publicApi';
 import { coreEntityReference, type UniversalEntityReference } from './universalReference';
 
-export function resolveRecordContext(api: AxiomPluginApi, reference: UniversalEntityReference): RecordContext | null {
+export function resolveRecordContext(api: NemotoPluginApi, reference: UniversalEntityReference): RecordContext | null {
     const entity = api.read.getEntity(reference);
     if (!entity) return null;
     const ref = entity.reference;

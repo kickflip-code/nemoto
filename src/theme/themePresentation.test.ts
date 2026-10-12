@@ -54,7 +54,7 @@ describe('Core-owned theme presentation', () => {
       'data-theme-surface-style': 'translucent',
       'data-theme-node-style': 'graphic',
     });
-    expect(presentation.variables['--font-family-node']).toContain('AxiomTheme-org-example-presentation');
+    expect(presentation.variables['--font-family-node']).toContain('NemotoTheme-org-example-presentation');
     expect(presentation.variables).not.toHaveProperty('futureRecipe');
     expect(createThemeFontFaceCss(presentation)).toContain("format('woff2')");
     expect(createThemeFontFaceCss(presentation)).toContain('font-weight: 400');

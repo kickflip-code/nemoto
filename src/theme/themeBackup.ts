@@ -1,13 +1,13 @@
 import type { ThemeConfig } from '../types';
 import type { BuiltInThemeId, ThemePresetId } from './themeContract';
 import { verifyThemeAssetLibrary } from './themeAssets';
-import { parseThemeDocument, parseThemeFile, toThemeFile, type AxiomThemeFile } from './themeFiles';
+import { parseThemeDocument, parseThemeFile, toThemeFile, type NemotoThemeFile } from './themeFiles';
 import { getThemePresetIdForBuiltInTheme, isThemePresetId } from './presets';
 
 export const APPEARANCE_BACKUP_SCHEMA = 'axiom.appearance';
 export const APPEARANCE_BACKUP_VERSION = 1;
 
-export interface AxiomAppearanceBackup {
+export interface NemotoAppearanceBackup {
   schema: typeof APPEARANCE_BACKUP_SCHEMA;
   version: typeof APPEARANCE_BACKUP_VERSION;
   activeTheme:
@@ -18,7 +18,7 @@ export interface AxiomAppearanceBackup {
     | {
       kind: 'custom';
       id: string;
-      document: AxiomThemeFile;
+      document: NemotoThemeFile;
     };
 }
 
@@ -74,7 +74,7 @@ export const createAppearanceBackup = ({
   theme: BuiltInThemeId;
   activeThemeId: string | null;
   customThemes: ThemeConfig[];
-}): AxiomAppearanceBackup => {
+}): NemotoAppearanceBackup => {
   if (activeThemeId) {
     const activeTheme = customThemes.find(candidate => candidate.id === activeThemeId);
     if (!activeTheme) {

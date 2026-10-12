@@ -62,7 +62,7 @@ describe('plugin diagnostic bundle export boundary', () => {
         expect(prepared.json.endsWith('\n')).toBe(true);
         expect(prepared.byteLength).toBe(new TextEncoder().encode(prepared.json).byteLength);
         expect(prepared.suggestedFileName).toBe(
-            'axiom-plugin-diagnostics-2026-08-25T08-02-03-456Z.json',
+            'nemoto-plugin-diagnostics-2026-08-25T08-02-03-456Z.json',
         );
         expect(prepared).toMatchObject({ packageCount: 1, entryCount: 1, schemaVersion: 1 });
         expect(prepared.json).not.toContain('org.example.private-plugin');

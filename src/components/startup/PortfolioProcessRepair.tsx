@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { AxiomButton } from '../ui';
+import { NemotoButton } from '../ui';
 import { loadPortfolioForRepair, repairPortfolioProcesses, type PortfolioRepairSnapshot } from '../../lib/tauri';
 import { describeRepairError, inspectRepairProcesses, prepareProcessRepair } from '../../lib/portfolioRepair';
 import { formatError } from '../../lib/errorUtils';
@@ -50,11 +50,11 @@ export default function PortfolioProcessRepair({ onRepaired }: { onRepaired: () 
         {backupPath ? <>
             <p role="status" className="text-sm">Selected processes removed. The original file is preserved at:</p>
             <p className="my-3 break-all font-mono text-xs">{backupPath}</p>
-            <AxiomButton variant="primary" onClick={onRepaired}>Open repaired portfolio</AxiomButton>
+            <NemotoButton variant="primary" onClick={onRepaired}>Open repaired portfolio</NemotoButton>
         </> : <>
-            <AxiomButton disabled={busy} onClick={() => { void inspect(); }}>
+            <NemotoButton disabled={busy} onClick={() => { void inspect(); }}>
                 {source ? 'Reload process list' : 'Manage damaged processes'}
-            </AxiomButton>
+            </NemotoButton>
             {source !== undefined && <>
                 <p className="my-3 text-sm text-text-muted">Read the process details and select processes to remove. Nothing changes until you choose Remove selected processes. Resources and Journal are kept, including links to removed processes. A separate original file is preserved before saving.</p>
                 <fieldset disabled={busy} className="space-y-3">
@@ -74,9 +74,9 @@ export default function PortfolioProcessRepair({ onRepaired }: { onRepaired: () 
                 <div role="status" className="my-3 whitespace-pre-wrap break-words text-sm">
                     {preview?.error ? `Remaining data cannot open yet:\n${preview.error}` : `${rows.length - selected.length} process(es) will remain. Remaining data passes validation.${preview?.result?.warnings.length ? ` ${preview.result.warnings.length} reference warning(s) remain; Journal content is preserved.` : ''}`}
                 </div>
-                <AxiomButton variant="danger" disabled={busy || !selected.length || !preview?.result} onClick={() => { void repair(); }}>
+                <NemotoButton variant="danger" disabled={busy || !selected.length || !preview?.result} onClick={() => { void repair(); }}>
                     Remove selected processes ({selected.length})
-                </AxiomButton>
+                </NemotoButton>
             </>}
         </>}
         {error && <p role="alert" className="mt-3 whitespace-pre-wrap break-words text-sm">{error}</p>}

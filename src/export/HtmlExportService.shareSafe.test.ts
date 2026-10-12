@@ -17,7 +17,7 @@ const originalReloadThemeLibrary = useSettingsStore.getState().reloadThemeLibrar
 
 function decodeEmbeddedPayload(html: string): any {
     const base64 = html.match(
-        /<script id="axiom-data" type="application\/json">([^<]+)<\/script>/,
+        /<script id="nemoto-data" type="application\/json">([^<]+)<\/script>/,
     )?.[1];
     if (!base64) throw new Error('Embedded Axiom payload not found');
 

@@ -4,7 +4,7 @@ import { loadBundledViewerTemplate } from './viewerTemplate';
 const validTemplate = `<!DOCTYPE html>
 <html>
   <head><title>Nemoto Viewer</title></head>
-  <body><script id="axiom-data"><!--AXIOM_DATA--></script></body>
+  <body><script id="nemoto-data"><!--NEMOTO_DATA--></script></body>
 </html>`;
 
 const createResponse = (body: string, status = 200) => ({
@@ -17,7 +17,7 @@ describe('bundled offline viewer template', () => {
     it('uses a self-contained viewer template during development exports', async () => {
         const template = await loadBundledViewerTemplate();
 
-        expect(template).toContain('<script id="axiom-data" type="application/json"><!--AXIOM_DATA--></script>');
+        expect(template).toContain('<script id="nemoto-data" type="application/json"><!--NEMOTO_DATA--></script>');
         expect(template).not.toMatch(/<script\b[^>]*\bsrc\s*=|<link\b[^>]*\bhref\s*=|\/@vite\/|html-proxy/i);
     });
 
@@ -32,11 +32,11 @@ describe('bundled offline viewer template', () => {
     });
 
     it('rejects a template whose data injection marker is missing', async () => {
-        const invalidTemplate = validTemplate.replace('<!--AXIOM_DATA-->', '');
+        const invalidTemplate = validTemplate.replace('<!--NEMOTO_DATA-->', '');
         const fetchTemplate = vi.fn().mockResolvedValue(createResponse(invalidTemplate));
 
         await expect(loadBundledViewerTemplate(fetchTemplate)).rejects.toThrow(
-            'Bundled offline viewer template is invalid: missing <!--AXIOM_DATA-->.',
+            'Bundled offline viewer template is invalid: missing <!--NEMOTO_DATA-->.',
         );
     });
 

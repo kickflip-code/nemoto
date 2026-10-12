@@ -11,7 +11,7 @@ const nativeExport = vi.hoisted(() => ({ save: vi.fn(), write: vi.fn() }));
 vi.mock('@tauri-apps/plugin-dialog', () => ({ save: nativeExport.save }));
 vi.mock('../../lib/tauri', async importOriginal => ({
     ...await importOriginal<typeof import('../../lib/tauri')>(),
-    writeAxiomFileAtomic: nativeExport.write,
+    writeNemotoFileAtomic: nativeExport.write,
 }));
 
 describe('Process export through the real service', () => {

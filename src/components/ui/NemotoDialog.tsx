@@ -24,9 +24,9 @@ const FOCUSABLE_SELECTOR = [
 ].join(',');
 
 /** Modal depth follows the React tree even when a dialog uses a portal. */
-export const AxiomDialogContext = createContext(0);
+export const NemotoDialogContext = createContext(0);
 
-export interface AxiomDialogProps {
+export interface NemotoDialogProps {
     'aria-describedby'?: string;
     'aria-labelledby': string;
     children: ReactNode;
@@ -53,7 +53,7 @@ const getFocusableElements = (container: HTMLElement): HTMLElement[] => (
         })
 );
 
-export function AxiomDialog({
+export function NemotoDialog({
     'aria-describedby': ariaDescribedBy,
     'aria-labelledby': ariaLabelledBy,
     children,
@@ -63,8 +63,8 @@ export function AxiomDialog({
     onClose,
     panelClassName,
     rootClassName = 'z-[10100]',
-}: AxiomDialogProps) {
-    const dialogDepth = useContext(AxiomDialogContext) + 1;
+}: NemotoDialogProps) {
+    const dialogDepth = useContext(NemotoDialogContext) + 1;
     const panelRef = useRef<HTMLDivElement>(null);
     const previouslyFocusedRef = useRef<HTMLElement | null>(
         document.activeElement instanceof HTMLElement ? document.activeElement : null,
@@ -148,7 +148,7 @@ export function AxiomDialog({
     };
 
     return createPortal(
-        <AxiomDialogContext.Provider value={dialogDepth}>
+        <NemotoDialogContext.Provider value={dialogDepth}>
         <motion.div
             {...dialogOverlayMotion}
             style={dialogDepth > 1 ? { zIndex: 10100 + 200 * (dialogDepth - 1) } : undefined}
@@ -160,7 +160,7 @@ export function AxiomDialog({
         >
             <div
                 aria-hidden="true"
-                className="axiom-dialog-backdrop absolute inset-0"
+                className="nemoto-dialog-backdrop absolute inset-0"
                 onClick={closeOnBackdrop ? onClose : undefined}
             />
             <motion.div
@@ -169,32 +169,32 @@ export function AxiomDialog({
                 aria-describedby={ariaDescribedBy}
                 aria-labelledby={ariaLabelledBy}
                 aria-modal="true"
-                className={clsx('axiom-dialog-panel relative', panelClassName)}
+                className={clsx('nemoto-dialog-panel relative', panelClassName)}
                 role="dialog"
                 tabIndex={-1}
             >
                 {children}
             </motion.div>
         </motion.div>
-        </AxiomDialogContext.Provider>,
+        </NemotoDialogContext.Provider>,
         document.body,
     );
 }
 
-export const AxiomDialogHeader = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
-    function AxiomDialogHeader({ className, ...props }, ref) {
-        return <header ref={ref} className={clsx('axiom-dialog-header', className)} {...props} />;
+export const NemotoDialogHeader = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
+    function NemotoDialogHeader({ className, ...props }, ref) {
+        return <header ref={ref} className={clsx('nemoto-dialog-header', className)} {...props} />;
     },
 );
 
-export const AxiomDialogBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-    function AxiomDialogBody({ className, ...props }, ref) {
-        return <div ref={ref} className={clsx('axiom-dialog-body', className)} {...props} />;
+export const NemotoDialogBody = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
+    function NemotoDialogBody({ className, ...props }, ref) {
+        return <div ref={ref} className={clsx('nemoto-dialog-body', className)} {...props} />;
     },
 );
 
-export const AxiomDialogFooter = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
-    function AxiomDialogFooter({ className, ...props }, ref) {
-        return <footer ref={ref} className={clsx('axiom-dialog-footer', className)} {...props} />;
+export const NemotoDialogFooter = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
+    function NemotoDialogFooter({ className, ...props }, ref) {
+        return <footer ref={ref} className={clsx('nemoto-dialog-footer', className)} {...props} />;
     },
 );

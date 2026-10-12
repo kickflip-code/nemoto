@@ -6,12 +6,12 @@ import { generateId } from '../../lib/id';
 import { getIconComponent } from '../../lib/iconMap';
 import type { Asset, AssetCategory } from '../../types';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogFooter,
-    AxiomInput,
-    AxiomSelect,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogFooter,
+    NemotoInput,
+    NemotoSelect,
 } from '../ui';
 
 interface OwnerPickerModalProps {
@@ -93,23 +93,23 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
     };
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-labelledby="owner-picker-title"
             onClose={onClose}
             panelClassName="w-[500px] max-h-[600px] flex flex-col overflow-hidden"
         >
-            <div className="axiom-dialog-header h-12 border-b flex items-center justify-between px-4 shrink-0">
+            <div className="nemoto-dialog-header h-12 border-b flex items-center justify-between px-4 shrink-0">
                 <h2 id="owner-picker-title" className="font-bold text-sm text-text-main">
                     {isCreating ? 'Create Resource' : 'Select Owner'}
                 </h2>
-                <AxiomButton icon size="sm" variant="ghost" onClick={onClose} aria-label="Close owner picker">
+                <NemotoButton icon size="sm" variant="ghost" onClick={onClose} aria-label="Close owner picker">
                     <X size={16} />
-                </AxiomButton>
+                </NemotoButton>
             </div>
 
             {isCreating ? (
                 <form className="flex min-h-0 flex-1 flex-col" onSubmit={handleCreateResource}>
-                    <AxiomDialogBody className="flex-1 space-y-4 overflow-y-auto p-4">
+                    <NemotoDialogBody className="flex-1 space-y-4 overflow-y-auto p-4">
                         <p className="text-xs leading-relaxed text-text-muted">
                             Add the missing resource and use it as the process owner immediately.
                         </p>
@@ -118,7 +118,7 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                             <label htmlFor="owner-resource-category" className="text-[10px] font-bold uppercase tracking-wider text-text-faint">
                                 Category
                             </label>
-                            <AxiomSelect
+                            <NemotoSelect
                                 id="owner-resource-category"
                                 controlSize="sm"
                                 className="w-full"
@@ -129,7 +129,7 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                                 {ownerCategories.map(category => (
                                     <option key={category.id} value={category.id}>{category.label}</option>
                                 ))}
-                            </AxiomSelect>
+                            </NemotoSelect>
                             {ownerCategories.length === 0 && (
                                 <p className="text-[10px] leading-relaxed text-text-faint">
                                     Create a resource category in Portfolio before adding an owner.
@@ -141,7 +141,7 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                             <label htmlFor="owner-resource-name" className="text-[10px] font-bold uppercase tracking-wider text-text-faint">
                                 Resource Name
                             </label>
-                            <AxiomInput
+                            <NemotoInput
                                 id="owner-resource-name"
                                 controlSize="sm"
                                 className="w-full"
@@ -151,32 +151,32 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                                 autoFocus
                             />
                         </div>
-                    </AxiomDialogBody>
+                    </NemotoDialogBody>
 
-                    <AxiomDialogFooter className="flex justify-end gap-2 border-t px-4 py-3">
-                        <AxiomButton size="sm" onClick={() => setIsCreating(false)}>
+                    <NemotoDialogFooter className="flex justify-end gap-2 border-t px-4 py-3">
+                        <NemotoButton size="sm" onClick={() => setIsCreating(false)}>
                             Back
-                        </AxiomButton>
-                        <AxiomButton
+                        </NemotoButton>
+                        <NemotoButton
                             size="sm"
                             variant="primary"
                             type="submit"
                             disabled={!newResourceName.trim() || !newResourceCategory}
                         >
                             Create Resource
-                        </AxiomButton>
-                    </AxiomDialogFooter>
+                        </NemotoButton>
+                    </NemotoDialogFooter>
                 </form>
             ) : (
                 <>
-                    <div className="axiom-dialog-header border-b p-4 shrink-0">
+                    <div className="nemoto-dialog-header border-b p-4 shrink-0">
                         <div className="relative">
                             <Search
                                 size={14}
                                 className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
                                 aria-hidden="true"
                             />
-                            <AxiomInput
+                            <NemotoInput
                                 aria-label="Search owners"
                                 autoFocus
                                 type="search"
@@ -184,12 +184,12 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                                 value={search}
                                 onChange={event => setSearch(event.target.value)}
                                 controlSize="sm"
-                                className="axiom-field-leading-icon w-full text-sm"
+                                className="nemoto-field-leading-icon w-full text-sm"
                             />
                         </div>
                     </div>
 
-                    <AxiomDialogBody className="flex-1 overflow-y-auto p-2 custom-scrollbar">
+                    <NemotoDialogBody className="flex-1 overflow-y-auto p-2 custom-scrollbar">
                         <div className="space-y-1">
                             {currentOwnerId && !search && (
                                 <button
@@ -198,9 +198,9 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                                         onSelect(null);
                                         onClose();
                                     }}
-                                    className="axiom-dialog-row axiom-dialog-row-danger mb-2 flex w-full items-center gap-3 p-3 text-left"
+                                    className="nemoto-dialog-row nemoto-dialog-row-danger mb-2 flex w-full items-center gap-3 p-3 text-left"
                                 >
-                                    <span className="axiom-dialog-icon-danger flex h-8 w-8 items-center justify-center rounded">
+                                    <span className="nemoto-dialog-icon-danger flex h-8 w-8 items-center justify-center rounded">
                                         <Trash2 size={16} />
                                     </span>
                                     <span className="flex-1 text-sm font-medium">Remove Current Owner</span>
@@ -220,9 +220,9 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                                             onSelect(item.id);
                                             onClose();
                                         }}
-                                        className={`axiom-dialog-row group flex w-full items-center gap-3 p-3 text-left ${isSelected ? 'axiom-dialog-row-selected' : ''}`}
+                                        className={`nemoto-dialog-row group flex w-full items-center gap-3 p-3 text-left ${isSelected ? 'nemoto-dialog-row-selected' : ''}`}
                                     >
-                                        <span className="axiom-dialog-row-icon flex h-8 w-8 items-center justify-center transition-colors">
+                                        <span className="nemoto-dialog-row-icon flex h-8 w-8 items-center justify-center transition-colors">
                                             <IconComponent size={16} />
                                         </span>
                                         <span className="min-w-0 flex-1">
@@ -247,9 +247,9 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                             <button
                                 type="button"
                                 onClick={beginCreatingResource}
-                                className="axiom-dialog-row mt-2 flex w-full items-center gap-3 border-t p-3 text-left text-accent-primary"
+                                className="nemoto-dialog-row mt-2 flex w-full items-center gap-3 border-t p-3 text-left text-accent-primary"
                             >
-                                <span className="axiom-dialog-row-icon flex h-8 w-8 items-center justify-center">
+                                <span className="nemoto-dialog-row-icon flex h-8 w-8 items-center justify-center">
                                     <Plus size={16} />
                                 </span>
                                 <span className="min-w-0 flex-1">
@@ -260,9 +260,9 @@ export default function OwnerPickerModal({ onClose, onSelect, currentOwnerId }: 
                                 </span>
                             </button>
                         </div>
-                    </AxiomDialogBody>
+                    </NemotoDialogBody>
                 </>
             )}
-        </AxiomDialog>
+        </NemotoDialog>
     );
 }

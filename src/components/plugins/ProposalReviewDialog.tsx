@@ -25,11 +25,11 @@ import {
 import { usePortfolioStore } from '../../stores/usePortfolioStore';
 import { useProposalReviewStore, type ProposalReviewEntry } from '../../stores/useProposalReviewStore';
 import {
-    AxiomButton,
-    AxiomDialog,
-    AxiomDialogBody,
-    AxiomDialogFooter,
-    AxiomDialogHeader,
+    NemotoButton,
+    NemotoDialog,
+    NemotoDialogBody,
+    NemotoDialogFooter,
+    NemotoDialogHeader,
 } from '../ui';
 
 const statusPresentation = {
@@ -205,14 +205,14 @@ export default function ProposalReviewDialog() {
     };
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-describedby="proposal-review-description"
             aria-labelledby="proposal-review-title"
             closeOnBackdrop={false}
             onClose={closeReview}
             panelClassName="flex h-[82vh] w-[92vw] max-w-6xl flex-col overflow-hidden"
         >
-            <AxiomDialogHeader className="flex h-16 shrink-0 items-center justify-between border-b px-5">
+            <NemotoDialogHeader className="flex h-16 shrink-0 items-center justify-between border-b px-5">
                 <div className="flex min-w-0 items-center gap-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-accent-primary/20 bg-accent-primary/10 text-accent-primary">
                         <ShieldCheck size={19} />
@@ -224,12 +224,12 @@ export default function ProposalReviewDialog() {
                         </p>
                     </div>
                 </div>
-                <AxiomButton aria-label="Close proposal review" icon variant="ghost" onClick={closeReview}>
+                <NemotoButton aria-label="Close proposal review" icon variant="ghost" onClick={closeReview}>
                     <X size={18} />
-                </AxiomButton>
-            </AxiomDialogHeader>
+                </NemotoButton>
+            </NemotoDialogHeader>
 
-            <AxiomDialogBody className="grid min-h-0 flex-1 grid-cols-[280px_minmax(0,1fr)] overflow-hidden p-0">
+            <NemotoDialogBody className="grid min-h-0 flex-1 grid-cols-[280px_minmax(0,1fr)] overflow-hidden p-0">
                 <aside className="flex min-h-0 flex-col border-r border-app-border bg-app-sidebar">
                     <div className="flex items-center justify-between border-b border-app-border px-4 py-3">
                         <div>
@@ -237,7 +237,7 @@ export default function ProposalReviewDialog() {
                             <div className="mt-0.5 text-[11px] text-text-muted">{pendingCount} pending · {resolvedCount} resolved</div>
                         </div>
                         {resolvedCount > 0 && (
-                            <AxiomButton size="sm" variant="ghost" onClick={clearResolved}>Clear</AxiomButton>
+                            <NemotoButton size="sm" variant="ghost" onClick={clearResolved}>Clear</NemotoButton>
                         )}
                     </div>
                     <div className="min-h-0 flex-1 space-y-2 overflow-y-auto p-3">
@@ -309,14 +309,14 @@ export default function ProposalReviewDialog() {
                                                 : 'Resolved in this session'}
                                         </div>
                                         {canUndoSelected && (
-                                            <AxiomButton size="sm" className="mt-3" onClick={undoAccepted}>
+                                            <NemotoButton size="sm" className="mt-3" onClick={undoAccepted}>
                                                 Undo accepted change
-                                            </AxiomButton>
+                                            </NemotoButton>
                                         )}
                                         {canRedoSelected && (
-                                            <AxiomButton size="sm" className="mt-3" onClick={redoAccepted}>
+                                            <NemotoButton size="sm" className="mt-3" onClick={redoAccepted}>
                                                 Reapply accepted change
-                                            </AxiomButton>
+                                            </NemotoButton>
                                         )}
                                     </div>
                                 </div>
@@ -429,28 +429,28 @@ export default function ProposalReviewDialog() {
                         </div>
                     )}
                 </section>
-            </AxiomDialogBody>
+            </NemotoDialogBody>
 
-            <AxiomDialogFooter className="flex min-h-16 shrink-0 items-center justify-between border-t px-5 py-3">
+            <NemotoDialogFooter className="flex min-h-16 shrink-0 items-center justify-between border-t px-5 py-3">
                 <div className="text-[10px] text-text-faint">
                     Review state is session-only. Accepted changes are saved with the portfolio.
                 </div>
                 <div className="flex items-center gap-2">
-                    <AxiomButton onClick={closeReview}>Close</AxiomButton>
+                    <NemotoButton onClick={closeReview}>Close</NemotoButton>
                     {selected?.status === 'pending' && (
                         <>
-                            <AxiomButton variant="danger" onClick={rejectSelected}>Reject</AxiomButton>
-                            <AxiomButton
+                            <NemotoButton variant="danger" onClick={rejectSelected}>Reject</NemotoButton>
+                            <NemotoButton
                                 variant="primary"
                                 disabled={!preview?.valid}
                                 onClick={acceptSelected}
                             >
                                 <ShieldCheck size={15} /> Accept proposal
-                            </AxiomButton>
+                            </NemotoButton>
                         </>
                     )}
                 </div>
-            </AxiomDialogFooter>
-        </AxiomDialog>
+            </NemotoDialogFooter>
+        </NemotoDialog>
     );
 }

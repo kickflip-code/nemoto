@@ -13,7 +13,7 @@ describe('EntityPickerModal', () => {
         render(<EntityPickerModal onClose={vi.fn()} onSelect={vi.fn()} />);
 
         const search = screen.getByRole('searchbox', { name: 'Search entities' });
-        expect(search).toHaveClass('axiom-field-leading-icon');
+        expect(search).toHaveClass('nemoto-field-leading-icon');
         expect(search).toHaveAttribute('placeholder', 'Search entities...');
     });
 

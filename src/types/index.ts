@@ -148,7 +148,7 @@ export interface CanvasEdge {
     routingPoints?: Position[] | null;
     /** User-edited orthogonal bends; endpoint leads follow moved nodes. */
     routingManual?: boolean;
-    /** Semantic Axiom route that is recalculated when canvas nodes move. */
+    /** Semantic Nemoto route that is recalculated when canvas nodes move. */
     routingMode?: EdgeRoutingMode | null;
     /** Distance in canvas pixels between an outside route and the outermost node. */
     routingMargin?: number | null;
@@ -180,7 +180,7 @@ export interface CanvasGraph {
 
 // --- LEGACY ROOT (for backwards compatibility) ---
 
-export interface AxiomProject {
+export interface NemotoProject {
     meta: ProjectMeta;
     assets: Asset[];
     graph: CanvasGraph;
@@ -231,7 +231,7 @@ export interface ThemeConfig {
     /**
      * Lossless portable document backing an installed theme. Runtime consumers
      * use the projected fields above; file I/O patches known paths here so
-     * fields from newer Axiom/plugin versions are not discarded.
+     * fields from newer Nemoto/plugin versions are not discarded.
      */
     sourceDocument?: Record<string, unknown>;
 }

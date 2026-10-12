@@ -11,7 +11,7 @@ import { readPluginCollection } from '../../plugins/collectionStorage';
 import { PluginViewContributionSchema, type PluginCollectionListView } from '../../plugins/contributionSchemas';
 import type { InstalledPluginDocument } from '../../plugins/installedPackages';
 import type { PortfolioPluginRequirement } from '../../plugins/portfolioData';
-import { AXIOM_PLUGIN_API_VERSION } from '../../plugins/activation';
+import { NEMOTO_PLUGIN_API_VERSION } from '../../plugins/activation';
 import { satisfiesVersionRange } from '../../plugins/versionRange';
 import type { UniversalEntityReference } from '../../plugins/universalReference';
 import { coreEntityReference } from '../../plugins/universalReference';
@@ -92,10 +92,10 @@ const activeDocument = (
 export function resolveCanvasPluginActions(
     installed: readonly InstalledPluginDocument[],
     requirements: readonly PortfolioPluginRequirement[],
-    hostApiVersion = AXIOM_PLUGIN_API_VERSION,
+    hostApiVersion = NEMOTO_PLUGIN_API_VERSION,
 ): CanvasPluginAction[] {
     const actions: CanvasPluginAction[] = [];
-    const activeViews = hostApiVersion === AXIOM_PLUGIN_API_VERSION
+    const activeViews = hostApiVersion === NEMOTO_PLUGIN_API_VERSION
         ? createActivePluginRuntime(installed, requirements).content.list('views')
         : null;
     for (const document of installed) {

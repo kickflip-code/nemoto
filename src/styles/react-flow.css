@@ -1,5 +1,5 @@
 /* Focus must not scroll the hidden canvas surface behind its transform-based camera. */
-.axiom-division-canvas {
+.nemoto-division-canvas {
   overflow: clip !important;
 }
 
@@ -8,12 +8,12 @@
 
 /* Override the library's outline reset and the edge's inline paint only while
    keyboard focus is visible; selection and persisted colors remain separate. */
-.axiom-process-canvas .react-flow__node:focus-visible {
+.nemoto-process-canvas .react-flow__node:focus-visible {
     outline: 2px solid var(--color-accent-primary);
     outline-offset: 4px;
 }
 
-.axiom-process-canvas .react-flow__edge:focus-visible .react-flow__edge-path {
+.nemoto-process-canvas .react-flow__edge:focus-visible .react-flow__edge-path {
     stroke: var(--color-accent-primary) !important;
     stroke-width: 3px !important;
 }
@@ -347,12 +347,12 @@
 
 /* Selected SVG edges use z-index 10. Their invisible hit path must not cover
    the HTML labels and segment controls above it. The layer itself stays inert. */
-.axiom-process-canvas .react-flow__edgelabel-renderer {
+.nemoto-process-canvas .react-flow__edgelabel-renderer {
   z-index: 20;
 }
 
 /* Unified divisions keep the original swimlane header surface and theme tokens. */
-.axiom-division-heading {
+.nemoto-division-heading {
   position: absolute;
   display: flex;
   align-items: center;
@@ -361,8 +361,8 @@
   overflow: hidden;
   color: var(--color-text-main);
 }
-button.axiom-division-heading { cursor: pointer; }
-.axiom-division-column {
+button.nemoto-division-heading { cursor: pointer; }
+.nemoto-division-column {
   justify-content: center;
   padding: 10px 18px;
   border: 1px solid color-mix(in srgb, var(--color-app-border) 65%, transparent);
@@ -372,7 +372,7 @@ button.axiom-division-heading { cursor: pointer; }
   letter-spacing: .16em;
   text-transform: uppercase;
 }
-.axiom-division-column .axiom-division-accent {
+.nemoto-division-column .nemoto-division-accent {
   position: absolute;
   top: 0;
   left: 0;
@@ -381,8 +381,8 @@ button.axiom-division-heading { cursor: pointer; }
   background: var(--division-accent);
   opacity: .8;
 }
-.axiom-division-label { position: relative; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.axiom-division-row {
+.nemoto-division-label { position: relative; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nemoto-division-row {
   padding: 3px 9px;
   gap: 7px;
   border: 0;
@@ -392,7 +392,7 @@ button.axiom-division-heading { cursor: pointer; }
   font-weight: 600;
   letter-spacing: .01em;
 }
-.axiom-division-row .axiom-division-accent {
+.nemoto-division-row .nemoto-division-accent {
   width: 3px;
   height: 12px;
   flex-shrink: 0;
@@ -400,9 +400,9 @@ button.axiom-division-heading { cursor: pointer; }
   opacity: .65;
   border-radius: 2px;
 }
-.axiom-division-line { position: absolute; background: color-mix(in srgb, var(--color-text-muted) 25%, transparent); }
-.axiom-division-band { position: absolute; left: 0; background: color-mix(in srgb, var(--color-text-main) 2.5%, transparent); }
-.axiom-division-add {
+.nemoto-division-line { position: absolute; background: color-mix(in srgb, var(--color-text-muted) 25%, transparent); }
+.nemoto-division-band { position: absolute; left: 0; background: color-mix(in srgb, var(--color-text-main) 2.5%, transparent); }
+.nemoto-division-add {
   position: absolute;
   display: flex;
   align-items: center;
@@ -414,43 +414,43 @@ button.axiom-division-heading { cursor: pointer; }
   background: transparent;
   color: var(--color-text-muted);
 }
-button.axiom-division-heading:hover, .axiom-division-add:hover { background-color: var(--color-app-hover); color: var(--color-text-main); }
-button.axiom-division-heading:focus-visible, .axiom-division-add:focus-visible { outline: 2px solid var(--color-accent-primary); outline-offset: 2px; }
-[data-theme='hard'] .axiom-division-column .axiom-division-accent { height: 100%; opacity: .85; }
-[data-theme='hard'] .axiom-division-column .axiom-division-label { color: #1a1b26; }
-[data-theme='hard'] .axiom-division-row { border-radius: 0; }
-.axiom-division-toolbar { min-height: 42px; }
-.axiom-division-resizer { position: absolute; z-index: 5; touch-action: none; outline: none; }
-.axiom-division-resizer.is-column { cursor: col-resize; }
-.axiom-division-resizer.is-row { cursor: row-resize; }
-.axiom-division-resizer:hover, .axiom-division-resizer:focus-visible {
+button.nemoto-division-heading:hover, .nemoto-division-add:hover { background-color: var(--color-app-hover); color: var(--color-text-main); }
+button.nemoto-division-heading:focus-visible, .nemoto-division-add:focus-visible { outline: 2px solid var(--color-accent-primary); outline-offset: 2px; }
+[data-theme='hard'] .nemoto-division-column .nemoto-division-accent { height: 100%; opacity: .85; }
+[data-theme='hard'] .nemoto-division-column .nemoto-division-label { color: #1a1b26; }
+[data-theme='hard'] .nemoto-division-row { border-radius: 0; }
+.nemoto-division-toolbar { min-height: 42px; }
+.nemoto-division-resizer { position: absolute; z-index: 5; touch-action: none; outline: none; }
+.nemoto-division-resizer.is-column { cursor: col-resize; }
+.nemoto-division-resizer.is-row { cursor: row-resize; }
+.nemoto-division-resizer:hover, .nemoto-division-resizer:focus-visible {
   background: color-mix(in srgb, var(--color-accent-primary) 30%, transparent);
 }
-.axiom-division-name { z-index: 6; text-align: inherit; text-transform: none; outline: 2px solid var(--color-accent-primary); }
+.nemoto-division-name { z-index: 6; text-align: inherit; text-transform: none; outline: 2px solid var(--color-accent-primary); }
 
 /* Polar's general button treatment must not turn row labels into raised cards. */
-.react-flow__node[data-id="swimlane-stack"] .axiom-division-row {
+.react-flow__node[data-id="swimlane-stack"] .nemoto-division-row {
   box-shadow: none !important;
   background: transparent !important;
   border: 0 !important;
   border-radius: 0 !important;
 }
-.react-flow__node[data-id="swimlane-stack"] .axiom-division-column { border-radius: 0 !important; }
-.react-flow__node[data-id="swimlane-stack"] .axiom-division-add {
+.react-flow__node[data-id="swimlane-stack"] .nemoto-division-column { border-radius: 0 !important; }
+.react-flow__node[data-id="swimlane-stack"] .nemoto-division-add {
   box-shadow: none !important;
   background: transparent !important;
 }
-[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .axiom-division-column {
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .nemoto-division-column {
   border-radius: 0 !important;
 }
-[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .axiom-division-column .axiom-division-accent {
+[data-theme='hard'] .react-flow__node[data-id="swimlane-stack"] .nemoto-division-column .nemoto-division-accent {
   position: absolute;
   z-index: 0;
 }
 
 /* Brutalist divisions must read as structure above its fine square grid. */
-[data-theme='hard'] .axiom-division-line {
+[data-theme='hard'] .nemoto-division-line {
   background: color-mix(in srgb, var(--color-text-main) 65%, transparent);
 }
-[data-theme='hard'] .axiom-division-line.is-column { width: 2px !important; }
-[data-theme='hard'] .axiom-division-line.is-row { height: 2px !important; }
+[data-theme='hard'] .nemoto-division-line.is-column { width: 2px !important; }
+[data-theme='hard'] .nemoto-division-line.is-row { height: 2px !important; }

@@ -1,6 +1,6 @@
 /* Journal workspace layout, editor chrome and theme-specific treatment. */
 
-[data-theme='soft'] .axiom-journal-context-panel {
+[data-theme='soft'] .nemoto-journal-context-panel {
   border: none !important;
   border-color: transparent !important;
   box-shadow: var(--app-shadow-lg);
@@ -52,27 +52,27 @@
   background: linear-gradient(to bottom, transparent, var(--polar-shadow-dark), transparent);
 }
 
-[data-theme='soft'] .axiom-journal-tag {
+[data-theme='soft'] .nemoto-journal-tag {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.22),
     0 0.12rem 0.28rem rgba(71, 85, 105, 0.18) !important;
 }
 
-[data-theme='soft'] .axiom-journal-tag .axiom-tag-close {
+[data-theme='soft'] .nemoto-journal-tag .nemoto-tag-close {
   background: transparent !important;
   box-shadow: none !important;
   border-radius: 9999px !important;
   color: currentColor !important;
 }
 
-[data-theme='hard'] .axiom-journal-context-panel {
+[data-theme='hard'] .nemoto-journal-context-panel {
   background: var(--color-app-sidebar);
   border-color: #000 !important;
   border-radius: 0 !important;
 }
 
-[data-theme='hard'] .axiom-journal-context-panel .text-text-muted.uppercase,
-[data-theme='hard'] .axiom-journal-context-panel .text-text-faint.uppercase {
+[data-theme='hard'] .nemoto-journal-context-panel .text-text-muted.uppercase,
+[data-theme='hard'] .nemoto-journal-context-panel .text-text-faint.uppercase {
   color: var(--color-text-main) !important;
   font-weight: 900 !important;
   letter-spacing: 0.02em;
@@ -127,7 +127,7 @@
 }
 
 /* TipTap mentions in the Brutalist theme. */
-[data-theme='hard'] .axiom-journal-tiptap .ProseMirror .mention {
+[data-theme='hard'] .nemoto-journal-tiptap .ProseMirror .mention {
   background: var(--palette-blue) !important;
   border: 2px solid #000 !important;
   border-radius: 2px !important;
@@ -142,7 +142,7 @@
     transform var(--motion-duration-instant) var(--motion-ease-standard);
 }
 
-[data-theme='hard'] .axiom-journal-tiptap .ProseMirror .mention:hover {
+[data-theme='hard'] .nemoto-journal-tiptap .ProseMirror .mention:hover {
   background: var(--palette-purple) !important;
   border-color: #000 !important;
   box-shadow: var(--app-shadow-active) !important;
@@ -154,57 +154,57 @@
   color: var(--color-accent-primary-text) !important;
 }
 
-.axiom-suggestion-item[aria-selected='true'] {
+.nemoto-suggestion-item[aria-selected='true'] {
   background: color-mix(in srgb, var(--color-accent-primary) 14%, transparent) !important;
   color: var(--color-accent-primary) !important;
 }
 
-.axiom-journal-topbar {
+.nemoto-journal-topbar {
   min-height: 48px;
   transition:
     box-shadow var(--motion-duration-fast) var(--motion-ease-standard),
     border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-.journal-panel-wrapper:focus-within .axiom-journal-topbar {
+.journal-panel-wrapper:focus-within .nemoto-journal-topbar {
   border-color: color-mix(in srgb, var(--color-accent-primary) 55%, var(--color-app-border));
   box-shadow: inset 0 2px 0 var(--color-accent-primary);
 }
 
-.journal-panel-wrapper:focus-within .axiom-journal-title-button {
+.journal-panel-wrapper:focus-within .nemoto-journal-title-button {
   color: var(--color-accent-primary);
 }
 
-.axiom-journal-title-button {
+.nemoto-journal-title-button {
   letter-spacing: 0.16em;
 }
 
-.axiom-journal-side-rail {
+.nemoto-journal-side-rail {
   border: 0 !important;
   box-shadow: none !important;
 }
 
-.axiom-journal-side-rail-label {
+.nemoto-journal-side-rail-label {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
 }
 
-.axiom-journal-title-button,
-.axiom-journal-primary-action,
-.axiom-journal-add-tag,
-.axiom-journal-meta-action,
-.axiom-journal-toolbar-button {
+.nemoto-journal-title-button,
+.nemoto-journal-primary-action,
+.nemoto-journal-add-tag,
+.nemoto-journal-meta-action,
+.nemoto-journal-toolbar-button {
   border-radius: 4px !important;
 }
 
-.axiom-journal-title-button {
+.nemoto-journal-title-button {
   min-height: 1.75rem !important;
   padding: 0 0.75rem !important;
 }
 
-.axiom-journal-primary-action,
-.axiom-journal-add-tag,
-.axiom-journal-meta-action {
+.nemoto-journal-primary-action,
+.nemoto-journal-add-tag,
+.nemoto-journal-meta-action {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -216,24 +216,24 @@
   border: 1px solid color-mix(in srgb, var(--color-accent-primary) 20%, transparent) !important;
 }
 
-.axiom-journal-add-tag,
-.axiom-journal-meta-action {
+.nemoto-journal-add-tag,
+.nemoto-journal-meta-action {
   background: var(--color-app-bg) !important;
   color: var(--color-accent-primary) !important;
   box-shadow: var(--app-shadow-sm) !important;
 }
 
-.axiom-journal-location {
+.nemoto-journal-location {
   padding-left: 0.875rem;
   border-left: 1px solid var(--color-app-border);
 }
 
-.axiom-journal-sidebar {
+.nemoto-journal-sidebar {
   background: color-mix(in srgb, var(--color-app-bg) 72%, var(--color-app-surface));
   scrollbar-gutter: stable;
 }
 
-.axiom-journal-sidebar-actions {
+.nemoto-journal-sidebar-actions {
   position: sticky;
   top: 0;
   z-index: 2;
@@ -244,19 +244,19 @@
   backdrop-filter: blur(8px);
 }
 
-.axiom-journal-library-heading {
+.nemoto-journal-library-heading {
   font-size: 0.6875rem;
   line-height: 1rem;
   letter-spacing: 0.12em;
 }
 
-.axiom-journal-library-total {
+.nemoto-journal-library-total {
   font-size: 0.625rem;
   line-height: 1rem;
   white-space: nowrap;
 }
 
-.axiom-journal-new-note {
+.nemoto-journal-new-note {
   min-height: 1.75rem !important;
   padding-inline: 0.75rem !important;
   background: color-mix(in srgb, var(--color-accent-primary) 8%, var(--color-app-surface)) !important;
@@ -265,13 +265,13 @@
   box-shadow: none !important;
 }
 
-.axiom-journal-new-note:hover {
+.nemoto-journal-new-note:hover {
   background: color-mix(in srgb, var(--color-accent-primary) 14%, var(--color-app-surface)) !important;
   border-color: color-mix(in srgb, var(--color-accent-primary) 48%, var(--color-app-border)) !important;
   color: var(--color-accent-primary) !important;
 }
 
-.axiom-journal-create-icon {
+.nemoto-journal-create-icon {
   width: 1.875rem !important;
   height: 1.875rem !important;
   border-color: color-mix(in srgb, var(--color-app-border) 80%, transparent) !important;
@@ -279,12 +279,12 @@
   color: var(--color-text-muted) !important;
 }
 
-.axiom-journal-create-icon:hover {
+.nemoto-journal-create-icon:hover {
   border-color: color-mix(in srgb, var(--color-accent-primary) 42%, var(--color-app-border)) !important;
   color: var(--color-accent-primary) !important;
 }
 
-.axiom-journal-search .axiom-field {
+.nemoto-journal-search .nemoto-field {
   min-height: 1.875rem;
   padding-left: 2.25rem;
   padding-right: 2rem;
@@ -292,15 +292,15 @@
   background: color-mix(in srgb, var(--color-app-surface) 84%, var(--color-app-bg));
 }
 
-.axiom-journal-search input[type='search']::-webkit-search-cancel-button {
+.nemoto-journal-search input[type='search']::-webkit-search-cancel-button {
   appearance: none;
 }
 
-.axiom-journal-sidebar-resizer {
+.nemoto-journal-sidebar-resizer {
   right: -4px;
 }
 
-.axiom-journal-sidebar-resizer::after {
+.nemoto-journal-sidebar-resizer::after {
   content: '';
   position: absolute;
   top: 0.75rem;
@@ -341,98 +341,98 @@
   will-change: auto;
 }
 
-.axiom-journal-sidebar-resizer:hover::after,
-.axiom-journal-sidebar-resizer.is-resizing::after {
+.nemoto-journal-sidebar-resizer:hover::after,
+.nemoto-journal-sidebar-resizer.is-resizing::after {
   background: var(--color-accent-primary);
   opacity: 0.9;
 }
 
-.axiom-journal-tree-row {
+.nemoto-journal-tree-row {
   min-height: 1.875rem;
   font-size: 0.75rem;
   line-height: 1.25;
 }
 
-.axiom-journal-tree-row-folder {
+.nemoto-journal-tree-row-folder {
   color: var(--color-text-muted);
   font-weight: 650;
   margin-top: 0.125rem;
 }
 
-.axiom-journal-tree-row-notebook .axiom-journal-tree-label {
+.nemoto-journal-tree-row-notebook .nemoto-journal-tree-label {
   color: var(--color-text-main);
 }
 
-.axiom-journal-tree-icon,
-.axiom-journal-entry-icon {
+.nemoto-journal-tree-icon,
+.nemoto-journal-entry-icon {
   opacity: 0.74;
   width: 0.8125rem;
   height: 0.8125rem;
 }
 
-.axiom-journal-count {
+.nemoto-journal-count {
   opacity: 0.65;
   background: transparent;
   font-size: 0.625rem;
 }
 
-.axiom-journal-entry-row {
+.nemoto-journal-entry-row {
   min-height: 1.75rem;
   margin-top: 1px;
   font-size: 0.75rem;
   line-height: 1.25;
 }
 
-.axiom-journal-entry-row:not(.is-selected) {
+.nemoto-journal-entry-row:not(.is-selected) {
   color: var(--color-text-muted);
 }
 
-.axiom-journal-document-meta {
+.nemoto-journal-document-meta {
   background: color-mix(in srgb, var(--color-app-bg) 58%, var(--color-app-surface));
 }
 
-.axiom-journal-document-meta-inner,
-.axiom-journal-toolbar-inner {
+.nemoto-journal-document-meta-inner,
+.nemoto-journal-toolbar-inner {
   max-width: 860px;
   margin-inline: auto;
   min-width: 0;
 }
 
-.axiom-journal-entry-title {
+.nemoto-journal-entry-title {
   line-height: 1.18;
   padding-inline: 0.5rem;
 }
 
-.axiom-journal-meta-row {
+.nemoto-journal-meta-row {
   min-height: 1.5rem;
 }
 
-.axiom-journal-save-state {
+.nemoto-journal-save-state {
   opacity: 0.72;
 }
 
-.axiom-journal-toolbar {
+.nemoto-journal-toolbar {
   background: color-mix(in srgb, var(--color-app-surface) 88%, var(--color-app-bg));
 }
 
-.axiom-journal-findbar .axiom-journal-find-input,
-.axiom-journal-findbar .axiom-journal-replace-input {
+.nemoto-journal-findbar .nemoto-journal-find-input,
+.nemoto-journal-findbar .nemoto-journal-replace-input {
   padding-left: 2.25rem;
 }
 
-.axiom-journal-findbar .axiom-journal-find-input {
+.nemoto-journal-findbar .nemoto-journal-find-input {
   padding-right: 3.5rem;
 }
 
-.axiom-journal-findbar .axiom-journal-replace-input {
+.nemoto-journal-findbar .nemoto-journal-replace-input {
   padding-right: 0.5rem;
 }
 
-.axiom-journal-toolbar-inner {
+.nemoto-journal-toolbar-inner {
   width: 100%;
 }
 
-.axiom-journal-toolbar-group {
+.nemoto-journal-toolbar-group {
   display: flex;
   align-items: center;
   gap: 0.125rem;
@@ -442,46 +442,46 @@
   background: color-mix(in srgb, var(--color-app-bg) 35%, transparent);
 }
 
-.axiom-journal-toolbar-button {
+.nemoto-journal-toolbar-button {
   min-width: 1.75rem;
   min-height: 1.75rem;
 }
 
-.axiom-journal-tiptap .ProseMirror {
+.nemoto-journal-tiptap .ProseMirror {
   max-width: 860px;
   margin: 0 auto;
   padding: 1.75rem 2.25rem 4rem;
 }
 
-.axiom-journal-prose {
+.nemoto-journal-prose {
   color: var(--color-text-main);
 }
 
-.axiom-journal-context-panel {
+.nemoto-journal-context-panel {
   background: color-mix(in srgb, var(--color-app-bg) 76%, var(--color-app-surface));
 }
 
-.axiom-journal-context-panel.is-collapsed {
+.nemoto-journal-context-panel.is-collapsed {
   background: color-mix(in srgb, var(--color-app-bg) 84%, var(--color-app-surface));
 }
 
-.axiom-journal-context-header {
+.nemoto-journal-context-header {
   position: sticky;
   top: 0;
   z-index: 2;
   background: color-mix(in srgb, var(--color-app-bg) 88%, var(--color-app-surface));
 }
 
-.axiom-journal-context-toggle {
+.nemoto-journal-context-toggle {
   border-color: color-mix(in srgb, var(--color-app-border) 72%, transparent);
 }
 
-.axiom-journal-context-collapsed-label {
+.nemoto-journal-context-collapsed-label {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
 }
 
-.axiom-journal-context-count {
+.nemoto-journal-context-count {
   display: inline-flex;
   width: 1.25rem;
   height: 1.25rem;
@@ -492,24 +492,24 @@
   background: var(--color-app-surface);
 }
 
-.axiom-linked-entity-card {
+.nemoto-linked-entity-card {
   background: color-mix(in srgb, var(--color-app-bg) 76%, var(--color-app-surface));
 }
 
-.axiom-linked-entity-icon {
+.nemoto-linked-entity-icon {
   opacity: 0.86;
 }
 
-.axiom-linked-entity-title {
+.nemoto-linked-entity-title {
   line-height: 1.25;
 }
 
-[data-theme='hard'] .axiom-journal-toolbar-group,
-[data-theme='hard'] .axiom-linked-entity-card {
+[data-theme='hard'] .nemoto-journal-toolbar-group,
+[data-theme='hard'] .nemoto-linked-entity-card {
   border-width: 2px;
 }
 
-[data-theme='hard'] .axiom-journal-entry-row.is-selected {
+[data-theme='hard'] .nemoto-journal-entry-row.is-selected {
   background-color: #1a1b26 !important;
   color: #fff !important;
   border: 2px solid #000 !important;

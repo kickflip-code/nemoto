@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useState, type ReactNode } from 'react'
-import { AxiomMenuItem, AxiomPopover } from '../../ui'
+import { NemotoMenuItem, NemotoPopover } from '../../ui'
 
 interface SlashCommandItem {
     title: string;
@@ -67,14 +67,14 @@ const SlashCommandList = forwardRef<SlashCommandListHandle, SlashCommandListProp
     }
 
     return (
-        <AxiomPopover
+        <NemotoPopover
             role="listbox"
             aria-label="Editor commands"
-            className="py-1 min-w-[200px] max-h-[300px] overflow-y-auto custom-scrollbar axiom-motion-popover"
+            className="py-1 min-w-[200px] max-h-[300px] overflow-y-auto custom-scrollbar nemoto-motion-popover"
         >
             {props.items.map((item, index) => (
-                <AxiomMenuItem
-                    className="axiom-suggestion-item min-h-[2.25rem] gap-2 text-sm"
+                <NemotoMenuItem
+                    className="nemoto-suggestion-item min-h-[2.25rem] gap-2 text-sm"
                     key={`${item.title}-${index}`}
                     role="option"
                     aria-selected={index === selectedIndex}
@@ -85,9 +85,9 @@ const SlashCommandList = forwardRef<SlashCommandListHandle, SlashCommandListProp
                         <span className="font-medium">{item.title}</span>
                         {item.description && <span className="text-[10px] text-text-faint">{item.description}</span>}
                     </div>
-                </AxiomMenuItem>
+                </NemotoMenuItem>
             ))}
-        </AxiomPopover>
+        </NemotoPopover>
     )
 })
 

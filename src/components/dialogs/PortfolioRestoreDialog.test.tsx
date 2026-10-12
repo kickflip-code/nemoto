@@ -14,7 +14,7 @@ describe('PortfolioRestoreDialog', () => {
     />);
     expect(container).not.toContainElement(screen.getByRole('dialog'));
     fireEvent.keyDown(screen.getByRole('dialog'), { key: 'Escape' });
-    fireEvent.click(screen.getByRole('dialog').parentElement!.querySelector('.axiom-dialog-backdrop')!);
+    fireEvent.click(screen.getByRole('dialog').parentElement!.querySelector('.nemoto-dialog-backdrop')!);
     expect(onClose).not.toHaveBeenCalled();
     expect(screen.getByRole('button', { name: 'Cancel' })).toBeDisabled();
     expect(screen.getByRole('combobox', { name: 'Theme handling' })).toBeDisabled();

@@ -33,18 +33,18 @@ import {
 } from '../../lib/drilldownGraph';
 import { getGraphAtPath } from '../../lib/entityResolver';
 import {
-    AxiomButton,
-    AxiomColorSwatch,
-    AxiomDialog,
-    AxiomDialogFooter,
-    AxiomInput,
-    AxiomIconTile,
-    AxiomPanel,
-    AxiomPanelDivider,
-    AxiomPanelHeader,
-    AxiomPanelIconButton,
-    AxiomPanelRowButton,
-    AxiomSelect,
+    NemotoButton,
+    NemotoColorSwatch,
+    NemotoDialog,
+    NemotoDialogFooter,
+    NemotoInput,
+    NemotoIconTile,
+    NemotoPanel,
+    NemotoPanelDivider,
+    NemotoPanelHeader,
+    NemotoPanelIconButton,
+    NemotoPanelRowButton,
+    NemotoSelect,
 } from '../ui';
 
 const MarkdownPreview = React.lazy(() => import('../shared/MarkdownPreview'));
@@ -63,7 +63,7 @@ const InlineInput = ({ value, onCommit, onCancel }: { value: string, onCommit: (
     }, []);
 
     return (
-        <AxiomInput
+        <NemotoInput
             ref={inputRef}
             type="text"
             controlSize="xs"
@@ -778,9 +778,9 @@ export default function SidePanel() {
     };
 
     return (
-        <AxiomPanel
+        <NemotoPanel
             as="aside"
-            className="axiom-side-panel h-full border-r flex flex-col shrink-0 z-10 transition-none cursor-default select-none relative"
+            className="nemoto-side-panel h-full border-r flex flex-col shrink-0 z-10 transition-none cursor-default select-none relative"
             style={{ width: sidePanelWidth }}
         >
             {/* ... (Existing Drag Proxy) ... */}
@@ -793,7 +793,7 @@ export default function SidePanel() {
             {customDragState.isDragging && (
                 createPortal(
                     <div
-                        className="axiom-drag-proxy fixed pointer-events-none z-[100] flex items-center gap-2 px-3 py-2 text-xs backdrop-blur-md"
+                        className="nemoto-drag-proxy fixed pointer-events-none z-[100] flex items-center gap-2 px-3 py-2 text-xs backdrop-blur-md"
                         style={{
                             left: cursorPos.x + 10,
                             top: cursorPos.y + 10,
@@ -810,28 +810,28 @@ export default function SidePanel() {
 
             {/* RESIZE HANDLE */}
             <div
-                className="axiom-panel-resizer absolute right-0 top-0 bottom-0 w-1 hover:w-1.5 cursor-col-resize z-50 delay-75"
+                className="nemoto-panel-resizer absolute right-0 top-0 bottom-0 w-1 hover:w-1.5 cursor-col-resize z-50 delay-75"
                 onMouseDown={startResizing}
             />
 
             {/* PREVIEW MODAL */}
             {previewEntry && (
-                <AxiomDialog
+                <NemotoDialog
                     aria-labelledby="side-panel-preview-title"
                     onClose={() => setPreviewEntry(null)}
-                    panelClassName="axiom-modal-panel w-[500px] max-h-[80vh] flex flex-col"
+                    panelClassName="nemoto-modal-panel w-[500px] max-h-[80vh] flex flex-col"
                     rootClassName="z-[10050]"
                 >
-                        <AxiomPanelHeader className="p-4 border-b flex items-center justify-between">
+                        <NemotoPanelHeader className="p-4 border-b flex items-center justify-between">
                             <h3 id="side-panel-preview-title" className="font-semibold text-text-main flex items-center gap-2">
                                 <FileText size={16} />
                                 {previewEntry.title || previewEntry.name || 'Untitled Item'}
                             </h3>
-                            <AxiomPanelIconButton aria-label="Close preview" onClick={() => setPreviewEntry(null)}>
+                            <NemotoPanelIconButton aria-label="Close preview" onClick={() => setPreviewEntry(null)}>
                                 <X size={16} />
-                            </AxiomPanelIconButton>
-                        </AxiomPanelHeader>
-                        <div className="axiom-modal-content p-0 overflow-y-auto flex-1 text-sm text-text-muted custom-scrollbar">
+                            </NemotoPanelIconButton>
+                        </NemotoPanelHeader>
+                        <div className="nemoto-modal-content p-0 overflow-y-auto flex-1 text-sm text-text-muted custom-scrollbar">
                             {previewEntry.content ? (
                                 <div className="p-8 prose prose-invert prose-sm max-w-none prose-headings:text-text-main prose-a:text-accent-primary prose-li:my-1">
                                     {previewEntry.content.trim().startsWith('<') ? (
@@ -848,7 +848,7 @@ export default function SidePanel() {
                             ) : (
                                 <div className="p-6 space-y-6">
                                     {/* Resource Header */}
-                                    <div className="axiom-panel-card flex items-center gap-4 p-4">
+                                    <div className="nemoto-panel-card flex items-center gap-4 p-4">
                                         <div className="w-12 h-12 rounded-lg bg-accent-primary/10 flex items-center justify-center text-accent-primary border border-accent-primary/20 shadow-glow-primary/10">
                                             {React.createElement(getIconComponent(previewEntry.type), { size: 24 })}
                                         </div>
@@ -864,14 +864,14 @@ export default function SidePanel() {
                                     {/* Metadata Grid */}
                                     <div className="space-y-3">
                                         <h4 className="text-[10px] font-bold uppercase tracking-widest text-text-faint px-1">Attributes</h4>
-                                        <div className="axiom-icon-grid grid grid-cols-2 gap-px overflow-hidden shadow-sm">
-                                            <div className="axiom-panel-section p-3">
+                                        <div className="nemoto-icon-grid grid grid-cols-2 gap-px overflow-hidden shadow-sm">
+                                            <div className="nemoto-panel-section p-3">
                                                 <div className="text-[9px] uppercase text-text-faint font-bold mb-1">Created</div>
                                                 <div className="text-xs text-text-main">
                                                     {previewEntry.createdAt ? new Date(previewEntry.createdAt).toLocaleDateString() : 'Unknown'}
                                                 </div>
                                             </div>
-                                            <div className="axiom-panel-section p-3">
+                                            <div className="nemoto-panel-section p-3">
                                                 <div className="text-[9px] uppercase text-text-faint font-bold mb-1">Status</div>
                                                 <div className="text-xs text-accent-success flex items-center gap-1.5">
                                                     <Check size={10} /> Active
@@ -882,7 +882,7 @@ export default function SidePanel() {
                                             {Object.entries(previewEntry)
                                                 .filter(([key]) => !['id', 'name', 'type', 'content', 'createdAt', 'updatedAt', 'parentId', 'icon', 'color'].includes(key))
                                                 .map(([key, value]) => (
-                                                    <div key={key} className="axiom-panel-section p-3 col-span-2 border-t">
+                                                    <div key={key} className="nemoto-panel-section p-3 col-span-2 border-t">
                                                         <div className="text-[9px] uppercase text-text-faint font-bold mb-1">{key}</div>
                                                         <div className="text-xs text-text-main truncate">
                                                             {typeof value === 'object' ? JSON.stringify(value) : String(value)}
@@ -974,16 +974,16 @@ export default function SidePanel() {
                                 </div>
                             )}
                         </div>
-                        <AxiomDialogFooter className="p-3 border-t flex justify-end gap-2">
-                            <AxiomButton
+                        <NemotoDialogFooter className="p-3 border-t flex justify-end gap-2">
+                            <NemotoButton
                                 size="sm"
                                 variant="ghost"
                                 onClick={() => setPreviewEntry(null)}
                             >
                                 Close
-                            </AxiomButton>
+                            </NemotoButton>
                             {previewEntry.content && (
-                                <AxiomButton
+                                <NemotoButton
                                     size="sm"
                                     variant="primary"
                                     onClick={() => {
@@ -992,16 +992,16 @@ export default function SidePanel() {
                                     }}
                                 >
                                     Import Note
-                                </AxiomButton>
+                                </NemotoButton>
                             )}
-                        </AxiomDialogFooter>
-                </AxiomDialog>
+                        </NemotoDialogFooter>
+                </NemotoDialog>
             )}
 
 
             {/* PART A: PROCESS PORTFOLIO */}
-            <div className="axiom-panel-section flex flex-col min-h-0 border-b overflow-hidden relative" style={{ flex: resourcesExpanded ? `${topPanelRatio} 1 0%` : '1 1 0%' }}>
-                <AxiomPanelHeader
+            <div className="nemoto-panel-section flex flex-col min-h-0 border-b overflow-hidden relative" style={{ flex: resourcesExpanded ? `${topPanelRatio} 1 0%` : '1 1 0%' }}>
+                <NemotoPanelHeader
                     className="h-8 px-3 flex items-center justify-between border-b transition-colors"
                     onMouseEnter={() => {
                         if (customDragState.isDragging) {
@@ -1013,16 +1013,16 @@ export default function SidePanel() {
                     <span className="text-[10px] font-bold uppercase text-text-muted tracking-wider">Process Portfolio</span>
                     <div className="flex gap-1 relative">
                         <IconButton icon={FolderPlus} title="New Folder" iconSize={15} onClick={(e) => { e.stopPropagation(); handleCreateFolder(); }} />
-                        <AxiomPanelIconButton
+                        <NemotoPanelIconButton
                             aria-label="New process"
                             size="sm"
                             onClick={(e) => { e.stopPropagation(); openProcessCreation(); }}
                             title="New Process"
                         >
                             <FilePlus size={15} />
-                        </AxiomPanelIconButton>
+                        </NemotoPanelIconButton>
                     </div>
-                </AxiomPanelHeader>
+                </NemotoPanelHeader>
 
                 {/* TREE VIEW */}
                 <div
@@ -1053,14 +1053,14 @@ export default function SidePanel() {
                         {rootItems.length === 0 ? (
                             <div className="p-4 text-center">
                                 <p className="text-xs text-text-faint">No processes yet.</p>
-                                <AxiomButton
+                                <NemotoButton
                                     size="sm"
                                     variant="ghost"
                                     onClick={openProcessCreation}
                                     className="mt-1 px-0 text-[10px] text-accent-primary"
                                 >
                                     Create your first process
-                                </AxiomButton>
+                                </NemotoButton>
                             </div>
                         ) : (
                             rootItems.map(item => (
@@ -1096,7 +1096,7 @@ export default function SidePanel() {
                     {/* DROP ZONE */}
                     <div
                         className={`
-                            flex-1 min-h-[60px] mt-2 mx-1 rounded-md border-2 border-dashed axiom-transition-interactive
+                            flex-1 min-h-[60px] mt-2 mx-1 rounded-md border-2 border-dashed nemoto-transition-interactive
                             ${customDragState.isDragging && dropTargetId === undefined
                                 ? 'border-accent-primary bg-accent-primary/10 opacity-100'
                                 : 'border-transparent opacity-0'
@@ -1222,28 +1222,28 @@ export default function SidePanel() {
             {/* HORIZONTAL RESIZE HANDLE (for Imported panel if active) */}
             {importedPortfolios.length > 0 && (
                 <div
-                    className="axiom-panel-resizer w-full h-1 hover:h-[6px] shrink-0 cursor-row-resize z-20 -my-[3px]"
+                    className="nemoto-panel-resizer w-full h-1 hover:h-[6px] shrink-0 cursor-row-resize z-20 -my-[3px]"
                     onMouseDown={startVerticalResizing}
                 />
             )}
 
             {/* PART A.5: IMPORTED PORTFOLIOS */}
             {importedPortfolios.length > 0 && (
-                <div className="axiom-panel-section flex flex-col min-h-0 border-b overflow-hidden relative" style={{ flex: `40 1 0%` }}>
-                    <AxiomPanelHeader className="h-8 px-3 flex items-center justify-between border-b">
+                <div className="nemoto-panel-section flex flex-col min-h-0 border-b overflow-hidden relative" style={{ flex: `40 1 0%` }}>
+                    <NemotoPanelHeader className="h-8 px-3 flex items-center justify-between border-b">
                         <span className="text-[10px] font-bold uppercase text-accent-primary tracking-wider">Temporary Imports</span>
-                    </AxiomPanelHeader>
+                    </NemotoPanelHeader>
                     <div className="flex-1 overflow-y-auto p-0 app-scroll">
                         {importedPortfolios.map(imported => (
                             <details key={imported.id} className="group/imp" open>
-                                <summary className="axiom-panel-row flex items-center px-2 py-1.5 cursor-pointer select-none group">
+                                <summary className="nemoto-panel-row flex items-center px-2 py-1.5 cursor-pointer select-none group">
                                     <ChevronRight size={12} className="mr-1.5 transition-transform group-open/imp:rotate-90 text-text-muted/50" />
                                     <span className="font-medium text-[10px] uppercase truncate flex-1">{imported.sourceName}</span>
                                 </summary>
                                 <div className="pl-4 pb-1 space-y-1">
                                     {/* Action Buttons for Portfolio */}
                                     <div className="flex gap-2 mb-2 pr-2">
-                                        <AxiomButton
+                                        <NemotoButton
                                             size="sm"
                                             variant="ghost"
                                             onClick={(e) => {
@@ -1262,8 +1262,8 @@ export default function SidePanel() {
                                         >
                                             <X size={12} />
                                             Discard
-                                        </AxiomButton>
-                                        <AxiomButton
+                                        </NemotoButton>
+                                        <NemotoButton
                                             size="sm"
                                             variant="primary"
                                             onClick={(e) => {
@@ -1275,7 +1275,7 @@ export default function SidePanel() {
                                         >
                                             <Check size={12} />
                                             Merge content
-                                        </AxiomButton>
+                                        </NemotoButton>
                                     </div>
                                     <p className="mb-2 pr-2 text-[9px] leading-relaxed text-text-faint">
                                         Temporary references disappear when Nemoto closes. Merge supported content to keep it.
@@ -1289,11 +1289,11 @@ export default function SidePanel() {
                                                 return (
                                                     <div
                                                         key={p.id}
-                                                        className={`axiom-panel-row flex items-center gap-2 px-2 py-1 text-xs group/item cursor-pointer ${isSelected ? 'axiom-panel-row-active' : ''}`}
+                                                        className={`nemoto-panel-row flex items-center gap-2 px-2 py-1 text-xs group/item cursor-pointer ${isSelected ? 'nemoto-panel-row-active' : ''}`}
                                                         onClick={() => useCanvasStore.getState().setPreviewGraph(p.graph)}
                                                         onMouseDown={(e) => handleImportDragStart(e, p.id, 'imported-process', imported.id)}
                                                     >
-                                                        <AxiomPanelIconButton
+                                                        <NemotoPanelIconButton
                                                             aria-label={`${isSelected ? 'Deselect' : 'Select'} ${p.title}`}
                                                             aria-pressed={isSelected}
                                                             size="sm"
@@ -1301,7 +1301,7 @@ export default function SidePanel() {
                                                             className={`shrink-0 ${isSelected ? 'text-accent-primary' : 'text-text-faint'}`}
                                                         >
                                                             {isSelected ? <CheckSquare size={12} /> : <Square size={12} />}
-                                                        </AxiomPanelIconButton>
+                                                        </NemotoPanelIconButton>
                                                         <FileText size={12} className="shrink-0" />
                                                         <span className="truncate flex-1">{p.title}</span>
                                                     </div>
@@ -1319,11 +1319,11 @@ export default function SidePanel() {
                                                 return (
                                                     <div
                                                         key={a.id}
-                                                        className={`axiom-panel-row flex items-center gap-2 px-2 py-1 text-xs group/item cursor-pointer ${isSelected ? 'axiom-panel-row-active' : ''}`}
+                                                        className={`nemoto-panel-row flex items-center gap-2 px-2 py-1 text-xs group/item cursor-pointer ${isSelected ? 'nemoto-panel-row-active' : ''}`}
                                                         onClick={() => setPreviewEntry(a)}
                                                         onMouseDown={(e) => handleImportDragStart(e, a.id, 'imported-asset', imported.id)}
                                                     >
-                                                        <AxiomPanelIconButton
+                                                        <NemotoPanelIconButton
                                                             aria-label={`${isSelected ? 'Deselect' : 'Select'} ${a.name}`}
                                                             aria-pressed={isSelected}
                                                             size="sm"
@@ -1331,7 +1331,7 @@ export default function SidePanel() {
                                                             className={`shrink-0 ${isSelected ? 'text-accent-primary' : 'text-text-faint'}`}
                                                         >
                                                             {isSelected ? <CheckSquare size={12} /> : <Square size={12} />}
-                                                        </AxiomPanelIconButton>
+                                                        </NemotoPanelIconButton>
                                                         <Box size={12} className="shrink-0" />
                                                         <span className="truncate flex-1">{a.name}</span>
                                                     </div>
@@ -1349,11 +1349,11 @@ export default function SidePanel() {
                                                 return (
                                                     <div
                                                         key={entry.id}
-                                                        className={`axiom-panel-row flex items-center gap-2 px-2 py-1 text-xs group/item cursor-pointer ${isSelected ? 'axiom-panel-row-active' : ''}`}
+                                                        className={`nemoto-panel-row flex items-center gap-2 px-2 py-1 text-xs group/item cursor-pointer ${isSelected ? 'nemoto-panel-row-active' : ''}`}
                                                         onClick={() => setPreviewEntry(entry)}
                                                         onMouseDown={(e) => handleImportDragStart(e, entry.id, 'imported-journal-entry', imported.id)}
                                                     >
-                                                        <AxiomPanelIconButton
+                                                        <NemotoPanelIconButton
                                                             aria-label={`${isSelected ? 'Deselect' : 'Select'} ${entry.title || 'Untitled Note'}`}
                                                             aria-pressed={isSelected}
                                                             size="sm"
@@ -1361,7 +1361,7 @@ export default function SidePanel() {
                                                             className={`shrink-0 ${isSelected ? 'text-accent-primary' : 'text-text-faint'}`}
                                                         >
                                                             {isSelected ? <CheckSquare size={12} /> : <Square size={12} />}
-                                                        </AxiomPanelIconButton>
+                                                        </NemotoPanelIconButton>
                                                         <FileText size={12} className="shrink-0" />
                                                         <span className="truncate flex-1">{entry.title || 'Untitled Note'}</span>
                                                     </div>
@@ -1376,8 +1376,8 @@ export default function SidePanel() {
 
                     {/* Bulk Actions Floating Bar */}
                     {selectedImports.size > 0 && (
-                        <div className="axiom-panel-bulk-bar p-2 border-t backdrop-blur-sm axiom-motion-feedback-bottom">
-                            <AxiomButton
+                        <div className="nemoto-panel-bulk-bar p-2 border-t backdrop-blur-sm nemoto-motion-feedback-bottom">
+                            <NemotoButton
                                 size="sm"
                                 variant="primary"
                                 onClick={handleImportSelected}
@@ -1385,7 +1385,7 @@ export default function SidePanel() {
                             >
                                 <DownloadCloud size={12} />
                                 Import Selected ({selectedImports.size})
-                            </AxiomButton>
+                            </NemotoButton>
                         </div>
                     )}
                 </div>
@@ -1394,19 +1394,19 @@ export default function SidePanel() {
             {/* HORIZONTAL RESIZE HANDLE (for Resources panel) */}
             {resourcesExpanded && (
                 <div
-                    className="axiom-panel-resizer w-full h-1 hover:h-[6px] shrink-0 cursor-row-resize z-20 -my-[3px] relative"
+                    className="nemoto-panel-resizer w-full h-1 hover:h-[6px] shrink-0 cursor-row-resize z-20 -my-[3px] relative"
                     onMouseDown={startVerticalResizing}
                 />
             )}
 
             {/* PART B: RESOURCE LIBRARY */}
-            <div className="axiom-panel-section flex flex-col min-h-0 relative overflow-hidden" style={resourcesExpanded ? { flex: `${100 - topPanelRatio} 1 0%` } : { flex: '0 0 auto' }}>
-                <AxiomPanelHeader
+            <div className="nemoto-panel-section flex flex-col min-h-0 relative overflow-hidden" style={resourcesExpanded ? { flex: `${100 - topPanelRatio} 1 0%` } : { flex: '0 0 auto' }}>
+                <NemotoPanelHeader
                     className="h-9 px-3 flex items-center justify-between border-b shadow-sm z-10 cursor-pointer transition-colors"
                     onClick={() => setResourcesExpanded((expanded) => !expanded)}
                     title={resourcesExpanded ? "Collapse resources" : "Expand resources"}
                 >
-                    <button type="button" className="axiom-text-button min-w-0 flex items-center gap-2 rounded-sm"
+                    <button type="button" className="nemoto-text-button min-w-0 flex items-center gap-2 rounded-sm"
                         aria-label="Resources" aria-expanded={resourcesExpanded}
                         onClick={(event) => { event.stopPropagation(); setResourcesExpanded(expanded => !expanded); }}>
                         <ChevronRight size={12} className={`text-text-faint transition-transform ${resourcesExpanded ? 'rotate-90' : ''}`} />
@@ -1414,25 +1414,25 @@ export default function SidePanel() {
                         <span className="text-[9px] text-text-faint">{assets.length}</span>
                     </button>
                     <div className="flex gap-1 relative">
-                        <AxiomPanelIconButton
+                        <NemotoPanelIconButton
                             aria-label="Open Portfolio"
                             size="sm"
                             onClick={(e) => { e.stopPropagation(); setResourcePowerViewOpen(true); }}
                             title="Open Portfolio"
                         >
                             <Server size={12} />
-                        </AxiomPanelIconButton>
-                        <AxiomPanelDivider orientation="vertical" className="h-3 mx-1 self-center" />
-                        <AxiomPanelIconButton
+                        </NemotoPanelIconButton>
+                        <NemotoPanelDivider orientation="vertical" className="h-3 mx-1 self-center" />
+                        <NemotoPanelIconButton
                             aria-label="Manage Categories"
                             size="sm"
                             onClick={(e) => { e.stopPropagation(); setManageCategoriesOpen(true); }}
                             title="Manage Categories"
                         >
                             <Settings2 size={12} />
-                        </AxiomPanelIconButton>
-                        <AxiomPanelDivider orientation="vertical" className="h-3 mx-1 self-center" />
-                        <AxiomPanelIconButton
+                        </NemotoPanelIconButton>
+                        <NemotoPanelDivider orientation="vertical" className="h-3 mx-1 self-center" />
+                        <NemotoPanelIconButton
                             aria-label="Quick Create Resource"
                             size="sm"
                             ref={popoverTriggerRef}
@@ -1445,18 +1445,18 @@ export default function SidePanel() {
                             title="Quick Create Resource"
                         >
                             <Plus size={12} />
-                        </AxiomPanelIconButton>
+                        </NemotoPanelIconButton>
 
                         {/* Quick Create Popover */}
                         {creationPopoverOpen && (
                             <div
-                                className="axiom-popover absolute top-8 right-0 w-[220px] p-3 z-50 flex flex-col gap-3 axiom-motion-popover"
+                                className="nemoto-popover absolute top-8 right-0 w-[220px] p-3 z-50 flex flex-col gap-3 nemoto-motion-popover"
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <div>
                                     <label className="text-[9px] uppercase text-text-muted font-bold block mb-1">Category</label>
                                     <div className="relative">
-                                        <AxiomSelect
+                                        <NemotoSelect
                                             autoFocus
                                             controlSize="sm"
                                             value={newItemCategory}
@@ -1467,7 +1467,7 @@ export default function SidePanel() {
                                             {portfolio.assetCategories?.map(cat => (
                                                 <option key={cat.id} value={cat.id}>{cat.label}</option>
                                             ))}
-                                        </AxiomSelect>
+                                        </NemotoSelect>
                                         <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted">
                                             <ChevronRight size={10} className="rotate-90" />
                                         </div>
@@ -1475,7 +1475,7 @@ export default function SidePanel() {
                                 </div>
                                 <div>
                                     <label className="text-[9px] uppercase text-text-muted font-bold block mb-1">Resource Name</label>
-                                    <AxiomInput
+                                    <NemotoInput
                                         type="text"
                                         controlSize="sm"
                                         className="w-full placeholder:text-text-faint"
@@ -1487,26 +1487,26 @@ export default function SidePanel() {
                                     />
                                 </div>
                                 <div className="flex justify-end pt-1">
-                                    <AxiomButton
+                                    <NemotoButton
                                         size="sm"
                                         variant="primary"
                                         onClick={handleQuickCreate}
                                         disabled={!newItemName.trim() || !newItemCategory}
                                     >
                                         Create Resource
-                                    </AxiomButton>
+                                    </NemotoButton>
                                 </div>
                             </div>
                         )}
                     </div>
-                </AxiomPanelHeader>
+                </NemotoPanelHeader>
 
                 {resourcesExpanded && (
                 <div className="flex-1 overflow-y-auto p-0 app-scroll">
                     {groupedResources.length === 0 && (
                         <div className="p-4 text-center">
                             <p className="text-xs text-text-faint">No resources found.</p>
-                            <AxiomButton size="sm" variant="ghost" onClick={() => setCreationPopoverOpen(true)} className="mt-1 text-accent-primary">Create your first resource</AxiomButton>
+                            <NemotoButton size="sm" variant="ghost" onClick={() => setCreationPopoverOpen(true)} className="mt-1 text-accent-primary">Create your first resource</NemotoButton>
                         </div>
                     )}
 
@@ -1518,7 +1518,7 @@ export default function SidePanel() {
                         return (
                             <details key={`${cat.id}-${resourceExpansionToggle.count}`} open={isExpanded} className="group/cat">
                                 <summary
-                                    className="axiom-panel-row axiom-panel-row-border flex items-center px-2 py-1.5 cursor-pointer select-none first:border-t-0"
+                                    className="nemoto-panel-row nemoto-panel-row-border flex items-center px-2 py-1.5 cursor-pointer select-none first:border-t-0"
                                     onContextMenu={(e) => {
                                         e.preventDefault();
                                         e.stopPropagation();
@@ -1578,11 +1578,11 @@ export default function SidePanel() {
                                             }}
                                             onContextMenu={(e) => handleContextMenu(e, 'resource', asset.id)}
                                             className={`
-                                                axiom-panel-row axiom-resource-row flex items-center px-2 py-0.5 cursor-grab active:cursor-grabbing border-l-2 border-transparent group/row relative axiom-transition-interactive
-                                                ${selectedAssetId === asset.id ? 'axiom-panel-row-selected border-l-accent-primary' : 'hover:border-l-accent-warning'}
+                                                nemoto-panel-row nemoto-resource-row flex items-center px-2 py-0.5 cursor-grab active:cursor-grabbing border-l-2 border-transparent group/row relative nemoto-transition-interactive
+                                                ${selectedAssetId === asset.id ? 'nemoto-panel-row-selected border-l-accent-primary' : 'hover:border-l-accent-warning'}
                                             `}
                                         >
-                                            <div className="axiom-panel-row-handle absolute left-1 top-1/2 -translate-y-1/2 opacity-0 -translate-x-1 group-hover/row:opacity-100 group-hover/row:translate-x-0 transition-[opacity,transform] axiom-transition-fast">
+                                            <div className="nemoto-panel-row-handle absolute left-1 top-1/2 -translate-y-1/2 opacity-0 -translate-x-1 group-hover/row:opacity-100 group-hover/row:translate-x-0 transition-[opacity,transform] nemoto-transition-fast">
                                                 <GripVertical size={12} />
                                             </div>
                                             <div className="pl-4 flex-1 flex flex-col">
@@ -1598,7 +1598,7 @@ export default function SidePanel() {
                                                         onCancel={() => setRenamingId(null)}
                                                     />
                                                 ) : (
-                                                    <button type="button" className="axiom-text-button axiom-row-title text-xs truncate text-left rounded-sm"
+                                                    <button type="button" className="nemoto-text-button nemoto-row-title text-xs truncate text-left rounded-sm"
                                                         aria-pressed={selectedAssetId === asset.id}
                                                         onKeyDown={(event) => {
                                                             if (event.key !== 'ContextMenu' && !(event.key === 'F10' && event.shiftKey)) return;
@@ -1656,7 +1656,7 @@ export default function SidePanel() {
                 />
             )}
 
-        </AxiomPanel>
+        </NemotoPanel>
     );
 }
 
@@ -1794,12 +1794,12 @@ function TreeItem({
         <div className="select-none">
             <div
                 className={`
-                    axiom-panel-row flex items-center py-1.5 px-2 cursor-pointer text-xs font-medium group relative
+                    nemoto-panel-row flex items-center py-1.5 px-2 cursor-pointer text-xs font-medium group relative
                     ${isBeingDragged ? 'opacity-40' : ''}
                     ${isActive
-                        ? 'axiom-panel-row-selected'
+                        ? 'nemoto-panel-row-selected'
                         : isDropTarget
-                            ? 'axiom-panel-row-active ring-1 ring-inset ring-accent-primary'
+                            ? 'nemoto-panel-row-active ring-1 ring-inset ring-accent-primary'
                             : ''
                     }
                 `}
@@ -1825,7 +1825,7 @@ function TreeItem({
             >
                 {/* Expand Arrow - Only for folders or items with children */}
                 {(isFolder || hasChildren) ? (
-                    <AxiomPanelIconButton
+                    <NemotoPanelIconButton
                         aria-expanded={expanded}
                         aria-label={`${expanded ? 'Collapse' : 'Expand'} ${item.data.title}`}
                         size="sm"
@@ -1833,7 +1833,7 @@ function TreeItem({
                         onClick={handleArrowClick}
                     >
                         <ChevronRight size={10} className="opacity-70" />
-                    </AxiomPanelIconButton>
+                    </NemotoPanelIconButton>
                 ) : (
                     <div className="w-[14px] mr-1" /> // Spacer
                 )}
@@ -1858,7 +1858,7 @@ function TreeItem({
                 ) : (
                     <button
                         type="button"
-                        className="axiom-text-button truncate flex-1 min-w-0 text-left rounded-sm"
+                        className="nemoto-text-button truncate flex-1 min-w-0 text-left rounded-sm"
                         aria-current={isActive && !isFolder ? 'page' : undefined}
                         aria-expanded={isFolder ? expanded : undefined}
                         onClick={(event) => { event.stopPropagation(); handleClick(); }}
@@ -1881,7 +1881,7 @@ function TreeItem({
 
                 {/* Hover Actions (Folder only mostly) */}
                 {isFolder && (
-                    <AxiomPanelIconButton
+                    <NemotoPanelIconButton
                         aria-label={`Add folder inside ${item.data.title}`}
                         size="sm"
                         className="opacity-0 group-hover:opacity-100 focus-visible:opacity-100 interaction-btn"
@@ -1891,7 +1891,7 @@ function TreeItem({
                         }}
                     >
                         <Plus size={10} />
-                    </AxiomPanelIconButton>
+                    </NemotoPanelIconButton>
                 )}
             </div>
 
@@ -1899,7 +1899,7 @@ function TreeItem({
             {creatingFolderIn === item.data.id && (
                 <div
                     style={{ paddingLeft: `${((level + 1) * 12) + 8}px` }}
-                    className="axiom-panel-row axiom-panel-row-active flex items-center gap-2 px-2 py-1.5"
+                    className="nemoto-panel-row nemoto-panel-row-active flex items-center gap-2 px-2 py-1.5"
                 >
                     <Folder size={12} className="text-accent-warning" />
                     <InlineInput
@@ -1949,9 +1949,9 @@ function TreeItem({
 
 function IconButton({ icon: Icon, title, iconSize = 12, onClick }: { icon: any, title: string, iconSize?: number, onClick?: (e: React.MouseEvent) => void }) {
     return (
-        <AxiomPanelIconButton aria-label={title} size="sm" onClick={onClick} title={title}>
+        <NemotoPanelIconButton aria-label={title} size="sm" onClick={onClick} title={title}>
             <Icon size={iconSize} />
-        </AxiomPanelIconButton>
+        </NemotoPanelIconButton>
     )
 }
 
@@ -2028,50 +2028,50 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
     const displayIcons = iconSearch.trim() ? filteredIconNames : filteredIconNames.slice(0, 150);
 
     return (
-        <AxiomDialog
+        <NemotoDialog
             aria-labelledby="category-manager-title"
             onClose={onClose}
-            panelClassName="axiom-category-manager axiom-modal-panel w-[600px] h-[580px] flex overflow-hidden"
+            panelClassName="nemoto-category-manager nemoto-modal-panel w-[600px] h-[580px] flex overflow-hidden"
         >
                 {/* LIST */}
-                <div className="axiom-category-sidebar axiom-modal-sidebar w-[200px] border-r flex flex-col">
-                    <AxiomPanelHeader className="axiom-category-sidebar-header p-3 border-b flex justify-between items-center">
+                <div className="nemoto-category-sidebar nemoto-modal-sidebar w-[200px] border-r flex flex-col">
+                    <NemotoPanelHeader className="nemoto-category-sidebar-header p-3 border-b flex justify-between items-center">
                         <span id="category-manager-title" className="text-xs font-bold text-text-muted uppercase">Categories</span>
-                        <AxiomPanelIconButton aria-label="Create category" size="sm" onClick={handleCreate} className="axiom-category-create text-accent-success">
+                        <NemotoPanelIconButton aria-label="Create category" size="sm" onClick={handleCreate} className="nemoto-category-create text-accent-success">
                             <Plus size={14} />
-                        </AxiomPanelIconButton>
-                    </AxiomPanelHeader>
-                    <div className="axiom-category-list flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
+                        </NemotoPanelIconButton>
+                    </NemotoPanelHeader>
+                    <div className="nemoto-category-list flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar">
                         {portfolio.assetCategories?.map(cat => {
                             const Icon = getIconComponent(cat.icon);
                             return (
-                                <AxiomPanelRowButton
+                                <NemotoPanelRowButton
                                     key={cat.id}
                                     active={editingId === cat.id}
                                     onClick={() => handleEdit(cat)}
-                                    className="axiom-category-row flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs"
+                                    className="nemoto-category-row flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs"
                                 >
                                     <span
-                                        className="axiom-category-icon-chip"
+                                        className="nemoto-category-icon-chip"
                                         style={{ '--category-color': getPaletteColor(cat.color) } as React.CSSProperties}
                                     >
                                         <Icon size={12} />
                                     </span>
-                                    <span className="axiom-category-label truncate">{cat.label}</span>
-                                </AxiomPanelRowButton>
+                                    <span className="nemoto-category-label truncate">{cat.label}</span>
+                                </NemotoPanelRowButton>
                             )
                         })}
                     </div>
                 </div>
 
                 {/* EDITOR */}
-                <div className="axiom-modal-content flex-1 flex flex-col">
-                    <AxiomPanelHeader className="h-10 border-b flex items-center justify-between px-4">
+                <div className="nemoto-modal-content flex-1 flex flex-col">
+                    <NemotoPanelHeader className="h-10 border-b flex items-center justify-between px-4">
                         <span className="text-xs font-bold text-text-main">
                             {editingId ? 'Edit Category' : 'Select a category'}
                         </span>
-                        <AxiomPanelIconButton aria-label="Close category manager" size="sm" onClick={onClose}><X size={14} /></AxiomPanelIconButton>
-                    </AxiomPanelHeader>
+                        <NemotoPanelIconButton aria-label="Close category manager" size="sm" onClick={onClose}><X size={14} /></NemotoPanelIconButton>
+                    </NemotoPanelHeader>
 
                     {editingId ? (
                         <div className="flex-1 overflow-y-auto p-6 scrollbar-thin">
@@ -2079,7 +2079,7 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
                                 {/* Label Input */}
                                 <div className="space-y-2">
                                     <label className="text-xs font-medium text-text-muted">Category Name</label>
-                                    <AxiomInput
+                                    <NemotoInput
                                         type="text"
                                         controlSize="sm"
                                         value={formData.label || ''}
@@ -2093,7 +2093,7 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
                                     <label className="text-xs font-medium text-text-muted">Color Tag</label>
                                     <div className="flex flex-wrap gap-2">
                                         {PALETTE.map(c => (
-                                            <AxiomColorSwatch
+                                            <NemotoColorSwatch
                                                 aria-label={`Use ${c.label} color`}
                                                 selected={formData.color === c.id}
                                                 key={c.id}
@@ -2116,22 +2116,22 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
                                                 className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-text-muted"
                                                 aria-hidden="true"
                                             />
-                                            <AxiomInput
+                                            <NemotoInput
                                                 type="search"
                                                 aria-label="Search category icons"
                                                 controlSize="xs"
                                                 placeholder="Search icons..."
                                                 value={iconSearch}
                                                 onChange={e => setIconSearch(e.target.value)}
-                                                className="axiom-field-leading-icon w-40 rounded-full"
+                                                className="nemoto-field-leading-icon w-40 rounded-full"
                                             />
                                         </div>
                                     </div>
 
-                                    <div className="axiom-icon-grid grid grid-cols-6 gap-2 p-3 h-[200px] overflow-y-auto custom-scrollbar">
+                                    <div className="nemoto-icon-grid grid grid-cols-6 gap-2 p-3 h-[200px] overflow-y-auto custom-scrollbar">
                                         {/* Ensure the currently selected icon is ALWAYS in the list, even if it's past the 150 limit */}
                                         {formData.icon && !displayIcons.includes(formData.icon) && !iconSearch && (
-                                            <AxiomIconTile
+                                            <NemotoIconTile
                                                 aria-label={`Use ${formData.icon} icon`}
                                                 selected
                                                 key={`selected-${formData.icon}`}
@@ -2143,14 +2143,14 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
                                                     const Icon = getIconComponent(formData.icon);
                                                     return <Icon size={16} />;
                                                 })()}
-                                            </AxiomIconTile>
+                                            </NemotoIconTile>
                                         )}
 
                                         {displayIcons.map(name => {
                                             const Icon = getIconComponent(name);
                                             const isSelected = formData.icon === name;
                                             return (
-                                                <AxiomIconTile
+                                                <NemotoIconTile
                                                     aria-label={`Use ${name} icon`}
                                                     selected={isSelected}
                                                     key={name}
@@ -2159,7 +2159,7 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
                                                     title={name}
                                                 >
                                                     <Icon size={16} />
-                                                </AxiomIconTile>
+                                                </NemotoIconTile>
                                             )
                                         })}
 
@@ -2185,24 +2185,24 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
 
                     {/* Footer Actions */}
                     {editingId && (
-                        <AxiomDialogFooter className="p-4 border-t flex justify-between">
-                            <AxiomButton
+                        <NemotoDialogFooter className="p-4 border-t flex justify-between">
+                            <NemotoButton
                                 size="sm"
                                 variant="danger"
                                 onClick={() => handleDelete(editingId)}
                                 className="gap-2"
                             >
                                 <Trash2 size={12} /> Delete
-                            </AxiomButton>
-                            <AxiomButton
+                            </NemotoButton>
+                            <NemotoButton
                                 size="sm"
                                 variant="primary"
                                 onClick={handleSave}
                                 className="gap-2 px-6"
                             >
                                 <Check size={12} /> Save Changes
-                            </AxiomButton>
-                        </AxiomDialogFooter>
+                            </NemotoButton>
+                        </NemotoDialogFooter>
                     )}
                 </div>
             <ConfirmationModal
@@ -2218,6 +2218,6 @@ function CategoryManager({ onClose }: { onClose: () => void }) {
                 confirmLabel="Delete"
                 variant="danger"
             />
-        </AxiomDialog>
+        </NemotoDialog>
     );
 }
